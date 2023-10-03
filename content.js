@@ -30,12 +30,13 @@ function getRates(currencyToConvertTo, callback) {
 
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
+    inputString = inputString.replaceAll("￥", "¥");
     // Do some regex magic to extract all the currency matches inside the provided string
     const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]?)\s*(\d+(\.\d+)?)/g;
     const matches = [...inputString.matchAll(regex)];
-
+    
     if (matches.length === 0) return inputString;
-
+    
     let modifiedString = '';
     let lastIndex = 0;
     // For each currency math inside the string
