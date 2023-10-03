@@ -1,7 +1,18 @@
+// Prepend message to all console.log messages
+(function(){
+    if(window.console && console.log){
+        var old = console.log;
+        console.log = function(){
+            Array.prototype.unshift.call(arguments, 'Conversion : ');
+            old.apply(this, arguments);
+        }
+    }  
+})();
+
 // Function for actually fetching currencies conversion rates from the api
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
-        chrome.storage.local.set({cache: data.rates, cacheTime: Date.now()}, function() {
+        chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, function() {
             callback(data.rates);
         });
     });
@@ -10,12 +21,9 @@ function fetchLive(currencyToConvertTo, callback) {
 // Checking currencies conversion rates in cache (calls fetchLive if cache-miss)
 function getRates(currencyToConvertTo, callback) {
     chrome.storage.local.get(['cache', 'cacheTime'], function(items) {
-        if (items?.cache && items?.cacheTime) {
-            if (items.cacheTime > Date.now() - 3600*1000) {
-                return callback(items.cache);
-            }
-        }
-    
+        console.log(`Using cached conversion rates to ${currencyToConvertTo}`);
+        if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) return callback(items.cache.data);
+        console.log(`Fetching live from api rates to ${currencyToConvertTo}`);
         fetchLive(currencyToConvertTo, callback);
     });
 }

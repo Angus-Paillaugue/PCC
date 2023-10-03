@@ -1,3 +1,14 @@
+// Prepend message to all console.log messages
+(function(){
+    if(window.console && console.log){
+        var old = console.log;
+        console.log = function(){
+            Array.prototype.unshift.call(arguments, 'Conversion : ');
+            old.apply(this, arguments);
+        }
+    }  
+})();
+
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
     var status_input = document.getElementById('status');
@@ -15,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     xhr.open("GET", chrome.runtime.getURL('currencies.json'));
     xhr.onreadystatechange  = function() {
         // Checks if the currencies.json fetching has ended and can proceed
-        console.log(this);
         if (this.readyState == 4 && this.status === 200) {
             const currencies = JSON.parse(xhr.responseText);
             const currencySelect = document.getElementById("convertTo");
