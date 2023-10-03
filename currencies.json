@@ -1,0 +1,50 @@
+[
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\CNY ¥ [0-9]*.[0-9]*",
+    "trimLength": 6,
+    "currencySymbole": "CNY"
+  },
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\¥ [0-9]*.[0-9]*",
+    "trimLength": 2,
+    "currencySymbole": "CNY"
+  },
+  {
+    "multiplyBy": 10,
+    "symbolRegex": "\\CNY [0-9]*.[0-9]*",
+    "trimLength": 5,
+    "currencySymbole": "CNY"
+  },
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\CNY[0-9]*.[0-9]*",
+    "trimLength": 4,
+    "currencySymbole": "CNY"
+  },
+  {
+    "multiplyBy": 1000,
+    "symbolRegex": "\\￥[0-9]*.[0-9]*",
+    "trimLength": 1,
+    "currencySymbole": "CNY"
+  },
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\USD [0-9]*.[0-9]*",
+    "trimLength": 4,
+    "currencySymbole": "USD"
+  },
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\$ [0-9]*.[0-9]*",
+    "trimLength": 2,
+    "currencySymbole": "USD"
+  },
+  {
+    "multiplyBy": 1,
+    "symbolRegex": "\\[0-9]*.[0-9]* ¥",
+    "trimLength": 2,
+    "currencySymbole": "USD"
+  }
+]

@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Conversion",
+    "description": "Convert all currencies into euros.",
+    "version": "1.0",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "permissions": [
+        "storage",
+        "tabs",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
+    "web_accessible_resources": [{
+        "resources":["currencies.json"],
+        "matches":["http://*/*", "https://*/*"]
+    }]
+}
