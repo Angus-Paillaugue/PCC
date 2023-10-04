@@ -33,9 +33,8 @@ function getRates(currencyToConvertTo, callback) {
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
-    inputString = inputString.replaceAll("~", "");
     // Do some regex magic to extract all the currency matches inside the provided string
-    const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]?)\s*(\d+(\.\d+)?)/g;
+    const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵])[^$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]{0,3}(\d+(\.\d{1,2})?)/g;
     const matches = [...inputString.matchAll(regex)];
     
     if (matches.length === 0) return inputString;
@@ -44,8 +43,8 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     let lastIndex = 0;
     // For each currency math inside the string
     for (const match of matches) {
-        const currencySymbol = match[1] || undefined;
-        const originalNumber = parseFloat(match[2]) ?? undefined;
+        const currencySymbol = match[1];
+        const originalNumber = parseFloat(match[0].match(/[-+]?\d+(\.\d+)?/g)[0]);
         // Asserts the match contains a currency symbol and a numerical value inside
         if(currencySymbol && originalNumber){
             // Extract the currency (returns object from currencies.json) from the match
@@ -56,7 +55,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
                 const rate = rates[currency.name];
                 // Convert the amount in the match
                 const convertedNumber = isNaN(originalNumber) ? '' : (parseFloat(originalNumber) / rate).toFixed(2);
-                // Modifies the
+                // Modifies the currency string to be converted to the chosen currency
                 modifiedString += inputString.substring(lastIndex, match.index-1) + convertedNumber + " " + currencies.filter(el => el.name === currencyToConvertTo)[0].symbol;
                 modifiedString = modifiedString.replaceAll(currency.name, "");
                 lastIndex = match.index + match[0].length;
