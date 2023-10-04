@@ -11,7 +11,7 @@
 
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
-    var status_input = document.getElementById('status');
+    const status_input = document.getElementById('status');
     status_input.addEventListener('change', (e) => {
         e.currentTarget.checked;
         chrome.storage.local.set({ "status": e.currentTarget.checked });

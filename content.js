@@ -21,8 +21,10 @@ function fetchLive(currencyToConvertTo, callback) {
 // Checking currencies conversion rates in cache (calls fetchLive if cache-miss)
 function getRates(currencyToConvertTo, callback) {
     chrome.storage.local.get(['cache', 'cacheTime'], function(items) {
-        console.log(`Using cached conversion rates to ${currencyToConvertTo}`);
-        if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) return callback(items.cache.data);
+        if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
+            console.log(`Using cached conversion rates to ${currencyToConvertTo}`);
+            return callback(items.cache.data);
+        }
         console.log(`Fetching live from api rates to ${currencyToConvertTo}`);
         fetchLive(currencyToConvertTo, callback);
     });
@@ -31,6 +33,7 @@ function getRates(currencyToConvertTo, callback) {
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
+    inputString = inputString.replaceAll("~", "");
     // Do some regex magic to extract all the currency matches inside the provided string
     const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]?)\s*(\d+(\.\d+)?)/g;
     const matches = [...inputString.matchAll(regex)];
