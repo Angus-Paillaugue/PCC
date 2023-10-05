@@ -101,3 +101,84 @@ chrome.storage.local.get(["status"], (status) => {
         });
     }
 });
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // Checks if the copyImage function is being called and the active tab has a root domain of pandabuy
+    if (message.action === "copyImage" && new URLPattern("https://\*.pandabuy.com").test(location.origin)) {
+        const image = document.querySelector("#pic-box > div > img");
+        // Copying the image element (or else we cannot export canvas)
+        const cloneElement = image.cloneNode();
+        cloneElement.crossOrigin = "anonymous";;
+        document.body.appendChild(cloneElement);
+
+        // Painting the image onto the canvas and exporting it as a blob
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = cloneElement.width;
+        canvas.height = cloneElement.height;
+        ctx.drawImage(cloneElement, 0, 0);
+        canvas.toBlob(blob => {
+            cloneElement.remove();
+            if(blob){
+                // Copying the blob to clipboard
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        [blob.type]: blob
+                    })
+                ]).then(() => {
+                    // Adding a success toast
+                    const toast = document.createElement("div");
+                    toast.style.position = "fixed";
+                    toast.style.top = "20px";
+                    toast.style.right = "20px";
+                    toast.style.backgroundColor = "#10c15c";
+                    toast.style.padding = "5px";
+                    toast.style.borderRadius = "10px";
+                    toast.style.border = "1px solid #097538";
+                    toast.style.display = "flex";
+                    toast.style.flexDirection = "row";
+                    toast.style.gap = "10px";
+                    toast.style.zIndex = "10000";
+                    toast.style.wordBreak = "keep-all";
+                    toast.style.justifyItems = "center";
+                    toast.style.alignItems = "center";
+                    toast.style.fontSize = "17px";
+                    toast.style.color = "white";
+                    toast.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 30px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Image successfully copied!`;
+                    document.body.appendChild(toast);
+
+                    // Removing toast after 2.5s
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 2500);
+                });
+            }
+        });
+    }else if (!new URLPattern("https://\*.pandabuy.com").test(location.origin)){
+        const toast = document.createElement("div");
+        toast.style.position = "fixed";
+        toast.style.top = "20px";
+        toast.style.right = "20px";
+        toast.style.backgroundColor = "#d12121";
+        toast.style.padding = "5px";
+        toast.style.borderRadius = "10px";
+        toast.style.border = "1px solid #851515";
+        toast.style.display = "flex";
+        toast.style.flexDirection = "row";
+        toast.style.gap = "10px";
+        toast.style.zIndex = "10000";
+        toast.style.wordBreak = "keep-all";
+        toast.style.justifyItems = "center";
+        toast.style.alignItems = "center";
+        toast.style.fontSize = "17px";
+        toast.style.color = "white";
+        toast.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 30px;"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> This feature only works on pandabuy.com for now!`;
+        document.body.appendChild(toast);
+
+        // Removing toast after 2.5s
+        setTimeout(() => {
+            toast.remove();
+        }, 2500);
+    }
+});
