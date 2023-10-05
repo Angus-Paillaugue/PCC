@@ -1,18 +1,7 @@
-// Prepend message to all console.log messages
-(function(){
-    if(window.console && console.log){
-        var old = console.log;
-        console.log = function(){
-            Array.prototype.unshift.call(arguments, 'Conversion : ');
-            old.apply(this, arguments);
-        }
-    }  
-})();
-
 // Function for actually fetching currencies conversion rates from the api
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
-        chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, function() {
+        chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, () => {
             callback(data.rates);
         });
     });
@@ -20,12 +9,12 @@ function fetchLive(currencyToConvertTo, callback) {
 
 // Checking currencies conversion rates in cache (calls fetchLive if cache-miss)
 function getRates(currencyToConvertTo, callback) {
-    chrome.storage.local.get(['cache', 'cacheTime'], function(items) {
+    chrome.storage.local.get(['cache', 'cacheTime'], (items) => {
         if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
-            console.log(`Using cached conversion rates to ${currencyToConvertTo}`);
+            console.log(`PCC : Using cached conversion rates to ${currencyToConvertTo}`);
             return callback(items.cache.data);
         }
-        console.log(`Fetching live from api rates to ${currencyToConvertTo}`);
+        console.log(`PCC : Fetching live from api rates to ${currencyToConvertTo}`);
         fetchLive(currencyToConvertTo, callback);
     });
 }
@@ -33,9 +22,6 @@ function getRates(currencyToConvertTo, callback) {
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
-    for(const currency of currencies){
-        inputString = inputString.replaceAll(currency.name, currency.symbol);
-    }
     // Do some regex magic to extract all the currency matches inside the provided string
     const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵])[^$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]{0,3}(\d+(\.\d{1,2})?)/g;
     const matches = [...inputString.matchAll(regex)];
@@ -74,7 +60,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
 chrome.storage.local.get(["status"], (status) => {
     if(status.status){
         // Checking the currency to convert to
-        chrome.storage.local.get(["convertTo"], function(convertTo){
+        chrome.storage.local.get(["convertTo"], (convertTo) => {
             // if currency to convert to does not exists, default to USD
             convertTo = convertTo?.convertTo ?? "USD";
 
@@ -99,7 +85,7 @@ chrome.storage.local.get(["status"], (status) => {
                                         // Extract the text, calls the format function and replace the text with the converted one
                                         let nodeText = textNode.childNodes[i].textContent;
                                         let formattedText = formatString(nodeText, rates, currencies, convertTo);
-                                        textNode.childNodes[i].textContent = formattedText;
+                                        if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
                                     }
                                 }
                             });

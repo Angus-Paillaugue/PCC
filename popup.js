@@ -1,24 +1,14 @@
-// Prepend message to all console.log messages
-(function(){
-    if(window.console && console.log){
-        var old = console.log;
-        console.log = function(){
-            Array.prototype.unshift.call(arguments, 'Conversion : ');
-            old.apply(this, arguments);
-        }
-    }  
-})();
-
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
     const status_input = document.getElementById('status');
     status_input.addEventListener('change', (e) => {
-        e.currentTarget.checked;
-        chrome.storage.local.set({ "status": e.currentTarget.checked });
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "status": status });
         reloadTab();
     });
     chrome.storage.local.get(["status"], (status) => {
-        if(status.status) status_input.checked = true;
+        status = status?.status ?? true;
+        status_input.checked = status;
     });
 
     // Fetches the currencies.json to append to the select menu on the popup
@@ -37,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     option.value = currency.name;
                     option.text = `${currency.name} - ${currency.symbol}`;
                     currencySelect.appendChild(option);
-                    if(convertTo?.convertTo === currency.name){
-                        option.selected = "selected";
-                    }else if(!convertTo?.convertTo && currency.name === "USD"){
+                    if(convertTo?.convertTo === currency.name || (!convertTo?.convertTo && currency.name === "USD")){
                         option.selected = "selected";
                     }
                 });
