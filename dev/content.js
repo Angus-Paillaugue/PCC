@@ -74,6 +74,9 @@ chrome.storage.local.get(["status"], (status) => {
                     // Checks if the currencies.json fetching has ended and can proceed
                     if (this.readyState == 4 && this.status === 200) {
                         const currencies = JSON.parse(xhr.responseText);
+                        // Converts currencies in the title of the page
+                        const titleEl = document.querySelector("title");
+                        titleEl.innerText = formatString(titleEl.innerText, rates, currencies, convertTo)
             
                         // Getting all the text nodes and converting the currencies inside their text content every second
                         setInterval(() => {
