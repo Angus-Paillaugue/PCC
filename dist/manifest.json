@@ -2,9 +2,13 @@
     "manifest_version": 3,
     "name": "Pandabuy Currency Converter",
     "description": "Convert all currencies into a selected one.",
-    "version": "1.0",
+    "version": "1.24",
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/16-icon.png",
+            "32": "icons/32-icon.png"
+        }
     },
     "icons": {
         "16": "icons/16-icon.png",
@@ -17,7 +21,8 @@
             "matches": [
                 "https://*.pandabuy.com/*",
                 "https://*.yupoo.com/*",
-                "https://*.weidian.com/*"
+                "https://*.weidian.com/*",
+                "https://*.taobao.com/*"
             ],
             "js": ["content.js"]
         }
