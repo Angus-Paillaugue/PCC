@@ -13,9 +13,10 @@ function getRates(currencyToConvertTo, callback) {
         if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
             console.log(`PCC : Using cached conversion rates to ${currencyToConvertTo}`);
             return callback(items.cache.data);
+        }else {
+            console.log(`PCC : Fetching live from api rates to ${currencyToConvertTo}`);
+            fetchLive(currencyToConvertTo, callback);
         }
-        console.log(`PCC : Fetching live from api rates to ${currencyToConvertTo}`);
-        fetchLive(currencyToConvertTo, callback);
     });
 }
 
@@ -61,10 +62,13 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     return modifiedString;
 }
 
+
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
     if(status){
+        // Appends the style of the "Pandabuy link" button on pages like reddit
+        appendButtonStyle();
         // Checking the currency to convert to
         chrome.storage.local.get(["convertTo"], (convertTo) => {
             // if currency to convert to does not exists, default to USD
@@ -85,17 +89,32 @@ chrome.storage.local.get(["status"], (status) => {
             
                         // Getting all the text nodes and converting the currencies inside their text content every second
                         setInterval(() => {
-                            const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
-                            text.forEach(textNode => {
-                                // For all of the children inside the elements
-                                for (var i = 0; i < textNode.childNodes.length; ++i){
-                                    // Checks if the child is a text node
-                                    if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
-                                        // Extract the text, calls the format function and replace the text with the converted one
-                                        let nodeText = textNode.childNodes[i].textContent;
-                                        let formattedText = formatString(nodeText, rates, currencies, convertTo);
-                                        if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
+                            if(isMarketplaceUrl(location.href)){
+                                const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
+                                text.forEach(textNode => {
+                                    // For all of the children inside the elements
+                                    for (var i = 0; i < textNode.childNodes.length; ++i){
+                                        // Checks if the child is a text node
+                                        if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
+                                            // Extract the text, calls the format function and replace the text with the converted one
+                                            let nodeText = textNode.childNodes[i].textContent;
+                                            let formattedText = formatString(nodeText, rates, currencies, convertTo);
+                                            if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
+                                        }
                                     }
+                                });
+                            }
+                            
+                            // Converts plain text 
+                            const links = document.querySelectorAll("a");
+                            links.forEach(link => {
+                                if(isMarketplaceUrl(link.innerText)){
+                                    const newLink = document.createElement("a");
+                                    newLink.href = `https://www.pandabuy.com/product?url=${link.innerText}`;
+                                    newLink.classList.add("PCCButton");
+                                    newLink.target = "blank";
+                                    newLink.innerHTML = "<span>Pandabuy link</span>";
+                                    link.replaceWith(newLink);
                                 }
                             });
                         }, 1000);
@@ -106,3 +125,28 @@ chrome.storage.local.get(["status"], (status) => {
         });
     }
 });
+
+const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.w2c.net"];
+
+const isMarketplaceUrl = (url) => {
+    try { 
+        let isValid = false;
+        for(let marketplaceUrl of marketplacesUrls){
+            if(new URLPattern(marketplaceUrl).test(new URL(url).origin)) isValid = true;
+        }
+        return isValid;
+    }catch(e){ 
+        return false; 
+    }
+}
+
+const appendButtonStyle = () => {
+    const css = `.PCCButton {text-size-adjust: none;--swiper-theme-color: #007aff;--swiper-navigation-size: 44px;-webkit-box-direction: normal;word-break: break-word !important;font: inherit;font-family: inherit;vertical-align: baseline;-webkit-tap-highlight-color: rgba(0,0,0,0);display: inline-flex;flex-direction:row;justify-content: center;align-items: center;line-height: 1;white-space: nowrap;cursor: pointer;background: #fff;border: 1px solid #dcdfe6;-webkit-appearance: none;text-align: center;box-sizing: border-box;outline: none;margin: 0;transition: .1s;-webkit-user-select: none;padding: 12px 20px;border-radius: 4px;color: #fff;background-color: #11ba66;border-color: #11ba66;width: 180px;font-weight: 700;font-size: 18px;}`
+    const head = document.head || document.getElementsByTagName('head')[0]
+    const style = document.createElement('style');
+
+    head.appendChild(style);
+
+    style.type = 'text/css';
+    if (style.styleSheet) style.styleSheet.cssText = css; else style.appendChild(document.createTextNode(css));
+}

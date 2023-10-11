@@ -19,10 +19,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://*.pandabuy.com/*",
-                "https://*.yupoo.com/*",
-                "https://*.weidian.com/*",
-                "https://*.taobao.com/*"
+                "<all_urls>"
             ],
             "js": ["content.js"]
         }
