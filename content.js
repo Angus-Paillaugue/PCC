@@ -126,7 +126,7 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
-const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.w2c.net"];
+const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "https://*.weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.w2c.net"];
 
 const isMarketplaceUrl = (url) => {
     try { 
