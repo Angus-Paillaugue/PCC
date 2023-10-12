@@ -23,7 +23,7 @@ function getRates(currencyToConvertTo, callback) {
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
-    if(new URLPattern("https://\*.pandabuy.com").test(location.origin) && location.pathname == "/cartEstimatedFreight"){
+    if(new URLPattern("https://\*.pandabuy.com").test(location.origin) && (location.pathname === "/cartEstimatedFreight" || location.pathname ==="/person/parcel/list")){
         for(const currency of currencies){
             inputString = inputString.replaceAll(currency.name, currency.symbol);
         }
