@@ -21,12 +21,14 @@
             "matches": [
                 "<all_urls>"
             ],
+            "exclude_matches" : [
+                "https://docs.google.com/*"
+            ],
             "js": ["content.js"]
         }
     ],
     "permissions": [
-        "storage",
-        "activeTab"
+        "storage"
     ],
     "host_permissions": [
         "http://*/*",
