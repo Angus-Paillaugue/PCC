@@ -108,14 +108,23 @@ chrome.storage.local.get(["status"], (status) => {
                             // Converts plain text 
                             const links = document.querySelectorAll("a");
                             links.forEach(link => {
-                                if(isMarketplaceUrl(link.innerText)){
-                                    const newLink = document.createElement("a");
-                                    newLink.href = `https://www.pandabuy.com/product?url=${link.innerText}`;
-                                    newLink.classList.add("PCCButton");
-                                    newLink.target = "blank";
-                                    newLink.innerHTML = "<span>Pandabuy link</span>";
-                                    link.replaceWith(newLink);
-                                }
+                                try {
+                                    if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
+                                        const newLink = document.createElement("a");
+                                        newLink.href = `https://www.pandabuy.com/product?url=${link.innerText}`;
+                                        newLink.classList.add("PCCButton");
+                                        newLink.target = "blank";
+                                        newLink.innerHTML = "<span>Pandabuy link</span>";
+                                        link.replaceWith(newLink);
+                                    }else if(isMarketplaceUrl(link.innerText)){
+                                        const newLink = document.createElement("a");
+                                        newLink.href = link.innerText;
+                                        newLink.classList.add("PCCButton");
+                                        newLink.target = "blank";
+                                        newLink.innerHTML = "<span>Pandabuy link</span>";
+                                        link.replaceWith(newLink);
+                                    }
+                                }catch(_){}
                             });
                         }, 1000);
                     }     
