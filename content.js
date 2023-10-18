@@ -93,7 +93,7 @@ chrome.storage.local.get(["status"], (status) => {
                                 const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
                                 text.forEach(textNode => {
                                     // For all of the children inside the elements
-                                    for (var i = 0; i < textNode.childNodes.length; ++i){
+                                    for (let i = 0; i < textNode.childNodes.length; ++i){
                                         // Checks if the child is a text node
                                         if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
                                             // Extract the text, calls the format function and replace the text with the converted one
@@ -111,7 +111,7 @@ chrome.storage.local.get(["status"], (status) => {
                                 try {
                                     if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
                                         const newLink = document.createElement("a");
-                                        newLink.href = `https://www.pandabuy.com/product?url=${link.innerText}`;
+                                        newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
                                         newLink.classList.add("PCCButton");
                                         newLink.target = "blank";
                                         newLink.innerHTML = "<span>Pandabuy link</span>";
