@@ -70,11 +70,12 @@ function changeYuppoGrid(){
                 yuppoContentWidth = status?.yuppoContentWidth ?? 170;
 
                 if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
+                if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
                 if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
                 if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
 
                 // Change style og products containers
-                let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent.showalbum__min min");
+                let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent.showalbum__min.min, .showindex__parent");
                 for(let imagesContainer of imagesContainers){
                     imagesContainer.style.display = "grid";
                     imagesContainer.style.gap = "10px";
@@ -176,7 +177,7 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
-const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "https://*.weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.w2c.net", "*://*.reddit.com/*"];
+const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "https://*.weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.reddit.com/*"];
 
 const isMarketplaceUrl = (url) => {
     try { 

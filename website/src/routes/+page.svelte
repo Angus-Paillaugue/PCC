@@ -1,13 +1,30 @@
 <script>
     import { reveal } from 'svelte-reveal';
+    import { fly } from "svelte/transition";
 
-    const extensionPageUrl = "https://chrome.google.com/webstore/detail/pandabuy-currency-convert/bmefkfichlgfpmgdpkgkkebpdkfhbmnm"
+    export let data;
 
+    const { extensionPageUrl } = data;
     const sections = [
         {
             title : "How does it works?",
-            description : `First, you nee to install the extension. To do so, go to <a href=${extensionPageUrl} class="link" target="_blank">the extension page</a>. Then, click on `,
-            imgSrc : ""
+            description : `First, you nee to install the extension. To do so, go to <a href=${extensionPageUrl} class="link" target="_blank">the extension page</a>. Then, click on "Add to Chrome". In your extensions bar, you will now see the PCC extension. The extension will now convert any currency to the one you choose. To parameter it, click on it's icon. You can now configure any settings.`,
+            imgSrc : "/questionMark.webp"
+        },
+        {
+            title : "In what currency can I convert to?",
+            description : `You can choose from a wide range of currencies. Here are all of them : AED (د.إ), AUD (A$), BRL (R$), CAD (C$), CHF (Fr), CNY (¥), CZK (Kč), DKK (kr), EGP (E£), EUR (€), GBP (£), HKD (HK$), HUF (Ft), IDR (Rp), INR (₹), KRW (₩), MXN (Mex$), MYR (RM), NOK (kr), NZD(NZ$), PHP (₱), PLN (zł), RUB (₽), SEK (kr), SGD (S$), THB (฿), TRY (₺), USD ($), VND (₫), ZAR (R)`,
+            imgSrc : "/convertTo.webp"
+        },
+        {
+            title : "Does on all sites?",
+            description : `At the moment, PCC works on the most famous sites like pandabuy.com, weidian, yuppo, taobao, 1688, tmall and even reddit.`,
+            imgSrc : "/workingMarketplaces.webp"
+        },
+        {
+            title : "I don't like the yuppo website design?",
+            description : `If you are like me and don't like the yuppo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
+            imgSrc : "/yuppoInterfaceReDesign.webp"
         }
     ]
 </script>
@@ -17,12 +34,12 @@
 </svelte:head>
 
 <section class="min-h-screen p-2 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
-    <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] rounded-2xl shadow-xl">
+    <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] rounded-2xl shadow-xl" in:fly={{y: 50}}>
     <div class="flex flex-col gap-2">
-        <h2>PCC - Pandabuy Currency Converter</h2>
-        <h6 class="font-medium">The one and only tool you need for PandaBuy.</h6>
+        <h2 in:fly={{y: 50}}>PCC - Pandabuy Currency Converter</h2>
+        <h6 class="font-medium" in:fly={{y: 50, delay:50}}>The one and only tool you need for PandaBuy.</h6>
         <div class="flex mt-2 flex-row gap-4 mx-auto">
-            <a href="{extensionPageUrl}" class="button-primary overflow-hidden group w-fit">
+            <a href="{extensionPageUrl}" class="button-primary overflow-hidden group w-fit" in:fly={{y: 100, delay:100}}>
                 <span class="transition-all duration-200 group-hover:-translate-y-[130%]">
                     Get Started
                 </span>
@@ -31,7 +48,7 @@
                 </svg>
             </a>
 
-            <a href="#learn-more" class="button-secondary-animation w-fit group">
+            <a href="#learn-more" class="button-secondary-animation w-fit group" in:fly={{y: 100, delay:150}}>
                 Learn more
                 <svg class="w-5 h-5 absolute right-0 flex items-center justify-start duration-300 transform translate-x-full group-hover:-translate-x-full ease" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
@@ -46,7 +63,7 @@
         {#each sections as section, index}
             <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-gray-700 text-start transition-all border dark:border-gray-600 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
                 <div class="rounded-2xl border border-gray-300 lg:col-span-3 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-3"}">
-                    <img src="/{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-full h-full">
+                    <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-full h-full">
                 </div>
                 
                 <div class="flex flex-col w-full gap-4 justify-between lg:col-span-2 {index % 2 == 0 ? "lg:pl-4 lg:col-start-4" :"lg:pr-4 lg:col-start-1"}">
@@ -55,7 +72,7 @@
                             <h4 class="font-bold">{section.title}</h4>
                         </a>
 
-                        <p class="text-ellipsis line-clamp-4">{@html section.description}</p>
+                        <p>{@html section.description}</p>
                     </div>
                 </div>
             </div>
