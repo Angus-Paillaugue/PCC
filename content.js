@@ -62,6 +62,40 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     return modifiedString;
 }
 
+function changeYuppoGrid(){
+    chrome.storage.local.get(["yuppoInterfaceReDesign"], (data) => {
+        let yuppoInterfaceReDesign = data.yuppoInterfaceReDesign;
+        if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
+            chrome.storage.local.get(["yuppoContentWidth"], (status) => {
+                yuppoContentWidth = status?.yuppoContentWidth ?? 170;
+
+                if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
+                if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
+                if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
+
+                // Change style og products containers
+                let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent.showalbum__min min");
+                for(let imagesContainer of imagesContainers){
+                    imagesContainer.style.display = "grid";
+                    imagesContainer.style.gap = "10px";
+                    imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yuppoContentWidth}px, 1fr))`;
+                    // Change sty of products
+                    Array.from(imagesContainer.children).forEach(el => {
+                        el.style.width = "100%";
+                        el.style.margin = "0";
+                    });
+                }
+            });
+        }
+    });
+}
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if(request?.yuppoContentWidthChanged) changeYuppoGrid();
+    }
+);
+
 
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {
@@ -73,6 +107,8 @@ chrome.storage.local.get(["status"], (status) => {
         chrome.storage.local.get(["convertTo"], (convertTo) => {
             // if currency to convert to does not exists, default to USD
             convertTo = convertTo?.convertTo ?? "USD";
+            
+            changeYuppoGrid();
 
             // Gathering the currencies converting rates (trying for cache and if miss fetching it from the api)
             getRates(convertTo, (rates) => {
@@ -105,26 +141,31 @@ chrome.storage.local.get(["status"], (status) => {
                                 });
                             }
                             
-                            // Converts plain text 
-                            const links = document.querySelectorAll("a");
-                            links.forEach(link => {
-                                try {
-                                    if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
-                                        const newLink = document.createElement("a");
-                                        newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
-                                        newLink.classList.add("PCCButton");
-                                        newLink.target = "blank";
-                                        newLink.innerHTML = "<span>Pandabuy link</span>";
-                                        link.replaceWith(newLink);
-                                    }else if(isMarketplaceUrl(link.innerText)){
-                                        const newLink = document.createElement("a");
-                                        newLink.href = link.innerText;
-                                        newLink.classList.add("PCCButton");
-                                        newLink.target = "blank";
-                                        newLink.innerHTML = "<span>Pandabuy link</span>";
-                                        link.replaceWith(newLink);
-                                    }
-                                }catch(_){}
+                            chrome.storage.local.get(["linkConversion"], (data) => {
+                                let linkConversion = data?.linkConversion ?? true;
+                                if(linkConversion){
+                                    // Converts plain text link into link buttons
+                                    const links = document.querySelectorAll("a");
+                                    links.forEach(link => {
+                                        try {
+                                            if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
+                                                const newLink = document.createElement("a");
+                                                newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
+                                                newLink.classList.add("PCCButton");
+                                                newLink.target = "blank";
+                                                newLink.innerHTML = "<span>Pandabuy link</span>";
+                                                link.replaceWith(newLink);
+                                            }else if(isMarketplaceUrl(link.innerText)){
+                                                const newLink = document.createElement("a");
+                                                newLink.href = link.innerText;
+                                                newLink.classList.add("PCCButton");
+                                                newLink.target = "blank";
+                                                newLink.innerHTML = "<span>Pandabuy link</span>";
+                                                link.replaceWith(newLink);
+                                            }
+                                        }catch(_){}
+                                    });
+                                }
                             });
                         }, 1000);
                     }     

@@ -11,6 +11,47 @@ document.addEventListener('DOMContentLoaded', () => {
         status_input.checked = status;
     });
 
+    const yuppoInterfaceReDesign = document.getElementById('yuppoInterfaceReDesign');
+    yuppoInterfaceReDesign.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "yuppoInterfaceReDesign": status });
+        reloadTab();
+    });
+    chrome.storage.local.get(["yuppoInterfaceReDesign"], (status) => {
+        status = status?.yuppoInterfaceReDesign ?? true;
+        yuppoInterfaceReDesign.checked = status;
+    });
+
+    const linkConversion = document.getElementById('linkConversion');
+    linkConversion.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "linkConversion": status });
+        reloadTab();
+    });
+    chrome.storage.local.get(["linkConversion"], (status) => {
+        status = status?.linkConversion ?? true;
+        linkConversion.checked = status;
+    });
+
+    chrome.storage.local.get(["yuppoContentWidth"], (status) => {
+        let slider = document.getElementById("yuppoContentWidthSlider");
+        let output = document.getElementById("yuppoContentWidth");
+        yuppoContentWidth = status?.yuppoContentWidth ?? 180;
+        slider.value = yuppoContentWidth
+        output.innerHTML = yuppoContentWidth
+        slider.oninput = function() {
+            let newWidth = this.value;
+            output.innerHTML = newWidth;
+            chrome.storage.local.set({ "yuppoContentWidth": newWidth });
+            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+                var activeTab = tabs[0];
+                console.log(newWidth);
+                chrome.tabs.sendMessage(activeTab.id, {"yuppoContentWidthChanged": newWidth });
+            });
+        }
+    });
+
+
     // Fetches the currencies.json to append to the select menu on the popup
     var xhr = new XMLHttpRequest();
     xhr.open("GET", chrome.runtime.getURL('currencies.json'));

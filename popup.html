@@ -8,22 +8,43 @@
 </head>
 <body>
 
-    <div id="main">
-        <div>
-            <p>Conversion status :</p>
-            <input type="checkbox" id="status" />
-            <label for="status" class="toggleLabel">Toggle</label>
-        </div>
+    <h2>Main</h2>
+    <div class="mt-lg">
+        <p>Conversion status :</p>
+        <input type="checkbox" id="status" />
+        <label for="status" class="toggleLabel">Toggle</label>
+    </div>
 
-        <div>
-            <label for="convertTo">Convert to :</label>
-            <select id="convertTo"></select>
-        </div>
+    <div class="mt-sm">
+        <label for="convertTo">Convert currencies to :</label>
+        <select id="convertTo"></select>
+    </div>
+
+    <div class="mt-sm">
+        <p>Convert plain text link into button links :</p>
+        <input type="checkbox" id="linkConversion" />
+        <label for="linkConversion" class="toggleLabel">Toggle</label>
+    </div>
+
+
+    <hr class="mt-lg">
+
+    <h2 class="mt-lg">Yuppo</h2>
+    <div class="mt-sm">
+        <p>Interface re-design :</p>
+        <input type="checkbox" id="yuppoInterfaceReDesign" />
+        <label for="yuppoInterfaceReDesign" class="toggleLabel">Toggle</label>
+    </div>
+
+    <div class="mt-sm">
+        <p>Grid elements width :</p>
+        <input type="range" min="100" max="1000" class="slider" id="yuppoContentWidthSlider">
+        <p>Width : <span id="yuppoContentWidth"></span></p>
     </div>
 
     <style>
         html{
-            width: fit-content;
+            width: 200px;
             height: fit-content;
         }
         body {
@@ -33,22 +54,23 @@
         ::-webkit-scrollbar {
             display: none;
         }
-        #main {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        p {
+        p, h1, h2, h3, h4, h5, h6 {
             margin: 0;
         }
         input[type=checkbox]{
             display: none;
         }
+        .mt-lg {
+            margin-top: 1rem;
+        }
+        .mt-sm {
+            margin-top: .2rem;
+        }
         label.toggleLabel {
             cursor: pointer;
             text-indent: -9999px;
-            width: 100px;
-            height: 50px;
+            width: 50px;
+            height: 25px;
             background: grey;
             display: block;
             border-radius: 100px;
@@ -57,10 +79,10 @@
         label.toggleLabel:after {
             content: '';
             position: absolute;
-            top: 5px;
-            left: 5px;
-            width: 40px;
-            height: 40px;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
             background: #fff;
             border-radius: 90px;
             transition: 0.3s;
@@ -69,11 +91,46 @@
             background: #11ba66;
         }
         input:checked + label:after {
-            left: calc(100% - 5px);
+            left: calc(100% - 2px);
             transform: translateX(-100%);
         }
         label.toggleLabel:active:after {
             width: 90px;
+        }
+        label {
+            display: block;
+        }
+
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .slider:hover {
+            opacity: 1;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
         }
     </style>
 
