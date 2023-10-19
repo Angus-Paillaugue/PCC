@@ -64,7 +64,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
 
 function changeYuppoGrid(){
     chrome.storage.local.get(["yuppoInterfaceReDesign"], (data) => {
-        let yuppoInterfaceReDesign = data.yuppoInterfaceReDesign;
+        let yuppoInterfaceReDesign = data?.yuppoInterfaceReDesign ?? true;
         if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
             chrome.storage.local.get(["yuppoContentWidth"], (status) => {
                 yuppoContentWidth = status?.yuppoContentWidth ?? 170;
@@ -121,7 +121,7 @@ chrome.storage.local.get(["status"], (status) => {
                         const currencies = JSON.parse(xhr.responseText);
                         // Converts currencies in the title of the page
                         const titleEl = document.querySelector("title");
-                        titleEl.innerText = formatString(titleEl.innerText, rates, currencies, convertTo)
+                        if(titleEl) titleEl.innerText = formatString(titleEl.innerText, rates, currencies, convertTo)
             
                         // Getting all the text nodes and converting the currencies inside their text content every second
                         setInterval(() => {
