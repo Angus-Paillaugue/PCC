@@ -17,12 +17,12 @@
             imgSrc : "/convertTo.webp"
         },
         {
-            title : "Does on all sites?",
+            title : "Does it works on all sites?",
             description : `At the moment, PCC works on the most famous sites like pandabuy.com, weidian, yuppo, taobao, 1688, tmall and even reddit.`,
             imgSrc : "/workingMarketplaces.webp"
         },
         {
-            title : "I don't like the yuppo website design?",
+            title : "What if don't like the yuppo website design?",
             description : `If you are like me and don't like the yuppo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
             imgSrc : "/yuppoInterfaceReDesign.webp"
         }
@@ -34,7 +34,7 @@
 </svelte:head>
 
 <section class="min-h-screen p-2 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
-    <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] rounded-2xl shadow-xl" in:fly={{y: 50}}>
+    <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
     <div class="flex flex-col gap-2">
         <h2 in:fly={{y: 50}}>PCC - Pandabuy Currency Converter</h2>
         <h6 class="font-medium" in:fly={{y: 50, delay:50}}>The one and only tool you need for PandaBuy.</h6>
@@ -56,8 +56,8 @@
     </div>
 </section>
 
-<section id="learn-more" class="min-h-screen p-2 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
-    <div class="w-full max-w-4xl mx-auto py-24 flex flex-col gap-10">
+<section id="learn-more" class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
+    <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
         <h4 class="text-primary-600 font-extrabold">Learn More</h4>
 
         {#each sections as section, index}
@@ -68,9 +68,7 @@
                 
                 <div class="flex flex-col w-full gap-4 justify-between lg:col-span-2 {index % 2 == 0 ? "lg:pl-4 lg:col-start-4" :"lg:pr-4 lg:col-start-1"}">
                     <div class="flex flex-col w-full gap-4">
-                        <a href="/project/{section.title}" class="w-fit link break-all">
-                            <h4 class="font-bold">{section.title}</h4>
-                        </a>
+                        <h4 class="font-bold">{section.title}</h4>
 
                         <p>{@html section.description}</p>
                     </div>
