@@ -33,7 +33,7 @@ body {
 }
 
 .button-primary {
-  @apply text-white bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-white hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative;
+  @apply text-white bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative;
 }
 .button-secondary {
   @apply text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden;
