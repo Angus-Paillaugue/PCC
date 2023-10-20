@@ -37,5 +37,10 @@
     "web_accessible_resources": [{
         "resources":["currencies.json"],
         "matches":["http://*/*", "https://*/*"]
-    }]
+    }],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{b60b8911-e938-40b1-825b-672152eb48a1}"
+        }
+    }      
 }
