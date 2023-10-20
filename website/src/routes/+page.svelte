@@ -1,14 +1,22 @@
 <script>
+    import { onMount } from 'svelte';
     import { reveal } from 'svelte-reveal';
     import { fly } from "svelte/transition";
 
     export let data;
 
-    const { extensionPageUrl } = data;
+    const { extensions, getBrowserType } = data;
+
+    let extension = extensions[0];
+
+    onMount(() => {
+        extension = extensions.filter(el => el.plateforme === getBrowserType())[0]
+    });
+    
     const sections = [
         {
             title : "How does it works?",
-            description : `First, you nee to install the extension. To do so, go to <a href=${extensionPageUrl} class="link" target="_blank">the extension page</a>. Then, click on "Add to Chrome". In your extensions bar, you will now see the PCC extension. The extension will now convert any currency to the one you choose. To parameter it, click on it's icon. You can now configure any settings.`,
+            description : `First, you nee to install the extension. To do so, go to <a href="/get-started" class="link" target="_blank">the extension page</a>. Then, click on "Add to Chrome". In your extensions bar, you will now see the PCC extension. The extension will now convert any currency to the one you choose. To parameter it, click on it's icon. You can now configure any settings.`,
             imgSrc : "/questionMark.webp"
         },
         {
@@ -39,14 +47,17 @@
         <h2 in:fly={{y: 50}}>PCC - Pandabuy Currency Converter</h2>
         <h6 class="font-medium" in:fly={{y: 50, delay:50}}>The one and only tool you need for PandaBuy.</h6>
         <div class="flex mt-2 flex-row gap-4 mx-auto">
-            <a href="{extensionPageUrl}" class="button-primary overflow-hidden group w-fit" in:fly={{y: 100, delay:100}}>
-                <span class="transition-all duration-200 group-hover:-translate-y-[130%]">
-                    Get Started
-                </span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all duration-200 group-hover:top-1/2 group-hover:-translate-y-1/2 absolute top-full left-1/2 -translate-x-1/2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
-                </svg>
-            </a>
+            {#if extension !== "blank"}
+                <a href="{extension.link}" class="button-primary overflow-hidden group w-fit" in:fly={{y: 100, delay:100}}>
+                    <span class="transition-all duration-200 group-hover:-translate-y-[150%]">
+                        Download for {extension.plateforme.charAt(0).toUpperCase()+extension.plateforme.slice(1)}
+                        <img src="{extension.logoUrl}" class="h-6 ml-2 inline-block" alt="">
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all duration-200 group-hover:top-1/2 group-hover:-translate-y-1/2 absolute top-full left-1/2 -translate-x-1/2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+                    </svg>
+                </a>
+            {/if}
 
             <a href="#learn-more" class="button-secondary-animation w-fit group" in:fly={{y: 100, delay:150}}>
                 Learn more
