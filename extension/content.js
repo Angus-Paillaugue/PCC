@@ -126,7 +126,7 @@ chrome.storage.local.get(["status"], (status) => {
             
                         // Getting all the text nodes and converting the currencies inside their text content every second
                         setInterval(() => {
-                            if(isMarketplaceUrl(location.href)){
+                            if(isMarketplaceUrl(location.href) || new URLPattern("*://\*.reddit.com/*").test(new URL(location.href).origin)){
                                 const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
                                 text.forEach(textNode => {
                                     // For all of the children inside the elements
@@ -177,7 +177,7 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
-const marketplacesUrls = ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "https://weidian.com/*", "https://*.weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.reddit.com/*"];
+const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://weidian.com/*", "https://\*.weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const isMarketplaceUrl = (url) => {
     try { 
