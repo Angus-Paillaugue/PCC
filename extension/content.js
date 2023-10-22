@@ -142,32 +142,32 @@ chrome.storage.local.get(["status"], (status) => {
                                 });
                             }
                             
-                            chrome.storage.local.get(["linkConversion"], (data) => {
-                                let linkConversion = data?.linkConversion ?? true;
-                                if(linkConversion){
-                                    // Converts plain text link into link buttons
-                                    const links = document.querySelectorAll("a");
-                                    links.forEach(link => {
-                                        try {
-                                            if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
-                                                const newLink = document.createElement("a");
-                                                newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
-                                                newLink.classList.add("PCCButton");
-                                                newLink.target = "blank";
-                                                newLink.innerHTML = "<span>Pandabuy link</span>";
-                                                link.replaceWith(newLink);
-                                            }else if(isMarketplaceUrl(link.innerText)){
-                                                const newLink = document.createElement("a");
-                                                newLink.href = link.innerText;
-                                                newLink.classList.add("PCCButton");
-                                                newLink.target = "blank";
-                                                newLink.innerHTML = "<span>Pandabuy link</span>";
-                                                link.replaceWith(newLink);
-                                            }
-                                        }catch(_){}
-                                    });
-                                }
-                            });
+                            // chrome.storage.local.get(["linkConversion"], (data) => {
+                            //     let linkConversion = data?.linkConversion ?? true;
+                            //     if(linkConversion){
+                            //         // Converts plain text link into link buttons
+                            //         const links = document.querySelectorAll("a");
+                            //         links.forEach(link => {
+                            //             try {
+                            //                 if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
+                            //                     const newLink = document.createElement("a");
+                            //                     newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
+                            //                     newLink.classList.add("PCCButton");
+                            //                     newLink.target = "blank";
+                            //                     newLink.innerHTML = "<span>Pandabuy link</span>";
+                            //                     link.replaceWith(newLink);
+                            //                 }else if(isMarketplaceUrl(link.innerText)){
+                            //                     const newLink = document.createElement("a");
+                            //                     newLink.href = link.innerText;
+                            //                     newLink.classList.add("PCCButton");
+                            //                     newLink.target = "blank";
+                            //                     newLink.innerHTML = "<span>Pandabuy link</span>";
+                            //                     link.replaceWith(newLink);
+                            //                 }
+                            //             }catch(_){}
+                            //         });
+                            //     }
+                            // });
                         }, 1000);
                     }     
                 }
@@ -177,7 +177,7 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
-const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://weidian.com/*", "https://\*.weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
+const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const isMarketplaceUrl = (url) => {
     try { 

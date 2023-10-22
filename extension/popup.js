@@ -22,16 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         yuppoInterfaceReDesign.checked = status;
     });
 
-    const linkConversion = document.getElementById('linkConversion');
-    linkConversion.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "linkConversion": status });
-        reloadTab();
-    });
-    chrome.storage.local.get(["linkConversion"], (status) => {
-        status = status?.linkConversion ?? true;
-        linkConversion.checked = status;
-    });
+    // const linkConversion = document.getElementById('linkConversion');
+    // linkConversion.addEventListener('change', (e) => {
+    //     let status = e.currentTarget.checked;
+    //     chrome.storage.local.set({ "linkConversion": status });
+    //     reloadTab();
+    // });
+    // chrome.storage.local.get(["linkConversion"], (status) => {
+    //     status = status?.linkConversion ?? true;
+    //     linkConversion.checked = status;
+    // });
 
     chrome.storage.local.get(["yuppoContentWidth"], (status) => {
         let slider = document.getElementById("yuppoContentWidthSlider");
