@@ -29,7 +29,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
         }
     }
     // Do some regex magic to extract all the currency matches inside the provided string
-    const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵])[^$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]{0,3}(\d+(\.\d{1,2})?)/g;
+    const regex = /([$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]\s?\.?~?\s?\d+(\.\d{1,2})?|\d+(\.\d{1,2})?\s?\.?~?\s?[$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵])/g;
     const matches = [...inputString.matchAll(regex)];
     
     if (matches.length === 0) return inputString;
@@ -38,7 +38,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     let lastIndex = 0;
     // For each currency math inside the string
     for (const match of matches) {
-        const currencySymbol = match[1];
+        const currencySymbol = match[0].match(/[$€¥£₹₽₴₱₪₨₩₦₢₣₥₫₵]/g)[0];
         const originalNumber = parseFloat(match[0].match(/[-+]?\d+(\.\d+)?/g)[0]);
         // Asserts the match contains a currency symbol and a numerical value inside
         if(currencySymbol && originalNumber){
