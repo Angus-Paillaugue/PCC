@@ -66,6 +66,13 @@ function changeYuppoGrid(){
     chrome.storage.local.get(["yuppoInterfaceReDesign"], (data) => {
         let yuppoInterfaceReDesign = data?.yuppoInterfaceReDesign ?? true;
         if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
+            chrome.storage.local.get(["yuppoSideBar"], (status) => {
+                yuppoSideBar = status?.yuppoSideBar ?? 170;
+                if(!yuppoSideBar){
+                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").remove();
+                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
+                }
+            });
             chrome.storage.local.get(["yuppoContentWidth"], (status) => {
                 yuppoContentWidth = status?.yuppoContentWidth ?? 170;
 

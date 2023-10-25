@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.yuppoInterfaceReDesign ?? true;
         yuppoInterfaceReDesign.checked = status;
     });
+    const yuppoSideBar = document.getElementById('yuppoSideBar');
+    yuppoSideBar.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "yuppoSideBar": status });
+        reloadTab();
+    });
+    chrome.storage.local.get(["yuppoSideBar"], (status) => {
+        status = status?.yuppoSideBar ?? false;
+        yuppoSideBar.checked = status;
+    });
 
     // const linkConversion = document.getElementById('linkConversion');
     // linkConversion.addEventListener('change', (e) => {
