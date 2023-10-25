@@ -84,7 +84,7 @@ function changeYuppoGrid(){
                 if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
 
                 // Change style og products containers
-                let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent.showalbum__min.min, .showindex__parent");
+                let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
                 for(let imagesContainer of imagesContainers){
                     imagesContainer.style.display = "grid";
                     imagesContainer.style.gap = "10px";
