@@ -66,8 +66,10 @@ function changeYuppoGrid(){
     chrome.storage.local.get(["yuppoInterfaceReDesign"], (data) => {
         let yuppoInterfaceReDesign = data?.yuppoInterfaceReDesign ?? true;
         if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
+            // Remove side bar part
             chrome.storage.local.get(["yuppoSideBar"], (status) => {
-                yuppoSideBar = status?.yuppoSideBar ?? 170;
+                yuppoSideBar = status?.yuppoSideBar ?? false;
+                // If remove sidebar toggle switch is off
                 if(!yuppoSideBar){
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").remove();
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
