@@ -28,7 +28,9 @@
         }
     ],
     "permissions": [
-        "storage"
+        "storage",
+        "contextMenus",
+        "tabs"
     ],
     "host_permissions": [
         "http://*/*",
@@ -38,6 +40,9 @@
         "resources":["currencies.json"],
         "matches":["http://*/*", "https://*/*"]
     }],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
     "browser_specific_settings": {
         "gecko": {
             "id": "{b60b8911-e938-40b1-825b-672152eb48a1}"
