@@ -3,7 +3,7 @@ chrome.contextMenus.onClicked.addListener(handleContextMenus);
 function handleContextMenus(info){
     switch (info.menuItemId) {
         case 'openInPandaBuy':
-            chrome.tabs.create({url: `https://www.pandabuy.com/product?url=${encodeURIComponent(info.linkUrl)}`});    
+            chrome.tabs.create({url: `https://www.pandabuy.com/product?url=${encodeURIComponent(info.linkUrl)}`});
             break;
         default:
             console.log('Unknown context-menu clicked.');
@@ -13,7 +13,15 @@ function handleContextMenus(info){
 chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.create({
         title: "Open in PandaBuy",
-        contexts:["all"],
-        id: "openInPandaBuy"
+        contexts:["link"],
+        id: "openInPandaBuy",
+        targetUrlPatterns: [
+            "*://*.yupoo.com/*",
+            "*://m.weidian.com/*",
+            "*://weidian.com/*",
+            "*://*.taobao.com/*",
+            "*://*.1688.com/*",
+            "*://*.tmall.com/*"
+        ]
     });
 });
