@@ -112,8 +112,6 @@ changeYuppoGrid();
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
     if(status){
-        // Appends the style of the "Pandabuy link" button on pages like reddit
-        appendButtonStyle();
         // Checking the currency to convert to
         chrome.storage.local.get(["convertTo"], (convertTo) => {
             // if currency to convert to does not exists, default to USD
@@ -150,33 +148,6 @@ chrome.storage.local.get(["status"], (status) => {
                                     }
                                 });
                             }
-                            
-                            // chrome.storage.local.get(["linkConversion"], (data) => {
-                            //     let linkConversion = data?.linkConversion ?? true;
-                            //     if(linkConversion){
-                            //         // Converts plain text link into link buttons
-                            //         const links = document.querySelectorAll("a");
-                            //         links.forEach(link => {
-                            //             try {
-                            //                 if(isMarketplaceUrl(link.innerText) && new URL(link.innerText).host !== "www.pandabuy.com"){
-                            //                     const newLink = document.createElement("a");
-                            //                     newLink.href = `https://www.pandabuy.com/product?url=${encodeURIComponent(link.innerText)}`;
-                            //                     newLink.classList.add("PCCButton");
-                            //                     newLink.target = "blank";
-                            //                     newLink.innerHTML = "<span>Pandabuy link</span>";
-                            //                     link.replaceWith(newLink);
-                            //                 }else if(isMarketplaceUrl(link.innerText)){
-                            //                     const newLink = document.createElement("a");
-                            //                     newLink.href = link.innerText;
-                            //                     newLink.classList.add("PCCButton");
-                            //                     newLink.target = "blank";
-                            //                     newLink.innerHTML = "<span>Pandabuy link</span>";
-                            //                     link.replaceWith(newLink);
-                            //                 }
-                            //             }catch(_){}
-                            //         });
-                            //     }
-                            // });
                         }, 1000);
                     }     
                 }
@@ -198,15 +169,4 @@ const isMarketplaceUrl = (url) => {
     }catch(e){ 
         return false; 
     }
-}
-
-const appendButtonStyle = () => {
-    const css = `.PCCButton {text-size-adjust: none;-webkit-box-direction: normal;word-break: break-word !important;font: inherit;font-family: inherit;vertical-align: baseline;display: inline-flex;flex-direction:row;justify-content: center;align-items: center;line-height: 1;white-space: nowrap;cursor: pointer;background: #fff;border: 1px solid #dcdfe6;-webkit-appearance: none;text-align: center;box-sizing: border-box;outline: none;margin: 0;transition: .1s;-webkit-user-select: none;padding: 12px 20px;border-radius: 4px;color: rgb(232, 230, 227) !important;background-color: #11ba66;border-color: #11ba66;width: 180px;font-weight: 700;font-size: 18px;}`
-    const head = document.head || document.getElementsByTagName('head')[0]
-    const style = document.createElement('style');
-
-    head.appendChild(style);
-
-    style.type = 'text/css';
-    if (style.styleSheet) style.styleSheet.cssText = css; else style.appendChild(document.createTextNode(css));
 }
