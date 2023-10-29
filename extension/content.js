@@ -1,3 +1,17 @@
+const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
+
+const isMarketplaceUrl = (url) => {
+    try { 
+        let isValid = false;
+        for(let marketplaceUrl of marketplacesUrls){
+            if(new URLPattern(marketplaceUrl).test(new URL(url).origin)) isValid = true;
+        }
+        return isValid;
+    }catch(e){ 
+        return false; 
+    }
+}
+
 // Function for actually fetching currencies conversion rates from the api
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
@@ -100,11 +114,9 @@ function changeYuppoGrid(){
     });
 }
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        if(request?.yuppoContentWidthChanged) changeYuppoGrid();
-    }
-);
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if(request?.yuppoContentWidthChanged) changeYuppoGrid();
+});
 
 changeYuppoGrid();
 
@@ -157,16 +169,7 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
-const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
-
-const isMarketplaceUrl = (url) => {
-    try { 
-        let isValid = false;
-        for(let marketplaceUrl of marketplacesUrls){
-            if(new URLPattern(marketplaceUrl).test(new URL(url).origin)) isValid = true;
-        }
-        return isValid;
-    }catch(e){ 
-        return false; 
-    }
+// Checks if current website is a marketplace and is a product page and not a shop page
+if(isMarketplaceUrl(location.href) && new URL(location.href)?.searchParams?.get("id")){
+    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
 }
