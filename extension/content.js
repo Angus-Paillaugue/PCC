@@ -12,6 +12,17 @@ const isMarketplaceUrl = (url) => {
     }
 }
 
+const isAProductPage = (url) => {
+    if(!isMarketplaceUrl(url)) return false;
+    let isValid = false;
+    const searchParams = ["id", "itemID"]
+
+    for(const searchParam of new URL(location.href)?.searchParams?.keys()){
+        if(searchParams.includes(searchParam)) isValid = true;
+    }
+    return isValid;
+}
+
 // Function for actually fetching currencies conversion rates from the api
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
@@ -170,6 +181,6 @@ chrome.storage.local.get(["status"], (status) => {
 });
 
 // Checks if current website is a marketplace and is a product page and not a shop page
-if(isMarketplaceUrl(location.href) && new URL(location.href)?.searchParams?.get("id")){
+if(isAProductPage(location.href)){
     chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
 }
