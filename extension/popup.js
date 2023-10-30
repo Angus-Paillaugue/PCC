@@ -31,17 +31,35 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.yuppoSideBar ?? false;
         yuppoSideBar.checked = status;
     });
+    const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
+    thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
+        reloadTab();
+    });
+    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+        status = status?.yuppoSideBar ?? true;
+        thirdPartyDisclaimerAutoCheck.checked = status;
+    });
 
-    // const linkConversion = document.getElementById('linkConversion');
-    // linkConversion.addEventListener('change', (e) => {
-    //     let status = e.currentTarget.checked;
-    //     chrome.storage.local.set({ "linkConversion": status });
-    //     reloadTab();
-    // });
-    // chrome.storage.local.get(["linkConversion"], (status) => {
-    //     status = status?.linkConversion ?? true;
-    //     linkConversion.checked = status;
-    // });
+
+    // const toggleSwitches = [{qs:"status", default:true}, {qs:"yuppoInterfaceReDesign", default:true}, {qs:"yuppoSideBar", default:false}, {qs:"thirdPartyDisclaimerAutoCheck", default:true}]
+    // for(const input of toggleSwitches){
+    //     const el = document.getElementById(input.qs);
+    //     el.addEventListener('change', (e) => {
+    //         let status = e.currentTarget.checked;
+    //         let set = {};
+    //         set[input.qs] = status;
+    //         chrome.storage.local.set(set);
+    //         reloadTab();
+    //     });
+    //     chrome.storage.local.get(input.qs, (status) => {
+    //         status = status[input.qs] ?? input.default;
+    //         console.log(status)
+    //         input.checked = status;
+    //     });
+    // }
+
 
     chrome.storage.local.get(["yuppoContentWidth"], (status) => {
         let slider = document.getElementById("yuppoContentWidthSlider");

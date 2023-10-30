@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup</title>
 </head>
+
 <body>
 
     <h2>Conversion</h2>
     <div class="mt-sm">
-        <p>Conversion status :</p>
+        <p>
+            Conversion status :
+            <span class="tooltip-bottom" data-tooltip="Weather wou want to convert currencies or not.">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+            </span>
+        </p>
         <input type="checkbox" id="status" />
         <label for="status" class="toggleLabel">Toggle</label>
     </div>
@@ -19,12 +28,6 @@
         <label for="convertTo">Convert currencies to :</label>
         <select id="convertTo"></select>
     </div>
-
-    <!-- <div class="mt-sm">
-        <p>Convert plain text link into button links :</p>
-        <input type="checkbox" id="linkConversion" />
-        <label for="linkConversion" class="toggleLabel">Toggle</label>
-    </div> -->
 
 
     <hr class="mt-lg">
@@ -37,41 +40,94 @@
     </div>
 
     <div class="mt-sm">
-        <p>Side Bar :</p>
+        <p>
+            Side Bar :
+            <span class="tooltip-right" data-tooltip="Toggle the yuppo.com side-bar.">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+            </span>
+        </p>
         <input type="checkbox" id="yuppoSideBar" />
         <label for="yuppoSideBar" class="toggleLabel">Toggle</label>
     </div>
 
     <div class="mt-sm">
-        <p>Grid elements width :</p>
+        <p>
+            Grid elements width :
+            <span data-tooltip="Change the width of the columns of the yuppo.com product grid.">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+            </span>
+        </p>
         <input type="range" min="100" max="350" class="slider" id="yuppoContentWidthSlider">
         <p>Width : <span id="yuppoContentWidth"></span></p>
     </div>
 
+    <hr class="mt-lg">
+
+    <h2 class="mt-lg">Others</h2>
+    <div class="mt-sm">
+        <p>
+            Third party disclaimer auto check :
+            <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart.">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+            </span>
+        </p>
+        <input type="checkbox" id="thirdPartyDisclaimerAutoCheck" />
+        <label for="thirdPartyDisclaimerAutoCheck" class="toggleLabel">Toggle</label>
+    </div>
+
     <style>
-        html{
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+        
+        html {
+            box-sizing: border-box;
             width: 250px;
             height: fit-content;
         }
+
         body {
             background-color: #333333;
             color: #ebf7fc;
         }
+
         ::-webkit-scrollbar {
             display: none;
         }
-        p, h1, h2, h3, h4, h5, h6 {
+
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             margin: 0;
+            display: flex;
+            justify-items: center;
+            gap: 5px;
         }
-        input[type=checkbox]{
+
+        input[type=checkbox] {
             display: none;
         }
+
         .mt-lg {
             margin-top: 1rem;
         }
+
         .mt-sm {
             margin-top: .2rem;
         }
+
         label.toggleLabel {
             cursor: pointer;
             text-indent: -9999px;
@@ -82,6 +138,7 @@
             border-radius: 100px;
             position: relative;
         }
+
         label.toggleLabel:after {
             content: '';
             position: absolute;
@@ -93,13 +150,16 @@
             border-radius: 90px;
             transition: 0.3s;
         }
-        input:checked + label.toggleLabel {
+
+        input:checked+label.toggleLabel {
             background: #11ba66;
         }
-        input:checked + label:after {
+
+        input:checked+label:after {
             left: calc(100% - 2px);
             transform: translateX(-100%);
         }
+
         label {
             display: block;
         }
@@ -116,9 +176,11 @@
             -webkit-transition: .2s;
             transition: opacity .2s;
         }
+
         .slider:hover {
             opacity: 1;
         }
+
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -128,6 +190,7 @@
             background: #04AA6D;
             cursor: pointer;
         }
+
         .slider::-moz-range-thumb {
             width: 25px;
             height: 25px;
@@ -135,9 +198,140 @@
             background: #04AA6D;
             cursor: pointer;
         }
+
+
+        [data-tooltip],
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+
+        [data-tooltip]:after,
+        .tooltip:after {
+            position: absolute;
+            visibility: hidden;
+            box-shadow: 0px 4px 31px -12px #000000;
+            opacity: 0;
+            -webkit-transition:
+                opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out,
+                -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            -moz-transition:
+                opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out,
+                -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            transition:
+                opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out,
+                transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            pointer-events: none;
+        }
+
+        /* Show the entire tooltip on hover and focus */
+        [data-tooltip]:hover:after,
+        [data-tooltip]:focus:after,
+        .tooltip:hover:after,
+        .tooltip:focus:after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Base styles for the tooltip's content area */
+        .tooltip:after,
+        [data-tooltip]:after {
+            z-index: 1000;
+            padding: 8px;
+            width: 160px;
+            background-color: #000;
+            background-color: #333333;
+            color: #fff;
+            content: attr(data-tooltip);
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        /* Directions */
+
+        /* Top (default) */
+        [data-tooltip]:after,
+        .tooltip:after,
+        .tooltip-top:after {
+            bottom: 50%;
+            left: 50%;
+        }
+
+        /* Horizontally align top/bottom tooltips */
+        [data-tooltip]:after,
+        .tooltip:after,
+        .tooltip-top:after {
+            margin-left: -80px;
+        }
+
+        [data-tooltip]:hover:after,
+        [data-tooltip]:focus:after,
+        .tooltip:hover:after,
+        .tooltip:focus:after,
+        .tooltip-top:hover:after,
+        .tooltip-top:focus:after {
+            -webkit-transform: translateY(-12px);
+            -moz-transform: translateY(-12px);
+            transform: translateY(-12px);
+        }
+
+        /* Left */
+        .tooltip-left:after {
+            right: 50%;
+            bottom: 50%;
+            left: auto;
+        }
+
+        .tooltip-left:hover:after,
+        .tooltip-left:focus:after {
+            -webkit-transform: translateX(-12px);
+            -moz-transform: translateX(-12px);
+            transform: translateX(-12px);
+        }
+
+        /* Bottom */
+        .tooltip-bottom:after {
+            top: 50%;
+            bottom: auto;
+            left: 50%;
+        }
+
+        .tooltip-bottom:hover:after,
+        .tooltip-bottom:focus:after {
+            -webkit-transform: translateY(12px);
+            -moz-transform: translateY(12px);
+            transform: translateY(12px);
+        }
+
+        /* Right */
+        .tooltip-right:after {
+            bottom: 50%;
+            left: 50%;
+        }
+
+        .tooltip-right:hover:after,
+        .tooltip-right:focus:after {
+            -webkit-transform: translateX(12px);
+            -moz-transform: translateX(12px);
+            transform: translateX(12px);
+        }
+
+        /* Vertically center tooltip content for left/right tooltips */
+        .tooltip-left:after,
+        .tooltip-right:after {
+            margin-left: 0;
+            margin-bottom: -16px;
+        }
     </style>
 
     <script src="popup.js"></script>
 
 </body>
+
 </html>

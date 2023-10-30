@@ -133,6 +133,10 @@ changeYuppoGrid();
 
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {
+    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+        if(status) document.querySelector("input.el-checkbox__original").checked = true;
+    });
     status = status?.status ?? true;
     if(status){
         // Checking the currency to convert to
