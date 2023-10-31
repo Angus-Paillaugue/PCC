@@ -10,82 +10,120 @@
 
 <body>
 
-    <h2>Conversion</h2>
-    <div class="mt-sm">
-        <p>
-            Conversion status :
-            <span class="tooltip-bottom" data-tooltip="Weather wou want to convert currencies or not.">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
-            </span>
-        </p>
-        <input type="checkbox" id="status" />
-        <label for="status" class="toggleLabel">Toggle</label>
-    </div>
+    <header>
+        <img src="./icons/64-icon.png" alt="">
+        <h1>PCC</h1>
+    </header>
 
-    <div class="mt-sm">
-        <label for="convertTo">Convert currencies to :</label>
-        <select id="convertTo"></select>
-    </div>
+    <main>
+
+        <section>
+            <h2>Conversion</h2>
+            <div class="field">
+                <p>
+                    Conversion status :
+                    <span class="tooltip-bottom" data-tooltip="Weather wou want to convert currencies or not.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="checkbox" id="status" />
+                <label for="status" class="toggleLabel"></label>
+            </div>
+        
+            <div class="field">
+                <p>Convert currencies to :</p>
+                <select id="convertTo"></select>
+            </div>
+        </section>
+
+        
+        <section>
+            <h2>Yupoo</h2>
+        
+            <div class="field">
+                <p>Interface re-design :</p>
+                <input type="checkbox" id="yupooInterfaceReDesign" />
+                <label for="yupooInterfaceReDesign" class="toggleLabel"></label>
+            </div>
+        
+            <div class="field">
+                <p>
+                    Remove yupoo.com side bar :
+                    <span class="tooltip-left" data-tooltip="Toggle the yupoo.com side-bar.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="checkbox" id="removeYupooSideBar" />
+                <label for="removeYupooSideBar" class="toggleLabel"></label>
+            </div>
+        
+            <div class="field">
+                <p>
+                    Grid elements width :
+                    <span data-tooltip="Change the width of the columns of the yupoo.com product grid.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="range" min="100" max="350" class="slider" id="yupooContentWidthSlider">
+                <p>Width : <span id="yupooContentWidth"></span>px</p>
+            </div>
+        </section>
+
+    
+        <section>
+            <h2>Others</h2>
+
+            <div class="field">
+                <p>
+                    Third party disclaimer auto check :
+                    <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="checkbox" id="thirdPartyDisclaimerAutoCheck" />
+                <label for="thirdPartyDisclaimerAutoCheck" class="toggleLabel"></label>
+            </div>
+        </section>
+    </main>
 
 
-    <hr class="mt-lg">
-
-    <h2 class="mt-lg">Yupoo</h2>
-    <div class="mt-sm">
-        <p>Interface re-design :</p>
-        <input type="checkbox" id="yupooInterfaceReDesign" />
-        <label for="yupooInterfaceReDesign" class="toggleLabel">Toggle</label>
-    </div>
-
-    <div class="mt-sm">
-        <p>
-            Remove yupoo.com side bar :
-            <span class="tooltip-left" data-tooltip="Toggle the yupoo.com side-bar.">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
-            </span>
-        </p>
-        <input type="checkbox" id="removeYupooSideBar" />
-        <label for="removeYupooSideBar" class="toggleLabel">Toggle</label>
-    </div>
-
-    <div class="mt-sm">
-        <p>
-            Grid elements width :
-            <span data-tooltip="Change the width of the columns of the yupoo.com product grid.">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
-            </span>
-        </p>
-        <input type="range" min="100" max="350" class="slider" id="yupooContentWidthSlider">
-        <p>Width : <span id="yupooContentWidth"></span></p>
-    </div>
-
-    <hr class="mt-lg">
-
-    <h2 class="mt-lg">Others</h2>
-    <div class="mt-sm">
-        <p>
-            Third party disclaimer auto check :
-            <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart.">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
-            </span>
-        </p>
-        <input type="checkbox" id="thirdPartyDisclaimerAutoCheck" />
-        <label for="thirdPartyDisclaimerAutoCheck" class="toggleLabel">Toggle</label>
-    </div>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        :root {
+            --gap: .5rem;
+            --primary: #11ba66;
+            --light-gray: #e9ecef;
+            --dark-gray: #dcdcdc;
+            --text-color: #16181c;
+        }
+
         *,
         *:before,
         *:after {
             box-sizing: inherit;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #FFFFFF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            @apply bg-neutral-500;
         }
         
         html {
@@ -93,14 +131,15 @@
             width: 250px;
             height: fit-content;
         }
-
+        
         body {
-            background-color: #333333;
-            color: #ebf7fc;
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
+            background-color: #FFFFFF;
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            font-family: Poppins;
+            overflow-y: auto;
+            max-height: 100px;
         }
 
         p,
@@ -115,6 +154,53 @@
             justify-items: center;
             gap: 5px;
         }
+        p {
+            font-size: .75rem;
+        }
+
+        header {
+            background-color: var(--text-color);
+            color: #FFFFFF;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: calc(2*var(--gap));
+            justify-content: center; 
+            align-items: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+        }
+
+        header > img {
+            height: 2rem;
+            display: inline-block;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+        }
+
+        section:not(:last-child) {
+            border-bottom: calc(2*var(--gap)) solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+        }
+
+        section > h2 {
+            padding: 0 var(--gap);
+        }
+
+        .field {
+            padding: var(--gap);
+            padding-top: 0;
+        }
+        .field:not(:last-child) {
+            border-bottom: 1px solid var(--dark-gray);
+        }
 
         input[type=checkbox] {
             display: none;
@@ -128,36 +214,50 @@
             margin-top: .2rem;
         }
 
-        label.toggleLabel {
-            cursor: pointer;
-            text-indent: -9999px;
-            width: 50px;
-            height: 25px;
-            background: grey;
-            display: block;
-            border-radius: 100px;
-            position: relative;
+        select {
+            width: 100%;
+            transition: all 150ms ease;
+            font-size: .75rem;
+            padding: 7px 12px;
+            border-radius: 5px;
         }
 
-        label.toggleLabel:after {
-            content: '';
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgb(from var(--primary) r g b / 0.2);
+        }
+
+        label.toggleLabel {
+            cursor: pointer;
+            width: 50px;
+            height: 25px;
+            background-color: #aa0404;
+            display: block;
+            border-radius: var(--gap);
+            position: relative;
+            width: 100%;
+            height: 2.2rem;
+        }
+        
+        label.toggleLabel::after {
+            font-size: .75rem;
+            color: #f7f8f9;
+            content: "OFF";
             position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 21px;
-            height: 21px;
-            background: #fff;
-            border-radius: 90px;
-            transition: 0.3s;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        input:checked+label.toggleLabel::after {
+            color: #333333;
+            content: "ON";
         }
 
         input:checked+label.toggleLabel {
-            background: #11ba66;
-        }
-
-        input:checked+label:after {
-            left: calc(100% - 2px);
-            transform: translateX(-100%);
+            background: var(--primary);
+            content: "ON";
         }
 
         label {
@@ -170,7 +270,7 @@
             width: 100%;
             height: 10px;
             border-radius: 5px;
-            background: #d3d3d3;
+            background: var(--light-gray);
             outline: none;
             opacity: 0.7;
             -webkit-transition: .2s;
@@ -187,7 +287,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #04AA6D;
+            background: var(--primary);
             cursor: pointer;
         }
 
@@ -195,7 +295,7 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background: #04AA6D;
+            background: var(--primary);
             cursor: pointer;
         }
 
@@ -245,9 +345,7 @@
             z-index: 1000;
             padding: 8px;
             width: 160px;
-            background-color: #000;
-            background-color: #333333;
-            color: #fff;
+            background-color: var(--light-gray);
             content: attr(data-tooltip);
             font-size: 14px;
             line-height: 1.2;

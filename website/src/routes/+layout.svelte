@@ -34,3 +34,7 @@
 <div class="h-20 w-full"></div>
 
 <slot />
+
+<footer class="w-full p-4 flex items-center justify-center border-t border-neutral-200 mt-4">
+    <p>Angus Paillaugue | 2023 - {new Date().getFullYear()}</p>
+</footer>
