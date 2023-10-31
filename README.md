@@ -50,4 +50,6 @@ We welcome your feedback and suggestions to improve PCC. If you encounter any is
 
 ---
 
+More infos on [https://pcc.paillaugue.fr/](https://pcc.paillaugue.fr/)
+
 PCC - Enhance Your Chinese Website Browsing Experience with Ease!
