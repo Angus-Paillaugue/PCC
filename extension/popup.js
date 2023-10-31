@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.yuppoInterfaceReDesign ?? true;
         yuppoInterfaceReDesign.checked = status;
     });
-    const yuppoSideBar = document.getElementById('yuppoSideBar');
-    yuppoSideBar.addEventListener('change', (e) => {
+    const removeYuppoSideBar = document.getElementById('removeYuppoSideBar');
+    removeYuppoSideBar.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "yuppoSideBar": status });
+        chrome.storage.local.set({ "removeYuppoSideBar": status });
         reloadTab();
     });
-    chrome.storage.local.get(["yuppoSideBar"], (status) => {
-        status = status?.yuppoSideBar ?? false;
-        yuppoSideBar.checked = status;
+    chrome.storage.local.get(["removeYuppoSideBar"], (status) => {
+        status = status?.removeYuppoSideBar ?? false;
+        removeYuppoSideBar.checked = status;
     });
     const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {

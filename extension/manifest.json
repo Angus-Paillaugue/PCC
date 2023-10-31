@@ -32,10 +32,6 @@
         "contextMenus",
         "tabs"
     ],
-    "host_permissions": [
-        "http://*/*",
-        "https://*/*"
-    ],
     "web_accessible_resources": [{
         "resources":["currencies.json"],
         "matches":["http://*/*", "https://*/*"]

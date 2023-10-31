@@ -7,7 +7,7 @@ const isMarketplaceUrl = (url) => {
             if(new URLPattern(marketplaceUrl).test(new URL(url).origin)) isValid = true;
         }
         return isValid;
-    }catch(e){ 
+    }catch(_){ 
         return false; 
     }
 }
@@ -15,11 +15,12 @@ const isMarketplaceUrl = (url) => {
 const isAProductPage = (url) => {
     if(!isMarketplaceUrl(url)) return false;
     let isValid = false;
-    const searchParams = ["id", "itemID"]
+    const searchParams = ["id", "itemID"];
 
     for(const searchParam of new URL(location.href)?.searchParams?.keys()){
         if(searchParams.includes(searchParam)) isValid = true;
     }
+
     return isValid;
 }
 
@@ -36,10 +37,10 @@ function fetchLive(currencyToConvertTo, callback) {
 function getRates(currencyToConvertTo, callback) {
     chrome.storage.local.get(['cache', 'cacheTime'], (items) => {
         if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
-            console.log(`PCC : Using cached conversion rates to ${currencyToConvertTo}`);
+            console.log(`PCC : Using cached ${currencyToConvertTo} conversion rates`);
             return callback(items.cache.data);
         }else {
-            console.log(`PCC : Fetching live from api rates to ${currencyToConvertTo}`);
+            console.log(`PCC : Fetching live ${currencyToConvertTo} exchange rates from api`);
             fetchLive(currencyToConvertTo, callback);
         }
     });
@@ -92,10 +93,10 @@ function changeYuppoGrid(){
         let yuppoInterfaceReDesign = data?.yuppoInterfaceReDesign ?? true;
         if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
             // Remove side bar part
-            chrome.storage.local.get(["yuppoSideBar"], (status) => {
-                yuppoSideBar = status?.yuppoSideBar ?? false;
+            chrome.storage.local.get(["removeYuppoSideBar"], (status) => {
+                removeYuppoSideBar = status?.removeYuppoSideBar ?? true;
                 // If remove sidebar toggle switch is off
-                if(!yuppoSideBar){
+                if(removeYuppoSideBar){
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").remove();
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
                 }
@@ -135,7 +136,9 @@ changeYuppoGrid();
 chrome.storage.local.get(["status"], (status) => {
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
         status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-        if(status) document.querySelector("input.el-checkbox__original").checked = true;
+        try {
+            if(status) document.querySelector("input.el-checkbox__original").checked = true;
+        } catch (_) {}
     });
     status = status?.status ?? true;
     if(status){
