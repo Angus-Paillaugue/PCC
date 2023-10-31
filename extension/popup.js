@@ -11,25 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
         status_input.checked = status;
     });
 
-    const yuppoInterfaceReDesign = document.getElementById('yuppoInterfaceReDesign');
-    yuppoInterfaceReDesign.addEventListener('change', (e) => {
+    const yupooInterfaceReDesign = document.getElementById('yupooInterfaceReDesign');
+    yupooInterfaceReDesign.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "yuppoInterfaceReDesign": status });
+        chrome.storage.local.set({ "yupooInterfaceReDesign": status });
         reloadTab();
     });
-    chrome.storage.local.get(["yuppoInterfaceReDesign"], (status) => {
-        status = status?.yuppoInterfaceReDesign ?? true;
-        yuppoInterfaceReDesign.checked = status;
+    chrome.storage.local.get(["yupooInterfaceReDesign"], (status) => {
+        status = status?.yupooInterfaceReDesign ?? true;
+        yupooInterfaceReDesign.checked = status;
     });
-    const removeYuppoSideBar = document.getElementById('removeYuppoSideBar');
-    removeYuppoSideBar.addEventListener('change', (e) => {
+    const removeYupooSideBar = document.getElementById('removeYupooSideBar');
+    removeYupooSideBar.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "removeYuppoSideBar": status });
+        chrome.storage.local.set({ "removeYupooSideBar": status });
         reloadTab();
     });
-    chrome.storage.local.get(["removeYuppoSideBar"], (status) => {
-        status = status?.removeYuppoSideBar ?? false;
-        removeYuppoSideBar.checked = status;
+    chrome.storage.local.get(["removeYupooSideBar"], (status) => {
+        status = status?.removeYupooSideBar ?? false;
+        removeYupooSideBar.checked = status;
     });
     const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         reloadTab();
     });
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-        status = status?.yuppoSideBar ?? true;
+        status = status?.yupooSideBar ?? true;
         thirdPartyDisclaimerAutoCheck.checked = status;
     });
 
 
-    // const toggleSwitches = [{qs:"status", default:true}, {qs:"yuppoInterfaceReDesign", default:true}, {qs:"yuppoSideBar", default:false}, {qs:"thirdPartyDisclaimerAutoCheck", default:true}]
+    // const toggleSwitches = [{qs:"status", default:true}, {qs:"yupooInterfaceReDesign", default:true}, {qs:"yupooSideBar", default:false}, {qs:"thirdPartyDisclaimerAutoCheck", default:true}]
     // for(const input of toggleSwitches){
     //     const el = document.getElementById(input.qs);
     //     el.addEventListener('change', (e) => {
@@ -61,20 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // }
 
 
-    chrome.storage.local.get(["yuppoContentWidth"], (status) => {
-        let slider = document.getElementById("yuppoContentWidthSlider");
-        let output = document.getElementById("yuppoContentWidth");
-        yuppoContentWidth = status?.yuppoContentWidth ?? 180;
-        slider.value = yuppoContentWidth
-        output.innerHTML = yuppoContentWidth
+    chrome.storage.local.get(["yupooContentWidth"], (status) => {
+        let slider = document.getElementById("yupooContentWidthSlider");
+        let output = document.getElementById("yupooContentWidth");
+        yupooContentWidth = status?.yupooContentWidth ?? 180;
+        slider.value = yupooContentWidth
+        output.innerHTML = yupooContentWidth
         slider.oninput = function() {
             let newWidth = this.value;
             output.innerHTML = newWidth;
-            chrome.storage.local.set({ "yuppoContentWidth": newWidth });
+            chrome.storage.local.set({ "yupooContentWidth": newWidth });
             chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
                 var activeTab = tabs[0];
                 console.log(newWidth);
-                chrome.tabs.sendMessage(activeTab.id, {"yuppoContentWidthChanged": newWidth });
+                chrome.tabs.sendMessage(activeTab.id, {"yupooContentWidthChanged": newWidth });
             });
         }
     });

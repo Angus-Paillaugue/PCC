@@ -88,21 +88,21 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     return modifiedString;
 }
 
-function changeYuppoGrid(){
-    chrome.storage.local.get(["yuppoInterfaceReDesign"], (data) => {
-        let yuppoInterfaceReDesign = data?.yuppoInterfaceReDesign ?? true;
-        if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yuppoInterfaceReDesign){
+function changeYupooGrid(){
+    chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
+        let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+        if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yupooInterfaceReDesign){
             // Remove side bar part
-            chrome.storage.local.get(["removeYuppoSideBar"], (status) => {
-                removeYuppoSideBar = status?.removeYuppoSideBar ?? true;
+            chrome.storage.local.get(["removeYupooSideBar"], (status) => {
+                removeYupooSideBar = status?.removeYupooSideBar ?? true;
                 // If remove sidebar toggle switch is off
-                if(removeYuppoSideBar){
+                if(removeYupooSideBar){
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").remove();
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
                 }
             });
-            chrome.storage.local.get(["yuppoContentWidth"], (status) => {
-                yuppoContentWidth = status?.yuppoContentWidth ?? 170;
+            chrome.storage.local.get(["yupooContentWidth"], (status) => {
+                yupooContentWidth = status?.yupooContentWidth ?? 170;
 
                 if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
                 if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
@@ -114,7 +114,7 @@ function changeYuppoGrid(){
                 for(let imagesContainer of imagesContainers){
                     imagesContainer.style.display = "grid";
                     imagesContainer.style.gap = "10px";
-                    imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yuppoContentWidth}px, 1fr))`;
+                    imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
                     // Change sty of products
                     Array.from(imagesContainer.children).forEach(el => {
                         el.style.width = "100%";
@@ -127,10 +127,10 @@ function changeYuppoGrid(){
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request?.yuppoContentWidthChanged) changeYuppoGrid();
+    if(request?.yupooContentWidthChanged) changeYupooGrid();
 });
 
-changeYuppoGrid();
+changeYupooGrid();
 
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {

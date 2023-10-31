@@ -36,13 +36,13 @@
         },
         {
             title : "Does it works on all sites?",
-            description : `At the moment, PCC works on the most famous sites like pandabuy.com, weidian, yuppo, taobao, 1688, tmall and even reddit.`,
+            description : `At the moment, PCC works on the most famous sites like pandabuy.com, weidian, yupoo, taobao, 1688, tmall and even reddit.`,
             imgSrc : "/workingMarketplaces.webp"
         },
         {
-            title : "What if don't like the yuppo website design?",
-            description : `If you are like me and don't like the yuppo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
-            imgSrc : "/yuppoInterfaceReDesign.webp"
+            title : "What if don't like the yupoo website design?",
+            description : `If you are like me and don't like the yupoo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
+            imgSrc : "/yupooInterfaceReDesign.webp"
         }
     ]
 </script>
