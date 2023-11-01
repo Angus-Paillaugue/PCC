@@ -31,17 +31,36 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.removeYupooSideBar ?? false;
         removeYupooSideBar.checked = status;
     });
+    const skipYupooRedirect = document.getElementById('skipYupooRedirect');
+    skipYupooRedirect.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "skipYupooRedirect": status });
+        // reloadTab();
+    });
+    chrome.storage.local.get(["skipYupooRedirect"], (status) => {
+        status = status?.skipYupooRedirect ?? true;
+        skipYupooRedirect.checked = status;
+    });
+    const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
+    autoPandaBuyRedirect.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "autoPandaBuyRedirect": status });
+        // reloadTab();
+    });
+    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+        status = status?.autoPandaBuyRedirect ?? true;
+        autoPandaBuyRedirect.checked = status;
+    });
     const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
-        reloadTab();
+        // reloadTab();
     });
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-        status = status?.yupooSideBar ?? true;
+        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
         thirdPartyDisclaimerAutoCheck.checked = status;
     });
-
 
     // const toggleSwitches = [{qs:"status", default:true}, {qs:"yupooInterfaceReDesign", default:true}, {qs:"yupooSideBar", default:false}, {qs:"thirdPartyDisclaimerAutoCheck", default:true}]
     // for(const input of toggleSwitches){

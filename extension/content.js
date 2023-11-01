@@ -97,7 +97,10 @@ function changeYupooGrid(){
                 removeYupooSideBar = status?.removeYupooSideBar ?? true;
                 // If remove sidebar toggle switch is off
                 if(removeYupooSideBar){
-                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").remove();
+                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
+                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
+                }else {
+                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
                 }
             });
@@ -134,12 +137,6 @@ changeYupooGrid();
 
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {
-    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-        try {
-            if(status) document.querySelector("input.el-checkbox__original").checked = true;
-        } catch (_) {}
-    });
     status = status?.status ?? true;
     if(status){
         // Checking the currency to convert to
@@ -187,7 +184,35 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
+// For checking (or not) the required checkbox before adding a product to cart on PandaBuy
+chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+    status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+    if(status){
+        setTimeout(() => {
+                try {
+                document.querySelector("input.el-checkbox__original").checked = true;
+                document.querySelector(".el-checkbox").classList.add("is-checked");
+            } catch (_) {}
+        }, 1000);
+    }
+});
+
 // Checks if current website is a marketplace and is a product page and not a shop page
-if(isAProductPage(location.href)){
-    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
-}
+chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+    status = status?.autoPandaBuyRedirect ?? true;
+    if(status){
+        if(isAProductPage(location.href)){
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
+        }
+    }
+});
+
+// For skipping (or not) the yupoo redirect delay
+chrome.storage.local.get(["skipYupooRedirect"], (status) => {
+    status = status?.skipYupooRedirect ?? true;
+    if(status){
+        if(new URLPattern("https://x.yupoo.com/external?url=*").test(location.href)){
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: decodeURIComponent(new URL(location.href).searchParams.get("url")) });
+        }
+    }
+});

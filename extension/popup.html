@@ -47,6 +47,19 @@
                 <input type="checkbox" id="yupooInterfaceReDesign" />
                 <label for="yupooInterfaceReDesign" class="toggleLabel"></label>
             </div>
+
+            <div class="field">
+                <p>
+                    Grid elements width :
+                    <span data-tooltip="Change the width of the columns of the yupoo.com product grid.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="range" min="100" max="350" class="slider" id="yupooContentWidthSlider">
+                <p>Width : <span id="yupooContentWidth"></span>px</p>
+            </div>
         
             <div class="field">
                 <p>
@@ -60,18 +73,18 @@
                 <input type="checkbox" id="removeYupooSideBar" />
                 <label for="removeYupooSideBar" class="toggleLabel"></label>
             </div>
-        
+
             <div class="field">
                 <p>
-                    Grid elements width :
-                    <span data-tooltip="Change the width of the columns of the yupoo.com product grid.">
+                    Skip redirect delay :
+                    <span data-tooltip="Skip the 'you will be redirected after 3s' page on yupoo.com.">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                         </svg>
                     </span>
                 </p>
-                <input type="range" min="100" max="350" class="slider" id="yupooContentWidthSlider">
-                <p>Width : <span id="yupooContentWidth"></span>px</p>
+                <input type="checkbox" id="skipYupooRedirect" />
+                <label for="skipYupooRedirect" class="toggleLabel"></label>
             </div>
         </section>
 
@@ -81,8 +94,21 @@
 
             <div class="field">
                 <p>
+                    Auto PandaBuy redirect :
+                    <span data-tooltip="Automatically redirects you from a product page (ex on taobao and such) to the PandaBuy page of that product.">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </span>
+                </p>
+                <input type="checkbox" id="autoPandaBuyRedirect" />
+                <label for="autoPandaBuyRedirect" class="toggleLabel"></label>
+            </div>
+
+            <div class="field">
+                <p>
                     Third party disclaimer auto check :
-                    <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart.">
+                    <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart on PandaBuy.">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 1rem;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                         </svg>
@@ -161,15 +187,16 @@
         header {
             background-color: var(--text-color);
             color: #FFFFFF;
-            padding: 10px;
             display: flex;
             flex-direction: row;
             gap: calc(2*var(--gap));
             justify-content: center; 
             align-items: center;
-            position: sticky;
+            position: fixed;
+            height: 3.5rem;
             top: 0;
             width: 100%;
+            z-index: 2;
         }
 
         header > img {
@@ -181,6 +208,7 @@
             display: flex;
             flex-direction: column;
             gap: var(--gap);
+            margin-top: 3.5rem;
         }
 
         section:not(:last-child) {
@@ -347,7 +375,7 @@
             width: 160px;
             background-color: var(--light-gray);
             content: attr(data-tooltip);
-            font-size: 14px;
+            font-size: 12px;
             line-height: 1.2;
         }
 
