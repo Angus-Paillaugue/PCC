@@ -124,7 +124,7 @@ function yupooSideBar() {
             // Remove side bar part
             chrome.storage.local.get(["removeYupooSideBar"], (status) => {
                 removeYupooSideBar = status?.removeYupooSideBar ?? true;
-                // If remove sidebar toggle switch is off
+                // If remove sidebar toggle switch is on
                 if(removeYupooSideBar){
                     if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";

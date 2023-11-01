@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     yupooInterfaceReDesign.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "yupooInterfaceReDesign": status });
-        reloadTab();
+        reloadTab(["*://\*.yupoo.com/*"]);
     });
     chrome.storage.local.get(["yupooInterfaceReDesign"], (status) => {
         status = status?.yupooInterfaceReDesign ?? true;
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, "toggledSideBar");
         });
-        // reloadTab();
     });
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
         status = status?.removeYupooSideBar ?? false;
@@ -39,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     skipYupooRedirect.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "skipYupooRedirect": status });
-        // reloadTab();
     });
     chrome.storage.local.get(["skipYupooRedirect"], (status) => {
         status = status?.skipYupooRedirect ?? true;
@@ -49,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     autoPandaBuyRedirect.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "autoPandaBuyRedirect": status });
-        // reloadTab();
+        reloadTab(["*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         status = status?.autoPandaBuyRedirect ?? true;
@@ -59,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
-        // reloadTab();
     });
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
         status = status?.thirdPartyDisclaimerAutoCheck ?? true;
@@ -135,12 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Get the tab with specified id (current tab if not specified) and reloads it
-const reloadTab = (id) => {
+const reloadTab = (urlPatterns = ["*://\*/*"], id) => {
     if(id){
         chrome.tabs.reload(tab);
     } else {
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
-            chrome.tabs.reload(tab.id);
+            for(const urlPattern of urlPatterns){
+                if(new URLPattern(urlPattern).test(new URL(tab.url).origin)) {
+                    chrome.tabs.reload(tab.id);
+                }
+            }
         });
     }
 }
