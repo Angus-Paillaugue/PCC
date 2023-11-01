@@ -92,15 +92,6 @@ function changeYupooGrid(){
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
         let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
         if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yupooInterfaceReDesign){
-            // Remove side bar part
-            chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-                removeYupooSideBar = status?.removeYupooSideBar ?? true;
-                // If remove sidebar toggle switch is off
-                if(removeYupooSideBar){
-                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
-                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
-                }
-            });
             chrome.storage.local.get(["yupooContentWidth"], (status) => {
                 yupooContentWidth = status?.yupooContentWidth ?? 170;
 
@@ -126,8 +117,29 @@ function changeYupooGrid(){
     });
 }
 
+function yupooSideBar() {
+    chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
+        let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+        if(new URLPattern("\*://\*.yupoo.com/\*").test(location.origin) && yupooInterfaceReDesign){
+            // Remove side bar part
+            chrome.storage.local.get(["removeYupooSideBar"], (status) => {
+                removeYupooSideBar = status?.removeYupooSideBar ?? true;
+                // If remove sidebar toggle switch is off
+                if(removeYupooSideBar){
+                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
+                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
+                }else {
+                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "block";
+                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "216px";
+                }
+            });
+        }
+    });
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request?.yupooContentWidthChanged) changeYupooGrid();
+    if(request == "toggledSideBar") yupooSideBar();
 });
 
 changeYupooGrid();

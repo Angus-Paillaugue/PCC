@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     removeYupooSideBar.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "removeYupooSideBar": status });
-        reloadTab();
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, "toggledSideBar");
+        });
+        // reloadTab();
     });
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
         status = status?.removeYupooSideBar ?? false;
@@ -92,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.local.set({ "yupooContentWidth": newWidth });
             chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
                 var activeTab = tabs[0];
-                console.log(newWidth);
                 chrome.tabs.sendMessage(activeTab.id, {"yupooContentWidthChanged": newWidth });
             });
         }
