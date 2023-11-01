@@ -126,9 +126,11 @@ function yupooSideBar() {
                 removeYupooSideBar = status?.removeYupooSideBar ?? true;
                 // If remove sidebar toggle switch is off
                 if(removeYupooSideBar){
+                    if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
                 }else {
+                    if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "block";
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "block";
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "216px";
                 }
@@ -136,13 +138,6 @@ function yupooSideBar() {
         }
     });
 }
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request?.yupooContentWidthChanged) changeYupooGrid();
-    if(request == "toggledSideBar") yupooSideBar();
-});
-
-changeYupooGrid();
 
 // Checking if toggle switch on popup is enabled
 chrome.storage.local.get(["status"], (status) => {
@@ -191,6 +186,16 @@ chrome.storage.local.get(["status"], (status) => {
             });
         });
     }
+});
+
+// For yupoo design
+changeYupooGrid();
+yupooSideBar();
+
+// Listening to yupoo design changes
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if(request?.yupooContentWidthChanged) changeYupooGrid();
+    if(request == "toggledSideBar") yupooSideBar();
 });
 
 // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
