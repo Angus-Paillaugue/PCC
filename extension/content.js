@@ -99,9 +99,6 @@ function changeYupooGrid(){
                 if(removeYupooSideBar){
                     if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
                     if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
-                }else {
-                    if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
-                    if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
                 }
             });
             chrome.storage.local.get(["yupooContentWidth"], (status) => {
