@@ -122,7 +122,7 @@
         <section>
 
             <h2>
-                <span class="tooltip-right" data-tooltip="Warning : This feature is experimental!">
+                <span class="tooltip-right" data-tooltip="Warning : These feature are experimental!">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="experimental">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                     </svg>
@@ -147,7 +147,9 @@
     </main>
 
     <footer>
-        Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
+        <h4>
+            Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
+        </h4>
     </footer>
 
 
@@ -352,6 +354,7 @@
 
         .slider {
             -webkit-appearance: none;
+            appearance: none;
             width: 100%;
             height: 10px;
             border-radius: 5px;
@@ -398,29 +401,24 @@
             box-shadow: 0px 4px 31px -12px #000000;
             opacity: 0;
             -webkit-transition:
-                opacity 0.2s ease-in-out,
-                visibility 0.2s ease-in-out,
-                -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-            -moz-transition:
-                opacity 0.2s ease-in-out,
-                visibility 0.2s ease-in-out,
-                -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
-            transition:
-                opacity 0.2s ease-in-out,
-                visibility 0.2s ease-in-out,
-                transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            opacity 0.2s ease-in-out,
+            visibility 0.2s ease-in-out,
+            -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            -moz-transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
             -webkit-transform: translate3d(0, 0, 0);
             -moz-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
             pointer-events: none;
         }
-
+            
         /* Show the entire tooltip on hover and focus */
         [data-tooltip]:hover:after,
         [data-tooltip]:focus:after,
         .tooltip:hover:after,
         .tooltip:focus:after {
             visibility: visible;
+            z-index: 1;
             opacity: 1;
         }
 
