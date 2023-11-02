@@ -11,13 +11,17 @@
 
 /* Main elements */
 html,
-html *:not(button *):not(button):not(input):not(.el-badge__content):not(i:not(.prop-title)):not(.el-progress-bar__inner):not(.el-progress-bar__outer):not(.el-checkbox__inner):not(.popper__arrow) {
+html *:not(button *):not(button):not(input):not(a):not(span):not(.el-badge__content):not(i:not(.prop-title)):not(.el-progress-bar__inner):not(.el-progress-bar__outer):not(.el-checkbox__inner):not(.popper__arrow):not(.showalbumheader__space):not(img):not(.image__clickhandle):not(.pagination__active):not(.price-goods-discount-layout):not(.remain-time), .line-discount, .order-tag {
   color: var(--text-color) !important;
   background-color: var(--bg) !important;
 }
 html,
-html *:not(button *):not(button):not(input):not(.el-badge__content):not(.is-active):not(*[class^=arrow-]):not(.popper__arrow) {
+html *:not(button *):not(button):not(input):not(a):not(.el-badge__content):not(.is-active):not(*[class^=arrow-]):not(.popper__arrow):not(.showalbumheader__space) {
   border-color: var(--border-color) !important;
+}
+/* Text */
+span,p,h1,h2,h3,h4,h5,h6{
+  color: var(--text-color) !important;
 }
 
 /* Dropdowns arrows */
@@ -25,19 +29,44 @@ html *:not(button *):not(button):not(input):not(.el-badge__content):not(.is-acti
   background-color: var(--border-color) !important;
 }
 
+/* Yupoo images */
+.showalbumheader__space {
+  border: none;
+}
+
 /* Buttons and inputs */
 input,
 textarea,
 select,
+*[class*=button],
+.el-input-number__decrease,
+.el-input-number__decrease *,
+.el-input-number__increase,
+.el-input-number__increase *,
 button:not(.el-button--plain):not(.el-button--primary) {
-  background-color: #333333 !important;
+  background: #333333 !important;
   border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
   background-image: none !important;
+}
+.el-input-number__decrease.is-disabled,
+.el-input-number__increase.is-disabled {
+  background-color: var(--border-color);
 }
 input,
 textarea,
 select {
   color: var(--text-color) !important;
+}
+.button:hover,
+button:not(.el-button--plain):not(.el-button--primary):hover {
+  background-color: var(--border-color);
+}
+a {
+  color: var(--primary) !important;
+}
+.el-checkbox__inner{
+  background-color: var(--border-color) !important;
 }
 
 /* PandaBuy buttons */

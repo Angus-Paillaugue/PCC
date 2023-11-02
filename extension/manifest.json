@@ -24,7 +24,13 @@
             "exclude_matches" : [
                 "https://docs.google.com/*"
             ],
-            "js": ["content.js"]
+            "js": ["content.js"],
+            "run_at":"document_start"
+        },
+        {
+            "matches": ["*://*.pandabuy.com/*", "*://*.yupoo.com/*"], 
+            "js": ["dark-theme/dark-theme.js"],
+            "run_at":"document_start"
         }
     ],
     "permissions": [
@@ -33,7 +39,7 @@
         "tabs"
     ],
     "web_accessible_resources": [{
-        "resources":["currencies.json", "pandabuy-dark-theme.css"],
+        "resources":["currencies.json", "/dark-theme/dark-theme.css"],
         "matches":["http://*/*", "https://*/*"]
     }],
     "background": {
@@ -43,5 +49,5 @@
         "gecko": {
             "id": "{b60b8911-e938-40b1-825b-672152eb48a1}"
         }
-    }   
+    }
 }

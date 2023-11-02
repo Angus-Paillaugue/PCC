@@ -1,16 +1,19 @@
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Conversion
     const status_input = document.getElementById('status');
     status_input.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "status": status });
-        reloadTab();
+        reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
     chrome.storage.local.get(["status"], (status) => {
         status = status?.status ?? true;
         status_input.checked = status;
     });
 
+    // Yupoo redesign
     const yupooInterfaceReDesign = document.getElementById('yupooInterfaceReDesign');
     yupooInterfaceReDesign.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
@@ -21,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.yupooInterfaceReDesign ?? true;
         yupooInterfaceReDesign.checked = status;
     });
+
+    // Side bar
     const removeYupooSideBar = document.getElementById('removeYupooSideBar');
     removeYupooSideBar.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
@@ -31,9 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-        status = status?.removeYupooSideBar ?? false;
+        status = status?.removeYupooSideBar ?? true;
         removeYupooSideBar.checked = status;
     });
+
+    // Yupoo redirect skip
     const skipYupooRedirect = document.getElementById('skipYupooRedirect');
     skipYupooRedirect.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
@@ -43,56 +50,34 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.skipYupooRedirect ?? true;
         skipYupooRedirect.checked = status;
     });
+
+    // Auto redirect to PandaBuy
     const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
     autoPandaBuyRedirect.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "autoPandaBuyRedirect": status });
-        reloadTab(["*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
+        reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         status = status?.autoPandaBuyRedirect ?? true;
         autoPandaBuyRedirect.checked = status;
     });
-    // const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
-    // thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
-    //     let status = e.currentTarget.checked;
-    //     chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
-    //     reloadTab(["*://\*.pandabuy.com/*"]);
-    // });
-    // chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-    //     status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-    //     thirdPartyDisclaimerAutoCheck.checked = status;
-    // });
-    const pandabuyDarkMode = document.getElementById('pandabuyDarkMode');
-    pandabuyDarkMode.addEventListener('change', (e) => {
+
+    // Third party disclaimer
+    const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
+    thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "pandabuyDarkMode": status });
+        chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
         reloadTab(["*://\*.pandabuy.com/*"]);
     });
-    chrome.storage.local.get(["pandabuyDarkMode"], (status) => {
-        status = status?.pandabuyDarkMode ?? false;
-        pandabuyDarkMode.checked = status;
+    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+        thirdPartyDisclaimerAutoCheck.checked = status;
     });
 
-    // const toggleSwitches = [{qs:"status", default:true}, {qs:"yupooInterfaceReDesign", default:true}, {qs:"yupooSideBar", default:false}, {qs:"thirdPartyDisclaimerAutoCheck", default:true}]
-    // for(const input of toggleSwitches){
-    //     const el = document.getElementById(input.qs);
-    //     el.addEventListener('change', (e) => {
-    //         let status = e.currentTarget.checked;
-    //         let set = {};
-    //         set[input.qs] = status;
-    //         chrome.storage.local.set(set);
-    //         reloadTab();
-    //     });
-    //     chrome.storage.local.get(input.qs, (status) => {
-    //         status = status[input.qs] ?? input.default;
-    //         console.log(status)
-    //         input.checked = status;
-    //     });
-    // }
-
-
+    // Yupoo grid
     chrome.storage.local.get(["yupooContentWidth"], (status) => {
+        console.log(status)
         let slider = document.getElementById("yupooContentWidthSlider");
         let output = document.getElementById("yupooContentWidth");
         yupooContentWidth = status?.yupooContentWidth ?? 180;
@@ -108,8 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-
-
+    
     // Fetches the currencies.json to append to the select menu on the popup
     var xhr = new XMLHttpRequest();
     xhr.open("GET", chrome.runtime.getURL('currencies.json'));
@@ -131,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
-        
+            
             // Updates the convertTo variable in the chrome storage 
             currencySelect.addEventListener('change', () => {
                 chrome.storage.local.set({ "convertTo": currencySelect.value });
@@ -140,7 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }     
     }
     xhr.send();
+
+
+    // ! EXPERIMENTAL
+    // Dark mode
+    const darkMode = document.getElementById('darkMode');
+    darkMode.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "darkMode": status });
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, { "darkModeToggled" : status});
+        });
+    });
+    chrome.storage.local.get(["darkMode"], (status) => {
+        status = status?.darkMode ?? false;
+        darkMode.checked = status;
+    });
 });
+
 
 // Get the tab with specified id (current tab if not specified) and reloads it
 const reloadTab = (urlPatterns = ["*://\*/*"], id) => {
