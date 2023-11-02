@@ -1,3 +1,10 @@
+function sendMessage(message){
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+        var activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, message);
+    });
+}
+
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -11,6 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get(["status"], (status) => {
         status = status?.status ?? true;
         status_input.checked = status;
+    });
+
+    // Auto redirect to PandaBuy
+    const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
+    autoPandaBuyRedirect.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "autoPandaBuyRedirect": status });
+        reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
+    });
+    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+        status = status?.autoPandaBuyRedirect ?? true;
+        autoPandaBuyRedirect.checked = status;
+    });
+
+    const pandabuyProductWarnings = document.getElementById('pandabuyProductWarnings');
+    pandabuyProductWarnings.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "pandabuyProductWarnings": status });
+        sendMessage("productWarningsChange");
+    });
+    chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
+        status = status?.pandabuyProductWarnings ?? true;
+        pandabuyProductWarnings.checked = status;
+    });
+
+    // Third party disclaimer
+    const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
+    thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
+        reloadTab(["*://\*.pandabuy.com/*"]);
+    });
+    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+        thirdPartyDisclaimerAutoCheck.checked = status;
     });
 
     // Yupoo redesign
@@ -30,10 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeYupooSideBar.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "removeYupooSideBar": status });
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-            var activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id, "toggledSideBar");
-        });
+        sendMessage("toggledSideBar");
     });
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
         status = status?.removeYupooSideBar ?? true;
@@ -51,30 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         skipYupooRedirect.checked = status;
     });
 
-    // Auto redirect to PandaBuy
-    const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
-    autoPandaBuyRedirect.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "autoPandaBuyRedirect": status });
-        reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
-    });
-    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
-        status = status?.autoPandaBuyRedirect ?? true;
-        autoPandaBuyRedirect.checked = status;
-    });
-
-    // Third party disclaimer
-    const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
-    thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
-        chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
-        reloadTab(["*://\*.pandabuy.com/*"]);
-    });
-    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-        thirdPartyDisclaimerAutoCheck.checked = status;
-    });
-
     // Yupoo grid
     chrome.storage.local.get(["yupooContentWidth"], (status) => {
         console.log(status)
@@ -87,10 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let newWidth = this.value;
             output.innerHTML = newWidth;
             chrome.storage.local.set({ "yupooContentWidth": newWidth });
-            chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-                var activeTab = tabs[0];
-                chrome.tabs.sendMessage(activeTab.id, {"yupooContentWidthChanged": newWidth });
-            });
+            sendMessage({"yupooContentWidthChanged": newWidth });
         }
     });
     
@@ -132,10 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     darkMode.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "darkMode": status });
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-            var activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id, { "darkModeToggled" : status});
-        });
+        sendMessage({ "darkModeToggled" : status});
     });
     chrome.storage.local.get(["darkMode"], (status) => {
         status = status?.darkMode ?? false;

@@ -88,6 +88,25 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     return modifiedString;
 }
 
+function productWarnings(){
+    chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
+        status = status?.pandabuyProductWarnings ?? true;
+        if(status){
+            let count = 0;
+            let interval = setInterval(() => {
+                if(count === 10) clearInterval(interval);
+                if(document.querySelector(".el-button.accept-btn.el-button--default")){
+                    try {
+                        document.querySelector(".el-button.accept-btn.el-button--default").click();
+                        clearInterval(interval);
+                    } catch (_) {}
+                }
+                count ++;
+            }, 200);
+        }
+    });
+}
+
 function changeYupooGrid(){
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
         let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
@@ -188,6 +207,9 @@ chrome.storage.local.get(["status"], (status) => {
     }
 });
 
+// For removing (or not) the annoying disclaimers at product page load
+productWarnings();
+
 // For yupoo design
 changeYupooGrid();
 yupooSideBar();
@@ -196,6 +218,7 @@ yupooSideBar();
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request?.yupooContentWidthChanged) changeYupooGrid();
     if(request == "toggledSideBar") yupooSideBar();
+    if(request == "productWarningsChange") productWarnings();
 });
 
 // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
@@ -208,8 +231,8 @@ chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
                 document.querySelector(".el-checkbox").classList.add("is-checked");
             } catch (_) {
                 setTimeout(() => {
-                    setCheckBox()
-                }, 1000)
+                    setCheckBox();
+                }, 1000);
             }
         }
         setTimeout(() => {
