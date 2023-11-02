@@ -141,6 +141,16 @@ document.addEventListener('DOMContentLoaded', () => {
         status = status?.darkMode ?? false;
         darkMode.checked = status;
     });
+
+
+
+    // Footer link
+    const links = document.querySelectorAll("a");
+    for(const link of links){
+        link.addEventListener("click", (e) => {
+            chrome.tabs.create({url: e.target.getAttribute('href')});
+        })
+    }
 });
 
 

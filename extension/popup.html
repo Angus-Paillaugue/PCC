@@ -146,6 +146,10 @@
         </section>
     </main>
 
+    <footer>
+        Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
+    </footer>
+
 
 
     <style>
@@ -194,8 +198,26 @@
             max-height: 100px;
         }
 
+        footer {
+            height: 3rem;
+            display: flex;
+            flex-direction: row;
+            gap: var(--gap);
+            justify-content: center;
+            align-items: center;
+        }
+
         svg {
             height: 1rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all .5s ease;
+        }
+        a:hover {
+            text-decoration: underline;
         }
 
         p,
@@ -242,7 +264,7 @@
             margin-top: 3.5rem;
         }
 
-        section:not(:last-child) {
+        section {
             border-bottom: calc(2*var(--gap)) solid var(--light-gray);
             display: flex;
             flex-direction: column;
