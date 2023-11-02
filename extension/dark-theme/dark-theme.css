@@ -77,11 +77,13 @@ a {
   display: inline-block;
   cursor: pointer;
   -webkit-appearance: none;
+  appearance: none;
   text-align: center;
   outline: none;
   margin: 0;
   transition: .1s;
   -webkit-user-select: none;
+  user-select: none;
   padding: 12px 20px;
   border-radius: 4px;
   background-color: var(--bg);
@@ -97,11 +99,13 @@ a {
   display: inline-block;
   cursor: pointer;
   -webkit-appearance: none;
+  appearance: none;
   text-align: center;
   outline: none;
   margin: 0;
   transition: .1s;
   -webkit-user-select: none;
+  user-select: none;
   padding: 12px 20px;
   border-radius: 4px;
   color: var(--text-color);
