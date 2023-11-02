@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Pandabuy Currency Converter",
     "description": "Convert all currencies into a selected one.",
-    "version": "1.38",
+    "version": "1.39",
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -33,7 +33,7 @@
         "tabs"
     ],
     "web_accessible_resources": [{
-        "resources":["currencies.json"],
+        "resources":["currencies.json", "pandabuy-dark-theme.css"],
         "matches":["http://*/*", "https://*/*"]
     }],
     "background": {

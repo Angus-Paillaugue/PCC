@@ -1,0 +1,83 @@
+:root {
+  --primary: #11ba66;
+  --bg: #292929;
+  --text-color: #eeeeee;
+  --border-color: #555555; 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Main elements */
+html,
+html *:not(button *):not(button):not(input):not(.el-badge__content):not(i:not(.prop-title)):not(.el-progress-bar__inner):not(.el-progress-bar__outer):not(.el-checkbox__inner):not(.popper__arrow) {
+  color: var(--text-color) !important;
+  background-color: var(--bg) !important;
+}
+html,
+html *:not(button *):not(button):not(input):not(.el-badge__content):not(.is-active):not(*[class^=arrow-]):not(.popper__arrow) {
+  border-color: var(--border-color) !important;
+}
+
+/* Dropdowns arrows */
+.el-progress-bar__outer {
+  background-color: var(--border-color) !important;
+}
+
+/* Buttons and inputs */
+input,
+textarea,
+select,
+button:not(.el-button--plain):not(.el-button--primary) {
+  background-color: #333333 !important;
+  border-color: var(--border-color) !important;
+  background-image: none !important;
+}
+input,
+textarea,
+select {
+  color: var(--text-color) !important;
+}
+
+/* PandaBuy buttons */
+.el-button--plain {
+  font: inherit;
+  font-family: inherit;
+  vertical-align: baseline;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-appearance: none;
+  text-align: center;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  -webkit-user-select: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  background-color: var(--bg);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 18px;
+}
+.el-button--primary {
+  font: inherit;
+  font-family: inherit;
+  vertical-align: baseline;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-appearance: none;
+  text-align: center;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  -webkit-user-select: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  color: var(--text-color);
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  font-weight: 700;
+  font-size: 18px;
+}

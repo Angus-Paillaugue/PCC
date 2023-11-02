@@ -199,17 +199,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
-chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-    status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-    if(status){
-        setTimeout(() => {
-                try {
-                document.querySelector("input.el-checkbox__original").checked = true;
-                document.querySelector(".el-checkbox").classList.add("is-checked");
-            } catch (_) {}
-        }, 1000);
-    }
-});
+// chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+//     status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+//     if(status){
+//         setTimeout(() => {
+//             try {
+//                 console.log(status)
+//                 document.querySelector("input.el-checkbox__original").checked = true;
+//                 document.querySelector(".el-checkbox").classList.add("is-checked");
+//             } catch (_) {}
+//         }, 1000);
+//     }
+// });
 
 // Checks if current website is a marketplace and is a product page and not a shop page
 chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
@@ -228,5 +229,18 @@ chrome.storage.local.get(["skipYupooRedirect"], (status) => {
         if(new URLPattern("https://x.yupoo.com/external?url=*").test(location.href)){
             chrome.runtime.sendMessage({ type: "updateTabURL", url: decodeURIComponent(new URL(location.href).searchParams.get("url")) });
         }
+    }
+});
+
+// ? Experimental
+// Dark mode on PandaBuy
+chrome.storage.local.get(["pandabuyDarkMode"], (status) => {
+    status = status?.pandabuyDarkMode ?? true;
+    if(status && new URLPattern("*://\*.pandabuy.com/*").test(new URL(location.href).origin)){
+        const link = document.createElement("link");
+        link.href = chrome.runtime.getURL("pandabuy-dark-theme.css");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
     }
 });

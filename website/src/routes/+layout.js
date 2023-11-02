@@ -1,7 +1,7 @@
 /** @type {import('./$types').LayoutLoad} */
 export async function load() {
 
-    const currentNumberOfDownloads = 190;
+    const currentNumberOfDownloads = 200;
     
     return { 
         currentNumberOfDownloads,
