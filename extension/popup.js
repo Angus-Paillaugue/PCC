@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Yupoo grid
     chrome.storage.local.get(["yupooContentWidth"], (status) => {
-        console.log(status)
         let slider = document.getElementById("yupooContentWidthSlider");
         let output = document.getElementById("yupooContentWidth");
         yupooContentWidth = status?.yupooContentWidth ?? 180;
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let newWidth = this.value;
             output.innerHTML = newWidth;
             chrome.storage.local.set({ "yupooContentWidth": newWidth });
-            sendMessage({"yupooContentWidthChanged": newWidth });
+            sendMessage("yupooContentWidthChanged");
         }
     });
     

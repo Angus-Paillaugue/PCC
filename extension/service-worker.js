@@ -13,7 +13,7 @@ function handleContextMenus(info){
 chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.create({
         title: "Open in PandaBuy",
-        contexts:["link"],
+        contexts:[ "link" ],
         id: "openInPandaBuy",
         targetUrlPatterns: [
             "*://*.yupoo.com/*?*id=*",
