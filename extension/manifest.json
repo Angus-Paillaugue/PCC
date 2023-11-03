@@ -24,6 +24,9 @@
             "run_at":"document_start"
         }
     ],
+    "host_permissions": [
+        "https://www.pandabuy.com/"
+    ],
     "permissions": [
         "storage",
         "contextMenus",

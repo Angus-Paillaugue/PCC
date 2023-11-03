@@ -226,6 +226,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request === "toggledSideBar") toggleYupooSideBar();
     if(request === "productWarningsChange") productWarnings();
     if(request === "yupooContentWidthChanged") changeYupooGrid();
+    if(request === "darkModeToggled") setDarkMode();
 });
 
 // Running (or not) the functions on page load
@@ -257,76 +258,106 @@ chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
     }
 });
 
+let productInfosIndex = 0;
 async function getProductInfos(){
     if(!urlMatch(["*://\*.pandabuy.com/product?*"], location.href)) return;
     
-    const QCContainer = document.createElement("div");
-    QCContainer.style.width = "100%";
-    QCContainer.style.display = "flex";
-    QCContainer.style.flexDirection = "column";
-    QCContainer.style.gap = "10px";
-    QCContainer.style.marginTop = "10px";
-    QCContainer.style.padding = "10px";
-    const viewQC = document.createElement("a");
-    const QCTitle = document.createElement("h2");
-    QCTitle.innerText = "Product's QC";
-    QCContainer.appendChild(QCTitle);
-    let productID = getProductId(new URL(location.href).searchParams.get("url"));
-    viewQC.href = `https://qc.pandabuy.com/qc?g=${productID}`;
-    viewQC.innerText = "View QC";
-    viewQC.target = "_blank";
-    viewQC.style.margin = "auto 0";
-    viewQC.style.width = "fit-content";
-    viewQC.classList.add("el-button", "el-button--primary", "el-button--large");
-    QCContainer.appendChild(viewQC);
-    
-    const productReq = await fetch(`https://www.pandabuy.com/gateway/product/itemGet?url=${new URL(location.href).searchParams.get("url")}`, {
-        "headers": {
-            "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblRpbWUiOjE2OTg0MTk4NTMyMDAsInVzZXJfbmFtZSI6ImFuZ3VzLnBhaWxsYXVndWU0MEBnbWFpbC5jb20iLCJzY29wZSI6WyJhbGwiXSwibG9naW5JcCI6IjkyLjg4LjE3MC4yMyIsImlkIjo2ODMzODcxMzYsImV4cCI6MTcwMDU3OTg1MywianRpIjoiZTgzNzMyYTUtZDhiNy00NTUwLWEyMDEtYzg1NjMxMDRkMDM1IiwiY2xpZW50X2lkIjoicG9ydGFsLXBjIiwicGxhdGZvcm0iOm51bGx9.qZCHvIBhG3MlrOrL5j79WEQyBGwLFN_Th0KjPc6ZHAwyjPORiBmsrmR8m4ja8D4cs_VrXpN-VhKCYRXtKVMB_CkfdehUWt6klszMdHp7kg16laT5HcElXUIfozRxmQFGKg2T14gaw_PxD8DCwpZ9AuYryGdJV7M0USkXyfXK4hc",
-            "content-type": "application/json;charset=utf-8",
-        },
-        "referrer": location.href,
-        "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": null,
-        "method": "GET",
-        "mode": "cors",
-        "credentials": "include"
-    });
+    const productReq = await fetch(`https://api.qc.photos/v3/getProductInfo/pandabuy?url=${new URL(location.href).searchParams.get("url")}&view=true`);
     
     const productData = await productReq.json();
+    const productImages = productData.data.qc_image_set_container.qc_image_sets.filter(el => el.set_type === "paid");
+
     
-    // Creating the custom QC viewer
-    const customQCViewer = document.createElement("div");
-    customQCViewer.style.display = "grid";
-    customQCViewer.style.marginTop = "1rem";
-    customQCViewer.style.width = "100%";
-    customQCViewer.style.gap = "10px";
-    customQCViewer.style.gridTemplateColumns = `repeat(auto-fill, minmax(285px, 1fr))`;
-    for(let i = 0; i < Math.min(productData.data.item.timeInfo.imageList.length, 4);i++){
-        const QCImages = productData.data.item.timeInfo.imageList[i];
-        const order = document.createElement("div");
-        order.style.display = "flex";
-        order.style.flexDirection = "column";
-        order.style.gap = "10px";
-        order.style.width = "100%"
-        for(const image of QCImages.images){
-            const img = document.createElement("img");
-            img.src = image+"?image_process=resize,w_300";
-            img.style.borderRadius = "5px";
-            img.style.width = "100%";
-            order.appendChild(img);
+    if(productInfosIndex === 0){
+        // Creating the custom QC viewer
+        const customQCViewer = document.createElement("div");
+        customQCViewer.style.display = "grid";
+        customQCViewer.style.width = "100%";
+        customQCViewer.style.gap = "10px";
+        customQCViewer.id = "customQCViewer"
+        customQCViewer.style.gridTemplateColumns = `repeat(auto-fill, minmax(285px, 1fr))`;
+        const QCContainer = document.createElement("div");
+        QCContainer.style.marginTop = "10px";
+        QCContainer.style.width = "100%";
+        QCContainer.style.display = "flex";
+        QCContainer.style.flexDirection = "column";
+        QCContainer.style.gap = "10px";
+        QCContainer.style.padding = "10px";
+        const QCTitle = document.createElement("div");
+        QCTitle.style.display = "flex";
+        QCTitle.style.flexDirection = "column";
+        QCTitle.style.gap = "5px";
+        let productID = getProductId(new URL(location.href).searchParams.get("url"));
+        QCTitle.innerHTML = `
+            <h2>Product's QC</h2>
+            <a href="https://qc.pandabuy.com/qc?g=${productID}" target="_blank" class="el-button el-button--primary" style="width: fit-content;">View all QC's</a>
+            <h3 style="margin-top: 10px;">Latest QC's :</h3>
+        `;
+        QCContainer.appendChild(QCTitle);
+        for(let i = 0; i < Math.min(productImages.length, 4);i++){
+            const QCImages = productImages[productInfosIndex+i];
+            const order = document.createElement("div");
+            order.style.display = "flex";
+            order.style.flexDirection = "column";
+            order.style.gap = "10px";
+            order.style.width = "100%";
+            for(const image of QCImages.images){
+                const img = document.createElement("img");
+                img.src = image.original_qc_image_url+"?image_process=resize,w_300";
+                img.style.borderRadius = "5px";
+                img.style.width = "100%";
+                order.appendChild(img);
+            }
+            customQCViewer.appendChild(order);
         }
-        customQCViewer.appendChild(order);
+        
+        let interval = setInterval(() => {
+            try {
+                // Remove default QC
+                if(document.querySelector(".storage-img-list")) document.querySelector(".storage-img-list").remove();
+                QCContainer.appendChild(customQCViewer);
+                const loadMoreQCS = document.createElement("button")
+                loadMoreQCS.innerText = "Load more QC's";
+                loadMoreQCS.classList.add("el-button", "el-button--plain");
+                loadMoreQCS.id = "loadMoreQCS";
+                // Adding styles for "Load more QC's" button spinner
+                let styles = `#PCCQCLoader {width: 20px;height: 20px;border: 5px solid var(--bg);border-bottom-color: var(--primary);border-radius: 50%;display: inline-block;box-sizing: border-box;animation: rotation 1s linear infinite;}@keyframes rotation {0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}} `
+                let styleSheet = document.createElement("style");
+                styleSheet.innerText = styles;
+                document.head.appendChild(styleSheet);
+
+                // Click handler
+                loadMoreQCS.onclick = () => {
+                    loadMoreQCS.innerHTML = `<span id="PCCQCLoader"></span> Loading ...`
+                    getProductInfos();
+                };
+                QCContainer.appendChild(loadMoreQCS);
+                document.querySelector(".shop-list").parentNode.insertBefore(QCContainer, document.querySelector(".shop-list"));
+                clearInterval(interval);
+                productInfosIndex += 4;
+            } catch (_) {}
+        }, 1000);
+    }else {
+       const customQCViewer = document.getElementById("customQCViewer"); 
+       for(let i = 0; i < Math.min(productImages.length, 4);i++){
+            const QCImages = productImages[productInfosIndex+i];
+            const order = document.createElement("div");
+            order.style.display = "flex";
+            order.style.marginTop = "20px";
+            order.style.flexDirection = "column";
+            order.style.gap = "10px";
+            order.style.width = "100%";
+            for(const image of QCImages.images){
+                const img = document.createElement("img");
+                img.src = image.original_qc_image_url+"?image_process=resize,w_300";
+                img.style.borderRadius = "5px";
+                img.style.width = "100%";
+                order.appendChild(img);
+            }
+            customQCViewer.appendChild(order);
+        }
+        document.getElementById("loadMoreQCS").innerText = "Load more QC's";
     }
-    let interval = setInterval(() => {
-        try {
-            // Remove default QC
-            if(document.querySelector(".storage-img-list")) document.querySelector(".storage-img-list").remove();
-            QCContainer.appendChild(customQCViewer);
-            document.querySelector(".shop-list").parentNode.insertBefore(QCContainer, document.querySelector(".shop-list"));
-            clearInterval(interval);
-        } catch (_) {}
-    }, 1000);
 }
 getProductInfos();
 
@@ -349,8 +380,3 @@ function setDarkMode(){
 }
 
 setDarkMode();
-
-// Listening to theme changes
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request === "darkModeToggled") setDarkMode();
-});
