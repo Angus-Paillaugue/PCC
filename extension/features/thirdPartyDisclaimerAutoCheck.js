@@ -4,8 +4,8 @@ chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
     if(status){
         const setCheckBox = () => {
             try {
-                document.querySelector("input.el-checkbox__original").checked = true;
-                document.querySelector(".el-checkbox").classList.add("is-checked");
+                if(document.querySelector("input.el-checkbox__original"))document.querySelector("input.el-checkbox__original").checked = true;
+                if(document.querySelector(".el-checkbox"))document.querySelector(".el-checkbox").classList.add("is-checked");
             } catch (_) {
                 setTimeout(() => {
                     setCheckBox();
