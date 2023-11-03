@@ -15,7 +15,7 @@
         extension = extensions.filter(el => el.plateforme === getBrowserType())[0];
         
         let interval = setInterval(() => {
-            if(numberOfDownloads >= (currentNumberOfDownloads - currentNumberOfDownloads/10)){
+            if(numberOfDownloads > (currentNumberOfDownloads - currentNumberOfDownloads/10)){
                 clearInterval(interval);
             }else{
                 numberOfDownloads += currentNumberOfDownloads/10;
@@ -36,13 +36,18 @@
         },
         {
             title : "Does it works on all sites?",
-            description : `At the moment, PCC works on the most famous sites like pandabuy.com, weidian, yupoo, taobao, 1688, tmall and even reddit.`,
+            description : `At the moment, the currency conversion of PCC works on the most famous sites like PandaBuy or Yupoo and even reddit.`,
             imgSrc : "/workingMarketplaces.webp"
         },
         {
             title : "What if don't like the yupoo website design?",
             description : `If you are like me and don't like the yupoo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
             imgSrc : "/yupooInterfaceReDesign.webp"
+        },
+        {
+            title : "How to optimise you shopping?",
+            description : `When you see a marketplace link (taobao, weidian, ...) you can right click on it and click on "Ope in PandaBuy". A new tab will be opened with the product on PandaBuy. To be even faster, you can just open a marketplace link and PCC will convert it into a PandaBuy link.`,
+            imgSrc : "/openInPandabuy.webp"
         }
     ]
 </script>

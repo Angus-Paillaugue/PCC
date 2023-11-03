@@ -26,6 +26,8 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const MONGODB_CONNEXION_STRING: string;
+	export const AUTH_TOKEN_SECRET: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
@@ -35,7 +37,7 @@ declare module '$env/static/private' {
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const DriverData: string;
-	export const EFC_11120: string;
+	export const EFC_7784: string;
 	export const FPS_BROWSER_APP_PROFILE_STRING: string;
 	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
@@ -59,6 +61,9 @@ declare module '$env/static/private' {
 	export const npm_lifecycle_event: string;
 	export const npm_lifecycle_script: string;
 	export const npm_node_execpath: string;
+	export const npm_package_dependencies_bcrypt: string;
+	export const npm_package_dependencies_jsonwebtoken: string;
+	export const npm_package_dependencies_mongodb: string;
 	export const npm_package_dependencies_svelte_reveal: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_install: string;
@@ -140,6 +145,8 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		MONGODB_CONNEXION_STRING: string;
+		AUTH_TOKEN_SECRET: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
@@ -149,7 +156,7 @@ declare module '$env/dynamic/private' {
 		COMPUTERNAME: string;
 		ComSpec: string;
 		DriverData: string;
-		EFC_11120: string;
+		EFC_7784: string;
 		FPS_BROWSER_APP_PROFILE_STRING: string;
 		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
@@ -173,6 +180,9 @@ declare module '$env/dynamic/private' {
 		npm_lifecycle_event: string;
 		npm_lifecycle_script: string;
 		npm_node_execpath: string;
+		npm_package_dependencies_bcrypt: string;
+		npm_package_dependencies_jsonwebtoken: string;
+		npm_package_dependencies_mongodb: string;
 		npm_package_dependencies_svelte_reveal: string;
 		npm_package_devDependencies_autoprefixer: string;
 		npm_package_devDependencies_install: string;
