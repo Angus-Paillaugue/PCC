@@ -20,22 +20,7 @@
         {
             "matches": ["<all_urls>"],
             "exclude_matches" : ["https://docs.google.com/*"],
-            "js": ["dist/content.bundle.js"],
-            "run_at":"document_start"
-        },
-        {
-            "matches": ["https://x.yupoo.com/external?url=*"],
-            "js": ["features/skipYupooRedirect.js"],
-            "run_at":"document_start"
-        },
-        {
-            "matches": ["*://*.pandabuy.com/product?*"],
-            "js": ["features/thirdPartyDisclaimerAutoCheck.js"],
-            "run_at":"document_start"
-        },
-        {
-            "matches": ["*://*.pandabuy.com/*", "*://*.yupoo.com/*"], 
-            "js": ["dark-theme/dark-theme.js"],
+            "js": ["content.js"],
             "run_at":"document_start"
         }
     ],

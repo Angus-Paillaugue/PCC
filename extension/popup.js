@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     darkMode.addEventListener('change', (e) => {
         let status = e.currentTarget.checked;
         chrome.storage.local.set({ "darkMode": status });
-        sendMessage({ "darkModeToggled" : status});
+        sendMessage("darkModeToggled");
     });
     chrome.storage.local.get(["darkMode"], (status) => {
         status = status?.darkMode ?? false;
