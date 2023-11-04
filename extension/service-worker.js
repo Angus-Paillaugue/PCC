@@ -11,7 +11,8 @@ function handleContextMenus(info){
 }
 
 chrome.runtime.onInstalled.addListener(function () {
-    console.log("Service worker installed.");  
+    console.log("Service worker installed.");
+    
 
     chrome.contextMenus.create({
         title: "Open in PandaBuy",

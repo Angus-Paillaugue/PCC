@@ -1,4 +1,4 @@
-const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
+const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const urlMatch = (urls, testWith=location.origin) => {
     try { 
@@ -54,7 +54,7 @@ function getRates(currencyToConvertTo, callback) {
 // Some regex magic to convert currencies inside strings
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
-    if(new URLPattern("https://\*.pandabuy.com").test(location.origin) && (location.pathname === "/cartEstimatedFreight" || location.pathname ==="/person/parcel/list")){
+    if(urlMatch(["*://\*.pandabuy.com"]) && (location.pathname === "/cartEstimatedFreight" || location.pathname ==="/person/parcel/list")){
         for(const currency of currencies){
             inputString = inputString.replaceAll(currency.name, currency.symbol);
         }
@@ -258,111 +258,46 @@ chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
     }
 });
 
-let productInfosIndex = 0;
-async function getProductInfos(){
+
+// ? EXPERIMENTAL : Products QC's
+async function customProductQC(){
     if(!urlMatch(["*://\*.pandabuy.com/product?*"], location.href)) return;
-    
-    const productReq = await fetch(`https://api.qc.photos/v3/getProductInfo/pandabuy?url=${new URL(location.href).searchParams.get("url")}&view=true`);
-    
-    const productData = await productReq.json();
-    const productImages = productData.data.qc_image_set_container.qc_image_sets.filter(el => el.set_type === "paid");
 
-    
-    if(productInfosIndex === 0){
-        // Creating the custom QC viewer
-        const customQCViewer = document.createElement("div");
-        customQCViewer.style.display = "grid";
-        customQCViewer.style.width = "100%";
-        customQCViewer.style.gap = "10px";
-        customQCViewer.id = "customQCViewer"
-        customQCViewer.style.gridTemplateColumns = `repeat(auto-fill, minmax(285px, 1fr))`;
-        const QCContainer = document.createElement("div");
-        QCContainer.style.marginTop = "10px";
-        QCContainer.style.width = "100%";
-        QCContainer.style.display = "flex";
-        QCContainer.style.flexDirection = "column";
-        QCContainer.style.gap = "10px";
-        QCContainer.style.padding = "10px";
-        const QCTitle = document.createElement("div");
-        QCTitle.style.display = "flex";
-        QCTitle.style.flexDirection = "column";
-        QCTitle.style.gap = "5px";
-        let productID = getProductId(new URL(location.href).searchParams.get("url"));
-        QCTitle.innerHTML = `
-            <h2>Product's QC</h2>
-            <a href="https://qc.pandabuy.com/qc?g=${productID}" target="_blank" class="el-button el-button--primary" style="width: fit-content;">View all QC's</a>
-            <h3 style="margin-top: 10px;">Latest QC's :</h3>
-        `;
-        QCContainer.appendChild(QCTitle);
-        for(let i = 0; i < Math.min(productImages.length, 4);i++){
-            const QCImages = productImages[productInfosIndex+i];
-            const order = document.createElement("div");
-            order.style.display = "flex";
-            order.style.flexDirection = "column";
-            order.style.gap = "10px";
-            order.style.width = "100%";
-            for(const image of QCImages.images){
-                const img = document.createElement("img");
-                img.src = image.original_qc_image_url+"?image_process=resize,w_300";
-                img.style.borderRadius = "5px";
-                img.style.width = "100%";
-                order.appendChild(img);
-            }
-            customQCViewer.appendChild(order);
-        }
+    chrome.storage.local.get(["customProductQC"], (status) => {
+        status = status?.customProductQC ?? true;
+        if(status){
+            const productUrl = new URL(location.href).searchParams.get("url")
+            let providerName = new URL(productUrl).origin.split(".").at(-2).split("/").at(-1);
+            if(providerName === "weidian") providerName = "wd";
+            if(providerName === "1688") providerName = "alibaba";
+            if(providerName === "tmall") providerName = "taobao";
+            const providerType = providerName;
+            const productID = getProductId(productUrl);
+            let interval = setInterval(async() => {
+                try{
+                    if($(".shop-list").length === 0) throw new Error("I got nowhere to append the QC's!");
+                    
+                    $(`<div style="padding:20px; width:100%;" class="customProductQCContainer"><h2 class="margin-bottom:5px;">Product QC : </h2><iframe src="https://www.pandabuy.com/storageQcImg?itemId=${productID}&providerType=${providerType}&activeIndex=0&type=imageList" style="width:100%; aspect-ratio:16/9; border:none;" id="QCIframe"></iframe></div>`).insertBefore('.shop-list');
         
-        let interval = setInterval(() => {
-            try {
-                // Remove default QC
-                if(document.querySelector(".storage-img-list")) document.querySelector(".storage-img-list").remove();
-                QCContainer.appendChild(customQCViewer);
-                const loadMoreQCS = document.createElement("button")
-                loadMoreQCS.innerText = "Load more QC's";
-                loadMoreQCS.classList.add("el-button", "el-button--plain");
-                loadMoreQCS.id = "loadMoreQCS";
-                // Adding styles for "Load more QC's" button spinner
-                let styles = `#PCCQCLoader {width: 20px;height: 20px;border: 5px solid var(--bg);border-bottom-color: var(--primary);border-radius: 50%;display: inline-block;box-sizing: border-box;animation: rotation 1s linear infinite;}@keyframes rotation {0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}} `
-                let styleSheet = document.createElement("style");
-                styleSheet.innerText = styles;
-                document.head.appendChild(styleSheet);
-
-                // Click handler
-                loadMoreQCS.onclick = () => {
-                    loadMoreQCS.innerHTML = `<span id="PCCQCLoader"></span> Loading ...`
-                    getProductInfos();
-                };
-                QCContainer.appendChild(loadMoreQCS);
-                document.querySelector(".shop-list").parentNode.insertBefore(QCContainer, document.querySelector(".shop-list"));
-                clearInterval(interval);
-                productInfosIndex += 4;
-            } catch (_) {}
-        }, 1000);
-    }else {
-       const customQCViewer = document.getElementById("customQCViewer"); 
-       for(let i = 0; i < Math.min(productImages.length, 4);i++){
-            const QCImages = productImages[productInfosIndex+i];
-            const order = document.createElement("div");
-            order.style.display = "flex";
-            order.style.marginTop = "20px";
-            order.style.flexDirection = "column";
-            order.style.gap = "10px";
-            order.style.width = "100%";
-            for(const image of QCImages.images){
-                const img = document.createElement("img");
-                img.src = image.original_qc_image_url+"?image_process=resize,w_300";
-                img.style.borderRadius = "5px";
-                img.style.width = "100%";
-                order.appendChild(img);
-            }
-            customQCViewer.appendChild(order);
+                    const iframe = document.getElementById("QCIframe").contentDocument || document.getElementById("QCIframe").contentWindow.document;
+                    const imgsContainer = iframe.getElementById("big-img-layout");
+                    imgsContainer.style.maxWidth = "unset";
+                    imgsContainer.style.width = "calc(100vw - 145px)";
+                    imgsContainer.style.margin = "0 0 0 10px";
+                    clearInterval(interval);
+                }catch(_){}
+            }, 1000);
         }
-        document.getElementById("loadMoreQCS").innerText = "Load more QC's";
-    }
+    });
+
 }
-getProductInfos();
+
+// Call the function for adding QC's
+customProductQC();
+    
 
 
-// !EXPERIMENTAL
+// ? EXPERIMENTAL : Dark mode
 function setDarkMode(){
     chrome.storage.local.get(["darkMode"], (status) => {
         status = status?.darkMode ?? false;

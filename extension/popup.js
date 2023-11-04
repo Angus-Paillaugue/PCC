@@ -55,6 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
         thirdPartyDisclaimerAutoCheck.checked = status;
     });
 
+    // Third party disclaimer
+    const customProductQC = document.getElementById('customProductQC');
+    customProductQC.addEventListener('change', (e) => {
+        let status = e.currentTarget.checked;
+        chrome.storage.local.set({ "customProductQC": status });
+        reloadTab(["*://\*.pandabuy.com/product?*"], "href");
+    });
+    chrome.storage.local.get(["customProductQC"], (status) => {
+        status = status?.customProductQC ?? true;
+        customProductQC.checked = status;
+    });
+
     // Yupoo redesign
     const yupooInterfaceReDesign = document.getElementById('yupooInterfaceReDesign');
     yupooInterfaceReDesign.addEventListener('change', (e) => {
@@ -163,13 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Get the tab with specified id (current tab if not specified) and reloads it
-const reloadTab = (urlPatterns = ["*://\*/*"], id) => {
+const reloadTab = (urlPatterns = ["*://\*/*"], url="origin", id) => {
     if(id){
         chrome.tabs.reload(tab);
     } else {
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
             for(const urlPattern of urlPatterns){
-                if(new URLPattern(urlPattern).test(new URL(tab.url).origin)) {
+                if(new URLPattern(urlPattern).test(new URL(tab.url)[url])) {
                     chrome.tabs.reload(tab.id);
                 }
             }
