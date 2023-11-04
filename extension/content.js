@@ -265,6 +265,7 @@ async function customProductQC(){
 
     chrome.storage.local.get(["customProductQC"], (status) => {
         status = status?.customProductQC ?? true;
+        console.log(status)
         if(status){
             const productUrl = new URL(location.href).searchParams.get("url")
             let providerName = new URL(productUrl).origin.split(".").at(-2).split("/").at(-1);
@@ -276,6 +277,7 @@ async function customProductQC(){
             let interval = setInterval(async() => {
                 try{
                     if($(".shop-list").length === 0) throw new Error("I got nowhere to append the QC's!");
+                    clearInterval(interval);
                     
                     $(`<div style="padding:20px; width:100%;" class="customProductQCContainer"><h2 class="margin-bottom:5px;">Product QC : </h2><iframe src="https://www.pandabuy.com/storageQcImg?itemId=${productID}&providerType=${providerType}&activeIndex=0&type=imageList" style="width:100%; aspect-ratio:16/9; border:none;" id="QCIframe"></iframe></div>`).insertBefore('.shop-list');
         
@@ -284,7 +286,6 @@ async function customProductQC(){
                     imgsContainer.style.maxWidth = "unset";
                     imgsContainer.style.width = "calc(100vw - 145px)";
                     imgsContainer.style.margin = "0 0 0 10px";
-                    clearInterval(interval);
                 }catch(_){}
             }, 1000);
         }
