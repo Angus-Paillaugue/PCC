@@ -25,11 +25,9 @@ export const actions = {
         if(user){
             const formData = Object.fromEntries(await request.formData());
             const { title, description } = formData;
-            let newQuestion = { id:randomUUID(), postedBy:user.username, title, description, replies:[], postedAt:new Date() };
-            await questionsRef.insertOne(newQuestion);
+            await questionsRef.insertOne({ id:randomUUID(), postedBy:user.username, title, description, replies:[], postedAt:new Date() });
             
-            newQuestion.postedBy = user;
-            return { success:true, question:structuredClone(newQuestion), submitType:"newQuestion" };
+            return { success:true };
         }
     },
     newReplie:async({ request, locals }) => {
@@ -38,8 +36,30 @@ export const actions = {
             const formData = Object.fromEntries(await request.formData());
             const { message, postId } = formData;
 
-            await questionsRef.updateOne({ id:postId }, { $push: { replies: { message, username:user.username, at:new Date() }} });
-            return { success:true, replie:{ message, user, at:new Date(), submitType:"newReplie" } }
+            await questionsRef.updateOne({ id:postId }, { $push: { replies: { message, username:user.username, at:new Date(), id:randomUUID() }} });
+            return { success:true }
+        }
+    },
+    deleteQuestion:async({ request, locals }) => {
+        const { user } = locals;
+        if(user){
+            const formData = Object.fromEntries(await request.formData());
+            const { questionId } = formData;
+
+            await questionsRef.deleteOne({ id:questionId });
+
+            return { success:true }
+        }
+    },
+    deleteReplie:async({ request, locals }) => {
+        const { user } = locals;
+        if(user){
+            const formData = Object.fromEntries(await request.formData());
+            const { questionId, replieId } = formData;
+
+            await questionsRef.updateOne({ id:questionId }, { $pull: { replies:{ id:replieId } } });
+
+            return { success:true }
         }
     }
 };

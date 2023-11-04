@@ -265,7 +265,6 @@ async function customProductQC(){
 
     chrome.storage.local.get(["customProductQC"], (status) => {
         status = status?.customProductQC ?? true;
-        console.log(status)
         if(status){
             const productUrl = new URL(location.href).searchParams.get("url")
             let providerName = new URL(productUrl).origin.split(".").at(-2).split("/").at(-1);
