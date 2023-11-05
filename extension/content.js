@@ -139,41 +139,56 @@ function conversion(){
 }
 
 function changeYupooGrid(){
-    chrome.storage.local.get(["yupooContentWidth"], (status) => {
-        let yupooContentWidth = status?.yupooContentWidth ?? 170;
+    if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
+    chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
+        let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+        if(!yupooInterfaceReDesign) return;
+        chrome.storage.local.get(["yupooContentWidth"], (status) => {
+            let yupooContentWidth = status?.yupooContentWidth ?? 170;
+    
+            if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
+            if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
+            if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
+            if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
+    
+            // Change style og products containers
+            let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
+            for(let imagesContainer of imagesContainers){
+                imagesContainer.style.display = "grid";
+                imagesContainer.style.gap = "10px";
+                imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
+                // Change sty of products
+                Array.from(imagesContainer.children).forEach(el => {
+                    el.style.width = "100%";
+                    el.style.margin = "0";
+                });
+            }
+        });
+    });
+}
+changeYupooGrid();
 
-        if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
-        if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
-        if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
-        if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
-
-        // Change style og products containers
-        let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
-        for(let imagesContainer of imagesContainers){
-            imagesContainer.style.display = "grid";
-            imagesContainer.style.gap = "10px";
-            imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
-            // Change sty of products
-            Array.from(imagesContainer.children).forEach(el => {
-                el.style.width = "100%";
-                el.style.margin = "0";
+function toggleYupooSideBar() {
+    if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
+    // If remove sidebar toggle switch is on
+    chrome.storage.local.get(["removeYupooSideBar"], (status) => {
+        status = status?.removeYupooSideBar ?? true;
+        if(status){
+            chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
+                let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+                if(!yupooInterfaceReDesign) return;
+                if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
+                if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
+                if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
             });
+        }else {
+            if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "block";
+            if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "block";
+            if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "216px";
         }
     });
 }
-
-function toggleYupooSideBar(removeYupooSideBar) {
-    // If remove sidebar toggle switch is on
-    if(removeYupooSideBar){
-        if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
-        if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
-        if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "0";
-    }else {
-        if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "block";
-        if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "block";
-        if(document.querySelector(".categories__box-right")) document.querySelector(".categories__box-right").style.marginLeft = "216px";
-    }
-}
+toggleYupooSideBar();
 
 // For removing (or not) the annoying disclaimers at product page load
 function productWarnings(){
@@ -243,21 +258,6 @@ chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
     }
 });
-
-chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
-    let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
-    if(new URLPattern("\*://\*.yupoo.com/\*").test(location.href) && yupooInterfaceReDesign){
-        // Remove side bar part
-        chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-            status = status?.removeYupooSideBar ?? true;
-            // If remove sidebar toggle switch is on
-            toggleYupooSideBar(status);
-        });
-
-        changeYupooGrid();
-    }
-});
-
 
 // ? EXPERIMENTAL : Products QC's
 async function customProductQC(){
