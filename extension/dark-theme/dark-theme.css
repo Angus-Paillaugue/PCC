@@ -19,7 +19,7 @@ svg {
   filter: invert(1);
 }
 html,
-html *:not(button *):not(button):not(input):not(a):not(.el-badge__content):not(.is-active):not(*[class^=arrow-]):not(.popper__arrow):not(.showalbumheader__space) {
+html *:not(button *):not(button):not(input):not(a):not(.el-badge__content):not(.is-active):not(*[class^=arrow-]):not(.popper__arrow):not(.showalbumheader__space):not(.props-btn.active > span.text) {
   border-color: var(--border-color) !important;
 }
 /* Text */
@@ -29,9 +29,31 @@ span,p,h1,h2,h3,h4,h5,h6{
 .ellipsis {
   background-color: var(--bg) !important;
 }
+.el-skeleton.is-animated .el-skeleton__item {
+  background: linear-gradient(90deg, #353535 25%, #464646 37%, #353535 63%) !important;
+}
 
 .mouse-cover {
   opacity: 0.3;
+}
+
+/* PandaBuy footer */
+.footer .bottom-box .icons {
+  background-image: none !important;
+  position: relative;
+}
+.footer .bottom-box .icons::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  height: 33px;
+  width: 590px;
+  background-image: url("https://www.pandabuy.com/static/img/footer_pay.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: grayscale(1) invert(1);
 }
 
 /* Dropdowns arrows */
