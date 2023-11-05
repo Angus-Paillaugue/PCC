@@ -5,6 +5,7 @@ function sendMessage(message){
     });
 }
 
+
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
 

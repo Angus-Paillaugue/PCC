@@ -4,7 +4,7 @@
     "description": "Convert all currencies into a selected one.",
     "version": "1.41",
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "popup/popup.html",
         "default_icon": {
             "16": "icons/16-icon.png",
             "32": "icons/32-icon.png"
@@ -20,7 +20,7 @@
         {
             "matches": ["<all_urls>"],
             "exclude_matches" : ["https://docs.google.com/*"],
-            "js": ["content.js", "jquery-3.7.1.min.js"],
+            "js": ["content.js", "src/jquery-3.7.1.min.js"],
             "run_at":"document_start"
         }
     ],
@@ -33,7 +33,7 @@
         "tabs"
     ],
     "web_accessible_resources": [{
-        "resources":["currencies.json", "/dark-theme/dark-theme.css"],
+        "resources":["currencies.json", "src/dark-theme.css"],
         "matches":["http://*/*", "https://*/*"]
     }],
     "background": {
