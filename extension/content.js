@@ -22,6 +22,9 @@ function getProductId(url){
         }
     }
 
+    // For 1688
+    if(new URLPattern({ pathname: "/offer/*.html" }).test(location.href)) return location.href.match(/[0-9]{12}/g)[0]
+
     return false;
 }
 
