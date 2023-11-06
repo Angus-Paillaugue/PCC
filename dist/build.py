@@ -5,7 +5,7 @@ import zipfile
 output_zip_file = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'build.zip'))
 
 # List of files and directories to exclude
-exclude_items = ["content.js", "pnpm-lock.yaml", "package.json", "webpack.config.js", "node_modules", "features", "utils"]
+exclude_items = ["pnpm-lock.yaml", "package.json",  "node_modules", "tailwind.config.js", "popup/popup-dev.css"]
 
 # Calculate the source directory path based on the script's location
 source_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../extension/"))  # Move up one level from the script's directory

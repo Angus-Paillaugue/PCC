@@ -303,7 +303,7 @@ function setDarkMode(){
         status = status?.darkMode ?? false;
         if(status && urlMatch(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*"])){
             const link = document.createElement("link");
-            link.href = chrome.runtime.getURL("/dark-theme/dark-theme.css");
+            link.href = chrome.runtime.getURL("/src/dark-theme.css");
             link.type = "text/css";
             link.rel = "stylesheet";
             link.id = "PCCDarkTheme";
