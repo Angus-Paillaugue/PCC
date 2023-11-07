@@ -1,7 +1,6 @@
 function sendMessage(message){
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-        var activeTab = tabs[0];
-        chrome.tabs.sendMessage(activeTab.id, message);
+        chrome.tabs.sendMessage(tabs[0].id, message);
     });
 }
 
@@ -9,10 +8,48 @@ function sendMessage(message){
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
 
+    chrome.storage.local.get(["isPremium"], (status) => {
+        const isPremium = status?.isPremium ?? false;
+        const errEl = document.getElementById("err");
+        if(!isPremium){
+            document.getElementById("main").style.display = "none";
+            document.getElementById("log-in").addEventListener("click", () => {
+                errEl.style.display = "none";
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                fetch("http://localhost:5173/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+                    if(!data.err) {
+                        chrome.storage.local.set({ isPremium:data.isPremium }); 
+                        if(data.isPremium){
+                            document.getElementById("main").style.display = "block";
+                            document.getElementById("auth").style.display = "none";
+                            chrome.storage.local.set({"username": username });
+                            chrome.storage.local.set({"password": password });
+                        }else {
+                            errEl.style.display = "flex";
+                            errEl.innerText = "You did not purchase the premium version.";
+                        }
+                    }else {
+                        errEl.style.display = "flex";
+                        errEl.innerText = data.err;
+                    }
+                }).catch(error => {
+                    console.error("Error making the request:", error);
+                });
+            });
+        }else {
+            document.getElementById("auth").style.display = "none";
+            // !For debugging (removes the default log-in values)
+            // chrome.storage.local.set({"username": null });
+            // chrome.storage.local.set({"password": null });
+            // chrome.storage.local.set({"isPremium": null });
+        }
+    });
+
     // Conversion
     const status_input = document.getElementById('status');
     status_input.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "status": status });
         reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
@@ -24,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto redirect to PandaBuy
     const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
     autoPandaBuyRedirect.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "autoPandaBuyRedirect": status });
         reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
@@ -35,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pandabuyProductWarnings = document.getElementById('pandabuyProductWarnings');
     pandabuyProductWarnings.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "pandabuyProductWarnings": status });
         sendMessage("productWarningsChange");
     });
@@ -47,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Third party disclaimer
     const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
         reloadTab(["*://\*.pandabuy.com/*"]);
     });
@@ -59,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Third party disclaimer
     const customProductQC = document.getElementById('customProductQC');
     customProductQC.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "customProductQC": status });
         reloadTab(["*://\*.pandabuy.com/product?*"], "href");
     });
@@ -71,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Yupoo redesign
     const yupooInterfaceReDesign = document.getElementById('yupooInterfaceReDesign');
     yupooInterfaceReDesign.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "yupooInterfaceReDesign": status });
         reloadTab(["*://\*.yupoo.com/*"]);
     });
@@ -83,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Side bar
     const removeYupooSideBar = document.getElementById('removeYupooSideBar');
     removeYupooSideBar.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "removeYupooSideBar": status });
         sendMessage("toggledSideBar");
     });
@@ -95,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Yupoo redirect skip
     const skipYupooRedirect = document.getElementById('skipYupooRedirect');
     skipYupooRedirect.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "skipYupooRedirect": status });
     });
     chrome.storage.local.get(["skipYupooRedirect"], (status) => {
@@ -105,13 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Yupoo grid
     chrome.storage.local.get(["yupooContentWidth"], (status) => {
-        let slider = document.getElementById("yupooContentWidthSlider");
-        let output = document.getElementById("yupooContentWidth");
+        const slider = document.getElementById("yupooContentWidthSlider");
+        const output = document.getElementById("yupooContentWidth");
         yupooContentWidth = status?.yupooContentWidth ?? 180;
         slider.value = yupooContentWidth
         output.innerHTML = yupooContentWidth
         slider.oninput = function() {
-            let newWidth = this.value;
+            const newWidth = this.value;
             output.innerHTML = newWidth;
             chrome.storage.local.set({ "yupooContentWidth": newWidth });
             sendMessage("yupooContentWidthChanged");
@@ -119,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Fetches the currencies.json to append to the select menu on the popup
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open("GET", chrome.runtime.getURL('currencies.json'));
     xhr.onreadystatechange  = function() {
         // Checks if the currencies.json fetching has ended and can proceed
@@ -154,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dark mode
     const darkMode = document.getElementById('darkMode');
     darkMode.addEventListener('change', (e) => {
-        let status = e.currentTarget.checked;
+        const status = e.currentTarget.checked;
         chrome.storage.local.set({ "darkMode": status });
         sendMessage("darkModeToggled");
     });

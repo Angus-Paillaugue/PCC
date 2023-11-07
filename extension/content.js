@@ -2,7 +2,7 @@ const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://\*
 
 const urlMatch = (urls, testWith=location.origin) => {
     try { 
-        for(let url of urls){
+        for(const url of urls){
             if(new URLPattern(url).test(testWith)) return true;
         }
         return false;
@@ -106,7 +106,7 @@ function conversion(){
         // Gathering the currencies converting rates (trying for cache and if miss fetching it from the api)
         getRates(convertTo, (rates) => {
             // Fetch currencies data from ./currencies.json
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open("GET", chrome.runtime.getURL('currencies.json'));
             xhr.onreadystatechange  = function() {
                 // Checks if the currencies.json fetching has ended and can proceed
@@ -126,8 +126,8 @@ function conversion(){
                                     // Checks if the child is a text node
                                     if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
                                         // Extract the text, calls the format function and replace the text with the converted one
-                                        let nodeText = textNode.childNodes[i].textContent;
-                                        let formattedText = formatString(nodeText, rates, currencies, convertTo);
+                                        const nodeText = textNode.childNodes[i].textContent;
+                                        const formattedText = formatString(nodeText, rates, currencies, convertTo);
                                         if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
                                     }
                                 }
@@ -144,10 +144,10 @@ function conversion(){
 function changeYupooGrid(){
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
-        let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+        const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
         if(!yupooInterfaceReDesign) return;
         chrome.storage.local.get(["yupooContentWidth"], (status) => {
-            let yupooContentWidth = status?.yupooContentWidth ?? 170;
+            const yupooContentWidth = status?.yupooContentWidth ?? 170;
     
             if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
             if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
@@ -155,8 +155,8 @@ function changeYupooGrid(){
             if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
     
             // Change style og products containers
-            let imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
-            for(let imagesContainer of imagesContainers){
+            const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
+            for(const imagesContainer of imagesContainers){
                 imagesContainer.style.display = "grid";
                 imagesContainer.style.gap = "10px";
                 imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
@@ -169,7 +169,6 @@ function changeYupooGrid(){
         });
     });
 }
-changeYupooGrid();
 
 function toggleYupooSideBar() {
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
@@ -178,7 +177,7 @@ function toggleYupooSideBar() {
         status = status?.removeYupooSideBar ?? true;
         if(status){
             chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
-                let yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+                const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
                 if(!yupooInterfaceReDesign) return;
                 if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
                 if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
@@ -191,7 +190,6 @@ function toggleYupooSideBar() {
         }
     });
 }
-toggleYupooSideBar();
 
 // For removing (or not) the annoying disclaimers at product page load
 function productWarnings(){
@@ -199,7 +197,7 @@ function productWarnings(){
         status = status?.pandabuyProductWarnings ?? true;
         if(status){
             let count = 0;
-            let interval = setInterval(() => {
+            const interval = setInterval(() => {
                 if(count === 10) clearInterval(interval);
                 if(document.querySelector(".el-button.accept-btn.el-button--default")){
                     try {
@@ -231,39 +229,15 @@ chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
     }
 });
 
-// Checks if current website is a marketplace and is a product page and not a shop page
-chrome.storage.local.get(["skipYupooRedirect"], (status) => {
-    status = status?.skipYupooRedirect ?? true;
-    if(status && urlMatch(["https://x.yupoo.com/external?url=*"], location.href)){
-        chrome.runtime.sendMessage({ type: "updateTabURL", url: decodeURIComponent(new URL(location.href).searchParams.get("url")) });
-    }
-});
 
-// Listening to popup changes
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request === "toggledSideBar") toggleYupooSideBar();
-    if(request === "productWarningsChange") productWarnings();
-    if(request === "yupooContentWidthChanged") changeYupooGrid();
-    if(request === "darkModeToggled") setDarkMode();
-});
-
-// Running (or not) the functions on page load
-productWarnings();
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
     if(status) conversion();
 });
 
-// Redirect (or not) automatically from a marketplace page to the product on PandaBuy
-chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
-    status = status?.autoPandaBuyRedirect ?? true;
-    if(status && isAProductPage(location.href)){
-        chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
-    }
-});
 
 // ? EXPERIMENTAL : Products QC's
-async function customProductQC(){
+function customProductQC(){
     if(!urlMatch(["*://\*.pandabuy.com/product?*"], location.href)) return;
 
     chrome.storage.local.get(["customProductQC"], (status) => {
@@ -276,7 +250,7 @@ async function customProductQC(){
             if(providerName === "tmall") providerName = "taobao";
             const providerType = providerName;
             const productID = getProductId(productUrl);
-            let interval = setInterval(async() => {
+            const interval = setInterval(() => {
                 try{
                     if($(".shop-list").length === 0) throw new Error("I got nowhere to append the QC's!");
                     clearInterval(interval);
@@ -294,9 +268,6 @@ async function customProductQC(){
     });
 
 }
-
-// Call the function for adding QC's
-customProductQC();
     
 
 
@@ -317,4 +288,43 @@ function setDarkMode(){
     });
 }
 
-setDarkMode();
+// Listening to popup changes
+chrome.storage.local.get(["isPremium"], (status) => {
+    status = status?.isPremium ?? false;
+    console.log("User has payed for premium : ", status);
+    if(status) callPremium();
+});
+
+function callPremium() {
+    changeYupooGrid();
+    toggleYupooSideBar();
+    // Checks if current website is a marketplace and is a product page and not a shop page
+    chrome.storage.local.get(["skipYupooRedirect"], (status) => {
+        status = status?.skipYupooRedirect ?? true;
+        if(status && urlMatch(["https://x.yupoo.com/external?url=*"], location.href)){
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: decodeURIComponent(new URL(location.href).searchParams.get("url")) });
+        }
+    });
+
+    // Listening to popup changes
+    chrome.runtime.onMessage.addListener((request) => {
+        if(request === "toggledSideBar") toggleYupooSideBar();
+        if(request === "productWarningsChange") productWarnings();
+        if(request === "yupooContentWidthChanged") changeYupooGrid();
+        if(request === "darkModeToggled") setDarkMode();
+    });
+
+    // Running (or not) the functions on page load
+    productWarnings();
+
+    // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
+    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+        status = status?.autoPandaBuyRedirect ?? true;
+        if(status && isAProductPage(location.href)){
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
+        }
+    });
+    // Call the function for adding QC's
+    customProductQC();
+    setDarkMode();
+}

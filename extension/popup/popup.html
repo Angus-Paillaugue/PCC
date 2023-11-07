@@ -16,7 +16,22 @@
         <h1 class="text-2xl font-bold">PCC</h1>
     </header>
 
-    <main class="flex flex-col gap-2 mt-14">
+    <main id="auth" class="flex flex-col gap-2 mt-14 p-4">
+        <h2>Log-in</h2>
+        <label for="username">
+            Username
+            <input type="text" name="username" id="username">
+        </label>
+        <label for="username">
+            Password
+            <input type="password" name="password" id="password">
+        </label>
+        <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border border-red-400 rounded text-red-900" style="display: none;"></div>
+        <button class="button" id="log-in">Log-in</button>
+        <a href="https://pcc.paillaugue.fr/auth">No accounts, yet ?</a>
+    </main>
+
+    <main class="flex flex-col gap-2 mt-14" id="main">
 
         <section>
             <h2 class="pl-2">Conversion</h2>
@@ -173,7 +188,7 @@
         </section>
     </main>
 
-    <footer class="h-12 flex flex-row gap-2 justify-center items-center">
+    <footer class="h-12 flex flex-row gap-2 justify-center items-center bg-neutral-100">
         <h4>
             Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
         </h4>
