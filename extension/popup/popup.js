@@ -4,31 +4,26 @@ function sendMessage(message){
     });
 }
 
-
-// On popup load
-document.addEventListener('DOMContentLoaded', () => {
-
-    chrome.storage.local.get(["isPremium"], (status) => {
-        const isPremium = status?.isPremium ?? false;
+function main() {
+    chrome.storage.local.get(["username", "password"], (data) => {
+        const { username, password } = data;
         const errEl = document.getElementById("err");
-        if(!isPremium){
-            document.getElementById("main").style.display = "none";
+
+        if(!username || !password) {
+            if(document.getElementById("main")) document.getElementById("main").style.display = "none";
+            if(document.getElementById("auth")) document.getElementById("auth").style.display = "block";
             document.getElementById("log-in").addEventListener("click", () => {
                 errEl.style.display = "none";
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
-                fetch("http://localhost:5173/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+                fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
                     if(!data.err) {
-                        chrome.storage.local.set({ isPremium:data.isPremium }); 
-                        if(data.isPremium){
-                            document.getElementById("main").style.display = "block";
-                            document.getElementById("auth").style.display = "none";
-                            chrome.storage.local.set({"username": username });
-                            chrome.storage.local.set({"password": password });
-                        }else {
-                            errEl.style.display = "flex";
-                            errEl.innerText = "You did not purchase the premium version.";
-                        }
+                        chrome.storage.local.set({ isPremium:data.isPremium });
+                        chrome.storage.local.set({"username": username });
+                        chrome.storage.local.set({"password": password });
+                        if(document.getElementById("main")) document.getElementById("main").style.display = "block";
+                        if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
+                        main();
                     }else {
                         errEl.style.display = "flex";
                         errEl.innerText = data.err;
@@ -38,13 +33,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         }else {
-            document.getElementById("auth").style.display = "none";
-            // !For debugging (removes the default log-in values)
-            // chrome.storage.local.set({"username": null });
-            // chrome.storage.local.set({"password": null });
-            // chrome.storage.local.set({"isPremium": null });
+            chrome.storage.local.get(["isPremium"], (status) => {
+                const isPremium = status?.isPremium ?? false;
+                if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
+                if(document.getElementById("main")) document.getElementById("main").style.display = "block";
+                document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
+                if(!isPremium){
+                    // Grayed background
+                    const hide = document.createElement("div");
+                    hide.className = "bg-neutral-600/50 absolute left-0 z-20 pointer-events-none w-full bottom-0 flex flex-col text-white items-center p-4";
+
+                    // Paragraph
+                    const p = document.createElement("p");
+                    p.className = "text-base font-bold px-4 block text-center";
+                    p.innerHTML = `To unlock all these features, `;
+                    // Link
+                    const a = document.createElement("a");
+                    a.href = "https://pcc.paillaugue.fr/pricing";
+                    a.innerText = "Upgrade to premium";
+                    a.addEventListener("click", (e) => {
+                        chrome.tabs.create({url: e.target.getAttribute('href')});
+                    });
+                    p.appendChild(a);
+
+                    // Appending message and grayed background
+                    document.querySelector("#main > section:nth-child(1)").appendChild(p);
+                    hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
+                    hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
+                    document.body.appendChild(hide);
+                }
+            });
         }
     });
+}
+
+
+// On popup load
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById("log-out").addEventListener("click", () => {
+        chrome.storage.local.set({"username": null });
+        chrome.storage.local.set({"password": null });
+        chrome.storage.local.set({"isPremium": null });
+        main();
+    });
+
+    document.getElementById("refreshPlan").addEventListener("click", () => {
+        chrome.storage.local.get(["username", "password"], (data) => {
+            const { username, password } = data;
+            fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+                chrome.storage.local.set({ isPremium:data.isPremium }); 
+                main();
+            });
+        });
+    })
+
+    main();
 
     // Conversion
     const status_input = document.getElementById('status');
@@ -207,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for(const link of links){
         link.addEventListener("click", (e) => {
             chrome.tabs.create({url: e.target.getAttribute('href')});
-        })
+        });
     }
 });
 

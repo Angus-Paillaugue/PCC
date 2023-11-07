@@ -32,6 +32,10 @@ body {
   @apply bg-white dark:bg-neutral-800 overflow-x-hidden text-text-main;
 }
 
+.nav-link {
+  @apply font-medium underline text-neutral-900 dark:text-neutral-100 hover:text-primary-600 dark:hover:text-primary-500 transition-all duration-200;
+}
+
 .button-primary {
   @apply text-white bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative;
 }
@@ -42,6 +46,9 @@ body {
   @apply text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed sm:hover:pr-14 relative overflow-hidden;
 }
 .button-primary.small {
+  @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
+}
+.button-small {
   @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
 }
 [class^='button-']:not(.no-scale), button:not(.no-scale) {

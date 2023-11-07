@@ -291,7 +291,7 @@ function setDarkMode(){
 // Listening to popup changes
 chrome.storage.local.get(["isPremium"], (status) => {
     status = status?.isPremium ?? false;
-    console.log("User has payed for premium : ", status);
+    console.log("User has payed for premium :", status);
     if(status) callPremium();
 });
 

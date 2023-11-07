@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
         if(username, password) {
-            fetch("http://localhost:5173/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+            fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
                 chrome.storage.local.set({ isPremium:data.isPremium });
             }).catch(error => {
                 console.error("Error making the request:", error);

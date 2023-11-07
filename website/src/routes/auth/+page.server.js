@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { AUTH_TOKEN_SECRET } from "$env/static/private";
 
 export async function load({ locals }) {
-    if(locals.user) redirect(303, "/dashboard");
+    if(locals.user) throw redirect(307, "/dashboard");
 };
 
 export const actions = {
@@ -19,7 +19,7 @@ export const actions = {
             const compare = await bcrypt.compare(password, userExists.password);
             if(compare){
                 cookies.set("token", generateAccessToken(username), { maxAge: 60 * 60 * 24 * 10, secure:false });
-                throw redirect(303, "/dashboard");
+                throw redirect(307, "/dashboard");
             }
             return { logIn:{success:false, formData, message:"Incorrect password!"} };
         }catch(err){
@@ -45,7 +45,7 @@ export const actions = {
         await usersRef.insertOne({ username: username, email:email, password:hash, joined:new Date() });
 
         cookies.set("token", generateAccessToken(username), { maxAge: 60 * 60 * 24 * 10, secure:false });
-        throw redirect(303, "/dashboard");
+        throw redirect(307, "/dashboard");
     }
 };
 

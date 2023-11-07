@@ -71,7 +71,16 @@ label.toggleLabel {
     @apply cursor-pointer h-10 bg-red-600 block rounded-md relative w-full after:text-base after:text-white after:content-['OFF'] after:absolute after:top-1/2 after:left-1/2 after:-translate-y-1/2 after:-translate-x-1/2 peer-checked:after:text-neutral-800 peer-checked:after:content-['ON'] peer-checked:bg-primary;
 }
 .button {
-    @apply bg-primary h-10 block rounded-md relative w-full text-base text-neutral-800
+    @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
+}
+.button-secondary {
+    @apply bg-neutral-200 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
+}
+.button-red {
+    @apply bg-red-600 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-white
+}
+.button-small {
+    @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
 }
 
 svg.experimental {

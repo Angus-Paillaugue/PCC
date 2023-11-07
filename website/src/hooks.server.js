@@ -1,10 +1,10 @@
 import auth from "$lib/server/auth";
 
 export const handle = async ({ event, resolve }) => {
-    const { url, cookies, locals } = event;
+    const { cookies, locals } = event;
 
     const token = cookies.get('token');
-    if(!token || !locals.user) {
+    if(!locals.user) {
         if(token){
             const user = await auth(token);
             if(!user?.error) {
@@ -15,7 +15,7 @@ export const handle = async ({ event, resolve }) => {
         }
     }
     
-    if(!url.pathname === "/" && !locals.user){
+    if(!locals.user){
         cookies.delete("token");
     }
 

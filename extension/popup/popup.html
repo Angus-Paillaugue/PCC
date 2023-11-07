@@ -20,14 +20,14 @@
         <h2>Log-in</h2>
         <label for="username">
             Username
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" class="mt-1">
         </label>
         <label for="username">
             Password
             <input type="password" name="password" id="password">
         </label>
         <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border border-red-400 rounded text-red-900" style="display: none;"></div>
-        <button class="button" id="log-in">Log-in</button>
+        <button class="button mt-2" id="log-in">Log-in</button>
         <a href="https://pcc.paillaugue.fr/auth">No accounts, yet ?</a>
     </main>
 
@@ -185,6 +185,14 @@
                 <label for="darkMode" class="toggleLabel"></label>
             </div>
 
+        </section>
+
+        <section>
+            <div class="field">
+                <p>Plan :<span class="font-semibold" id="plan"></span></p>
+                <button id="refreshPlan" class="button-secondary button-small">Refresh Plan</button>
+                <button class="button-red button-small mt-2" id="log-out">Log-out</button>
+            </div>
         </section>
     </main>
 
