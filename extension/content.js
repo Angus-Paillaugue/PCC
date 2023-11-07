@@ -144,7 +144,7 @@ function conversion(){
 function changeYupooGrid(){
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
-        const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+        const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? false;
         if(!yupooInterfaceReDesign) return;
         chrome.storage.local.get(["yupooContentWidth"], (status) => {
             const yupooContentWidth = status?.yupooContentWidth ?? 170;
@@ -174,10 +174,10 @@ function toggleYupooSideBar() {
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     // If remove sidebar toggle switch is on
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-        status = status?.removeYupooSideBar ?? true;
+        status = status?.removeYupooSideBar ?? false;
         if(status){
             chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
-                const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? true;
+                const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? false;
                 if(!yupooInterfaceReDesign) return;
                 if(document.querySelector(".yupoo-categories-hide-sidebar")) document.querySelector(".yupoo-categories-hide-sidebar").style.display = "none";
                 if(document.querySelector(".categories__box-left")) document.querySelector(".categories__box-left").style.display = "none";
@@ -194,7 +194,7 @@ function toggleYupooSideBar() {
 // For removing (or not) the annoying disclaimers at product page load
 function productWarnings(){
     chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
-        status = status?.pandabuyProductWarnings ?? true;
+        status = status?.pandabuyProductWarnings ?? false;
         if(status){
             let count = 0;
             const interval = setInterval(() => {
@@ -211,37 +211,13 @@ function productWarnings(){
     });
 }
 
-// For checking (or not) the required checkbox before adding a product to cart on PandaBuy
-chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-    status = status?.thirdPartyDisclaimerAutoCheck ?? true;
-    if(status && urlMatch(["*://\*.pandabuy.com/product?*"], location.href)){
-        const setCheckBox = () => {
-            try {
-                document.querySelector("input.el-checkbox__original").checked = true;
-                document.querySelector(".el-checkbox").classList.add("is-checked");
-            } catch (_) {
-                setTimeout(() => {
-                    setCheckBox();
-                }, 1000);
-            }
-        }
-        setCheckBox();
-    }
-});
-
-
-chrome.storage.local.get(["status"], (status) => {
-    status = status?.status ?? true;
-    if(status) conversion();
-});
-
 
 // ? EXPERIMENTAL : Products QC's
 function customProductQC(){
     if(!urlMatch(["*://\*.pandabuy.com/product?*"], location.href)) return;
 
     chrome.storage.local.get(["customProductQC"], (status) => {
-        status = status?.customProductQC ?? true;
+        status = status?.customProductQC ?? false;
         if(status){
             const productUrl = new URL(location.href).searchParams.get("url")
             let providerName = new URL(productUrl).origin.split(".").at(-2).split("/").at(-1);
@@ -288,24 +264,65 @@ function setDarkMode(){
     });
 }
 
+
+
+// ||-----------------------------------||
+// || Calling the function on page load ||
+// ||-----------------------------------||
+
+chrome.storage.local.get(["status"], (status) => {
+    status = status?.status ?? true;
+    if(status) conversion();
+});
+
 // Listening to popup changes
 chrome.storage.local.get(["isPremium"], (status) => {
     status = status?.isPremium ?? false;
-    console.log("User has payed for premium :", status);
     if(status) callPremium();
 });
 
 function callPremium() {
     changeYupooGrid();
     toggleYupooSideBar();
+    productWarnings();
+    customProductQC();
+    setDarkMode();
+
+    // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
+    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+        status = status?.thirdPartyDisclaimerAutoCheck ?? false;
+        if(status && urlMatch(["*://\*.pandabuy.com/product?*"], location.href)){
+            const setCheckBox = () => {
+                try {
+                    document.querySelector("input.el-checkbox__original").checked = false;
+                    document.querySelector(".el-checkbox").classList.add("is-checked");
+                } catch (_) {
+                    setTimeout(() => {
+                        setCheckBox();
+                    }, 1000);
+                }
+            }
+            setCheckBox();
+        }
+    });
+
     // Checks if current website is a marketplace and is a product page and not a shop page
     chrome.storage.local.get(["skipYupooRedirect"], (status) => {
-        status = status?.skipYupooRedirect ?? true;
+        status = status?.skipYupooRedirect ?? false;
         if(status && urlMatch(["https://x.yupoo.com/external?url=*"], location.href)){
             chrome.runtime.sendMessage({ type: "updateTabURL", url: decodeURIComponent(new URL(location.href).searchParams.get("url")) });
         }
     });
 
+    
+    // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
+    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+        status = status?.autoPandaBuyRedirect ?? false;
+        if(status && isAProductPage(location.href)){
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
+        }
+    });
+    
     // Listening to popup changes
     chrome.runtime.onMessage.addListener((request) => {
         if(request === "toggledSideBar") toggleYupooSideBar();
@@ -313,18 +330,4 @@ function callPremium() {
         if(request === "yupooContentWidthChanged") changeYupooGrid();
         if(request === "darkModeToggled") setDarkMode();
     });
-
-    // Running (or not) the functions on page load
-    productWarnings();
-
-    // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
-    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
-        status = status?.autoPandaBuyRedirect ?? true;
-        if(status && isAProductPage(location.href)){
-            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
-        }
-    });
-    // Call the function for adding QC's
-    customProductQC();
-    setDarkMode();
 }

@@ -73,7 +73,7 @@
                             <span>Interface re-design</span>
                         </li>
                         <li>
-                            <span>Custom grid</span>
+                            <span>Custom products grid</span>
                         </li>
                         <li>
                             <span>Side-bar toggle</span>

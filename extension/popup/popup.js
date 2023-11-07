@@ -38,9 +38,10 @@ function main() {
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
-                if(!isPremium){
+                if(!isPremium && !document.getElementById("hide")){
                     // Grayed background
                     const hide = document.createElement("div");
+                    hide.id = "hide";
                     hide.className = "bg-neutral-600/50 absolute left-0 z-20 pointer-events-none w-full bottom-0 flex flex-col text-white items-center p-4";
 
                     // Paragraph
@@ -61,6 +62,8 @@ function main() {
                     hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
                     hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
                     document.body.appendChild(hide);
+                }else if (isPremium) {
+                    if(document.getElementById("hide")) document.getElementById("hide").remove()
                 }
             });
         }
@@ -110,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
     });
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
-        status = status?.autoPandaBuyRedirect ?? true;
+        status = status?.autoPandaBuyRedirect ?? false;
         autoPandaBuyRedirect.checked = status;
     });
 
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendMessage("productWarningsChange");
     });
     chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
-        status = status?.pandabuyProductWarnings ?? true;
+        status = status?.pandabuyProductWarnings ?? false;
         pandabuyProductWarnings.checked = status;
     });
 
@@ -133,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reloadTab(["*://\*.pandabuy.com/*"]);
     });
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-        status = status?.thirdPartyDisclaimerAutoCheck ?? true;
+        status = status?.thirdPartyDisclaimerAutoCheck ?? false;
         thirdPartyDisclaimerAutoCheck.checked = status;
     });
 
@@ -145,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reloadTab(["*://\*.pandabuy.com/product?*"], "href");
     });
     chrome.storage.local.get(["customProductQC"], (status) => {
-        status = status?.customProductQC ?? true;
+        status = status?.customProductQC ?? false;
         customProductQC.checked = status;
     });
 
@@ -157,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reloadTab(["*://\*.yupoo.com/*"]);
     });
     chrome.storage.local.get(["yupooInterfaceReDesign"], (status) => {
-        status = status?.yupooInterfaceReDesign ?? true;
+        status = status?.yupooInterfaceReDesign ?? false;
         yupooInterfaceReDesign.checked = status;
     });
 
@@ -169,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendMessage("toggledSideBar");
     });
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-        status = status?.removeYupooSideBar ?? true;
+        status = status?.removeYupooSideBar ?? false;
         removeYupooSideBar.checked = status;
     });
 
@@ -180,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.storage.local.set({ "skipYupooRedirect": status });
     });
     chrome.storage.local.get(["skipYupooRedirect"], (status) => {
-        status = status?.skipYupooRedirect ?? true;
+        status = status?.skipYupooRedirect ?? false;
         skipYupooRedirect.checked = status;
     });
 

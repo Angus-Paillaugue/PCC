@@ -52,7 +52,7 @@
         <div class="text-neutral-900 bg-white rounded-lg border border-neutral-100 shadow p-6">
             <h2 class="text-center">Pay by card</h2>
 
-            <div class="border border-neutral-100 p-2 rounded-md flex flex-col gap-2">
+            <div class="border border-neutral-200 p-2 rounded-md flex flex-col gap-2 mt-2">
                 <div class="flex justify-between items-center">
                     <p>PCC Pro Version</p>
                     <p class="font-semibold">$9.99</p>
