@@ -31,6 +31,7 @@
     async function submit() {
         if (processing) return;
         processing = true;
+        error = null;
         
         const intent = await createPaymentIntent();
 

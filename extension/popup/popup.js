@@ -35,6 +35,7 @@ function main() {
         }else {
             chrome.storage.local.get(["isPremium"], (status) => {
                 const isPremium = status?.isPremium ?? false;
+                if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").style.display = "none";
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
@@ -46,6 +47,7 @@ function main() {
 
                     // Paragraph
                     const p = document.createElement("p");
+                    p.id = "unlockFeaturesParagraph"
                     p.className = "text-base font-bold px-4 block text-center";
                     p.innerHTML = `To unlock all these features, `;
                     // Link

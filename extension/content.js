@@ -174,7 +174,7 @@ function toggleYupooSideBar() {
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     // If remove sidebar toggle switch is on
     chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-        status = status?.removeYupooSideBar ?? false;
+        status = status?.removeYupooSideBar ?? true;
         if(status){
             chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
                 const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? false;

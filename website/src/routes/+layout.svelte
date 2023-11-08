@@ -63,7 +63,7 @@
         </div>
     </nav>
 
-    <div class="fixed top-16 h-full w-full left-0 p-4 pb-20 flex flex-col gap-2 justify-center items-center bg-gray-200/50 backdrop-blur transition-opacity {navbar ? "opacity-100 z-40" : "opacity-0 -z-10"}">
+    <div class="fixed top-16 h-full w-full left-0 p-4 pb-20 flex md:hidden flex-col gap-2 justify-center items-center bg-gray-200/50 backdrop-blur transition-opacity {navbar ? "opacity-100 z-40" : "opacity-0 -z-10"}">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <ul class="flex flex-col gap-4 text-center" on:click={() => {navbar = false;}}>
