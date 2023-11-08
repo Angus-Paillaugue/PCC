@@ -145,8 +145,10 @@ function changeYupooGrid(){
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
         const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? false;
+        console.log(yupooInterfaceReDesign);
         if(!yupooInterfaceReDesign) return;
         chrome.storage.local.get(["yupooContentWidth"], (status) => {
+            console.log(status);
             const yupooContentWidth = status?.yupooContentWidth ?? 170;
     
             if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
@@ -155,7 +157,7 @@ function changeYupooGrid(){
             if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
     
             // Change style og products containers
-            const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent");
+            const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
             for(const imagesContainer of imagesContainers){
                 imagesContainer.style.display = "grid";
                 imagesContainer.style.gap = "10px";
