@@ -32,6 +32,9 @@
 
             <ul class="md:flex flex-row gap-4 hidden">
                 <li>
+                    <a href="/" class="nav-link w-fit">Home</a>
+                </li>
+                <li>
                     <a href="/help" class="nav-link w-fit">Get help</a>
                 </li>
                 <li>
@@ -48,7 +51,7 @@
                     <a href="{extension.link}" class="button-primary button-small ml-2">Download</a>
                 {/if}
             </div>
-            <button on:click={() => {navbar = !navbar}}>
+            <button on:click={() => {navbar = !navbar}} class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     {#if navbar}
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -65,6 +68,9 @@
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <ul class="flex flex-col gap-4 text-center" on:click={() => {navbar = false;}}>
             <li>
+                <a href="/" class="nav-link w-fit">Home</a>
+            </li>
+            <li>
                 <a href="/help" class="nav-link w-fit">Get help</a>
             </li>
             <li>
@@ -77,11 +83,11 @@
                     <a href="/dashboard" class="button-secondary button-small">Dashboard</a>
                 {/if}
             </li>
-            <li>
-                {#if extension !== "blank"}
-                    <a href="{extension.link}" class="button-primary button-small ml-2">Download</a>
-                {/if}
-            </li>
+            {#if extension !== "blank"}
+                <li>
+                    <a href="{extension.link}" class="button-primary button-small">Download</a>
+                </li>
+            {/if}
         </ul>
     </div>
 
