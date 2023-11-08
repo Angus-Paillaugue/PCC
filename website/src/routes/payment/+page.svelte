@@ -4,6 +4,9 @@
     import { Elements, CardNumber, CardExpiry, CardCvc } from '$lib/components/payment';
     import { PUBLIC_STRIPE_KEY } from '$env/static/public';
 
+    export let data;
+
+    const { premiumPrice } = data;
     let stripe;
     let cardElement;
     let processing = false;
@@ -16,33 +19,42 @@
 
     async function createPaymentIntent() {
         const response = await fetch('/payment-intent', { method: 'POST' });
-        const { clientSecret } = await response.json();
-
-        return clientSecret;
+        const data = await response.json();
+        
+        if(data.error) {
+            return{ error:data.message };
+        }else {
+            return { clientSecret:data.clientSecret };
+        }
     }
-
+    
     async function submit() {
         if (processing) return;
         processing = true;
-
-        const clientSecret = await createPaymentIntent();
-
-        // confirm payment with stripe
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: cardElement
-            }
-        });
         
-        if (result.error) {
-            error = result.error;
-        } else {
-            if(result.paymentIntent.status === 'succeeded') {
-                success = true;
-            }else {
-                error = { message: 'Payment failed' };
+        const intent = await createPaymentIntent();
+
+        if(intent.error){
+            error = { message:intent.error };
+        }else {
+            // confirm payment with stripe
+            const result = await stripe.confirmCardPayment(intent.clientSecret, {
+                payment_method: {
+                    card: cardElement
+                }
+            });
+            
+            if (result.error) {
+                error = result.error;
+            } else {
+                if(result.paymentIntent.status === 'succeeded') {
+                    success = true;
+                }else {
+                    error = { message: 'Payment failed' };
+                }
             }
         }
+
         processing = false;
     }
 </script>
@@ -59,11 +71,11 @@
             <div class="border border-neutral-200 p-2 rounded-md flex flex-col gap-2 mt-2">
                 <div class="flex justify-between items-center">
                     <p>PCC Pro Version</p>
-                    <p class="font-semibold">$9.99</p>
+                    <p class="font-semibold">${(premiumPrice/100).toFixed(2)}</p>
                 </div>
                 <div class="flex justify-between items-center">
                     <p>Total :</p>
-                    <p class="font-semibold">$9.99</p>
+                    <p class="font-semibold">${(premiumPrice/100).toFixed(2)}</p>
                 </div>
             </div>
 
@@ -101,7 +113,7 @@
                                     <path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' />
                                 </svg>
                             {:else}
-                                Pay 9.99 €
+                                Pay {(premiumPrice/100).toFixed(2)} €
                             {/if}
                         </button>
                     {/if}

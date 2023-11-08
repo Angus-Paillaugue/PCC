@@ -1,10 +1,12 @@
 /** @type {import('./$types').LayoutLoad} */
 export async function load({ data }) {
 
-    const currentNumberOfDownloads = 220;
+    const currentNumberOfDownloads = 300;
+    const premiumPrice = 399;
     
     return { 
         ...data,
+        premiumPrice,
         currentNumberOfDownloads,
         extensions : [
             {

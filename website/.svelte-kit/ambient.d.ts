@@ -28,6 +28,7 @@
 declare module '$env/static/private' {
 	export const MONGODB_CONNEXION_STRING: string;
 	export const AUTH_TOKEN_SECRET: string;
+	export const SECRET_STRIPE_KEY: string;
 	export const STRIPE_WEBHOOK_SECRET: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
@@ -132,7 +133,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_STRIPE_KEY: string;
 }
 
 /**
@@ -151,6 +152,7 @@ declare module '$env/dynamic/private' {
 	export const env: {
 		MONGODB_CONNEXION_STRING: string;
 		AUTH_TOKEN_SECRET: string;
+		SECRET_STRIPE_KEY: string;
 		STRIPE_WEBHOOK_SECRET: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
@@ -260,6 +262,7 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_STRIPE_KEY: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }
