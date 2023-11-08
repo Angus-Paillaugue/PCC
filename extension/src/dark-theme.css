@@ -11,7 +11,7 @@
 
 /* Main elements */
 html,
-html *:not(button *):not(button):not(input):not(a):not(span):not(svg):not(.el-badge__content):not(i:not(.prop-title)):not(.el-progress-bar__inner):not(.el-progress-bar__outer):not(.el-checkbox__inner):not(.popper__arrow):not(.showalbumheader__space):not(img):not(.image__clickhandle):not(.pagination__active):not(.price-goods-discount-layout):not(.remain-time):not(.line-item-mask):not(.el-dialog__wrapper), .line-discount, .order-tag, .el-button, .line-item {
+html *:not(button *):not(button):not(input):not(a):not(span):not(svg):not(.el-badge__content):not(i:not(.prop-title)):not(.el-progress-bar__inner):not(.el-progress-bar__outer):not(.el-checkbox__inner):not(.popper__arrow):not(.showalbumheader__space):not(img):not(.image__clickhandle):not(.pagination__active):not(.price-goods-discount-layout):not(.remain-time):not(.line-item-mask):not(.el-dialog__wrapper):not(.list > .item), .line-discount, .order-tag, .el-button, .line-item {
   color: var(--text-color) !important;
   background-color: var(--bg) !important;
 }
