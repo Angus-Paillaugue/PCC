@@ -12,7 +12,8 @@ function main() {
         if(!username || !password) {
             if(document.getElementById("main")) document.getElementById("main").style.display = "none";
             if(document.getElementById("auth")) document.getElementById("auth").style.display = "block";
-            document.getElementById("log-in").addEventListener("click", () => {
+            document.getElementById("log-in").addEventListener("submit", (e) => {
+                e.preventDefault();
                 errEl.style.display = "none";
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;

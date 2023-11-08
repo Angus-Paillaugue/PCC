@@ -50,17 +50,20 @@
                     <label for="password" class="block mb-2">Password</label>
                     <input type="password" placeholder="Password" name="password" value="{form?.logIn?.formData?.password ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
             
-                    <button class="button-primary group w-full mb-4">
-                        Log-in
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                    </button>
-            
                     {#if form?.logIn?.success === false}
-                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800" role="alert">
+                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800 mb-4" role="alert">
                             <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                             {form?.logIn?.message}
                         </div>
                     {/if}
+
+                    <button class="button-primary group w-full mb-2">
+                        Log-in
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                    </button>
+
+                    <a href="/forgot-password" class="link">Forgot your password ?</a>
+            
                 </form>
                 <form class="w-[200%] no-user transition-all ease-in-out duration-300 p-2 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" use:enhance method="POST" action="?/signin" id="Sign-in">
                     <label for="username" class="block mb-2">E-mail</label>
@@ -72,17 +75,17 @@
                     <label for="password" class="block mb-2">Password</label>
                     <input type="password" placeholder="Password" name="password" value="{form?.signIn?.formData?.password ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
             
-                    <button class="button-primary group w-full mb-4">
-                        Sign-in
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                    </button>
-            
                     {#if form?.signIn?.success === false}
-                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800" role="alert">
+                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800 mb-4" role="alert">
                             <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                             {form?.signIn?.message}
                         </div>
                     {/if}
+
+                    <button class="button-primary group w-full">
+                        Sign-in
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                    </button>
                 </form>
             </div>
         </div>

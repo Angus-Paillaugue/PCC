@@ -29,7 +29,7 @@
     <title>PCC - Get Help</title>
 </svelte:head>
 
-<div class="max-w-screen-lg mx-auto mt-4 grow w-full p-2">
+<div class="max-w-screen-lg mx-auto mt-4 grow w-full py-8 px-4 lg:px-6">
     <div class="w-full h-full flex flex-col gap-4">
         {#if user}
             <button class="button-primary" on:click={() => {newQuestionModal = !newQuestionModal}}>New question</button>

@@ -16,19 +16,23 @@
         <h1 class="text-2xl font-bold">PCC</h1>
     </header>
 
-    <main id="auth" class="flex flex-col gap-2 mt-14 p-4">
-        <h2>Log-in</h2>
-        <label for="username">
-            Username
-            <input type="text" name="username" id="username" class="mt-1">
-        </label>
-        <label for="username">
-            Password
-            <input type="password" name="password" id="password">
-        </label>
-        <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border mt-2 border-red-400 rounded text-red-900" style="display: none;"></div>
-        <button class="button mt-2" id="log-in">Log-in</button>
-        <a href="https://pcc.paillaugue.fr/auth">No accounts, yet ?</a>
+    <main id="auth" >
+        <form class="flex flex-col gap-2 mt-14 p-4" id="log-in">
+            <h2>Log-in</h2>
+            <label for="username">
+                Username
+                <input type="text" name="username" id="username" class="mt-1">
+            </label>
+            <label for="username">
+                Password
+                <input type="password" name="password" id="password">
+            </label>
+
+            <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border mt-2 border-red-400 rounded text-red-900" style="display: none;"></div>
+
+            <button class="button mt-2" type="submit">Log-in</button>
+            <a href="https://pcc.paillaugue.fr/auth">No accounts, yet ?</a>
+        </form>
     </main>
 
     <main class="flex flex-col gap-2 mt-14" id="main">

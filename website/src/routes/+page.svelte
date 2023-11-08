@@ -22,6 +22,98 @@
             }
         }, 100);
     });
+    const releases = [
+        {
+            "version": "1.4.6",
+            "date": "2023-11-8",
+            "message": "Added premium features for the low low price of $3.99!"
+        },
+        {
+            "version": "1.4.3",
+            "date": "2023-11-8",
+            "message": "Added account system."
+        },
+        {
+            "version": "1.4.0",
+            "date": "2023-11-7",
+            "message": "Bug fixes and improvements."
+        },
+        {
+            "version": "1.4.0",
+            "date": "2023-11-6",
+            "message": "Extension interface re-design."
+        },
+        {
+            "version": "1.3.5",
+            "date": "2023-11-5",
+            "message": "New feature : Inline product QC."
+        },
+        {
+            "version": "1.3.0",
+            "date": "2023-11-4",
+            "message": "New feature : Remove products warnings."
+        },
+        {
+            "version": "1.2.3",
+            "date": "2023-11-4",
+            "message": "New feature : Remove products warnings."
+        },
+        {
+            "version": "1.2.1",
+            "date": "2023-11-3",
+            "message": "New feature : Third party disclaimer auto-check."
+        },
+        {
+            "version": "1.2.0",
+            "date": "2023-11-2",
+            "message": "New experimental feature : Dark mode."
+        },
+        {
+            "version": "1.1.5",
+            "date": "2023-11-2",
+            "message": "Bug fixes and improvements."
+        },
+        {
+            "version": "1.1.2",
+            "date": "2023-10-31",
+            "message": "Extension interface re-design."
+        },
+        {
+            "version": "1.1.0",
+            "date": "2023-10-29",
+            "message": "When navigating to a product page on a marketplace like taobao, you are redirected to the PandaBuy product page."
+        },
+        {
+            "version": "1.0.5",
+            "date": "2023-10-27",
+            "message": "You can now right click on a product link to open it in PandaBuy."
+        },
+        {
+            "version": "1.0.4",
+            "date": "2023-10-25",
+            "message": "Bug fixes and currency conversion algorithm changes."
+        },
+        {
+            "version": "1.0.3",
+            "date": "2023-10-19",
+            "message": "Added the Yupoo custom grid and side-bar toggle."
+        },
+        {
+            "version": "1.0.2",
+            "date": "2023-10-16",
+            "message": "Added a second feature : Yupoo interface redesign."
+        },
+        {
+            "version": "1.0.1",
+            "date": "2023-10-13",
+            "message": "Bug fixes and improvements."
+        },
+        {
+            "version": "1.0.0",
+            "date": "2023-10-03",
+            "message": "First release of PCC."
+        }
+    ]
     
     const sections = [
         {
@@ -57,7 +149,7 @@
 </svelte:head>
 
 {#if isPageLoaded}
-    <section class="min-h-[100dvh - 5rem] p-2 md:p-6 lg:px-10 md:py-4 flex flex-col items-center justify-center gap-10">
+    <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10">
         <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <div class="flex flex-col gap-2 border border-neutral-200 rounded-lg p-2 md:p-4" in:fly={{y: 50}}>
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
@@ -107,4 +199,26 @@
             {/each}
         </div>
     </section>
+
+    <section class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
+        <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
+            <h4 class="text-primary-600 font-extrabold">Releases</h4>
+
+            <ol class="relative border-l space-y-6 border-gray-200">
+                {#each releases as release}
+                    <li class="ml-10">
+                        <span class="absolute flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full -left-5 ring-8 ring-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-primary-800">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                            </svg>
+                        </span>
+                        <h3 class="mb-1">PCC v{release.version}</h3>
+                        <time class="block mb-2 text-sm font-normal leading-none text-neutral-400">Released on {new Date(release.date).toDateString()}</time>
+                        <p>{release.message}</p>
+                    </li>
+                {/each}
+            </ol>
+        </div>
+    </section>
+
 {/if}
