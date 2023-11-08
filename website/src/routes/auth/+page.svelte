@@ -2,23 +2,18 @@
     import { onMount } from "svelte";
     import { enhance } from '$app/forms';
 
-    export let data;
     export let form;
 
     let sectionsList = [];
     let tabIndex = 0;
-    let user;
     let navLinkUnderline;
 
-    $: user = data.user;
     $: setActiveTab(), tabIndex;
 
     onMount(() => {
-        if(!user){
-            sectionsList = document.querySelectorAll("form.no-user");
-            setActiveTab();
-            window.onresize = setActiveTab;
-        }
+        sectionsList = document.querySelectorAll("form.no-user");
+        setActiveTab();
+        window.onresize = setActiveTab;
     });
 
     function setActiveTab() {
