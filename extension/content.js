@@ -272,7 +272,12 @@ function setDarkMode(){
 
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
-    if(status) conversion();
+    if(status){
+        chrome.storage.local.get(["username", "password"], (data) => {
+            const { username, password } = data;
+            if(username && password) conversion();
+        });
+    }
 });
 
 // Listening to popup changes
