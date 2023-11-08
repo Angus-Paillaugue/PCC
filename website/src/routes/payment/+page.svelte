@@ -47,6 +47,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>PCC - Payment</title>
+</svelte:head>
+
 {#if stripe}
     <section class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6 w-full grow">
         <div class="text-neutral-900 bg-white rounded-lg border border-neutral-100 shadow p-6">

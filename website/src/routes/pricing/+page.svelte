@@ -12,6 +12,10 @@
 
 </script>
 
+<svelte:head>
+    <title>PCC - Pricing</title>
+</svelte:head>
+
 <section class="bg-white dark:bg-neutral-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">

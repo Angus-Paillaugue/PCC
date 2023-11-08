@@ -32,6 +32,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>PCC - log-in</title>
+</svelte:head>
+
 <section class="justify-between w-full grid grid-cols-1 gap-6 lg:grid-cols-2 min-h-screen items-center">
     <img src="pandabuyLogo.webp" alt="" class="lg:max-h-96 max-h-64 mx-auto fill-neutral-100">
     <div class="w-full max-lg:flex max-lg:items-center max-lg:flex-col p-2">
