@@ -11,11 +11,12 @@
 
 <body>
 
-    <header class="bg-neutral-800 text-white flex flex-row gap-4 items-center justify-center fixed top-0 left-0 w-full z-40 h-14">
+    
+    <header class="bg-gray-900 text-white flex flex-row gap-4 items-center justify-center fixed top-0 left-0 w-full z-40 h-14">
         <img src="../icons/64-icon.png" alt="PCC Logo" class="h-8">
         <h1 class="text-2xl font-bold">PCC</h1>
     </header>
-
+    
     <main id="auth" >
         <form class="flex flex-col gap-2 mt-14 p-4" id="log-in">
             <h2>Log-in</h2>
@@ -27,19 +28,19 @@
                 Password
                 <input type="password" name="password" id="password" class="mt-1">
             </label>
-
-            <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border mt-2 border-red-400 rounded text-red-900" style="display: none;"></div>
-
+            
+            <div id="err" class="p-2 flex flex-row gap-2 items-center bg-gray-100 border mt-2 border-red-400 rounded text-red-900" style="display: none;"></div>
+            
             <button class="button mt-2" type="submit">Log in</button>
             <a href="https://pcc.paillaugue.fr/forgot-password" class="mb-2">Forgot password ?</a>
             <a href="https://pcc.paillaugue.fr/auth">No account, yet ?</a>
         </form>
     </main>
-
+    
     <main class="flex flex-col gap-2 mt-14" id="main">
 
         <section>
-            <h2 class="pl-2">Conversion</h2>
+            <h2>Conversion</h2>
             <div class="field">
                 <p>
                     Conversion status :
@@ -49,18 +50,22 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="status" class="peer"/>
-                <label for="status" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="status" class="peer"/>
+                <label for="status" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="status"/>
+                    <label for="status"><span><em></em></span></label>
+                </div>
             </div>
         
-            <div class="field">
+            <div class="field" style="flex-direction: column; align-items: start;">
                 <p>Convert currencies to :</p>
-                <select id="convertTo"></select>
+                <select id="convertTo" class="checked:bg-blue-500"></select>
             </div>
         </section>
 
         <section>
-            <h2 class="pl-2">PandaBuy</h2>
+            <h2>PandaBuy</h2>
 
             <div class="field">
                 <p>
@@ -71,8 +76,12 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="autoPandaBuyRedirect" class="peer"/>
-                <label for="autoPandaBuyRedirect" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="autoPandaBuyRedirect" class="peer"/>
+                <label for="autoPandaBuyRedirect" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="autoPandaBuyRedirect"/>
+                    <label for="autoPandaBuyRedirect"><span><em></em></span></label>
+                </div>
             </div>
 
             <div class="field">
@@ -84,21 +93,29 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="pandabuyProductWarnings" class="peer"/>
-                <label for="pandabuyProductWarnings" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="pandabuyProductWarnings" class="peer"/>
+                <label for="pandabuyProductWarnings" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="pandabuyProductWarnings"/>
+                    <label for="pandabuyProductWarnings"><span><em></em></span></label>
+                </div>
             </div>
 
             <div class="field">
                 <p>
-                    Third party disclaimer auto check :
+                    Remove third party disclaimer :
                     <span class="tooltip-left" data-tooltip="Auto check the required checkbox before adding a product to cart on PandaBuy.">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="thirdPartyDisclaimerAutoCheck" class="peer"/>
-                <label for="thirdPartyDisclaimerAutoCheck" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="thirdPartyDisclaimerAutoCheck" class="peer"/>
+                <label for="thirdPartyDisclaimerAutoCheck" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="thirdPartyDisclaimerAutoCheck"/>
+                    <label for="thirdPartyDisclaimerAutoCheck"><span><em></em></span></label>
+                </div>
             </div>
 
             <div class="field">
@@ -110,21 +127,29 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="customProductQC" class="peer"/>
-                <label for="customProductQC" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="customProductQC" class="peer"/>
+                <label for="customProductQC" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="customProductQC"/>
+                    <label for="customProductQC"><span><em></em></span></label>
+                </div>
             </div>
         </section>
         
         <section>
-            <h2 class="pl-2">Yupoo</h2>
+            <h2>Yupoo</h2>
         
             <div class="field">
                 <p>Interface re-design :</p>
-                <input type="checkbox" id="yupooInterfaceReDesign" class="peer"/>
-                <label for="yupooInterfaceReDesign" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="yupooInterfaceReDesign" class="peer"/>
+                <label for="yupooInterfaceReDesign" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="yupooInterfaceReDesign"/>
+                    <label for="yupooInterfaceReDesign"><span><em></em></span></label>
+                </div>
             </div>
 
-            <div class="field">
+            <div class="field" style="flex-direction: column; gap: .5rem; align-items: start;">
                 <p>
                     Grid elements width :
                     <span data-tooltip="Change the width of the columns of the yupoo.com product grid.">
@@ -146,8 +171,12 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="removeYupooSideBar" class="peer"/>
-                <label for="removeYupooSideBar" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="removeYupooSideBar" class="peer"/>
+                <label for="removeYupooSideBar" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="removeYupooSideBar"/>
+                    <label for="removeYupooSideBar"><span><em></em></span></label>
+                </div>
             </div>
 
             <div class="field">
@@ -159,8 +188,12 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="skipYupooRedirect" class="peer"/>
-                <label for="skipYupooRedirect" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="skipYupooRedirect" class="peer"/>
+                <label for="skipYupooRedirect" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="skipYupooRedirect"/>
+                    <label for="skipYupooRedirect"><span><em></em></span></label>
+                </div>
             </div>
         </section>
 
@@ -168,7 +201,7 @@
 
         <section>
 
-            <h2 class="pl-2">
+            <h2>
                 <span class="tooltip-right h-4 w-4" data-tooltip="Warning : These feature are experimental!">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="experimental" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -186,22 +219,30 @@
                         </svg>
                     </span>
                 </p>
-                <input type="checkbox" id="darkMode" class="peer" />
-                <label for="darkMode" class="toggleLabel"></label>
+                <!-- <input type="checkbox" id="darkMode" class="peer" />
+                <label for="darkMode" class="toggleLabel"></label> -->
+                <div class="switch-wrapper">
+                    <input type="checkbox" id="darkMode"/>
+                    <label for="darkMode"><span><em></em></span></label>
+                </div>
             </div>
 
         </section>
 
         <section>
-            <div class="field">
-                <p>Plan :<span class="font-semibold" id="plan"></span></p>
+            <h2>
+                Account
+            </h2>
+
+            <div class="field" style="flex-direction: column; align-items: start;">
+                <p>Plan : <span class="font-semibold" id="plan"></span></p>
                 <button id="refreshPlan" class="button-secondary button-small">Refresh plan</button>
                 <button class="button-red button-small mt-2" id="log-out">Log-out</button>
             </div>
         </section>
     </main>
 
-    <footer class="h-12 flex flex-row gap-2 justify-center items-center bg-neutral-100">
+    <footer class="h-12 flex flex-row gap-2 justify-center items-center bg-gray-100">
         <h4>
             Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
         </h4>

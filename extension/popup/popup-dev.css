@@ -12,17 +12,17 @@
     @apply bg-white;
 }
 ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-200 rounded-full;
+    @apply bg-gray-200 rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-neutral-500;
+    @apply bg-gray-500;
 }
 
 html {
-    @apply w-72;
+    @apply w-[350px];
 }
 body {
-    @apply bg-white text-neutral-800 p-0 m-0;
+    @apply bg-white text-gray-800 p-0 m-0;
 }
 
 /* Link */
@@ -38,24 +38,25 @@ h3,
 h4,
 h5,
 h6 {
-    @apply flex items-center gap-2 p-0;
+    @apply p-0;
 }
 h2 {
     @apply text-xl font-medium
 }
 p {
-    @apply text-sm font-normal;
+    @apply text-sm font-normal h-fit flex flex-row gap-2 items-center;
 }
+
 
 /* Containers */
 section {
-    @apply border-b-8 border-neutral-200 flex flex-col gap-2;
+    @apply border-b-8 border-gray-200 flex flex-col;
 }
 section > h2 {
-    @apply pt-1;
+    @apply py-1 pl-2;
 }
 .field {
-    @apply pt-1 p-2 border-b border-b-neutral-300 last:border-b-0;
+    @apply p-2 border-t border-gray-300 flex flex-row justify-between items-center gap-1;
 }
 
 /* Inputs */
@@ -63,18 +64,15 @@ input[type=checkbox] {
     @apply hidden;
 }
 select, input[type="text"], input[type="password"] {
-    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-neutral-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
-}
-label.toggleLabel {
-    @apply cursor-pointer h-10 bg-red-600 block rounded-md relative w-full after:text-base after:text-white after:content-['OFF'] after:absolute after:top-1/2 after:left-1/2 after:-translate-y-1/2 after:-translate-x-1/2 peer-checked:after:text-neutral-800 peer-checked:after:content-['ON'] peer-checked:bg-primary;
+    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-gray-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
 }
 
 /* Buttons */
 .button {
-    @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
+    @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-gray-800
 }
 .button-secondary {
-    @apply bg-neutral-200 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
+    @apply bg-gray-200 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-gray-800
 }
 .button-red {
     @apply bg-red-600 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-white
@@ -90,7 +88,7 @@ svg.experimental {
 
 /* Range input */
 .slider {
-    @apply appearance-none accent-primary w-full bg-neutral-100 rounded-full h-2;
+    @apply appearance-none accent-primary w-full bg-gray-100 rounded-full h-2;
 }
 
 .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
@@ -100,7 +98,7 @@ svg.experimental {
 
 /* Tooltip */
 [data-tooltip]{
-    @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-32 after:h-auto after:bg-neutral-100 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4;
+    @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-32 after:h-auto after:bg-gray-100 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4;
 }
 /* Left */
 .tooltip-left {
@@ -113,4 +111,28 @@ svg.experimental {
 /* Right */
 .tooltip-right {
     @apply after:-translate-y-1/2 after:translate-x-0 after:left-4 hover:after:left-6 after:right-auto after:top-1/2 after:bottom-auto after:mb-0 hover:after:-translate-y-1/2 focus:after:-translate-y-1/2;
+}
+
+
+
+
+
+/* Switches */
+.switch-wrapper input + label {
+    @apply w-16 h-8 bg-red-200 rounded-full inline-block relative cursor-pointer shadow transition-all duration-300;
+}
+.switch-wrapper input + label span {
+    @apply absolute top-[3px] left-1 h-[calc(100%-6px)] aspect-square rounded-full bg-red-600 transition-all duration-300;
+}
+.switch-wrapper input + label span em {
+    @apply w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 rotate-[135deg] -translate-y-1/2 transition-all duration-300 after:duration-300 after:top-0 after:left-1/2 after:w-[2px] after:-ml-[1px] after:h-full after:bg-white after:absolute after:transition-all before:left-0 before:w-full before:h-[2px] before:-mt-[1px] before:top-1/2 before:bg-white before:transition-all before:duration-300 before:absolute;
+}
+.switch-wrapper input:checked + label {
+    @apply bg-green-200;
+}
+.switch-wrapper input:checked + label span {
+    @apply bg-green-600 left-[calc(100%-8px)] -translate-x-full;
+}
+.switch-wrapper input:checked + label span em {
+    @apply rotate-45 ml-[2px] before:w-1/2 before:h-[2px] before:absolute before:top-full before:-mt-[2px] before:bg-white;
 }
