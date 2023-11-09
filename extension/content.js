@@ -267,6 +267,22 @@ function setDarkMode(){
 }
 
 
+function copyToClipboard(text){
+    const textarea = document.createElement('textarea');
+    textarea.style.opacity = 0;
+    textarea.style.width = 0;
+    textarea.style.height = 0;
+    textarea.style.position = 'absolute';
+    textarea.style.bottom = '-100%';
+    textarea.style.left = '-100%';
+    textarea.style.margin = 0;
+    document.body.appendChild(textarea);
+    textarea.value = text;
+    textarea.select();
+    document.execCommand('copy');
+}
+
+
 
 // ||-----------------------------------||
 // || Calling the function on page load ||
@@ -336,5 +352,6 @@ function callPremium() {
         if(request === "productWarningsChange") productWarnings();
         if(request === "yupooContentWidthChanged") changeYupooGrid();
         if(request === "darkModeToggled") setDarkMode();
+        if(request?.message === "copyToClipboard") copyToClipboard(request.data);
     });
 }

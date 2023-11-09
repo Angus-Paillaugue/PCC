@@ -17,10 +17,7 @@ export const actions = {
             if(!userExists) return { error:true, formData:formData, message:"No account with this username!" };
 
             const email = userExists.email;
-
             const userToken = randomUUID();
-            let token = await resetPasswordTokensRef.findOne({ username });
-            console.log(token?.expires);
 
             await resetPasswordTokensRef.deleteMany({ username });
 

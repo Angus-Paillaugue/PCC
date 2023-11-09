@@ -11,7 +11,7 @@
     $: setActiveTab(), tabIndex;
 
     onMount(() => {
-        sectionsList = document.querySelectorAll("form.no-user");
+        sectionsList = document.querySelectorAll("form");
         setActiveTab();
         window.onresize = setActiveTab;
     });
@@ -43,7 +43,7 @@
             </div>
 
             <div class="relative overflow-hidden grid grid-cols-2 w-full">
-                <form class="w-[200%] no-user transition-all ease-in-out duration-300 p-2 {tabIndex === 0 ? "translate-x-0" : "translate-x-full"}" use:enhance method="POST" action="?/login" id="Log-in">
+                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 0 ? "translate-x-0" : "translate-x-full"}" use:enhance method="POST" action="?/login" id="Log-in">
                     <label for="username" class="block mb-2">Username</label>
                     <input type="text" placeholder="Username" name="username" value="{form?.logIn?.formData?.username ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4" maxlength="15">
     
@@ -59,13 +59,16 @@
 
                     <button class="button-primary group w-full mb-2">
                         Log-in
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                        <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none">
+                            <path fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path>
+                            <path class="transition-all group-hover:[stroke-dashoffset:20] [stroke-dasharray:10] [stroke-dashoffset:10]" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path>
+                        </svg>
                     </button>
 
                     <a href="/forgot-password" class="link">Forgot your password ?</a>
             
                 </form>
-                <form class="w-[200%] no-user transition-all ease-in-out duration-300 p-2 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" use:enhance method="POST" action="?/signin" id="Sign-in">
+                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" use:enhance method="POST" action="?/signin" id="Sign-in">
                     <label for="username" class="block mb-2">E-mail</label>
                     <input type="text" placeholder="E-mail" name="email" value="{form?.signIn?.formData?.email ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
 
@@ -84,7 +87,10 @@
 
                     <button class="button-primary group w-full">
                         Sign-in
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:rotate-[-360deg] transition-all duration-300 delay-100"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                        <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none">
+                            <path fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path>
+                            <path class="transition-all group-hover:[stroke-dashoffset:20] [stroke-dasharray:10] [stroke-dashoffset:10]" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path>
+                        </svg>
                     </button>
                 </form>
             </div>

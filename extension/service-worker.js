@@ -5,6 +5,12 @@ function handleContextMenus(info){
         case 'openInPandaBuy':
             chrome.tabs.create({url: `https://www.pandabuy.com/product?url=${encodeURIComponent(info.linkUrl)}`});
             break;
+        case 'copyProductLink':
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                const activeTab = tabs[0];
+                chrome.tabs.sendMessage(activeTab.id, { message : "copyToClipboard", data:new URL(activeTab.url).searchParams.get("url")});
+            });
+            break;
         default:
             console.log('Unknown context-menu clicked.');
     }
@@ -45,6 +51,14 @@ chrome.runtime.onInstalled.addListener(function () {
             "*://*.1688.com/*?*itemID=*",
             "*://*.tmall.com/*?*id=*",
             "*://*.tmall.com/*?*itemID=*"
+        ]
+    });
+    chrome.contextMenus.create({
+        title: "Copy product link",
+        contexts:[ "page" ],
+        id: "copyProductLink",
+        documentUrlPatterns: [
+            "*://\*.pandabuy.com/product?*"
         ]
     });
 });
