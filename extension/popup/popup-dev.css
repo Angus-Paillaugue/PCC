@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Scroll-bar */
 ::-webkit-scrollbar {
     @apply w-1;
 }
@@ -20,15 +21,16 @@
 html {
     @apply w-64;
 }
-
 body {
     @apply bg-white text-neutral-800 p-0 m-0;
 }
 
+/* Link */
 a {
     @apply text-primary no-underline transition-all hover:underline font-semibold;
 }
 
+/* Text */
 p,
 h1,
 h2,
@@ -38,38 +40,36 @@ h5,
 h6 {
     @apply flex items-center gap-2 p-0;
 }
-
 h2 {
     @apply text-xl font-medium
 }
-
 p {
     @apply text-sm font-normal;
 }
 
+/* Containers */
 section {
     @apply border-b-8 border-neutral-200 flex flex-col gap-2;
 }
-
 section > h2 {
     @apply pt-1;
 }
-
-input[type=checkbox] {
-    @apply hidden;
-}
-
-select, input[type="text"], input[type="password"] {
-    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-neutral-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
-}
-
 .field {
     @apply pt-1 p-2 border-b border-b-neutral-300 last:border-b-0;
 }
 
+/* Inputs */
+input[type=checkbox] {
+    @apply hidden;
+}
+select, input[type="text"], input[type="password"] {
+    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-neutral-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
+}
 label.toggleLabel {
     @apply cursor-pointer h-10 bg-red-600 block rounded-md relative w-full after:text-base after:text-white after:content-['OFF'] after:absolute after:top-1/2 after:left-1/2 after:-translate-y-1/2 after:-translate-x-1/2 peer-checked:after:text-neutral-800 peer-checked:after:content-['ON'] peer-checked:bg-primary;
 }
+
+/* Buttons */
 .button {
     @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
 }
@@ -83,10 +83,12 @@ label.toggleLabel {
     @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
 }
 
+/* SVG */
 svg.experimental {
     @apply text-red-600;
 }
 
+/* Range input */
 .slider {
     @apply appearance-none accent-primary w-full bg-neutral-100 rounded-full h-2;
 }
@@ -106,7 +108,7 @@ svg.experimental {
 }
 /* Bottom */
 .tooltip-bottom {
-    @apply after:top-1/2 after:left-1/2 after:bottom-auto after:right-auto hover:after:translate-y-4 focus:after:translate-y-4;
+    @apply after:top-1/2 after:left-1/2 after:bottom-auto after:right-auto hover:after:translate-y-4 focus:after:translate-y-4 after:mb-0;
 }
 /* Right */
 .tooltip-right {
