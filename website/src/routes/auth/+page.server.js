@@ -42,7 +42,7 @@ export const actions = {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        await usersRef.insertOne({ username: username, email:email, password:hash, joined:new Date() });
+        await usersRef.insertOne({ username: username, email:email, password:hash, joined:new Date(), isPremium:false });
 
         cookies.set("token", generateAccessToken(username), { maxAge: 60 * 60 * 24 * 10, secure:false });
         throw redirect(307, "/dashboard");

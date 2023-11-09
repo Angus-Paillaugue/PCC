@@ -1,3 +1,7 @@
+//* ||-----------------------------------||
+//* ||          Helper functions         ||
+//* ||-----------------------------------||
+
 const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const urlMatch = (urls, testWith=location.origin) => {
@@ -8,10 +12,23 @@ const urlMatch = (urls, testWith=location.origin) => {
         return false;
     }catch(_){ return false; }
 }
+
+
+/**
+ * Checks if the current URL matches any of the marketplace URLs.
+ * @returns {boolean} - true if the URL matches any of the marketplace URLs, false otherwise.
+ */
 function isMarketplaceUrl () {
     return urlMatch(marketplacesUrls);
 }
 
+
+/**
+ * Extracts the product ID from the provided URL.
+ * @param {string} url - The URL to extract the product ID from.
+ * @returns {string|boolean} - The product ID if found, false otherwise.
+ */
+function getProductId(url){}
 function getProductId(url){
     if(!isMarketplaceUrl(url)) return false;
     const searchParams = ["id", "itemID"];
@@ -28,11 +45,53 @@ function getProductId(url){
     return false;
 }
 
+
+/**
+ * Checks if the provided URL is a product page.
+ * @param {string} url - The URL to check.
+ * @returns {boolean} - true if the URL is a product page, false otherwise.
+ */
 function isAProductPage (url) {
     return !!getProductId(url);
 }
 
-// Function for actually fetching currencies conversion rates from the api
+
+/**
+ * Checks if the provided element has the provided class.
+ * @param {HTMLElement} element - The element to check.
+ * @param {string} className - The class to check for.
+ * @returns {boolean} - true if the element has the class, false otherwise.
+ */
+function hasClass(element, className) {
+    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+}
+
+
+/**
+ * Copies the provided text to the clipboard.
+ * @param {string} text - The text to copy to the clipboard.
+ */
+function copyToClipboard(text){
+    const textarea = document.createElement('textarea');
+    textarea.style.opacity = 0;
+    textarea.style.width = 0;
+    textarea.style.height = 0;
+    textarea.style.position = 'absolute';
+    textarea.style.bottom = '-100%';
+    textarea.style.left = '-100%';
+    textarea.style.margin = 0;
+    document.body.appendChild(textarea);
+    textarea.value = text;
+    textarea.select();
+    document.execCommand('copy');
+}
+
+
+/**
+ * Fetches the conversion rates for the provided currency from the API.
+ * @param {string} currencyToConvertTo - The currency to convert to.
+ * @param {function} callback - The function to call with the conversion rates.
+ */
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
         chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, () => {
@@ -41,7 +100,12 @@ function fetchLive(currencyToConvertTo, callback) {
     });
 }
 
-// Checking currencies conversion rates in cache (calls fetchLive if cache-miss)
+
+/**
+ * Gets the conversion rates for the provided currency from the cache or API.
+ * @param {string} currencyToConvertTo - The currency to convert to.
+ * @param {function} callback - The function to call with the conversion rates.
+ */
 function getRates(currencyToConvertTo, callback) {
     chrome.storage.local.get(['cache', 'cacheTime'], (items) => {
         if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
@@ -54,7 +118,15 @@ function getRates(currencyToConvertTo, callback) {
     });
 }
 
-// Some regex magic to convert currencies inside strings
+
+/**
+ * Converts the currencies in the provided string to the provided currency.
+ * @param {string} inputString - The string to convert.
+ * @param {object} rates - The conversion rates.
+ * @param {object[]} currencies - The list of currencies.
+ * @param {string} currencyToConvertTo - The currency to convert to.
+ * @returns {string} - The converted string.
+ */
 function formatString(inputString, rates, currencies, currencyToConvertTo) {
     inputString = inputString.replaceAll("￥", "¥");
     if(urlMatch(["*://\*.pandabuy.com"]) && (location.pathname === "/cartEstimatedFreight" || location.pathname ==="/person/parcel/list")){
@@ -96,6 +168,21 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
     return modifiedString;
 }
 
+
+
+
+
+
+//* ||-----------------------------------||
+//* ||          Main functions           ||
+//* ||-----------------------------------||
+
+/**
+ * Converts the currencies on the current page to the currency selected by the user.
+ * @function
+ * @name conversion
+ * @returns {void}
+ */
 function conversion(){
     // Checking the currency to convert to
     chrome.storage.local.get(["convertTo"], (convertTo) => {
@@ -141,14 +228,20 @@ function conversion(){
     });
 }
 
+
+
+/**
+ * Changes the grid layout of Yupoo's product pages.
+ * @function
+ * @name changeYupooGrid
+ * @returns {void}
+ */
 function changeYupooGrid(){
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     chrome.storage.local.get(["yupooInterfaceReDesign"], (data) => {
         const yupooInterfaceReDesign = data?.yupooInterfaceReDesign ?? false;
-        console.log(yupooInterfaceReDesign);
         if(!yupooInterfaceReDesign) return;
         chrome.storage.local.get(["yupooContentWidth"], (status) => {
-            console.log(status);
             const yupooContentWidth = status?.yupooContentWidth ?? 170;
     
             if(document.querySelector(".showalbumheader__main"))document.querySelector(".showalbumheader__main").style.maxWidth = "100%";
@@ -156,22 +249,36 @@ function changeYupooGrid(){
             if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
             if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
     
-            // Change style og products containers
-            const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
-            for(const imagesContainer of imagesContainers){
-                imagesContainer.style.display = "grid";
-                imagesContainer.style.gap = "10px";
-                imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
-                // Change sty of products
-                Array.from(imagesContainer.children).forEach(el => {
-                    el.style.width = "100%";
-                    el.style.margin = "0";
-                });
-            }
+            // Change style of products containers
+            let count = 0;
+            let interval = setInterval(() => {
+                const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
+                if(imagesContainers.length > 0 || count === 10) clearInterval(interval);
+                for(const imagesContainer of imagesContainers){
+                    console.log(imagesContainer);
+                    imagesContainer.style.display = "grid";
+                    imagesContainer.style.gap = "10px";
+                    imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
+                    // Change sty of products
+                    Array.from(imagesContainer.children).forEach(el => {
+                        el.style.width = "100%";
+                        el.style.margin = "0";
+                    });
+                }
+                count ++;
+            }, 200);
         });
     });
 }
 
+
+
+/**
+ * Toggles the visibility of Yupoo's sidebar.
+ * @function
+ * @name toggleYupooSideBar
+ * @returns {void}
+ */
 function toggleYupooSideBar() {
     if(!urlMatch(["\*://\*.yupoo.com/\*"])) return;
     // If remove sidebar toggle switch is on
@@ -193,7 +300,14 @@ function toggleYupooSideBar() {
     });
 }
 
-// For removing (or not) the annoying disclaimers at product page load
+
+
+/**
+ * Retrieves the status of pandabuyProductWarnings from local storage and clicks on the accept button if it exists.
+ * @function
+ * @name productWarnings
+ * @returns {void}
+ */
 function productWarnings(){
     chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
         status = status?.pandabuyProductWarnings ?? false;
@@ -214,7 +328,13 @@ function productWarnings(){
 }
 
 
-// ? EXPERIMENTAL : Products QC's
+
+/**
+ * This function checks if the current URL matches a specific pattern and, if so, retrieves a product ID and provider type to display a quality control iframe.
+ * @function
+ * @name customProductQC
+ * @returns {void}
+ */
 function customProductQC(){
     if(!urlMatch(["*://\*.pandabuy.com/product?*"], location.href)) return;
 
@@ -250,6 +370,13 @@ function customProductQC(){
 
 
 // ? EXPERIMENTAL : Dark mode
+
+/**
+ * Sets the dark mode for the PandaBuy an Yupoo.
+ * @function
+ * @name setDarkMode
+ * @returns {void}
+ */
 function setDarkMode(){
     chrome.storage.local.get(["darkMode"], (status) => {
         status = status?.darkMode ?? false;
@@ -267,30 +394,17 @@ function setDarkMode(){
 }
 
 
-function copyToClipboard(text){
-    const textarea = document.createElement('textarea');
-    textarea.style.opacity = 0;
-    textarea.style.width = 0;
-    textarea.style.height = 0;
-    textarea.style.position = 'absolute';
-    textarea.style.bottom = '-100%';
-    textarea.style.left = '-100%';
-    textarea.style.margin = 0;
-    document.body.appendChild(textarea);
-    textarea.value = text;
-    textarea.select();
-    document.execCommand('copy');
-}
 
 
 
-// ||-----------------------------------||
-// || Calling the function on page load ||
-// ||-----------------------------------||
+//* ||-----------------------------------||
+//* || Calling the function on page load ||
+//* ||-----------------------------------||
 
+// Checking if the conversion is enabled
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
-    if(status){
+    if(status && (isMarketplaceUrl() || new URLPattern("*://\*.reddit.com/*").test(new URL(location.href).origin))){
         chrome.storage.local.get(["username", "password"], (data) => {
             const { username, password } = data;
             if(username && password) conversion();
@@ -304,6 +418,14 @@ chrome.storage.local.get(["isPremium"], (status) => {
     if(status) callPremium();
 });
 
+
+/**
+ * Executes a series of functions related to premium features, such as changing the Yupoo grid, toggling the Yupoo sidebar, displaying product warnings, customizing product quality control, and setting dark mode. It also checks or not the required checkbox before adding a product to cart on PandaBuy, redirects or not automatically from a marketplace page to the product on PandaBuy, and listens to popup changes.
+ * 
+ * @function
+ * @name callPremium
+ * @returns {void}
+ */
 function callPremium() {
     changeYupooGrid();
     toggleYupooSideBar();
@@ -337,7 +459,6 @@ function callPremium() {
         }
     });
 
-    
     // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         status = status?.autoPandaBuyRedirect ?? false;

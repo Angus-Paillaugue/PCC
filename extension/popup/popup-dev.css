@@ -19,7 +19,7 @@
 }
 
 html {
-    @apply w-64;
+    @apply w-72;
 }
 body {
     @apply bg-white text-neutral-800 p-0 m-0;

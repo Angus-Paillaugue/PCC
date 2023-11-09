@@ -1,9 +1,24 @@
+/**
+ * Envoie un message à l'onglet actif dans la fenêtre courante.
+ * @param {any} message - Le message à envoyer.
+ */
 function sendMessage(message){
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
         chrome.tabs.sendMessage(tabs[0].id, message);
     });
 }
 
+
+/**
+ * The main function of the popup.js file.
+ * It retrieves the username and password from the local storage and displays the appropriate UI based on their presence.
+ * If the username and password are not present, it displays the authentication UI and listens for the login form submission.
+ * If the username and password are present, it displays the main UI and sets the plan text to "Premium" or "Basic" based on the isPremium value in the storage.
+ * It also listens for changes in the premium features toggle buttons and updates the local storage accordingly.
+ * @function
+ * @name main
+ * @returns {void}
+ */
 function main() {
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
@@ -14,11 +29,14 @@ function main() {
             if(document.getElementById("auth")) document.getElementById("auth").style.display = "block";
             document.getElementById("log-in").addEventListener("submit", (e) => {
                 e.preventDefault();
-                errEl.style.display = "none";
+                const button = e.submitter;
+                // Adding loader to the button
+                button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
                 fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
                     if(!data.err) {
+                        errEl.style.display = "none";
                         chrome.storage.local.set({ isPremium:data.isPremium });
                         chrome.storage.local.set({"username": username });
                         chrome.storage.local.set({"password": password });
@@ -29,6 +47,7 @@ function main() {
                         errEl.style.display = "flex";
                         errEl.innerText = data.err;
                     }
+                    button.innerText = "Log in";
                 }).catch(error => {
                     console.error("Error making the request:", error);
                 });
@@ -36,7 +55,8 @@ function main() {
         }else {
             chrome.storage.local.get(["isPremium"], (status) => {
                 const isPremium = status?.isPremium ?? false;
-                if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").style.display = "none";
+                if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").remove();
+                if(document.getElementById("hide")) document.getElementById("hide").remove();
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
@@ -48,7 +68,7 @@ function main() {
 
                     // Paragraph
                     const p = document.createElement("p");
-                    p.id = "unlockFeaturesParagraph"
+                    p.id = "unlockFeaturesParagraph";
                     p.className = "text-base font-bold px-4 block text-center";
                     p.innerHTML = `To unlock all these features, `;
                     // Link
@@ -68,9 +88,9 @@ function main() {
                 }else if (isPremium) {
                     if(document.getElementById("hide")) document.getElementById("hide").remove();
 
-                    // ||----------------------------------------------------------------------------------------------------------------||
-                    // ||--------------------------------Listening for the toggle of the premium features--------------------------------||
-                    // ||----------------------------------------------------------------------------------------------------------------||
+                    //* ||--------------------------------------------------||
+                    //* || Listening for the toggle of the premium features ||
+                    //* ||--------------------------------------------------||
 
                     // Auto redirect to PandaBuy
                     const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
@@ -169,8 +189,7 @@ function main() {
                         }
                     });
 
-                    // ! EXPERIMENTAL
-                    // Dark mode
+                    // ? EXPERIMENTAL : Dark mode
                     const darkMode = document.getElementById('darkMode');
                     darkMode.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
@@ -187,9 +206,9 @@ function main() {
     });
 }
 
-
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
+    main();
 
     document.getElementById("log-out").addEventListener("click", () => {
         chrome.storage.local.set({"username": null });
@@ -198,17 +217,18 @@ document.addEventListener('DOMContentLoaded', () => {
         main();
     });
 
-    document.getElementById("refreshPlan").addEventListener("click", () => {
+    document.getElementById("refreshPlan").addEventListener("click", (e) => {
+        const button = e.target;
+        button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
         chrome.storage.local.get(["username", "password"], (data) => {
             const { username, password } = data;
             fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
                 chrome.storage.local.set({ isPremium:data.isPremium }); 
                 main();
+                button.innerText = "Refresh plan";
             });
         });
     })
-
-    main();
 
     // Conversion
     const status_input = document.getElementById('status');
@@ -266,7 +286,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Get the tab with specified id (current tab if not specified) and reloads it
+/**
+ * Reloads the active tab or a specific tab matching the given URL pattern(s).
+ * @param {string[]} [urlPatterns=['*:\\/\\/*'] - The URL pattern(s) to match.
+ * @param {string} [url="origin"] - The URL part to match.
+ * @param {number} [id] - The ID of the tab to reload.
+ * @returns {void}
+*/
 const reloadTab = (urlPatterns = ["*://\*/*"], url="origin", id) => {
     if(id){
         chrome.tabs.reload(tab);
