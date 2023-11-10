@@ -137,17 +137,11 @@ svg.experimental {
     @apply w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 rotate-[135deg] -translate-y-1/2 transition-all duration-300 after:duration-300 after:top-0 after:left-1/2 after:w-[2px] after:-ml-[1px] after:h-full after:bg-neutral-100 after:absolute after:transition-all before:left-0 before:w-full before:h-[2px] before:-mt-[1px] before:top-1/2 before:bg-neutral-100 before:transition-all before:duration-300 before:absolute;
 }
 .switch-wrapper input:checked + label {
-    @apply bg-green-400 dark:bg-green-700;
+    @apply bg-green-200 dark:bg-green-700;
 }
 .switch-wrapper input:checked + label span {
-    @apply bg-green-600 dark:bg-green-900 left-[calc(100%-4px)] -translate-x-full;
+    @apply bg-green-700 dark:bg-green-900 left-[calc(100%-4px)] -translate-x-full;
 }
 .switch-wrapper input:checked + label span em {
     @apply rotate-45 ml-[2px] before:w-1/2 before:h-[2px] before:absolute before:top-full before:-mt-[2px];
-}
-.theme-wrapper input + label {
-    @apply bg-neutral-300 hover:rotate-45 w-8 h-8 flex flex-col items-center justify-center text-neutral-800;
-}
-.theme-wrapper input:checked + label {
-    @apply dark:bg-neutral-700  text-neutral-100;
 }

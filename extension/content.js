@@ -68,10 +68,30 @@ function copyToClipboard(text){
     textarea.style.bottom = '-100%';
     textarea.style.left = '-100%';
     textarea.style.margin = 0;
-    document.body.appendChild(textarea);
     textarea.value = text;
+    document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
+    textarea.remove();
+    $("#likCopiedToast").remove();
+    chrome.storage.local.get(["darkMode"], (status) => {
+        status = status?.darkMode ?? false;
+        $("body").append(`
+        <div id="likCopiedToast" style="margin: 0; opacity: 0; display: flex; position: fixed; top: 0.5rem; right: 0.5rem; padding: 1rem; align-items: center; gap: .5rem; border-radius: 0.5rem; width: 100%; max-width: 20rem; color: rgb(${ status ? "21 128 61" : "22 163 74" }) !important; background-color: #${ status ? "1f2937" : "FFFFFF" } !important; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); z-index: 9999;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" id="linkCopiedToastSvg" style="width: 20px;height: 20px;">
+                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+            </svg>
+            <p style="font-size: 1rem;font-weight: 400; margin: 0;">Link copied successfully!</p>
+        </div>
+        `)
+        $("#likCopiedToast").animate({opacity: "1"}, 150, function() {
+            setTimeout(function() {
+                $("#likCopiedToast").animate({opacity: "0"}, 150, function() {
+                    $("#likCopiedToast").remove();
+                });
+            }, 3000);
+        });
+    });
 }
 
 

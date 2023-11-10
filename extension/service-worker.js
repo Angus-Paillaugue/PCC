@@ -12,7 +12,7 @@ function handleContextMenus(info){
             });
             break;
         default:
-            console.log('Unknown context-menu clicked.');
+            console.log('Unknown context-menu clicked :', info.menuItemId);
     }
 }
   
@@ -64,7 +64,7 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 // To update the tab url to the product on PandaBuy if a user visits taobao or some other marketplace url 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "updateTabURL") {
         chrome.tabs.query({ active: true, currentWindow: true }, ([tabs]) => {
             chrome.tabs.update(tabs.id, { url: message.url });
