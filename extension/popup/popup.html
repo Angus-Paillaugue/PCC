@@ -12,22 +12,24 @@
 <body>
 
     
-    <header class="bg-neutral-900 text-white flex flex-row gap-4 items-center justify-center fixed top-0 left-0 w-full z-40 h-14">
-        <img src="../icons/64-icon.png" alt="PCC Logo" class="h-8">
-        <h1 class="text-2xl font-bold">PCC</h1>
+    <header>
+        <div class="w-full h-full relative flex flex-row gap-4 items-center justify-center">
+            <img src="../icons/64-icon.png" alt="PCC Logo" class="h-8">
+            <h1 class="text-2xl font-bold">PCC</h1>
+            <div class="switch-wrapper theme-wrapper absolute top-1/2 -translate-y-1/2 right-2 z-50">
+                <input type="checkbox" id="popupTheme"/>
+                <label for="popupTheme">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                </label>
+            </div>
+        </div>
     </header>
     
-    <main id="auth" >
+    <main id="auth">
         <form class="flex flex-col gap-2 mt-14 p-4" id="log-in">
             <h2>Log-in</h2>
-            <label for="username">
-                Username
-                <input type="text" name="username" id="username" class="mt-1">
-            </label>
-            <label for="username">
-                Password
-                <input type="password" name="password" id="password" class="mt-1">
-            </label>
+            <input type="text" name="username" id="username" class="mt-1" placeholder="Username">
+            <input type="password" name="password" id="password" class="mt-1" placeholder="Password">
             
             <div id="err" class="p-2 flex flex-row gap-2 items-center bg-neutral-100 border mt-2 border-red-400 rounded text-red-900" style="display: none;"></div>
             
@@ -37,7 +39,7 @@
         </form>
     </main>
     
-    <main class="flex flex-col gap-2 mt-14" id="main">
+    <main class="flex flex-col gap-2 mt-14 reltive" id="main">
 
         <section>
             <h2>Conversion</h2>
@@ -60,7 +62,7 @@
         
             <div class="field" style="flex-direction: column; align-items: start;">
                 <p>Convert currencies to :</p>
-                <select id="convertTo" class="checked:bg-blue-500"></select>
+                <select id="convertTo"></select>
             </div>
         </section>
 
@@ -242,7 +244,7 @@
         </section>
     </main>
 
-    <footer class="h-12 flex flex-row gap-2 justify-center items-center bg-neutral-100">
+    <footer>
         <h4>
             Made by <a href="https://angus.paillaugue.fr">@Angus Paillaugue</a>
         </h4>
