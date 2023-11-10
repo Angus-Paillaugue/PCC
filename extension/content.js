@@ -28,7 +28,6 @@ function isMarketplaceUrl () {
  * @param {string} url - The URL to extract the product ID from.
  * @returns {string|boolean} - The product ID if found, false otherwise.
  */
-function getProductId(url){}
 function getProductId(url){
     if(!isMarketplaceUrl(url)) return false;
     const searchParams = ["id", "itemID"];
@@ -53,17 +52,6 @@ function getProductId(url){
  */
 function isAProductPage (url) {
     return !!getProductId(url);
-}
-
-
-/**
- * Checks if the provided element has the provided class.
- * @param {HTMLElement} element - The element to check.
- * @param {string} className - The class to check for.
- * @returns {boolean} - true if the element has the class, false otherwise.
- */
-function hasClass(element, className) {
-    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
 }
 
 
@@ -251,7 +239,7 @@ function changeYupooGrid(){
     
             // Change style of products containers
             let count = 0;
-            let interval = setInterval(() => {
+            const interval = setInterval(() => {
                 const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
                 if(imagesContainers.length > 0 || count === 10) clearInterval(interval);
                 for(const imagesContainer of imagesContainers){

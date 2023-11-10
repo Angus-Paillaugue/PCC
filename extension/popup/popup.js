@@ -64,7 +64,8 @@ function main() {
                     // Grayed background
                     const hide = document.createElement("div");
                     hide.id = "hide";
-                    hide.className = "bg-neutral-600/50 absolute left-0 z-20 pointer-events-none w-full bottom-0 flex flex-col text-white items-center p-4";
+                    hide.className = "absolute left-0 z-20 pointer-events-none w-full bg-neutral-600/50 text-white p-4";
+                    // hide.style.background = "background-color: rgba(82 82 82 0.5);";
 
                     // Paragraph
                     const p = document.createElement("p");

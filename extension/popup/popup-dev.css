@@ -12,17 +12,17 @@
     @apply bg-white;
 }
 ::-webkit-scrollbar-thumb {
-    @apply bg-gray-200 rounded-full;
+    @apply bg-neutral-200 rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-500;
+    @apply bg-neutral-500;
 }
 
 html {
     @apply w-[350px];
 }
 body {
-    @apply bg-white text-gray-800 p-0 m-0;
+    @apply bg-white text-neutral-800 p-0 m-0;
 }
 
 /* Link */
@@ -50,13 +50,13 @@ p {
 
 /* Containers */
 section {
-    @apply border-b-8 border-gray-200 flex flex-col;
+    @apply border-b-8 border-neutral-200 flex flex-col;
 }
 section > h2 {
     @apply py-1 pl-2;
 }
 .field {
-    @apply p-2 border-t border-gray-300 flex flex-row justify-between items-center gap-1;
+    @apply p-2 border-t border-neutral-300 flex flex-row justify-between items-center gap-1;
 }
 
 /* Inputs */
@@ -64,15 +64,15 @@ input[type=checkbox] {
     @apply hidden;
 }
 select, input[type="text"], input[type="password"] {
-    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-gray-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
+    @apply w-full bg-white transition-all ease-in-out text-base rounded-md py-1 px-2 border border-neutral-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary focus:ring-offset-2 accent-primary;
 }
 
 /* Buttons */
 .button {
-    @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-gray-800
+    @apply bg-primary px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
 }
 .button-secondary {
-    @apply bg-gray-200 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-gray-800
+    @apply bg-neutral-200 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800
 }
 .button-red {
     @apply bg-red-600 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-white
@@ -88,7 +88,7 @@ svg.experimental {
 
 /* Range input */
 .slider {
-    @apply appearance-none accent-primary w-full bg-gray-100 rounded-full h-2;
+    @apply appearance-none accent-primary w-full bg-neutral-100 rounded-full h-2;
 }
 
 .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
@@ -98,7 +98,7 @@ svg.experimental {
 
 /* Tooltip */
 [data-tooltip]{
-    @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-32 after:h-auto after:bg-gray-100 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4;
+    @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-32 after:h-auto after:bg-neutral-100 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4;
 }
 /* Left */
 .tooltip-left {
@@ -131,7 +131,7 @@ svg.experimental {
     @apply bg-green-200;
 }
 .switch-wrapper input:checked + label span {
-    @apply bg-green-600 left-[calc(100%-8px)] -translate-x-full;
+    @apply bg-green-600 left-[calc(100%-4px)] -translate-x-full;
 }
 .switch-wrapper input:checked + label span em {
     @apply rotate-45 ml-[2px] before:w-1/2 before:h-[2px] before:absolute before:top-full before:-mt-[2px] before:bg-white;
