@@ -292,12 +292,12 @@ function setPopupTheme() {
     const setPopupThemeSwitch = document.getElementById("popupTheme");
     setPopupThemeSwitch.addEventListener('change', (e) => {
         const status = e.currentTarget.checked;
-        chrome.storage.local.set({ "popupDarkTheme": status });
+        chrome.storage.local.set({ popupDarkTheme: status });
         setPopupTheme();
     });
     chrome.storage.local.get(["popupDarkTheme"], (status) => {
         status = status?.popupDarkTheme ?? false;
-        setPopupThemeSwitch.checked = status?.popupDarkTheme ?? false;
+        setPopupThemeSwitch.checked = status;
         if(status){
             document.documentElement.classList.add('dark');
         }else {
