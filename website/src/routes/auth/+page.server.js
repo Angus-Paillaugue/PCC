@@ -3,6 +3,7 @@ import { redirect } from "@sveltejs/kit";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AUTH_TOKEN_SECRET } from "$env/static/private";
+import { randomUUID } from "crypto";
 
 export async function load({ locals }) {
     if(locals.user) throw redirect(307, "/dashboard");
@@ -42,7 +43,7 @@ export const actions = {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        await usersRef.insertOne({ username: username, email:email, password:hash, joined:new Date(), isPremium:false });
+        await usersRef.insertOne({ username: username, email:email, password:hash, joined:new Date(), isPremium:false, id:randomUUID() });
 
         cookies.set("token", generateAccessToken(username), { maxAge: 60 * 60 * 24 * 10, secure:false });
         throw redirect(307, "/dashboard");

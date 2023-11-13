@@ -10,6 +10,28 @@ function sendMessage(message){
 
 
 /**
+ * Reloads the active tab or a specific tab matching the given URL pattern(s).
+ * @param {string[]} [urlPatterns=['*:\\/\\/*'] - The URL pattern(s) to match.
+ * @param {string} [url="origin"] - The URL part to match.
+ * @param {number} [id] - The ID of the tab to reload.
+ * @returns {void}
+*/
+const reloadTab = (urlPatterns = ["*://\*/*"], url="origin", id) => {
+    if(id){
+        chrome.tabs.reload(tab);
+    } else {
+        chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
+            for(const urlPattern of urlPatterns){
+                if(new URLPattern(urlPattern).test(new URL(tab.url)[url])) {
+                    chrome.tabs.reload(tab.id);
+                }
+            }
+        });
+    }
+}
+
+
+/**
  * The main function of the popup.js file.
  * It retrieves the username and password from the local storage and displays the appropriate UI based on their presence.
  * If the username and password are not present, it displays the authentication UI and listens for the login form submission.
@@ -307,26 +329,51 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.tabs.create({url: e.target.getAttribute('href')});
         });
     }
-});
 
 
-/**
- * Reloads the active tab or a specific tab matching the given URL pattern(s).
- * @param {string[]} [urlPatterns=['*:\\/\\/*'] - The URL pattern(s) to match.
- * @param {string} [url="origin"] - The URL part to match.
- * @param {number} [id] - The ID of the tab to reload.
- * @returns {void}
-*/
-const reloadTab = (urlPatterns = ["*://\*/*"], url="origin", id) => {
-    if(id){
-        chrome.tabs.reload(tab);
-    } else {
-        chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
-            for(const urlPattern of urlPatterns){
-                if(new URLPattern(urlPattern).test(new URL(tab.url)[url])) {
-                    chrome.tabs.reload(tab.id);
-                }
+    // Easter egg
+    let keyStroke = [];
+    document.addEventListener('keydown', event => {
+        keyStroke.push(event.key);
+        keyStroke.forEach((key, index) => {
+            switch(index){
+                case 0:
+                case 1:
+                    if(key !== "ArrowUp") keyStroke = [];
+                    break;
+                case 2:
+                case 3:
+                    if(key !== "ArrowDown") keyStroke = [];
+                    break;
+                case 4:
+                case 6:
+                    if(key !== "ArrowLeft") keyStroke = [];
+                    break;
+                case 5:
+                case 7:
+                    if(key !== "ArrowRight") keyStroke = [];
+                    break;
+                case 8:
+                    if(key !== "b") keyStroke = [];
+                    break;
+                case 9:
+                    if(key !== "a") keyStroke = [];
+                    break;
+            }
+            if(index == 9 && keyStroke.length == 10){
+                keyStroke = [];
+                chrome.storage.local.get(["popupDarkTheme"], (status) => {
+                    status = status?.popupDarkTheme ?? false;
+                    const screamer = document.createElement("div");
+                    screamer.classList = "fixed bg-neutral-500 dark:bg-neutral-400 bg-opacity-75 h-screen z-50 w-full h-full top-0 left-0 flex flex-col justify-content-center items-center";
+                    screamer.innerHTML = `<img src="https://img4.wikia.nocookie.net/__cb20111014155123/creepypasta/images/a/a1/Scary_screamer.jpg" class="h-full w-auto">`;
+                    screamer.id = "screamer";
+                    document.body.appendChild(screamer);
+                    setTimeout(() => {
+                        if(document.getElementById("screamer")) document.getElementById("screamer").remove();
+                    }, 1500);
+                });
             }
         });
-    }
-}
+    });
+});

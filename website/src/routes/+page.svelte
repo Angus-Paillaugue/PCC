@@ -24,8 +24,8 @@
     });
     const releases = [
         {
-            "version": "1.4.6",
-            "date": "2023-11-8",
+            "version": "2.0.0",
+            "date": "2023-15-8",
             "message": "Added premium features for the low low price of $3.99!"
         },
         {
