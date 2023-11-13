@@ -82,34 +82,11 @@ function main() {
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
-                if(!isPremium && !document.getElementById("hide")){
-                    // Grayed background
-                    const hide = document.createElement("div");
-                    hide.id = "hide";
-                    hide.className = "absolute left-0 z-20 pointer-events-none w-full bg-neutral-600/50 text-white p-4";
-                    // hide.style.background = "background-color: rgba(82 82 82 0.5);";
-
-                    // Paragraph
-                    const p = document.createElement("p");
-                    p.id = "unlockFeaturesParagraph";
-                    p.className = "text-base font-bold px-4 block text-center";
-                    p.innerHTML = `To unlock all these features, `;
-                    // Link
-                    const a = document.createElement("a");
-                    a.href = "https://pcc.paillaugue.fr/pricing";
-                    a.innerText = "Upgrade to premium";
-                    a.addEventListener("click", (e) => {
-                        chrome.tabs.create({url: e.target.getAttribute('href')});
-                    });
-                    p.appendChild(a);
-
-                    // Appending message and grayed background
-                    document.querySelector("#main > section:nth-child(1)").appendChild(p);
-                    hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
-                    hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
-                    document.body.appendChild(hide);
-                }else if (isPremium) {
+                if(!isPremium){
+                    setGrayedBackground();
+                }else {
                     if(document.getElementById("hide")) document.getElementById("hide").remove();
+                    setCheckBoxes();
 
                     //* ||--------------------------------------------------||
                     //* || Listening for the toggle of the premium features ||
@@ -120,11 +97,7 @@ function main() {
                     autoPandaBuyRedirect.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "autoPandaBuyRedirect": status });
-                        reloadTab(["https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
-                    });
-                    chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
-                        status = status?.autoPandaBuyRedirect ?? false;
-                        autoPandaBuyRedirect.checked = status;
+                        reloadTab(["*://m.weidian.com/*", "*://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
                     });
 
                     const pandabuyProductWarnings = document.getElementById('pandabuyProductWarnings');
@@ -132,10 +105,6 @@ function main() {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "pandabuyProductWarnings": status });
                         sendMessage("productWarningsChange");
-                    });
-                    chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
-                        status = status?.pandabuyProductWarnings ?? false;
-                        pandabuyProductWarnings.checked = status;
                     });
 
                     // Third party disclaimer
@@ -145,21 +114,13 @@ function main() {
                         chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
                         reloadTab(["*://\*.pandabuy.com/*"]);
                     });
-                    chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
-                        status = status?.thirdPartyDisclaimerAutoCheck ?? false;
-                        thirdPartyDisclaimerAutoCheck.checked = status;
-                    });
 
-                    // Third party disclaimer
+                    // Custom product QC
                     const customProductQC = document.getElementById('customProductQC');
                     customProductQC.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "customProductQC": status });
                         reloadTab(["*://\*.pandabuy.com/product?*"], "href");
-                    });
-                    chrome.storage.local.get(["customProductQC"], (status) => {
-                        status = status?.customProductQC ?? false;
-                        customProductQC.checked = status;
                     });
 
                     // Yupoo redesign
@@ -168,10 +129,8 @@ function main() {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "yupooInterfaceReDesign": status });
                         reloadTab(["*://\*.yupoo.com/*"]);
-                    });
-                    chrome.storage.local.get(["yupooInterfaceReDesign"], (status) => {
-                        status = status?.yupooInterfaceReDesign ?? false;
-                        yupooInterfaceReDesign.checked = status;
+                        document.getElementById("yupooInterfaceReDesignChildren").style.maxHeight = (status ? document.getElementById("yupooInterfaceReDesignChildren").scrollHeight : 0) + "px";
+                        setGrayedBackground();
                     });
 
                     // Side bar
@@ -181,35 +140,12 @@ function main() {
                         chrome.storage.local.set({ "removeYupooSideBar": status });
                         sendMessage("toggledSideBar");
                     });
-                    chrome.storage.local.get(["removeYupooSideBar"], (status) => {
-                        status = status?.removeYupooSideBar ?? false;
-                        removeYupooSideBar.checked = status;
-                    });
 
                     // Yupoo redirect skip
                     const skipYupooRedirect = document.getElementById('skipYupooRedirect');
                     skipYupooRedirect.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "skipYupooRedirect": status });
-                    });
-                    chrome.storage.local.get(["skipYupooRedirect"], (status) => {
-                        status = status?.skipYupooRedirect ?? false;
-                        skipYupooRedirect.checked = status;
-                    });
-
-                    // Yupoo grid
-                    chrome.storage.local.get(["yupooContentWidth"], (status) => {
-                        const slider = document.getElementById("yupooContentWidthSlider");
-                        const output = document.getElementById("yupooContentWidth");
-                        yupooContentWidth = status?.yupooContentWidth ?? 180;
-                        slider.value = yupooContentWidth
-                        output.innerHTML = yupooContentWidth
-                        slider.oninput = function() {
-                            const newWidth = this.value;
-                            output.innerHTML = newWidth;
-                            chrome.storage.local.set({ "yupooContentWidth": newWidth });
-                            sendMessage("yupooContentWidthChanged");
-                        }
                     });
 
                     // ? EXPERIMENTAL : Dark mode
@@ -229,9 +165,139 @@ function main() {
     });
 }
 
+
+/**
+ * Sets the checked status of various checkboxes based on their corresponding values in chrome storage.
+ * @function
+ * @name setCheckBoxes
+ * @returns {void}
+ */
+function setCheckBoxes() {
+    chrome.storage.local.get(["isPremium"], (status) => {
+        const isPremium = status?.isPremium ?? false;
+        
+        const autoPandaBuyRedirect = document.getElementById('autoPandaBuyRedirect');
+        chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
+            status = isPremium ? status?.autoPandaBuyRedirect ?? false : false;
+            autoPandaBuyRedirect.checked = status;
+        });
+    
+        // Third party disclaimer
+        const thirdPartyDisclaimerAutoCheck = document.getElementById('thirdPartyDisclaimerAutoCheck');
+        chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
+            status = isPremium ? status?.thirdPartyDisclaimerAutoCheck ?? false : false;
+            thirdPartyDisclaimerAutoCheck.checked = status;
+        });
+    
+        const pandabuyProductWarnings = document.getElementById('pandabuyProductWarnings');
+        chrome.storage.local.get(["pandabuyProductWarnings"], (status) => {
+            status = isPremium ? status?.pandabuyProductWarnings ?? false : false;
+            pandabuyProductWarnings.checked = status;
+        });
+    
+        // Custom product QC
+        const customProductQC = document.getElementById('customProductQC');
+        chrome.storage.local.get(["customProductQC"], (status) => {
+            status = status?.customProductQC ?? false;
+            customProductQC.checked = status;
+        });
+    
+        // Yupoo redesign
+        const yupooInterfaceReDesign = document.getElementById('yupooInterfaceReDesign');
+        chrome.storage.local.get(["yupooInterfaceReDesign"], (status) => {
+            status = isPremium ? status?.yupooInterfaceReDesign ?? false : false;
+            yupooInterfaceReDesign.checked = status;
+            document.getElementById("yupooInterfaceReDesignChildren").style.maxHeight = (status ? document.getElementById("yupooInterfaceReDesignChildren").scrollHeight : 0) + "px";
+            setGrayedBackground();
+        });
+    
+        // Side bar
+        const removeYupooSideBar = document.getElementById('removeYupooSideBar');
+        chrome.storage.local.get(["removeYupooSideBar"], (status) => {
+            status = isPremium ? status?.removeYupooSideBar ?? false : false;
+            removeYupooSideBar.checked = status;
+        });
+    
+        // Yupoo redirect skip
+        const skipYupooRedirect = document.getElementById('skipYupooRedirect');
+        chrome.storage.local.get(["skipYupooRedirect"], (status) => {
+            status = isPremium ? status?.skipYupooRedirect ?? false : false;
+            skipYupooRedirect.checked = status;
+        });
+    
+        // Yupoo grid
+        chrome.storage.local.get(["yupooContentWidth"], (status) => {
+            const slider = document.getElementById("yupooContentWidthSlider");
+            const output = document.getElementById("yupooContentWidth");
+            yupooContentWidth = status?.yupooContentWidth ?? 180;
+            slider.value = yupooContentWidth
+            output.innerHTML = yupooContentWidth
+            slider.oninput = function() {
+                const newWidth = this.value;
+                output.innerHTML = newWidth;
+                chrome.storage.local.set({ "yupooContentWidth": newWidth });
+                sendMessage("yupooContentWidthChanged");
+            }
+        });
+    });
+}
+
+
+/**
+ * Sets a grayed background and a message inviting the user to upgrade to premium if they are not already a premium user.
+ * @function
+ * @name setGrayedBackground
+ * @returns {void}
+ */
+function setGrayedBackground() {
+    if(document.getElementById("hide")) document.getElementById("hide").remove();
+    if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").remove();
+    chrome.storage.local.get(["isPremium"], (status) => {
+        status = status?.isPremium ?? false;
+        if(!status){
+            const hide = document.createElement("div");
+            hide.id = "hide";
+            hide.className = "absolute left-0 z-40 pointer-events-none w-full bg-neutral-600/50 text-white p-4 pointer-events-none";
+        
+            // Paragraph
+            const p = document.createElement("p");
+            p.id = "unlockFeaturesParagraph";
+            p.className = "text-base font-bold px-4 block text-center";
+            p.innerHTML = `To unlock all these features, `;
+            // Link
+            const a = document.createElement("a");
+            a.href = "https://pcc.paillaugue.fr/pricing";
+            a.innerText = "Upgrade to premium";
+            a.addEventListener("click", (e) => {
+                chrome.tabs.create({url: e.target.getAttribute('href')});
+            });
+            p.appendChild(a);
+        
+            // Appending message and grayed background
+            document.querySelector("#main > section:nth-child(1)").appendChild(p);
+            hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
+            hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
+            document.body.appendChild(hide);
+        }
+    });
+}
+
+
+/**
+ * Sets the theme of the popup based on the user's preference stored in local storage.
+ * @function
+ * @returns {void}
+ */
 function setPopupTheme() {
+    const setPopupThemeSwitch = document.getElementById("popupTheme");
+    setPopupThemeSwitch.addEventListener('change', (e) => {
+        const status = e.currentTarget.checked;
+        chrome.storage.local.set({ "popupDarkTheme": status });
+        setPopupTheme();
+    });
     chrome.storage.local.get(["popupDarkTheme"], (status) => {
         status = status?.popupDarkTheme ?? false;
+        setPopupThemeSwitch.checked = status?.popupDarkTheme ?? false;
         if(status){
             document.documentElement.classList.add('dark');
         }else {
@@ -240,21 +306,28 @@ function setPopupTheme() {
     });
 }
 
+
+/**
+ * Refreshes the plan by fetching the user's premium status from the server and updating the local storage.
+ * @param {Event} e - The event object.
+ */
+function refreshPlan(e) {
+    const button = e.target;
+    button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
+    chrome.storage.local.get(["username", "password"], (data) => {
+        const { username, password } = data;
+        fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+            chrome.storage.local.set({ isPremium:data.isPremium }); 
+            main();
+            button.innerText = "Refresh plan";
+        });
+    });
+}
+
 // On popup load
 document.addEventListener('DOMContentLoaded', () => {
     main();
     setPopupTheme();
-
-    const setPopupThemeSwitch = document.getElementById("popupTheme");
-    setPopupThemeSwitch.addEventListener('change', (e) => {
-        const status = e.currentTarget.checked;
-        chrome.storage.local.set({ "popupDarkTheme": status });
-        setPopupTheme();
-    });
-    chrome.storage.local.get(["popupDarkTheme"], (status) => {
-        status = status?.popupTheme ?? false;
-        setPopupThemeSwitch.checked = status;
-    });
 
     document.getElementById("log-out").addEventListener("click", () => {
         chrome.storage.local.set({"username": null });
@@ -264,28 +337,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById("refreshPlan").addEventListener("click", (e) => {
-        const button = e.target;
-        button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
-        chrome.storage.local.get(["username", "password"], (data) => {
-            const { username, password } = data;
-            fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
-                chrome.storage.local.set({ isPremium:data.isPremium }); 
-                main();
-                button.innerText = "Refresh plan";
-            });
-        });
+        refreshPlan(e);
     });
 
-    // Conversion
+    // Currency conversion
     const status_input = document.getElementById('status');
     status_input.addEventListener('change', (e) => {
         const status = e.currentTarget.checked;
-        chrome.storage.local.set({ "status": status });
-        reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "https://m.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
+        chrome.storage.local.set({ status });
+        reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://*.weidian.com/*", "*://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
+        if(status) {
+            document.getElementById("conversionChildren").style.maxHeight = document.getElementById("conversionChildren").scrollHeight+"px";
+        }else {
+            document.getElementById("conversionChildren").style.maxHeight = "0px";
+        }
+        setGrayedBackground();
     });
     chrome.storage.local.get(["status"], (status) => {
         status = status?.status ?? true;
         status_input.checked = status;
+        if(status) {
+            document.getElementById("conversionChildren").style.maxHeight = document.getElementById("conversionChildren").scrollHeight+"px";
+        }else {
+            document.getElementById("conversionChildren").style.maxHeight = "0px";
+        }
     });
 
     

@@ -1,30 +1,30 @@
 <script>
-    import "../app.css";
-    import { onMount } from 'svelte';
-    import Analytics from '$lib/components/Analytics.svelte';
-    import { toasts, removeToast } from "$lib/stores";
+        import "../app.css";
+        import { onMount } from 'svelte';
+        import Analytics from '$lib/components/Analytics.svelte';
+        import { toasts, removeToast } from "$lib/stores";
 
-    export let data;
+        export let data;
 
-    const { extensions, getBrowserType } = data;
+        const { extensions, getBrowserType } = data;
 
-    let extension = extensions[0];
-    let user;
-    let navbar = false;
+        let extension = extensions[0];
+        let user;
+        let navbar = false;
 
-    $: user = data.user;
-    $: if($toasts.length > 5) {$toasts = $toasts.slice(0, 5)};
+        $: user = data?.user;
+        $: if($toasts.length > 5) {$toasts = $toasts.slice(0, 5)};
 
-    onMount(() => {
-        if(extensions.filter(el => el.plateforme === getBrowserType()).length > 0){
-            extension = extensions.filter(el => el.plateforme === getBrowserType())[0];
-        }else {
-            extension = "blank";
-        }
-    });
-</script>
+        onMount(() => {
+            if(extensions.filter(el => el.plateforme === getBrowserType()).length > 0){
+                extension = extensions.filter(el => el.plateforme === getBrowserType())[0];
+            }else {
+                extension = "blank";
+            }
+        });
+    </script>
 
-<Analytics />
+    <Analytics />
 
 <div class="fixed top-2 right-2 flex flex-col gap-2 z-50">
     {#each $toasts as toast, i (toast)}

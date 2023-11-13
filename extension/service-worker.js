@@ -22,13 +22,17 @@ chrome.runtime.onInstalled.addListener(function () {
 
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
+        console.log("Checking if user is logged-in...");
         if(username, password) {
+            console.log("User is logged-in, checking if user is premium...");
             fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+                console.log(data.isPremium ? "User is premium" : "User is not premium");
                 chrome.storage.local.set({ isPremium:data.isPremium });
             }).catch(error => {
                 console.error("Error making the request:", error);
             });
         }else {
+            console.log("User is not logged-in");
             chrome.storage.local.set({ isPremium:false });
         }
     });

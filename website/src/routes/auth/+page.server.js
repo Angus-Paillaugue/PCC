@@ -30,6 +30,8 @@ export const actions = {
     signin: async ({ cookies, request }) => {
         const formData = Object.fromEntries(await request.formData());
         const { email, username, password } = formData;
+        
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { signIn:{ success:false, formData, message:"Invalid email!" } };
 
         const userExists = await usersRef.findOne({ email:email });
         if(userExists) return { signIn:{success:false, formData, message:"This email is already in use in another account!"} };

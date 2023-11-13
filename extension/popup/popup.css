@@ -677,6 +677,10 @@ video {
   z-index: 50;
 }
 
+.z-40{
+  z-index: 40;
+}
+
 .float-right{
   float: right;
 }
@@ -1859,6 +1863,11 @@ video {
   border-style: none;
 }
 
+.border-neutral-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(212 212 212 / var(--tw-border-opacity));
+}
+
 .border-red-400{
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity));
@@ -2019,6 +2028,10 @@ video {
   padding: 0.5rem;
 }
 
+.p-2\.5{
+  padding: 0.625rem;
+}
+
 .p-4{
   padding: 1rem;
 }
@@ -2092,6 +2105,11 @@ video {
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .font-bold{
@@ -2243,6 +2261,16 @@ video {
 .subpixel-antialiased{
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
+}
+
+.placeholder-neutral-400::-moz-placeholder{
+  --tw-placeholder-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-neutral-400::placeholder{
+  --tw-placeholder-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-placeholder-opacity));
 }
 
 .opacity-0{
@@ -3323,6 +3351,25 @@ svg.experimental{
   text-align: center;
 }
 
+.focus\:outline-none:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:ring-2:focus{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus\:ring-offset-2:focus{
+  --tw-ring-offset-width: 2px;
+}
+
+.focus\:ring-offset-white:focus{
+  --tw-ring-offset-color: #fff;
+}
+
 .focus\:hover\:text-center:hover:focus{
   text-align: center;
 }
@@ -3344,6 +3391,16 @@ svg.experimental{
   fill: #fde047;
 }
 
+.peer:focus ~ .peer-focus\:rotate-180{
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(.dark .dark\:border-neutral-700){
+  --tw-border-opacity: 1;
+  border-color: rgb(64 64 64 / var(--tw-border-opacity));
+}
+
 :is(.dark .dark\:bg-neutral-400){
   --tw-bg-opacity: 1;
   background-color: rgb(163 163 163 / var(--tw-bg-opacity));
@@ -3354,9 +3411,19 @@ svg.experimental{
   background-color: rgb(64 64 64 / var(--tw-bg-opacity));
 }
 
+:is(.dark .dark\:bg-neutral-800){
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+}
+
 :is(.dark .dark\:text-neutral-100){
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:text-white){
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:opacity-0){
