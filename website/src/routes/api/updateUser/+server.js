@@ -1,4 +1,4 @@
-import { usersRef } from "$lib/server/db";
+import { usersRef, postsRef } from "$lib/server/db";
 
 export async function PATCH({ locals, request }) {
     if(!locals?.user?.isAdmin) return new Response(JSON.stringify({ error: "You are not authorized to do this." }), { status: 403 });

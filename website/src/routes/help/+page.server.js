@@ -6,9 +6,9 @@ export async function load() {
     let questions = await questionsRef.find({  }).sort({ postedAt:-1 }).project({ _id:0 }).toArray();
 
     questions = structuredClone(await Promise.all(questions.map(async (question) => {
-        question.postedBy = (({ password, _id, ...o }) => o)(await usersRef.findOne({ username:question.postedBy }));
+        question.postedBy = (({ password, _id, ...o }) => o)(await usersRef.findOne({ id:question.postedBy }));
         question.replies = structuredClone(await Promise.all(question.replies.map(async (replie) => {
-            let user = (({ password, _id, ...o }) => o)(await usersRef.findOne({ username:replie.username }));
+            const user = (({ password, _id, ...o }) => o)(await usersRef.findOne({ id:replie.postedBy }));
             return{ ...replie, user }
         })));
         question.replies = question.replies.sort(function(a,b){return new Date(b.date) - new Date(a.date);});
@@ -25,7 +25,7 @@ export const actions = {
         if(user){
             const formData = Object.fromEntries(await request.formData());
             const { title, description } = formData;
-            await questionsRef.insertOne({ id:randomUUID(), postedBy:user.username, title, description, replies:[], postedAt:new Date() });
+            await questionsRef.insertOne({ id:randomUUID(), postedBy:user.id, title, description, replies:[], postedAt:new Date() });
             
             return { success:true };
         }
@@ -36,7 +36,7 @@ export const actions = {
             const formData = Object.fromEntries(await request.formData());
             const { message, postId } = formData;
 
-            await questionsRef.updateOne({ id:postId }, { $push: { replies: { message, username:user.username, at:new Date(), id:randomUUID() }} });
+            await questionsRef.updateOne({ id:postId }, { $push: { replies: { message, postedBy:user.id, at:new Date(), id:randomUUID() }} });
             return { success:true }
         }
     },

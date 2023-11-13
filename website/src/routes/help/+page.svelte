@@ -14,14 +14,15 @@
     let isReplying = false;
     let newQuestionModal = false;
     let deleteReplieModal = false;
+    let newQuestionTitle = "";
     let deleteReplieId;
     let message = "";
     let replyModalQuestionId;
     let replieContainer;
     let replieContainerMaxHeight;
     
-    $: if(form?.success) location.reload()
-    $: if(message?.length > maxMessageLength) message = message.slice(0, 1000);
+    $: if(form?.success) location.reload();
+    $: if(message?.length > maxMessageLength) message = message.slice(0, maxMessageLength);
     $: if(replieContainer) replieContainerMaxHeight = replieContainer.clientHeight;
 </script>
 
@@ -134,9 +135,9 @@
     </form>
 </div>
 
-<!-- Replie modal -->
+<!-- New question modal -->
 <div class="fixed top-O left-0 w-full h-full transition-opacity flex flex-col justify-center items-center bg-neutral-600/50 p-2 {newQuestionModal ? "opacity-100 z-40" : "opacity-0 -z-10"}">
-    <form method="POST" action="?/newQuestion" use:enhance={(e) => {
+    <form method="POST" action="?/newQuestion" use:enhance={() => {
         isReplying = true;
         return ({ update }) => {
             isReplying = false;
@@ -150,14 +151,14 @@
             </svg>
         </button>
         <h3>New question</h3>
-        <input type="text" name="title" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2" placeholder="Question title">
+        <input type="text" name="title" bind:value={newQuestionTitle} class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2" placeholder="Question title">
         <div class="relative">
             <span class="absolute top-1 right-1 text-xs font-normal">
                 {message?.length}/{maxMessageLength}
             </span>
             <textarea name="description" placeholder="Question content" rows="6" bind:value={message} class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2"></textarea>
         </div>
-        <button type="submit" class="button-primary transition-all overflow-hidden" disabled="{message?.length === 0}">
+        <button type="submit" class="button-primary transition-all overflow-hidden" disabled="{message?.length === 0 || newQuestionTitle?.length === 0}">
             {#if isReplying}
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" in:fly={{ y: 100, duration: 400 }}>
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
