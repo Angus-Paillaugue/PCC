@@ -57,19 +57,20 @@ function main() {
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
                 fetch(
-                    "https://pcc.paillaugue.fr/checkPremium", 
+                    "https://pcc.paillaugue.fr/checkPremium?username="+username+"&password="+password, 
                     { 
-                        method:"POST", 
+                        method:"GET", 
                         headers:{ 
-                            "Content-Type": "application/json" 
+                            "Content-Type" : "application/json",
+                            "Access-Control-Allow-Origin" : "*"
                         }, 
-                        body:JSON.stringify({ username, password }), 
-                        mode:"cors"
+                        mode: "cors"
                     }
                 )
-                .then(response => response.json())
                 .then(data => {
-                    if(!data.err) {
+                    console.log(data)
+                    if(data.ok){
+                        data = data.json();
                         errEl.style.display = "none";
                         chrome.storage.local.set({ isPremium:data.isPremium });
                         chrome.storage.local.set({"username": username });
@@ -79,12 +80,16 @@ function main() {
                         main();
                     }else {
                         errEl.style.display = "flex";
-                        errEl.innerText = data.err;
+                        errEl.innerText = data.statusText;
                     }
-                    button.innerText = "Log in";
                 })
                 .catch(error => {
-                    console.error("Error making the request:", error);
+                    console.log(error);
+                    errEl.style.display = "flex";
+                    errEl.innerText = error;
+                })
+                .finally(() => {
+                    button.innerText = "Log in";
                 });
             });
         }else {
