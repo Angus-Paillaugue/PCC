@@ -1,8 +1,11 @@
 import { usersRef } from "$lib/server/db";
 import { compare } from "bcrypt";
 
-export async function POST({ request }) {
-    const { username, password } = await request.json();
+export async function GET({ url }) {
+    const username = url.searchParams.get('username');
+    const password = url.searchParams.get('password');
+    console.log(username, password);
+    // const { username, password } = await request.json();
 
     const user = await usersRef.findOne({ username });
     if(!user) return new Response(JSON.stringify({ err:"User not found." }), { headers: { "Content-Type": "application/json" }, status: 500  });
