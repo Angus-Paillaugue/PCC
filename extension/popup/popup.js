@@ -56,7 +56,7 @@ function main() {
                 button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
-                fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+                fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{ "Content-Type": "application/json" }, body:JSON.stringify({ username, password }), mode:"no-cors" }).then(response => response.json()).then(data => {
                     if(!data.err) {
                         errEl.style.display = "none";
                         chrome.storage.local.set({ isPremium:data.isPremium });
@@ -316,7 +316,7 @@ function refreshPlan(e) {
     button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
-        fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }) }).then(response => response.json()).then(data => {
+        fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json", "Access-Control-Allow-Origin" : "*"}, body:JSON.stringify({ username, password }), mode: 'cors' }).then(response => response.json()).then(data => {
             chrome.storage.local.set({ isPremium:data.isPremium }); 
             main();
             button.innerText = "Refresh plan";
