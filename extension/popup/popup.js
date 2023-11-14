@@ -45,6 +45,7 @@ function main() {
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
         const errEl = document.getElementById("err");
+        const errMsgEl = document.getElementById("errMsg");
 
         if(!username || !password) {
             if(document.getElementById("main")) document.getElementById("main").style.display = "none";
@@ -69,13 +70,13 @@ function main() {
                         main();
                     }else {
                         errEl.style.display = "flex";
-                        errEl.innerText = data.err;
+                        errMsgEl.innerText = data.err;
                     }
                 })
                 .catch(error => {
                     console.log(error);
                     errEl.style.display = "flex";
-                    errEl.innerText = error;
+                    errMsgEl.innerText = error;
                 })
                 .finally(() => {
                     button.innerText = "Log in";
@@ -84,8 +85,9 @@ function main() {
         }else {
             chrome.storage.local.get(["isPremium"], (status) => {
                 const isPremium = status?.isPremium ?? false;
+                setGrayedBackground();
+
                 if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").remove();
-                if(document.getElementById("hide")) document.getElementById("hide").remove();
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
@@ -135,7 +137,6 @@ function main() {
                         chrome.storage.local.set({ "yupooInterfaceReDesign": status });
                         reloadTab(["*://\*.yupoo.com/*"]);
                         document.getElementById("yupooInterfaceReDesignChildren").style.maxHeight = (status ? document.getElementById("yupooInterfaceReDesignChildren").scrollHeight : 0) + "px";
-                        setGrayedBackground();
                     });
 
                     // Side bar
@@ -167,7 +168,6 @@ function main() {
                 }
             });
         }
-        setGrayedBackground();
     });
 }
 
@@ -214,7 +214,6 @@ function setCheckBoxes() {
             status = isPremium ? status?.yupooInterfaceReDesign ?? false : false;
             yupooInterfaceReDesign.checked = status;
             document.getElementById("yupooInterfaceReDesignChildren").style.maxHeight = (status ? document.getElementById("yupooInterfaceReDesignChildren").scrollHeight : 0) + "px";
-            setGrayedBackground();
         });
     
         // Side bar
@@ -265,7 +264,7 @@ function setGrayedBackground() {
             // Paragraph
             const p = document.createElement("p");
             p.id = "unlockFeaturesParagraph";
-            p.className = "text-base font-bold px-4 py-2 block text-center border-t border-neutral-200";
+            p.className = "text-base font-bold px-4 py-2 block text-center border-t border-neutral-200 dark:border-neutral-700";
             p.innerHTML = `To unlock all the features, `;
             // Link
             const a = document.createElement("a");
@@ -360,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }else {
             document.getElementById("conversionChildren").style.maxHeight = "0px";
         }
-        setGrayedBackground();
     });
     chrome.storage.local.get(["status"], (status) => {
         status = status?.status ?? true;
