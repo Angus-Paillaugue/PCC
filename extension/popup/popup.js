@@ -56,21 +56,10 @@ function main() {
                 button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
-                fetch(
-                    "https://pcc.paillaugue.fr/checkPremium?username="+username+"&password="+password, 
-                    { 
-                        method:"GET", 
-                        headers:{ 
-                            "Content-Type" : "application/json",
-                            "Access-Control-Allow-Origin" : "*"
-                        }, 
-                        mode: "cors"
-                    }
-                )
+                fetch("http://pcc.paillaugue.fr/checkPremium", { body:JSON.stringify({ username, password }), method:"POST" })
+                .then(response => response.json())
                 .then(data => {
-                    console.log(data)
-                    if(data.ok){
-                        data = data.json();
+                    if(!data?.err){
                         errEl.style.display = "none";
                         chrome.storage.local.set({ isPremium:data.isPremium });
                         chrome.storage.local.set({"username": username });
@@ -80,7 +69,7 @@ function main() {
                         main();
                     }else {
                         errEl.style.display = "flex";
-                        errEl.innerText = data.statusText;
+                        errEl.innerText = data.err;
                     }
                 })
                 .catch(error => {
@@ -100,9 +89,7 @@ function main() {
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
-                if(!isPremium){
-                    setGrayedBackground();
-                }else {
+                if(isPremium){
                     if(document.getElementById("hide")) document.getElementById("hide").remove();
                     setCheckBoxes();
 
@@ -180,6 +167,7 @@ function main() {
                 }
             });
         }
+        setGrayedBackground();
     });
 }
 
@@ -269,7 +257,6 @@ function setCheckBoxes() {
  */
 function setGrayedBackground() {
     if(document.getElementById("hide")) document.getElementById("hide").remove();
-    if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").remove();
     chrome.storage.local.get(["isPremium"], (status) => {
         status = status?.isPremium ?? false;
         if(!status){
@@ -295,7 +282,7 @@ function setGrayedBackground() {
             document.querySelector("#main > section:nth-child(1)").appendChild(p);
             hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
             hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
-            document.body.appendChild(hide);
+            document.getElementById("main").appendChild(hide);
         }
     });
 }
@@ -334,7 +321,9 @@ function refreshPlan(e) {
     button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
-        fetch("https://pcc.paillaugue.fr/checkPremium", { method:"POST", headers:{"Content-Type": "application/json", "Access-Control-Allow-Origin" : "*"}, body:JSON.stringify({ username, password }), mode: 'cors' }).then(response => response.json()).then(data => {
+        fetch("https://pcc.paillaugue.fr/checkPremium", { body:JSON.stringify({ username, password }), method:"POST" })
+        .then(response => response.json())
+        .then(data => {
             chrome.storage.local.set({ isPremium:data.isPremium }); 
             main();
             button.innerText = "Refresh plan";

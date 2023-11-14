@@ -25,15 +25,7 @@ chrome.runtime.onInstalled.addListener(function () {
         console.log("Checking if user is logged-in...");
         if(username, password) {
             console.log("User is logged-in, checking if user is premium...");
-            fetch(
-                "https://pcc.paillaugue.fr/checkPremium?username="+username+"&password="+password, 
-                { 
-                    method:"GET", 
-                    headers:{ 
-                        "Content-Type": "application/json" 
-                    }, 
-                }
-            )
+            fetch("https://pcc.paillaugue.fr/checkPremium", { body:JSON.stringify({ username, password }), method:"POST" })
             .then(response => response.json())
             .then(data => {
                 console.log(data.isPremium ? "User is premium" : "User is not premium");
