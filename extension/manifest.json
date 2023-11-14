@@ -25,7 +25,7 @@
         }
     ],
     "host_permissions": [
-        "https://www.pandabuy.com/"
+        "<all_urls>"
     ],
     "permissions": [
         "storage",

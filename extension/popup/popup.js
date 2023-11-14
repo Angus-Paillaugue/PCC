@@ -56,7 +56,7 @@ function main() {
                 button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
-                fetch("http://pcc.paillaugue.fr/checkPremium", { body:JSON.stringify({ username, password }), method:"POST" })
+                fetch("https://pcc.paillaugue.fr/checkPremium", { headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }), method:"POST" })
                 .then(response => response.json())
                 .then(data => {
                     if(!data?.err){
@@ -256,19 +256,17 @@ function setCheckBoxes() {
  * @returns {void}
  */
 function setGrayedBackground() {
-    if(document.getElementById("hide")) document.getElementById("hide").remove();
+    if(document.getElementById("unlockFeaturesParagraph")) document.getElementById("unlockFeaturesParagraph").remove();
+    const sections = document.getElementById("main").querySelectorAll("section");
+
     chrome.storage.local.get(["isPremium"], (status) => {
         status = status?.isPremium ?? false;
         if(!status){
-            const hide = document.createElement("div");
-            hide.id = "hide";
-            hide.className = "absolute left-0 z-40 pointer-events-none w-full bg-neutral-600/50 text-white p-4 pointer-events-none";
-        
             // Paragraph
             const p = document.createElement("p");
             p.id = "unlockFeaturesParagraph";
-            p.className = "text-base font-bold px-4 block text-center";
-            p.innerHTML = `To unlock all these features, `;
+            p.className = "text-base font-bold px-4 py-2 block text-center border-t border-neutral-200";
+            p.innerHTML = `To unlock all the features, `;
             // Link
             const a = document.createElement("a");
             a.href = "https://pcc.paillaugue.fr/pricing";
@@ -280,9 +278,13 @@ function setGrayedBackground() {
         
             // Appending message and grayed background
             document.querySelector("#main > section:nth-child(1)").appendChild(p);
-            hide.style.top = document.querySelector("#main > section:nth-child(2)").offsetTop + "px";
-            hide.style.bottom = window.innerHeight - (document.querySelector("#main > section:nth-last-child(2)").offsetTop + document.querySelector("#main > section:nth-last-child(2)").clientHeight) + "px";
-            document.getElementById("main").appendChild(hide);
+            for(const i in sections) {
+                if(i > 0 && i < sections.length-1) sections[i].style.display = "none";
+            }
+        }else {
+            for(const section of sections) {
+                section.style.display = "flex";
+            }
         }
     });
 }
@@ -321,7 +323,7 @@ function refreshPlan(e) {
     button.innerHTML = `<svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>`;
     chrome.storage.local.get(["username", "password"], (data) => {
         const { username, password } = data;
-        fetch("https://pcc.paillaugue.fr/checkPremium", { body:JSON.stringify({ username, password }), method:"POST" })
+        fetch("https://pcc.paillaugue.fr/checkPremium", { headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }), method:"POST" })
         .then(response => response.json())
         .then(data => {
             chrome.storage.local.set({ isPremium:data.isPremium }); 
