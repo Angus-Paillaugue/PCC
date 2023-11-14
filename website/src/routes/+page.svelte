@@ -181,7 +181,6 @@
     <section id="learn-more" class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
         <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Learn More</h4>
-
             {#each sections as section, index}
                 <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-gray-700 text-start transition-all border dark:border-gray-600 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
                     <div class="rounded-2xl border border-gray-300 lg:col-span-3 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-3"}">
