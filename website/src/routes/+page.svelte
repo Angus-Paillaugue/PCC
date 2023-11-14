@@ -200,7 +200,7 @@
         </div>
     </section>
 
-    <section class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
+    <section class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-sm:pl-6">
         <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Releases</h4>
 
