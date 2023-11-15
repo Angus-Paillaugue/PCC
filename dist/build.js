@@ -52,8 +52,7 @@ for await(const file of extensionFiles){
         fs.mkdir(newFilePath);
     }else {
         if(!isJsFile(file) || isInArray(doNotObfuscate, devFilePath)){
-            const content = await fs.readFile(devFilePath, "utf-8");
-            fs.writeFile(outputDir+file, content);
+            fs.copyFile(devFilePath, newFilePath);
         }else {
             const code = await fs.readFile(devFilePath, "utf-8");
             const result = UglifyJS.minify(code);
