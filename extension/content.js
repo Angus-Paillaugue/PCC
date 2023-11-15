@@ -180,7 +180,7 @@ function formatString(inputString, rates, currencies, currencyToConvertTo) {
 
 
 
-
+    
 //* ||-----------------------------------||
 //* ||          Main functions           ||
 //* ||-----------------------------------||
@@ -322,7 +322,7 @@ function productWarnings(){
         if(status){
             let count = 0;
             const interval = setInterval(() => {
-                if(count === 10) clearInterval(interval);
+                if(count === 20) clearInterval(interval);
                 if(document.querySelector(".el-button.accept-btn.el-button--default")){
                     try {
                         document.querySelector(".el-button.accept-btn.el-button--default").click();
@@ -356,12 +356,15 @@ function customProductQC(){
             if(providerName === "tmall") providerName = "taobao";
             const providerType = providerName;
             const productID = getProductId(productUrl);
+            let count = 0;
             const interval = setInterval(() => {
+                count += 1;
                 try{
-                    if($(".shop-list").length === 0) throw new Error("I got nowhere to append the QC's!");
+                    if(count >= 20) clearInterval(interval);
+                    if($(".overview").length === 0) throw new Error("I got nowhere to append the QC's!");
                     clearInterval(interval);
                     
-                    $(`<div style="padding:20px; width:100%;" class="customProductQCContainer"><h2 class="margin-bottom:5px;">Product QC : </h2><iframe src="https://www.pandabuy.com/storageQcImg?itemId=${productID}&providerType=${providerType}&activeIndex=0&type=imageList" style="width:100%; aspect-ratio:16/9; border:none;" id="QCIframe"></iframe></div>`).insertBefore('.shop-list');
+                    $(".overview").after(`<div style="padding:20px; width:100%;" class="customProductQCContainer"><h2 class="margin-bottom:5px;">Product QC : </h2><iframe src="https://www.pandabuy.com/storageQcImg?itemId=${productID}&providerType=${providerType}&activeIndex=0&type=imageList" style="width:100%; aspect-ratio:16/9; border:none;" id="QCIframe"></iframe></div>`);
         
                     const iframe = document.getElementById("QCIframe").contentDocument || document.getElementById("QCIframe").contentWindow.document;
                     const imgsContainer = iframe.getElementById("big-img-layout");

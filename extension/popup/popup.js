@@ -119,7 +119,7 @@ function main() {
                     thirdPartyDisclaimerAutoCheck.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
                         chrome.storage.local.set({ "thirdPartyDisclaimerAutoCheck": status });
-                        reloadTab(["*://\*.pandabuy.com/*"]);
+                        reloadTab(["*://\*.pandabuy.com/product?*"], "href");
                     });
 
                     // Custom product QC

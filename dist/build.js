@@ -9,7 +9,7 @@ const extensionFiles = await fs.readdir(path.join(thisDir, "../extension/"), { r
 const outputDir = path.join(thisDir, "distContent/");
 const devDir = path.join(thisDir, "../extension/");
 const doNotObfuscate = ["jquery"];
-const excludedItems = ["node_modules", "tailwind.config.js", "package.json", "pnpm-lock.yaml"];
+const excludedItems = ["node_modules", "tailwind.config.js", "package.json", "pnpm-lock.yaml", "popup-dev.css"];
 
 const isJsFile = (file) => file.endsWith(".js");
 const isInArray = (array, item) => {

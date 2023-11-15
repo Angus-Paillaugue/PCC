@@ -138,7 +138,7 @@ a {
 .el-button--primary, .nav-button:not(.active){
   font: inherit;
   font-family: inherit;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
