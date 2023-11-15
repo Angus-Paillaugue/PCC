@@ -18,7 +18,7 @@
     },
     "content_scripts": [
         {
-            "matches": ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "*://*.weidian.com/*", "*://weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*"],
+            "matches": ["*://*.pandabuy.com/*", "*://*.yupoo.com/*", "*://*.weidian.com/*", "*://weidian.com/*", "*://*.taobao.com/*", "*://*.1688.com/*", "*://*.tmall.com/*", "*://*.reddit.com/*"],
             "exclude_matches" : ["https://docs.google.com/*"],
             "js": ["content.js", "src/jquery-3.7.1.min.js"],
             "run_at":"document_start"

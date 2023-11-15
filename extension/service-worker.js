@@ -70,7 +70,7 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 // To update the tab url to the product on PandaBuy if a user visits taobao or some other marketplace url 
-chrome.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "updateTabURL") {
         chrome.tabs.query({ active: true, currentWindow: true }, ([tabs]) => {
             chrome.tabs.update(tabs.id, { url: message.url });

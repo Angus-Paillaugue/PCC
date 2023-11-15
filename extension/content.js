@@ -213,21 +213,19 @@ function conversion(){
         
                     // Getting all the text nodes and converting the currencies inside their text content every second
                     setInterval(() => {
-                        if(isMarketplaceUrl() || new URLPattern("*://\*.reddit.com/*").test(new URL(location.href).origin)){
-                            const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
-                            text.forEach(textNode => {
-                                // For all of the children inside the elements
-                                for (let i = 0; i < textNode.childNodes.length; ++i){
-                                    // Checks if the child is a text node
-                                    if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
-                                        // Extract the text, calls the format function and replace the text with the converted one
-                                        const nodeText = textNode.childNodes[i].textContent;
-                                        const formattedText = formatString(nodeText, rates, currencies, convertTo);
-                                        if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
-                                    }
+                        const text = document.querySelectorAll("span, p, a, h1, h2, h3, h4, h5, h6, em, tr, ul, ol, tr, label, div, dd, li");
+                        text.forEach(textNode => {
+                            // For all of the children inside the elements
+                            for (let i = 0; i < textNode.childNodes.length; ++i){
+                                // Checks if the child is a text node
+                                if (textNode.childNodes[i].nodeType === Node.TEXT_NODE){
+                                    // Extract the text, calls the format function and replace the text with the converted one
+                                    const nodeText = textNode.childNodes[i].textContent;
+                                    const formattedText = formatString(nodeText, rates, currencies, convertTo);
+                                    if(formattedText !== textNode.childNodes[i].textContent) textNode.childNodes[i].textContent = formattedText;
                                 }
-                            });
-                        }
+                            }
+                        });
                     }, 1000);
                 }     
             }
@@ -411,7 +409,6 @@ function setDarkMode(){
 //* ||-----------------------------------||
 //* || Calling the function on page load ||
 //* ||-----------------------------------||
-
 // Checking if the conversion is enabled
 chrome.storage.local.get(["status"], (status) => {
     status = status?.status ?? true;
