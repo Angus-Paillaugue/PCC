@@ -85,6 +85,7 @@
             return true;
         });
     }
+
 </script>
 
 <svelte:head>
@@ -117,9 +118,9 @@
         </label>
         {#if usersArray.length > 0}
             
-            <div class="grid mt-2 gap-2" style="grid-template-rows: min-content; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+            <div class="grid mt-2 gap-4" style="grid-template-rows: min-content; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
                 {#each usersArray as u}
-                    <div class="p-2 border-neutral-200 border rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
+                    <div class="p-2 shadow-sm rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
                         <label for="username">
                             Username :
                             <input type="text" autocomplete="off" name="username" value="{u.username}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2">

@@ -227,7 +227,7 @@ function conversion(){
                             }
                         });
                     }, 1000);
-                }     
+                }
             }
             xhr.send();
         });
@@ -375,10 +375,6 @@ function customProductQC(){
     });
 
 }
-    
-
-
-// ? EXPERIMENTAL : Dark mode
 
 /**
  * Sets the dark mode for the PandaBuy an Yupoo.
@@ -402,8 +398,23 @@ function setDarkMode(){
     });
 }
 
+// ? EXPERIMENTAL : Tracking
 
+function track() {
+    if(!urlMatch(["*://\*.pandabuy.com/person/parcel/list"], location.href)) return;
+    if(!document.querySelector(".parcel-num")) return setTimeout(track, 1000);
+    const parcelNumbers = document.querySelectorAll("div.item.vertical-style.line > p:nth-child(3)");
+    for(const number of parcelNumbers){
+        const trackingNumber = number.innerText.trim();
+        const trackingLink = document.createElement("a");
+        trackingLink.href = `https://www.17track.net/en/track?nums=${trackingNumber}`;
+        trackingLink.target = "_blank";
+        trackingLink.innerText = `Track on 17Track`;
+        number.parentNode.appendChild(trackingLink);
+    }
+}
 
+track()
 
 
 //* ||-----------------------------------||
