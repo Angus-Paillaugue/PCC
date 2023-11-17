@@ -91,6 +91,16 @@ function main() {
                 if(document.getElementById("auth")) document.getElementById("auth").style.display = "none";
                 if(document.getElementById("main")) document.getElementById("main").style.display = "block";
                 document.getElementById("plan").innerText = isPremium ? "Premium" : "Basic";
+                const conversionChildren = document.getElementById("conversionChildren");
+                chrome.storage.local.get(["status"], (status) => {
+                    status = status?.status ?? true;
+                    document.getElementById('status').checked = status;
+                    if(status) {
+                        conversionChildren.style.maxHeight = conversionChildren.scrollHeight+"px";
+                    }else {
+                        conversionChildren.style.maxHeight = "0px";
+                    }
+                });
                 if(isPremium){
                     if(document.getElementById("hide")) document.getElementById("hide").remove();
                     setCheckBoxes();
@@ -350,23 +360,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Currency conversion
     const status_input = document.getElementById('status');
+    const conversionChildren = document.getElementById("conversionChildren");
     status_input.addEventListener('change', (e) => {
         const status = e.currentTarget.checked;
         chrome.storage.local.set({ status });
-        reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://*.weidian.com/*", "*://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
+        reloadTab(["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "*://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"]);
         if(status) {
-            document.getElementById("conversionChildren").style.maxHeight = document.getElementById("conversionChildren").scrollHeight+"px";
+            conversionChildren.style.maxHeight = conversionChildren.scrollHeight+"px";
         }else {
-            document.getElementById("conversionChildren").style.maxHeight = "0px";
+            conversionChildren.style.maxHeight = "0px";
         }
     });
     chrome.storage.local.get(["status"], (status) => {
         status = status?.status ?? true;
         status_input.checked = status;
         if(status) {
-            document.getElementById("conversionChildren").style.maxHeight = document.getElementById("conversionChildren").scrollHeight+"px";
+            conversionChildren.style.maxHeight = conversionChildren.scrollHeight+"px";
         }else {
-            document.getElementById("conversionChildren").style.maxHeight = "0px";
+            conversionChildren.style.maxHeight = "0px";
         }
     });
 
