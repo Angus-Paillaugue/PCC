@@ -6,6 +6,7 @@
     let { user, users } = data;
     let usersArray = users;
     let isSaving = false;
+    let isSavingUuid;
     let searchQuery;
     let deleteAccountModal = false;
     let deleteAccountId;
@@ -67,9 +68,7 @@
                         for (let k = 0; k < userWord.length; k++) {
                             if (userWord[k] !== searchWord[k]) {
                                 distance++;
-                                if (distance > tolerance) {
-                                    break;
-                                }
+                                if (distance > tolerance) break;
                             }
                         }
                         if (distance <= tolerance) {
@@ -83,7 +82,7 @@
                 }
             }
             return true;
-        });
+        }).slice(0, 10);
     }
 
 </script>
@@ -158,8 +157,8 @@
 
                         <button class="button-red button-small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</button>
 
-                        <button class="button-primary button-small" on:click={() => {save(u.id)}}>
-                            {#if isSaving}
+                        <button class="button-primary button-small" on:click={() => {save(u.id);isSavingUuid = u.id;}}>
+                            {#if isSaving && isSavingUuid === u.id}
                                 <svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
                             {:else}
                                 Save

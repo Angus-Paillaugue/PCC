@@ -29,7 +29,7 @@ declare module '$env/static/private' {
 	export const MONGODB_CONNEXION_STRING: string;
 	export const AUTH_TOKEN_SECRET: string;
 	export const SECRET_STRIPE_KEY: string;
-	export const EMAIL_APP_PASSWORD: string;
+	export const STRIPE_WEBHOOK_SECRET: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
@@ -39,13 +39,13 @@ declare module '$env/static/private' {
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const DriverData: string;
-	export const EFC_23700: string;
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
+	export const EFC_8044: string;
 	export const GIT_ASKPASS: string;
+	export const GPR_PROJECT_PATH: string;
 	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
+	export const IGCCSVC_DB: string;
 	export const INIT_CWD: string;
 	export const LANG: string;
 	export const LOCALAPPDATA: string;
@@ -55,7 +55,6 @@ declare module '$env/static/private' {
 	export const NODE_PATH: string;
 	export const npm_command: string;
 	export const npm_config_engine_strict: string;
-	export const npm_config_frozen_lockfile: string;
 	export const npm_config_registry: string;
 	export const npm_config_user_agent: string;
 	export const npm_execpath: string;
@@ -119,6 +118,7 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const windir: string;
+	export const ZES_ENABLE_SYSMAN: string;
 }
 
 /**
@@ -151,7 +151,7 @@ declare module '$env/dynamic/private' {
 		MONGODB_CONNEXION_STRING: string;
 		AUTH_TOKEN_SECRET: string;
 		SECRET_STRIPE_KEY: string;
-		EMAIL_APP_PASSWORD: string;
+		STRIPE_WEBHOOK_SECRET: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
@@ -161,13 +161,13 @@ declare module '$env/dynamic/private' {
 		COMPUTERNAME: string;
 		ComSpec: string;
 		DriverData: string;
-		EFC_23700: string;
-		FPS_BROWSER_APP_PROFILE_STRING: string;
-		FPS_BROWSER_USER_PROFILE_STRING: string;
+		EFC_8044: string;
 		GIT_ASKPASS: string;
+		GPR_PROJECT_PATH: string;
 		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
+		IGCCSVC_DB: string;
 		INIT_CWD: string;
 		LANG: string;
 		LOCALAPPDATA: string;
@@ -177,7 +177,6 @@ declare module '$env/dynamic/private' {
 		NODE_PATH: string;
 		npm_command: string;
 		npm_config_engine_strict: string;
-		npm_config_frozen_lockfile: string;
 		npm_config_registry: string;
 		npm_config_user_agent: string;
 		npm_execpath: string;
@@ -241,6 +240,7 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_NODE: string;
 		VSCODE_GIT_IPC_HANDLE: string;
 		windir: string;
+		ZES_ENABLE_SYSMAN: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
