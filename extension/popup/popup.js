@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     status = status?.popupDarkTheme ?? false;
                     const screamer = document.createElement("div");
                     screamer.classList = "fixed bg-neutral-500 dark:bg-neutral-400 bg-opacity-75 h-screen z-50 w-full h-full top-0 left-0 flex flex-col justify-content-center items-center";
-                    screamer.innerHTML = `<img src="https://img4.wikia.nocookie.net/__cb20111014155123/creepypasta/images/a/a1/Scary_screamer.jpg" class="h-full w-auto">`;
+                    screamer.innerHTML = `<img src="Screamer.webp" class="h-full w-auto">`;
                     screamer.id = "screamer";
                     document.body.appendChild(screamer);
                     setTimeout(() => {

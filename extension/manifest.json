@@ -33,7 +33,7 @@
         "tabs"
     ],
     "web_accessible_resources": [{
-        "resources":["currencies.json", "src/dark-theme.css"],
+        "resources":["currencies.json", "src/dark-theme.css", "src/Screamer.webp"],
         "matches":["http://*/*", "https://*/*"]
     }],
     "background": {
