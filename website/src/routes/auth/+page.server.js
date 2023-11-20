@@ -33,10 +33,10 @@ export const actions = {
         
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { signIn:{ success:false, formData, message:"Invalid email!" } };
 
-        const userExists = await usersRef.findOne({ email:email });
+        const userExists = await usersRef.findOne({ email });
         if(userExists) return { signIn:{success:false, formData, message:"This email is already in use in another account!"} };
 
-        const usernameIsTaken = await usersRef.findOne({ username:username });
+        const usernameIsTaken = await usersRef.findOne({ username });
         if(usernameIsTaken) return { signIn:{success:false, formData, message:"This username is already taken!"} };
 
         const isASCII = (str) => {return /^[\x00-\x7F]*$/.test(str);}

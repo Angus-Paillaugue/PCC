@@ -24,6 +24,7 @@
 		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.2.0",
 		"stripe": "^14.3.0",
+		"svelte-copy": "^1.4.1",
 		"svelte-reveal": "^0.7.0",
 		"svelte-stripe": "^0.0.24"
 	}

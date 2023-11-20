@@ -28,11 +28,19 @@
             <div class="flex justify-center items-baseline my-8">
                 <span class="mr-2 text-5xl font-extrabold">FREE</span>
             </div>
-            <ul role="list" class="mb-8 space-y-4 text-left">
+            <ul role="list" class="space-y-4 text-left">
                 <li class="flex items-center space-x-3">
                     <svg class="flex-shrink-0 w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                     <span>Currency conversion</span>
                 </li>
+                <ul class="pl-10 block list-inside list-disc">
+                    <li>
+                        <span>Currency conversion on websites</span>
+                    </li>
+                    <li>
+                        <span>Choice of currencies to convert to</span>
+                    </li>
+                </ul>
             </ul>
             {#if !user?.isPremium}
                 <h4 class="text-center rounded-full bg-neutral-200 p-2">Current plan</h4>
@@ -45,11 +53,19 @@
             <div class="flex justify-center items-baseline my-8">
                 <span class="mr-2 text-5xl font-extrabold">${(premiumPrice/100).toFixed(2)}</span>
             </div>
-            <ul role="list" class="mb-8 text-left">
+            <ul role="list" class="text-left">
                 <li class="flex items-center space-x-3">
                     <svg class="flex-shrink-0 w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                     <span>Currency conversion</span>
                 </li>
+                <ul class="pl-10 block list-inside list-disc">
+                    <li>
+                        <span>Currency conversion on websites</span>
+                    </li>
+                    <li>
+                        <span>Choice of currencies to convert to</span>
+                    </li>
+                </ul>
                 <li class="flex items-center space-x-3 mt-4">
                     <svg class="flex-shrink-0 w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                     <span>PandaBuy Features</span>
@@ -66,6 +82,9 @@
                     </li>
                     <li>
                         <span>Custom product QC</span>
+                    </li>
+                    <li>
+                        <span>Dark mode</span>
                     </li>
                 </ul>
                 <li class="flex items-center space-x-3 mt-4">
@@ -85,6 +104,9 @@
                     <li>
                         <span>Skip redirect delay</span>
                     </li>
+                    <li>
+                        <span>Dark mode</span>
+                    </li>
                 </ul>
                 <li class="flex items-center space-x-3 mt-4">
                     <svg class="flex-shrink-0 w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -92,9 +114,9 @@
                 </li>
             </ul>
             {#if user?.isPremium}
-                <h4 class="text-center rounded-full bg-neutral-200 p-2">Current plan</h4>
+                <h4 class="text-center rounded-full bg-neutral-200 p-2 mt-4">Current plan</h4>
             {:else}
-                <a href="/payment" class="button-primary button-small">Choose plan</a>
+                <a href="/payment" class="button-primary button-small mt-4">Choose plan</a>
             {/if}
         </div>
     </div>
