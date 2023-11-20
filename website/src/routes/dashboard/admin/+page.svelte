@@ -4,7 +4,8 @@
     export let data;
 
     let { user, users } = data;
-    let usersArray = users;
+    const noUsersToDisplay = 9;
+    let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
     let isSavingUuid;
     let searchQuery;
@@ -47,7 +48,7 @@
 
     function search() {
         if(!searchQuery) {
-            usersArray = users;
+            usersArray = users.slice(0, noUsersToDisplay);
             return;
         }
         const tolerance = 2;
@@ -77,18 +78,16 @@
                         }
                     }
                 }
-                if (!found) {
-                    return false;
-                }
+                if (!found) return false;
             }
             return true;
-        }).slice(0, 10);
+        }).slice(0, noUsersToDisplay);
     }
 
 </script>
 
 <svelte:head>
-    <title>PCC - Dashboard</title>
+    <title>PCC - Admin dashboard</title>
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
@@ -110,7 +109,7 @@
     </div>
 
     <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-md border border-nautral-200">
-        <h3>Users</h3>
+        <h3>Users ({users.length})</h3>
         <label for="search">
             Search :
             <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames or emails">

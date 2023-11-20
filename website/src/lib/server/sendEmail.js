@@ -1,5 +1,5 @@
 import { Message, SMTPClient, } from 'emailjs';
-import { EMAIL_APP_PASSWORD } from "$env/static/private"
+import { EMAIL_APP_PASSWORD } from "$env/static/private";
 
 // Use the emailjs library to set up an SMTP client using your credentials
 const client = new SMTPClient({
@@ -25,6 +25,6 @@ export async function sendEmail({ subject, text, to, attachment }) {
     try {
         await client.sendAsync(msg);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

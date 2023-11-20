@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Forgot password</title>
+	<title>PCC - Forgot password</title>
 </svelte:head>
 
 <div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">

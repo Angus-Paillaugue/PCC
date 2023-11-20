@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-    <title>PCC - log-in</title>
+    <title>PCC - Log-in</title>
 </svelte:head>
 
 <section class="justify-between w-full grid grid-cols-1 gap-6 lg:grid-cols-2 grow items-center">

@@ -24,7 +24,7 @@ export async function POST({ request }) {
     if (event.type === 'charge.succeeded') {
         const user = await usersRef.findOne({ username: event.data.object.metadata.username });
         await usersRef.updateOne({ username: user.username }, { $set: { isPremium: true } });
-        sendEmail("Thank you for your purchase!", "You are now a premium user. Enjoy!", user.email);
+        sendEmail({ subject:"Thank you for your purchase!", text:"Thank you for your purchase of PCC Premium.You are now a premium user. Enjoy!", to:user.email });
         return new Response("Ok");
     }
 

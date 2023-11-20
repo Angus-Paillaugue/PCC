@@ -56,5 +56,6 @@ PCC - Enhance Your Chinese Website Browsing Experience with Ease!
 
 
 # TODO : 
- - [ ] Email for support
- - [ ] Check quotas for Vercel and MongoD
+ - [x] Email for support
+ - [ ] Check quotas for Vercel and MongoDB
+ - [ ] Add newsletter thing
