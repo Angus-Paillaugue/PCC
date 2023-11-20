@@ -190,23 +190,23 @@ function main() {
                     });
 
                     // ? EXPERIMENTAL : Agent switcher
-                    const agentSwitch = document.getElementById('agentSwitch');
-                    const agents = ["PandaBuy", "CSSBuy", "Sugargoo"]
-                    agentSwitch.addEventListener('change', () => {
-                        chrome.storage.local.set({ "agent": agentSwitch.value });
-                        sendMessage("agentSwitched");
-                    });
-                    chrome.storage.local.get(["agent"], (agent) => {
-                        if(!agent?.agent) chrome.storage.local.set({ "agent": agents[0] });
-                        agent = agent?.agent ?? agents[0];
-                        agents.forEach(el => {
-                            const option = document.createElement("option");
-                            option.value = el;
-                            option.text = el;
-                            agentSwitch.appendChild(option);
-                            if(agent === el) option.selected = "selected";
-                        });
-                    });
+                    // const agentSwitch = document.getElementById('agentSwitch');
+                    // const agents = ["PandaBuy", "CSSBuy", "Sugargoo"]
+                    // agentSwitch.addEventListener('change', () => {
+                    //     chrome.storage.local.set({ "agent": agentSwitch.value });
+                    //     sendMessage("agentSwitched");
+                    // });
+                    // chrome.storage.local.get(["agent"], (agent) => {
+                    //     if(!agent?.agent) chrome.storage.local.set({ "agent": agents[0] });
+                    //     agent = agent?.agent ?? agents[0];
+                    //     agents.forEach(el => {
+                    //         const option = document.createElement("option");
+                    //         option.value = el;
+                    //         option.text = el;
+                    //         agentSwitch.appendChild(option);
+                    //         if(agent === el) option.selected = "selected";
+                    //     });
+                    // });
                 }
             });
         }
