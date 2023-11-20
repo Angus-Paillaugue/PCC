@@ -59,3 +59,4 @@ PCC - Enhance Your Chinese Website Browsing Experience with Ease!
  - [x] Email for support
  - [ ] Check quotas for Vercel and MongoDB
  - [ ] Add newsletter thing
+ - [ ] Make the `max-w-*` the sames across pages
