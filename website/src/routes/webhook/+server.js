@@ -8,15 +8,7 @@ const stripe = new Stripe(env.SECRET_STRIPE_KEY);
 export async function POST({ request }) {
     const payload = await request.text();
     const sig = request.headers.get('stripe-signature');
-    let event;
-
-    try {
-        event = stripe.webhooks.constructEvent(payload, sig, env.STRIPE_WEBHOOK_SECRET);
-    } catch (err) {
-        console.warn('⚠️  Webhook signature verification failed.', err.message);
-
-        return new Response("⚠️  Webhook signature verification failed.", { status: 400 });
-    }
+    let event = stripe.webhooks.constructEvent(payload, sig, env.STRIPE_WEBHOOK_SECRET);
 
     if (event.type === 'charge.succeeded') {
         await usersRef.updateOne({ username: event.data.object.metadata.username }, { $set: { isPremium: true } });
