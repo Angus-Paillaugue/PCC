@@ -73,7 +73,7 @@
 
 
 <!-- Toasts -->
-<div class="fixed top-0 right-2 flex flex-col gap-2 z-50">
+<div class="fixed top-2 right-2 flex flex-col gap-2 z-50">
     {#each $toasts as toast, i (toast)}
         {#if toast.type == "error"}
             <div class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">

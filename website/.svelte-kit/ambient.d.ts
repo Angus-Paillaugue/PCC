@@ -71,6 +71,7 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_svelte_reveal: string;
 	export const npm_package_dependencies_svelte_stripe: string;
 	export const npm_package_dependencies__stripe_stripe_js: string;
+	export const npm_package_dependencies__sveltejs_adapter_vercel: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_postcss: string;
 	export const npm_package_devDependencies_svelte: string;
@@ -194,6 +195,7 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_svelte_reveal: string;
 		npm_package_dependencies_svelte_stripe: string;
 		npm_package_dependencies__stripe_stripe_js: string;
+		npm_package_dependencies__sveltejs_adapter_vercel: string;
 		npm_package_devDependencies_autoprefixer: string;
 		npm_package_devDependencies_postcss: string;
 		npm_package_devDependencies_svelte: string;

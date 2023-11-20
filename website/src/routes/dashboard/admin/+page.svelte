@@ -154,6 +154,8 @@
                             </div>
                         </label>
 
+                        <p class="text-sm">Joined on : {new Date(u.joined).toLocaleString()}</p>
+
                         <button class="button-red button-small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</button>
 
                         <button class="button-primary button-small" on:click={() => {save(u.id);isSavingUuid = u.id;}}>
