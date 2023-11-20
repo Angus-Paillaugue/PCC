@@ -22,6 +22,7 @@
                 extension = "blank";
             }
         });
+        $: console.log($toasts);
     </script>
 
     <Analytics />

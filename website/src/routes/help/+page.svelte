@@ -1,12 +1,13 @@
 <script>
     import { fly } from "svelte/transition";
     import { enhance } from "$app/forms";
+    import { newToast } from "$lib/stores";
 
     export let data;
     export let form;
 
     
-    let { questions, user } = data;
+    let { questions, user, supportEmail } = data;
     questions = questions.map(question => { return { ...question, hiddenReplies:true}});
     const maxMessageLength = 1_000;
     let replyModal = false;
@@ -24,6 +25,25 @@
     $: if(form?.success) location.reload();
     $: if(message?.length > maxMessageLength) message = message.slice(0, maxMessageLength);
     $: if(replieContainer) replieContainerMaxHeight = replieContainer.clientHeight;
+
+    function copyToClipboard(){
+        const textarea = document.createElement('textarea');
+        textarea.style.opacity = 0;
+        textarea.style.width = 0;
+        textarea.style.height = 0;
+        textarea.style.position = 'absolute';
+        textarea.style.bottom = '-100%';
+        textarea.style.left = '-100%';
+        textarea.style.margin = 0;
+        textarea.value = supportEmail;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        console.log(textarea);
+        textarea.remove();
+        console.log(supportEmail);
+        newToast("success", "Copied to clipboard");
+    }
 </script>
 
 <svelte:head>
@@ -32,6 +52,7 @@
 
 <div class="max-w-screen-lg mx-auto mt-4 grow w-full py-8 px-4 lg:px-6">
     <div class="w-full h-full flex flex-col gap-4">
+        <h6 class="font-normal">Support e-mail : <button class="font-semibold" on:click={() => {copyToClipboard()}}>pandabuycurrencyconversion@gmail.com</button></h6>
         {#if user}
             <button class="button-primary" on:click={() => {newQuestionModal = !newQuestionModal}}>New question</button>
         {:else}

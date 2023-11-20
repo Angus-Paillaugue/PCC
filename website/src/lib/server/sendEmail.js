@@ -3,7 +3,7 @@ import { EMAIL_APP_PASSWORD } from "$env/static/private"
 
 // Use the emailjs library to set up an SMTP client using your credentials
 const client = new SMTPClient({
-    user: "angus.paillaugue40@gmail.com",
+    user: "pandabuycurrencyconversion@gmail.com",
     password: EMAIL_APP_PASSWORD,
     host: `smtp.gmail.com`,
     ssl: true,
@@ -14,7 +14,7 @@ const client = new SMTPClient({
 export async function sendEmail({ subject, text, to, attachment }) {
     const msg = new Message({
         text,
-        from: 'angus.paillaugue40@gmail.com',
+        from: 'pandabuycurrencyconversion@gmail.com',
         to,
         subject,
         // attachment lets us send html

@@ -3,11 +3,13 @@ export function load({ locals }) {
 
     const currentNumberOfDownloads = 300;
     const premiumPrice = 399;
+    const supportEmail = "pandabuycurrencyconversion@gmail.com"
 
     return { 
         user:locals?.user,
         premiumPrice,
         currentNumberOfDownloads,
+        supportEmail,
         extensions : [
             {
                 plateforme:"chrome",
