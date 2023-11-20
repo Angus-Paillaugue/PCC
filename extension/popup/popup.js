@@ -31,6 +31,19 @@ const reloadTab = (urlPatterns = ["*://\*/*"], url="origin", id) => {
 }
 
 
+
+/**
+ * Checks if the user has internet access.
+ * @returns {Promise<boolean>} A promise that resolves to true if the user has internet access, and false otherwise.
+ */
+// function hasInternetAccess() {
+//     if(navigator.onLine) {
+//         return fetch('https://www.google.com').then(_ => true).catch(_ => false);
+//     }else {
+//         return false;
+//     }
+// }
+
 /**
  * The main function of the popup.js file.
  * It retrieves the username and password from the local storage and displays the appropriate UI based on their presence.
@@ -164,7 +177,7 @@ function main() {
                         chrome.storage.local.set({ "skipYupooRedirect": status });
                     });
 
-                    // ? EXPERIMENTAL : Dark mode
+                    // Dark mode
                     const darkMode = document.getElementById('darkMode');
                     darkMode.addEventListener('change', (e) => {
                         const status = e.currentTarget.checked;
@@ -174,6 +187,25 @@ function main() {
                     chrome.storage.local.get(["darkMode"], (status) => {
                         status = status?.darkMode ?? false;
                         darkMode.checked = status;
+                    });
+
+                    // ? EXPERIMENTAL : Agent switcher
+                    const agentSwitch = document.getElementById('agentSwitch');
+                    const agents = ["PandaBuy", "CSSBuy", "Sugargoo"]
+                    agentSwitch.addEventListener('change', () => {
+                        chrome.storage.local.set({ "agent": agentSwitch.value });
+                        sendMessage("agentSwitched");
+                    });
+                    chrome.storage.local.get(["agent"], (agent) => {
+                        if(!agent?.agent) chrome.storage.local.set({ "agent": agents[0] });
+                        agent = agent?.agent ?? agents[0];
+                        agents.forEach(el => {
+                            const option = document.createElement("option");
+                            option.value = el;
+                            option.text = el;
+                            agentSwitch.appendChild(option);
+                            if(agent === el) option.selected = "selected";
+                        });
                     });
                 }
             });
@@ -459,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     status = status?.popupDarkTheme ?? false;
                     const screamer = document.createElement("div");
                     screamer.classList = "fixed bg-neutral-500 dark:bg-neutral-400 bg-opacity-75 h-screen z-50 w-full h-full top-0 left-0 flex flex-col justify-content-center items-center";
-                    screamer.innerHTML = `<img src="Screamer.webp" class="h-full w-auto">`;
+                    screamer.innerHTML = `<img src="/src/Screamer.webp" class="h-full w-auto">`;
                     screamer.id = "screamer";
                     document.body.appendChild(screamer);
                     setTimeout(() => {

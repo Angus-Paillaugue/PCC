@@ -2,7 +2,7 @@
 //* ||          Helper functions         ||
 //* ||-----------------------------------||
 
-const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
+const marketplacesUrls = ["*://\*.pandabuy.com/*", ":://*.sugargoo.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const urlMatch = (urls, testWith=location.origin) => {
     try { 
@@ -39,7 +39,8 @@ function getProductId(url){
     }
 
     // For 1688
-    if(new URLPattern({ pathname: "/offer/*.html" }).test(location.href)) return location.href.match(/[0-9]{12}/g)[0]
+    if(new URLPattern({ pathname: "/offer/*.html" }).test(location.href)) return location.href.match(/[0-9]{12}/g)[0];
+    if(urlMatch(["*://\*.cssbuy.com//item-*.html"], location.href)) return url.match(/item-[0-9]{12}/g)[0].replace("item-", "");
 
     return false;
 }
@@ -414,7 +415,10 @@ function track() {
     }
 }
 
-track()
+async function getAgent() {
+    const agent =  await chrome.storage.local.get(["agent"]);
+    return agent?.agent;
+}
 
 
 //* ||-----------------------------------||
@@ -437,6 +441,8 @@ chrome.storage.local.get(["isPremium"], (status) => {
     if(status) callPremium();
 });
 
+track();
+
 
 /**
  * Executes a series of functions related to premium features, such as changing the Yupoo grid, toggling the Yupoo sidebar, displaying product warnings, customizing product quality control, and setting dark mode. It also checks or not the required checkbox before adding a product to cart on PandaBuy, redirects or not automatically from a marketplace page to the product on PandaBuy, and listens to popup changes.
@@ -445,12 +451,14 @@ chrome.storage.local.get(["isPremium"], (status) => {
  * @name callPremium
  * @returns {void}
  */
-function callPremium() {
+async function callPremium() {
+    const agent = await getAgent()
     changeYupooGrid();
     toggleYupooSideBar();
     productWarnings();
     customProductQC();
     setDarkMode();
+
 
     // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
     chrome.storage.local.get(["thirdPartyDisclaimerAutoCheck"], (status) => {
@@ -481,8 +489,19 @@ function callPremium() {
     // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         status = status?.autoPandaBuyRedirect ?? false;
+        console.log(agent === "CSSBuy")
         if(status && isAProductPage(location.href)){
-            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
+            switch (agent) {
+                case "Pandabuy":
+                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
+                    break;
+                case "CSSBuy":
+                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.cssbuy.com//item-${getProductId(location.href)}.html` });
+                    break;
+                case "Sugargoo":
+                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.sugargoo.com/#/home/productDetail?productLink=${encodeURIComponent(location.href)}` });
+                    break;
+            }
         }
     });
     
