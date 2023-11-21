@@ -39,8 +39,10 @@ export const actions = {
         const usernameIsTaken = await usersRef.findOne({ username });
         if(usernameIsTaken) return { signIn:{success:false, formData, message:"This username is already taken!"} };
 
-        const isASCII = (str) => {return /^[\x00-\x7F]*$/.test(str);}
-        if(!isASCII(username) && username.includes(" ")) return { signIn:{success:false, formData, message:"Usernames can only be composed of letters, numbers and special characters!"} };
+        const isASCII = (str) => {return /^[a-zA-Z0-9]+$/.test(str);}
+        if(!isASCII(username)) return { signIn:{success:false, formData, message:"Usernames can only be composed of letters and numbers!"} };
+
+        if(username.length < 4 || username.length > 16) return { signIn:{success:false, formData, message:"Username length must be between 4 and 16 characters long!"} };
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);

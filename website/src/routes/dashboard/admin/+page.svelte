@@ -7,12 +7,14 @@
     const noUsersToDisplay = 9;
     let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
+    let deleteAccountModal = false;
     let isSavingUuid;
     let searchQuery;
-    let deleteAccountModal = false;
     let deleteAccountId;
+    let searchQueryPremium;
 
-    $: searchQuery , search();
+    $: searchQuery, search();
+    $: searchQueryPremium, search();
 
     function save(uuid) {
         isSaving = true;
@@ -47,13 +49,11 @@
     }
 
     function search() {
-        if(!searchQuery) {
-            usersArray = users.slice(0, noUsersToDisplay);
-            return;
-        }
+        if(!searchQuery) searchQuery = "";
+        if(!searchQueryPremium) searchQueryPremium = "*";
         const tolerance = 2;
         const searchWords = searchQuery.toLowerCase().split(' ');
-        usersArray = users.filter(u => {
+        usersArray = users.filter(u => searchQueryPremium == "*" ? true : searchQueryPremium == u.isPremium.toString()).filter(u => {
             const userWords = `${u.username} ${u.email}`.toLowerCase().split(' ');
             for (let i = 0; i < searchWords.length; i++) {
                 const searchWord = searchWords[i];
@@ -81,7 +81,7 @@
                 if (!found) return false;
             }
             return true;
-        }).slice(0, noUsersToDisplay);
+        });
     }
 
 </script>
@@ -111,16 +111,23 @@
     </div>
 
     <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-md border border-nautral-200">
-        <h3>Users ({users.length})</h3>
+        <h3>Users ({usersArray.length})</h3>
         <label for="search">
             Search :
-            <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="mt-1" placeholder="Search users by usernames or emails">
+            <div class="flex flex-col sm:flex-row gap-4 mt-1">
+                <input type="text" autocomplete="off" bind:value={searchQuery} name="search" placeholder="Search users by usernames or emails">
+                <select class="w-full sm:w-fit" bind:value={searchQueryPremium}>
+                    <option value="*">Premium : *</option>
+                    <option value="true">Premium : true</option>
+                    <option value="false">Premium : false</option>
+                </select>
+            </div>
         </label>
         
         {#if usersArray.length > 0}
             
             <div class="grid mt-2 gap-4" style="grid-template-rows: min-content; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
-                {#each usersArray as u}
+                {#each usersArray.slice(0, noUsersToDisplay) as u}
                     <div class="p-2 shadow-sm rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
                         <label for="username">
                             Username :

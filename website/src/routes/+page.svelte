@@ -214,7 +214,7 @@
         </div>
     </section>
 
-    <section class="await newsletterRef.findOne({ email });">
+    <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-lg w-full mx-auto">
         <h4 class="text-primary-600 w-full font-extrabold">Releases</h4>
 
         <ol class="relative space-y-6 pl-8 transition-all overflow-y-hidden w-full" bind:this={releasesContainer}>

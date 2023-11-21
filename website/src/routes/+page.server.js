@@ -6,8 +6,7 @@ export const actions = {
         const { email } = Object.fromEntries(await request.formData());
 
         const exists = await newsletterRef.findOne({ email });
-        console.log(email);
-        console.log(exists);
+        
         if(exists){
             return { type:"newsletter", error:true, message:"You are already subscribed to the newsletter."}
         }else {
