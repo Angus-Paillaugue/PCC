@@ -88,6 +88,7 @@
 
 <svelte:head>
     <title>PCC - Admin dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
@@ -104,6 +105,7 @@
                 <a href="/payment" class="link">Upgrade</a>
             {/if}
         </p>
+        <a href="/dashboard/admin/charts" class="link">Charts</a>
     
         <a href="/log-out" class="button-red">Log-out</a>
     </div>
@@ -114,6 +116,7 @@
             Search :
             <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames or emails">
         </label>
+        
         {#if usersArray.length > 0}
             
             <div class="grid mt-2 gap-4" style="grid-template-rows: min-content; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">

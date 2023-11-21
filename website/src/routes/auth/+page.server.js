@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { AUTH_TOKEN_SECRET } from "$env/static/private";
 import { randomUUID } from "crypto";
 
-export async function load({ locals }) {
+export function load({ locals }) {
     if(locals.user) throw redirect(307, "/dashboard");
 };
 
