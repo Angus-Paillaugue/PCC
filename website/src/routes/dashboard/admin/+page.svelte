@@ -102,10 +102,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4 inline-block">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
-                <a href="/payment" class="link">Upgrade</a>
+                <a href="/payment" class="link w-fit">Upgrade</a>
             {/if}
         </p>
-        <a href="/dashboard/admin/charts" class="link">Charts</a>
+        <a href="/dashboard/admin/charts" class="link w-fit">Charts</a>
     
         <a href="/log-out" class="button-red">Log-out</a>
     </div>
@@ -114,7 +114,7 @@
         <h3>Users ({users.length})</h3>
         <label for="search">
             Search :
-            <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames or emails">
+            <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="mt-1" placeholder="Search users by usernames or emails">
         </label>
         
         {#if usersArray.length > 0}
@@ -124,17 +124,17 @@
                     <div class="p-2 shadow-sm rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
                         <label for="username">
                             Username :
-                            <input type="text" autocomplete="off" name="username" value="{u.username}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2">
+                            <input type="text" autocomplete="off" name="username" value="{u.username}" >
                         </label>
                         <label for="email">
                             E-mail :
-                            <input type="text" autocomplete="off" name="email" value="{u.email}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2">
+                            <input type="text" autocomplete="off" name="email" value="{u.email}">
                         </label>
 
                         <label for="isPremium">
                             Premium :
                             <div class="relative">
-                                <select name="isPremium" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 appearance-none peer">
+                                <select name="isPremium" class="appearance-none peer">
                                     <option value="true" selected="{u.isPremium}">Yes</option>
                                     <option value="false" selected="{!u.isPremium}">No</option>
                                 </select>
@@ -147,7 +147,7 @@
                         <label for="isAdmin">
                             Admin :
                             <div class="relative">
-                                <select name="isAdmin" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 appearance-none peer">
+                                <select name="isAdmin" class="appearance-none peer">
                                     <option value="true" selected="{u.isAdmin}">Yes</option>
                                     <option value="false" selected="{!u.isAdmin}">No</option>
                                 </select>

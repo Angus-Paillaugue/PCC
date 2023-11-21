@@ -45,10 +45,10 @@
             <div class="relative overflow-hidden grid grid-cols-2 w-full">
                 <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 0 ? "translate-x-0" : "translate-x-full"}" use:enhance method="POST" action="?/login" id="Log-in">
                     <label for="username" class="block mb-2">Username</label>
-                    <input type="text" placeholder="Username" name="username" value="{form?.logIn?.formData?.username ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4" maxlength="15">
+                    <input type="text" placeholder="Username" name="username" value="{form?.logIn?.formData?.username ?? ''}" class="mb-4" maxlength="15">
     
                     <label for="password" class="block mb-2">Password</label>
-                    <input type="password" placeholder="Password" name="password" value="{form?.logIn?.formData?.password ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
+                    <input type="password" placeholder="Password" name="password" value="{form?.logIn?.formData?.password ?? ''}" class="mb-4">
             
                     {#if form?.logIn?.success === false}
                         <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800 mb-4" role="alert">
@@ -70,13 +70,13 @@
                 </form>
                 <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" use:enhance method="POST" action="?/signin" id="Sign-in">
                     <label for="username" class="block mb-2">E-mail</label>
-                    <input type="text" placeholder="E-mail" name="email" value="{form?.signIn?.formData?.email ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
+                    <input type="text" placeholder="E-mail" name="email" value="{form?.signIn?.formData?.email ?? ''}" class="mb-4">
 
                     <label for="username" class="block mb-2">Username</label>
-                    <input type="text" placeholder="Username" name="username" value="{form?.signIn?.formData?.username ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4" maxlength="15">
+                    <input type="text" placeholder="Username" name="username" value="{form?.signIn?.formData?.username ?? ''}" class="mb-4" maxlength="15">
     
                     <label for="password" class="block mb-2">Password</label>
-                    <input type="password" placeholder="Password" name="password" value="{form?.signIn?.formData?.password ?? ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
+                    <input type="password" placeholder="Password" name="password" value="{form?.signIn?.formData?.password ?? ''}" class="mb-4">
             
                     {#if form?.signIn?.success === false}
                         <div class="flex items-center p-4 text-sm border rounded-lg text-red-400 border-red-800 mb-4" role="alert">

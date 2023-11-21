@@ -2,13 +2,17 @@
     import { onMount } from 'svelte';
     import { reveal } from 'svelte-reveal';
     import { fly } from "svelte/transition";
+    import { enhance } from '$app/forms';
 
     export let data;
+    export let form;
 
     const { extensions, getBrowserType, currentNumberOfDownloads } = data;
     let extension = extensions[0];
     let numberOfDownloads = 0;
     let isPageLoaded = false;
+    let seeMoreReleases = false;
+    let releasesContainer;
 
     onMount(() => {
         isPageLoaded = true;
@@ -22,6 +26,17 @@
             }
         }, 100);
     });
+
+    $: if(seeMoreReleases && releasesContainer){
+        releasesContainer.style.maxHeight = releasesContainer.scrollHeight+"px";
+    }else if(releasesContainer) {
+        let sum = 0;
+        for(let i = 1; i <= 5; i++){
+            sum += releasesContainer.children[i].clientHeight;
+        }
+        releasesContainer.style.maxHeight = sum+"px";
+    }
+
     const releases = [
         {
             "version": "2.0.0",
@@ -149,7 +164,7 @@
 </svelte:head>
 
 {#if isPageLoaded}
-    <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10">
+    <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
         <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <div class="flex flex-col gap-2 border border-neutral-200 rounded-lg p-2 md:p-4" in:fly={{y: 50}}>
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
@@ -178,8 +193,8 @@
         </div>
     </section>
 
-    <section id="learn-more" class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10">
-        <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
+    <section id="learn-more" class="p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
+        <div class="w-full pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Learn More</h4>
             {#each sections as section, index}
                 <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-gray-700 text-start transition-all border dark:border-gray-600 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
@@ -199,24 +214,46 @@
         </div>
     </section>
 
-    <section class="min-h-screen p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-sm:pl-6">
-        <div class="w-full max-w-4xl mx-auto pt-24 flex flex-col gap-10">
-            <h4 class="text-primary-600 font-extrabold">Releases</h4>
+    <section class="await newsletterRef.findOne({ email });">
+        <h4 class="text-primary-600 w-full font-extrabold">Releases</h4>
 
-            <ol class="relative border-l space-y-6 border-gray-200">
-                {#each releases as release}
-                    <li class="ml-10">
-                        <span class="absolute flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full -left-5 ring-8 ring-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-primary-800">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                            </svg>
-                        </span>
-                        <h3 class="mb-1">PCC v{release.version}</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-neutral-400">Released on {new Date(release.date).toDateString()}</time>
-                        <p>{release.message}</p>
-                    </li>
-                {/each}
-            </ol>
+        <ol class="relative space-y-6 pl-8 transition-all overflow-y-hidden w-full" bind:this={releasesContainer}>
+            <div class="absolute top-8 bottom-0 left-7 border-l border-gray-200"></div>
+            {#each releases as release}
+                <li class="ml-8">
+                    <span class="absolute flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full left-2 ring-8 ring-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-primary-800">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                        </svg>
+                    </span>
+                    <h3 class="mb-1">PCC v{release.version}</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-neutral-400">Released on {new Date(release.date).toDateString()}</time>
+                    <p>{release.message}</p>
+                </li>
+            {/each}
+        </ol>
+        <button class="button-secondary" on:click={() => {seeMoreReleases = !seeMoreReleases;}}>
+            {seeMoreReleases ? "See less" : "See more"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all {seeMoreReleases && "rotate-180"}">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </button>
+    </section>
+
+    <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 flex flex-col md:flex-row gap-10 items-center">
+        <h2>Want product news and updates?<br>Sign up for our newsletter.</h2>
+        <div class="flex flex-col gap-4 w-1/3">
+            <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
+                <input type="text" placeholder="Email" name="email" class="input-primary">
+                <button class="button-primary button-small" type="submit">Subscribe</button>
+            </form>
+            {#if form?.type === "newsletter"}
+                <div class="flex items-center p-4 text-sm border rounded-lg {form.error ? "text-red-800 border-red-800 bg-red-100" : "text-green-800 border-green-800 bg-green-100"}" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+                    {form?.message}
+                </div>
+            {/if}
+            <p>We care about your data. Read our <a href="/privacy-policy" class="link">privacy policy</a>.</p>
         </div>
     </section>
 

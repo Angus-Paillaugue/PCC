@@ -9,5 +9,6 @@ const database = client.db('PCC');
 const usersRef = database.collection("users");
 const questionsRef = database.collection("questions");
 const resetPasswordTokensRef = database.collection("resetPasswordTokens");
+const newsletterRef = database.collection("newsletter");
 
-export { usersRef, questionsRef, resetPasswordTokensRef }
+export { usersRef, questionsRef, resetPasswordTokensRef, newsletterRef }

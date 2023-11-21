@@ -155,12 +155,12 @@
             </svg>
         </button>
         <h3>New question</h3>
-        <input type="text" name="title" bind:value={newQuestionTitle} class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2" placeholder="Question title">
+        <input type="text" name="title" bind:value={newQuestionTitle} placeholder="Question title">
         <div class="relative">
             <span class="absolute top-1 right-1 text-xs font-normal">
                 {message?.length}/{maxMessageLength}
             </span>
-            <textarea name="description" placeholder="Question content" rows="6" bind:value={message} class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2"></textarea>
+            <textarea name="description" placeholder="Question content" rows="6" bind:value={message} ></textarea>
         </div>
         <button type="submit" class="button-primary transition-all overflow-hidden" disabled="{message?.length === 0 || newQuestionTitle?.length === 0}">
             {#if isReplying}
@@ -198,7 +198,7 @@
                 <span class="absolute top-1 right-1 text-xs font-normal">
                     {message?.length}/{maxMessageLength}
                 </span>
-                <textarea placeholder="Replie content" name="message" rows="6" bind:value={message} class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2"></textarea>
+                <textarea placeholder="Replie content" name="message" rows="6" bind:value={message}></textarea>
             </div>
             <button type="submit" class="button-primary transition-all overflow-hidden" disabled="{message?.length === 0}">
                 {#if isReplying}

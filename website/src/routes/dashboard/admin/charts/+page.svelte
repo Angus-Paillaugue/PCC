@@ -15,26 +15,27 @@
 
     const userProgressionData = {};
     users.forEach(user => {
-        const joinDate = new Date(user.joined).toLocaleDateString();
+        const joinDate = user.joined.toISOString().split('T')[0];
         userProgressionData[joinDate] = (userProgressionData[joinDate] || 0) + 1;
     });
+
     // Find the earliest and latest join dates
     const joinDates = Object.keys(userProgressionData);
     const earliestDate = Math.min(...joinDates.map(date => new Date(date)));
     const latestDate = Math.max(...joinDates.map(date => new Date(date)));
-    
+
     // Generate an array of all dates between the earliest and latest dates
     const allDates = [];
     for (let currentDate = new Date(earliestDate); currentDate <= latestDate; currentDate.setDate(currentDate.getDate() + 1)) {
-        const dateString = new Date(currentDate).toLocaleDateString();
+        const dateString = currentDate.toISOString().split('T')[0];
         allDates.push(dateString);
     }
-    
+
     // Convert Data to Cumulative Series
     const cumulativeData = [];
     let cumulativeCount = 0;
     allDates.forEach(date => {
-        const count = userProgressionData[new Date(date).toLocaleDateString()] || 0;
+        const count = userProgressionData[date] || 0;
         cumulativeCount += count;
         cumulativeData.push({ x: date, y: cumulativeCount });
     });
@@ -172,16 +173,16 @@
                 <h5 class="w-full border-b border-neutral-200 flex flex-row p-2 items-center justify-between">
                     Premium users
                     <button on:click={() => {searchButton = !searchButton;}} class="w-fit button-secondary button-small">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
                     </button>
                 </h5>
                 {#if searchButton}
                     <div class="bg-neutral-100 rounded-md p-2 absolute top-0 left-0 right-0">
-                        <div class="relative w-full h-full">
+                        <div class="relative w-full h-full text-sm">
                             Search :
-                            <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-2 bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames">
+                            <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-1.5 bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames">
                             <button on:click={() => {searchButton = false; searchQuery = "";}} class="absolute top-0 right-0 group">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all group-hover:rotate-180">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
