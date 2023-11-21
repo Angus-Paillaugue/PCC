@@ -124,5 +124,3 @@
         </div>
     </section>
 {/if}
-
-<!-- <input type="text" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 border-neutral-300 placeholder-neutral-400 focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2"> -->

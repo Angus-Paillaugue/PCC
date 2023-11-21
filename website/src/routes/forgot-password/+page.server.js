@@ -21,7 +21,7 @@ export const actions = {
 
             await resetPasswordTokensRef.deleteMany({ username });
 
-            token = await resetPasswordTokensRef.insertOne({ username:username, token:userToken, expires: new Date(Date.now() + 1000 * 60 * tokenLife) });
+            await resetPasswordTokensRef.insertOne({ username:username, token:userToken, expires: new Date(Date.now() + 1000 * 60 * tokenLife) });
             
             const link = `http://localhost:5173/reset-password/${userToken}`;
     
@@ -30,7 +30,7 @@ export const actions = {
                 text: `Reset your password`,
                 to: email,
                 attachment: [{
-                    data: `<div>Click the link below to reset your password: <br/><br/><a href="${link}">Reset password</a><br>This link is only available for ${tokenLife} minutes. After that, you will need to to another request.<br>If you did not request a password reset, please ignore this e-mail.</div>`,
+                    data: `<div>Click the link below to reset your password: <br/><br/><a href="${link}">Reset password</a><br>This link is only available for ${tokenLife} minutes. After that, you will need to to another request.<br>If you did not request a password reset, please disregard this e-mail.</div>`,
                     alternative: true
                 }]
             });

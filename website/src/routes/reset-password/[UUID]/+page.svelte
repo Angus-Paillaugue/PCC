@@ -15,7 +15,7 @@
     <form class="rounded-lg md:p-10 p-6  bg-transparent text-start transition-all border border-gray-200 w-full max-w-md mx-auto flex flex-col gap-4" method= "POST" action="?/resetPassword" use:enhance>
         <h1 class="mb-4">New password</h1>
 
-        <input type="password" placeholder="New password" name="password" id="password" value="{form?.formData?.username || ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 border-neutral-300 placeholder-neutral-400 focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
+        <input type="password" placeholder="New password" name="password" id="password" value="{form?.formData?.username || ''}" class="mb-4">
         {#if form?.success}
             <div class="flex flex-row gap-2 items-center bg-green-100 text-green-900 border border-green-600 mb-4 rounded-lg p-4 w-full">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 shrink-0">

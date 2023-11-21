@@ -1,14 +1,8 @@
 <script>
-    import { onMount } from 'svelte';
     
     export let data;
 
-    const { extensions, getBrowserType, premiumPrice, user } = data;
-    let extension;
-
-    onMount(() => {
-        extension = extensions.filter(el => el.plateforme === getBrowserType())[0] || extensions[0];
-    });
+    const { premiumPrice, user } = data;
 </script>
 
 <svelte:head>

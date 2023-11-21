@@ -14,7 +14,7 @@
 <div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">
     <form class="rounded-lg md:p-10 p-6 bg-transparent text-start transition-all border border-gray-200 w-full max-w-md mx-auto flex flex-col" method= "POST" use:enhance on:submit={() => {isSending = true;}}>
         <h1 class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Forgot password</h1>
-        <input type="text" placeholder="Username" name="username" id="username" value="{form?.formData?.username || ''}" class="border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 border-neutral-300 placeholder-neutral-400 focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mb-4">
+        <input type="text" placeholder="Username" name="username" id="username" value="{form?.formData?.username || ''}" class="mb-4">
 
         {#if form?.error}
             <div class="flex flex-row gap-2 items-center text-red-900 bg-red-100 border border-red-600 rounded-lg mb-4 p-4 w-full">
