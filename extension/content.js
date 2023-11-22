@@ -208,6 +208,7 @@ function conversion(){
 
         // Gathering the currencies converting rates (trying for cache and if miss fetching it from the api)
         getRates(convertTo, (rates) => {
+            console.log(rates);
             // Fetch currencies data from ./currencies.json
             const xhr = new XMLHttpRequest();
             xhr.open("GET", chrome.runtime.getURL('currencies.json'));

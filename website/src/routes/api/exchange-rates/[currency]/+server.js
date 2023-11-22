@@ -27,5 +27,5 @@ export async function GET({ setHeaders, params }) {
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
     });
     
-    return json(cache[currency]);
+    return json(cache[currency][0]);
 };
