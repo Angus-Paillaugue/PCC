@@ -12,11 +12,8 @@ export async function GET({ setHeaders, params }) {
 
     // If cache for this currency is more than a day old or doesn't exist, fetch new data
     if (!lastUpdated[currency] || now - lastUpdated[currency] > 60 * 60 * 24 * 1000) {
-        console.log("Fetching new data...");
         cache[currency] = await exchangeRatesRef.find({ currency }).project({ _id:0 }).toArray() // fetch data from your database
         lastUpdated[currency] = now;
-    }else {
-        console.log("Using cached data...");
     }
 
     // Set cache-control header to 1 day

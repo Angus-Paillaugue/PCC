@@ -4,6 +4,7 @@ import { exchangeRatesRef } from "$lib/server/db";
 export async function POST({ locals }) {
     if (!locals?.user?.isAdmin)
     return new Response("Forbidden", { status: 403, statusText: "Forbidden" });
+
     const currencies = ["AED", "AUD","BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EGP", "EUR", "GBP", "HKD", "HUF", "IDR", "INR", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "VND", "ZAR" ];
 
     await exchangeRatesRef.deleteMany({  });

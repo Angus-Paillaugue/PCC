@@ -109,7 +109,6 @@ function copyToClipboard(text){
  */
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://pcc.paillaugue.fr/api/exchange-rates/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
-        console.log(data);
         chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, () => {
             callback(data.rates);
         });
@@ -124,7 +123,8 @@ function fetchLive(currencyToConvertTo, callback) {
  */
 function getRates(currencyToConvertTo, callback) {
     chrome.storage.local.get(['cache', 'cacheTime'], (items) => {
-        if (items?.cache && items?.cacheTime > Date.now() - 3600*1000 && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
+        // Cache exists and is less than a day old
+        if (items?.cache && (items?.cacheTime > Date.now() - (60 * 60 * 24 * 1000)) && items?.cache?.currencyToConvertTo === currencyToConvertTo) {
             console.log(`PCC : Using cached ${currencyToConvertTo} conversion rates`);
             return callback(items.cache.data);
         }else {
@@ -208,7 +208,6 @@ function conversion(){
 
         // Gathering the currencies converting rates (trying for cache and if miss fetching it from the api)
         getRates(convertTo, (rates) => {
-            console.log(rates);
             // Fetch currencies data from ./currencies.json
             const xhr = new XMLHttpRequest();
             xhr.open("GET", chrome.runtime.getURL('currencies.json'));
@@ -270,7 +269,6 @@ function changeYupooGrid(){
                 const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
                 if(imagesContainers.length > 0 || count === 10) clearInterval(interval);
                 for(const imagesContainer of imagesContainers){
-                    console.log(imagesContainer);
                     imagesContainer.style.display = "grid";
                     imagesContainer.style.gap = "10px";
                     imagesContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${yupooContentWidth}px, 1fr))`;
