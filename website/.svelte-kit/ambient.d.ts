@@ -39,7 +39,7 @@ declare module '$env/static/private' {
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const DriverData: string;
-	export const EFC_17808: string;
+	export const EFC_4964: string;
 	export const FPS_BROWSER_APP_PROFILE_STRING: string;
 	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
@@ -73,6 +73,7 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_svelte_copy: string;
 	export const npm_package_dependencies_svelte_reveal: string;
 	export const npm_package_dependencies_svelte_stripe: string;
+	export const npm_package_dependencies__material_web: string;
 	export const npm_package_dependencies__stripe_stripe_js: string;
 	export const npm_package_dependencies__sveltejs_adapter_vercel: string;
 	export const npm_package_devDependencies_autoprefixer: string;
@@ -167,7 +168,7 @@ declare module '$env/dynamic/private' {
 		COMPUTERNAME: string;
 		ComSpec: string;
 		DriverData: string;
-		EFC_17808: string;
+		EFC_4964: string;
 		FPS_BROWSER_APP_PROFILE_STRING: string;
 		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
@@ -201,6 +202,7 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_svelte_copy: string;
 		npm_package_dependencies_svelte_reveal: string;
 		npm_package_dependencies_svelte_stripe: string;
+		npm_package_dependencies__material_web: string;
 		npm_package_dependencies__stripe_stripe_js: string;
 		npm_package_dependencies__sveltejs_adapter_vercel: string;
 		npm_package_devDependencies_autoprefixer: string;

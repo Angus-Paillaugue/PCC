@@ -18,6 +18,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@material/web": "^1.0.1",
 		"@stripe/stripe-js": "^2.1.11",
 		"@sveltejs/adapter-vercel": "^3.1.0",
 		"apexcharts": "^3.44.0",

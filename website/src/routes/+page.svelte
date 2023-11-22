@@ -217,7 +217,7 @@
     <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-xl w-full mx-auto">
         <h4 class="text-primary-600 w-full font-extrabold">Releases</h4>
 
-        <div class="max-w-screen-lg mx-auto w-full">
+        <div class="max-w-screen-lg mx-auto w-full flex flex-col gap-4">
             <ol class="relative space-y-6 pl-8 transition-all overflow-y-hidden w-full duration-[2s] ease-in-out" bind:this={releasesContainer}>
                 <div class="absolute top-8 bottom-0 left-7 border-l border-gray-200"></div>
                 {#each releases as release}
@@ -233,7 +233,7 @@
                     </li>
                 {/each}
             </ol>
-            <button class="button-secondary" on:click={() => {seeMoreReleases = !seeMoreReleases;}}>
+            <button class="button-secondary mx-auto" on:click={() => {seeMoreReleases = !seeMoreReleases;}}>
                 {seeMoreReleases ? "See less" : "See more"}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all {seeMoreReleases && "rotate-180"}">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

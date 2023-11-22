@@ -4,7 +4,7 @@
     export let data;
 
     let { user, users } = data;
-    const noUsersToDisplay = 9;
+    let noUsersToDisplay = 9;
     let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
     let deleteAccountModal = false;
@@ -82,6 +82,7 @@
             }
             return true;
         });
+        noUsersToDisplay = 9;
     }
 
 </script>
@@ -94,7 +95,6 @@
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
     <div class="rounded-lg max-w-lg mx-auto border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-fit">
         <h3>Welcome {user.username}</h3>
-    
         <p>
             Current plan : 
             <span class="font-semibold">{ user.isPremium ? "Premium" : "Basic" }</span>
@@ -116,11 +116,16 @@
             Search :
             <div class="flex flex-col sm:flex-row gap-4 mt-1">
                 <input type="text" autocomplete="off" bind:value={searchQuery} name="search" placeholder="Search users by usernames or emails">
-                <select class="w-full sm:w-fit" bind:value={searchQueryPremium}>
-                    <option value="*">Premium : *</option>
-                    <option value="true">Premium : true</option>
-                    <option value="false">Premium : false</option>
-                </select>
+                <div class="relative">
+                    <select bind:value={searchQueryPremium} class="appearance-none peer w-full sm:w-fit pr-6">
+                        <option value="*">Premium : *</option>
+                        <option value="true">Premium : true</option>
+                        <option value="false">Premium : false</option>
+                    </select>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-1/2 right-2 -translate-y-1/2 transition-all peer-focus:rotate-180 pointer-events-none">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </div>
             </div>
         </label>
         
@@ -145,7 +150,7 @@
                                     <option value="true" selected="{u.isPremium}">Yes</option>
                                     <option value="false" selected="{!u.isPremium}">No</option>
                                 </select>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-1/2 right-2 -translate-y-1/2 transition-all peer-focus:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-1/2 right-2 -translate-y-1/2 transition-all peer-focus:rotate-180 pointer-events-none">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
@@ -158,7 +163,7 @@
                                     <option value="true" selected="{u.isAdmin}">Yes</option>
                                     <option value="false" selected="{!u.isAdmin}">No</option>
                                 </select>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-1/2 right-2 -translate-y-1/2 transition-all peer-focus:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-1/2 right-2 -translate-y-1/2 transition-all peer-focus:rotate-180 pointer-events-none">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
@@ -178,6 +183,14 @@
                     </div>
                 {/each}
             </div>
+            {#if noUsersToDisplay < users.length}
+                <button class="button-secondary mx-auto w-fit hover:gap-4 button-small" on:click={() => {noUsersToDisplay += 9;}}>
+                    Load more
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </button>
+            {/if}
         {:else}
             <h4 class="mt-2">No users found</h4>
         {/if}

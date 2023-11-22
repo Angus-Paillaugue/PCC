@@ -2,7 +2,7 @@
 //* ||          Helper functions         ||
 //* ||-----------------------------------||
 
-const marketplacesUrls = ["*://\*.pandabuy.com/*", ":://*.sugargoo.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "https://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
+const marketplacesUrls = ["*://\*.pandabuy.com/*", "*://\*.sugargoo.com/*", "*://\*.yupoo.com/*", "*://\*.weidian.com/*", "*://weidian.com/*", "*://\*.taobao.com/*", "*://\*.1688.com/*", "*://\*.tmall.com/*"];
 
 const urlMatch = (urls, testWith=location.origin) => {
     try { 
@@ -30,17 +30,23 @@ function isMarketplaceUrl () {
  */
 function getProductId(url){
     if(!isMarketplaceUrl(url)) return false;
-    const searchParams = ["id", "itemID"];
-
-    for(const searchParam of new URL(url)?.searchParams?.keys()){
-        if(searchParams.includes(searchParam)) {
-            return new URL(url).searchParams.get(searchParam);
+    if(urlMatch(["*://\*.pandabuy.com/*"], url)) {
+        if("itemID" == new URL(url)?.searchParams?.get("itemID")) return new URL(url).searchParams.get(searchParam);
+    }else {
+        const searchParams = ["id", "itemID"];
+    
+        for(const searchParam of new URL(url)?.searchParams?.keys()){
+            if(searchParams.includes(searchParam)) {
+                return new URL(url).searchParams.get(searchParam);
+            }
         }
+    
+        // For 1688
+        if(new URLPattern({ pathname: "/offer/*.html" }).test(location.href)) return location.href.match(/[0-9]{12}/g)[0];
+        // For CSSBuy
+        if(urlMatch(["*://\*.cssbuy.com//item-*.html"], location.href)) return url.match(/item-[0-9]{12}/g)[0].replace("item-", "");
     }
 
-    // For 1688
-    if(new URLPattern({ pathname: "/offer/*.html" }).test(location.href)) return location.href.match(/[0-9]{12}/g)[0];
-    if(urlMatch(["*://\*.cssbuy.com//item-*.html"], location.href)) return url.match(/item-[0-9]{12}/g)[0].replace("item-", "");
 
     return false;
 }
@@ -348,7 +354,7 @@ function customProductQC(){
     chrome.storage.local.get(["customProductQC"], (status) => {
         status = status?.customProductQC ?? false;
         if(status){
-            const productUrl = new URL(location.href).searchParams.get("url")
+            const productUrl = new URL(location.href).searchParams.get("url");
             let providerName = new URL(productUrl).origin.split(".").at(-2).split("/").at(-1);
             if(providerName === "weidian") providerName = "wd";
             if(providerName === "1688") providerName = "alibaba";
@@ -415,11 +421,6 @@ function track() {
     }
 }
 
-async function getAgent() {
-    const agent =  await chrome.storage.local.get(["agent"]);
-    return agent?.agent;
-}
-
 
 //* ||-----------------------------------||
 //* || Calling the function on page load ||
@@ -451,8 +452,7 @@ track();
  * @name callPremium
  * @returns {void}
  */
-async function callPremium() {
-    const agent = await getAgent()
+function callPremium() {
     changeYupooGrid();
     toggleYupooSideBar();
     productWarnings();
@@ -489,19 +489,8 @@ async function callPremium() {
     // Redirect (or not) automatically from a marketplace page to the product on PandaBuy
     chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
         status = status?.autoPandaBuyRedirect ?? false;
-        console.log(agent === "CSSBuy")
         if(status && isAProductPage(location.href)){
-            switch (agent) {
-                case "Pandabuy":
-                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
-                    break;
-                case "CSSBuy":
-                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.cssbuy.com//item-${getProductId(location.href)}.html` });
-                    break;
-                case "Sugargoo":
-                    chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.sugargoo.com/#/home/productDetail?productLink=${encodeURIComponent(location.href)}` });
-                    break;
-            }
+            chrome.runtime.sendMessage({ type: "updateTabURL", url: `https://www.pandabuy.com/product?url=${encodeURIComponent(location.href)}` });
         }
     });
     
