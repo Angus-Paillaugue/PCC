@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import { createWriteStream } from "fs";
 import path from "path";
 import archiver from "archiver";
+import format from 'prettier-format'
 
 const thisDir = path.dirname(import.meta.url).replace("file:///", "");
 const extensionFiles = await fs.readdir(path.join(thisDir, "../extension/"), { recursive: true });
@@ -56,7 +57,12 @@ for await(const file of extensionFiles){
         }else {
             const code = await fs.readFile(devFilePath, "utf-8");
             const result = UglifyJS.minify(code);
-            fs.writeFile(outputDir+file, result.code);
+            const formatted = await format(result.code, {
+                filepath: outputDir+file,
+                useCache: false,
+                semi: false,
+            });
+            fs.writeFile(outputDir+file, formatted);
         }
     }
 }
