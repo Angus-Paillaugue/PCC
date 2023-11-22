@@ -16,7 +16,7 @@
 <main class="flex flex-col min-h-screen">
     <NavBar />
 
-    <div class="frow pt-16 w-full">
+    <div class="grow pt-16 w-full">
         <slot />
     </div>
     

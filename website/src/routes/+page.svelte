@@ -245,8 +245,8 @@
     <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center">
         <h4 class="text-primary-600 w-full font-extrabold">Newsletter</h4>
         <div class="w-full p-4 md:p-6 lg:p-10 max-sm:pl-6 flex flex-col md:flex-row gap-10 items-center">
-            <h2>Want product news and updates?<br>Sign up for our newsletter.</h2>
-            <div class="flex flex-col gap-4 w-1/3">
+            <h2 class="max-lg:text-xl">Want product news and updates?<br>Sign up for our newsletter.</h2>
+            <div class="flex flex-col gap-4 w-full lg:w-1/2">
                 <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
                     <input type="text" placeholder="Email" name="email" class="input-primary">
                     <button class="button-primary button-small" type="submit">Subscribe</button>

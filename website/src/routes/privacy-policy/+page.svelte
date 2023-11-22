@@ -9,7 +9,7 @@
     let websiteUrl;
 
     onMount(() => {
-        websiteUrl = location.origin;
+        websiteUrl = location.hostname;
     });
 </script>
 

@@ -4,7 +4,7 @@
 
     let latestUpdate;
     let banner;
-    
+
     $: latestUpdate = $page.data.latestUpdate;
     $: banner = {
         display : false,
@@ -22,7 +22,7 @@
 </script>
 
 {#if banner?.display}
-    <div class="fixed top-16 left-0 bg-primary-600 w-full h-12">
+    <div class="fixed top-16 left-0 bg-primary-600 w-full h-12 z-40">
         <div class="max-w-screen-lg w-full mx-auto flex flex-row items-center justify-center h-full relative">
             <p class="text-neutral-100">{banner.message}</p>
             <button class="absolute right-2 top-2 bottom-2 rounded-md hover:bg-primary-300 text-neutral-900 group aspect-square flex flex-col items-center justify-center" on:click={removeBanner}>

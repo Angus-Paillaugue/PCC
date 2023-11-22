@@ -14,7 +14,7 @@
 
 <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-xl w-full mx-auto grow">
 
-    <div class="bg-neutral-100 rounded-md p-6 flex flex-col gap-4">
+    <div class="bg-neutral-100 rounded-lg p-6 flex flex-col gap-4">
         <h6 class="font-normal">Your e-mail : <b>{settings.email}</b></h6>
     
         <div class="flex flex-row gap-2">

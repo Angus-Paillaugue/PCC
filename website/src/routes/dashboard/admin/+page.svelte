@@ -110,7 +110,7 @@
         <a href="/log-out" class="button-red">Log-out</a>
     </div>
 
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-md border border-nautral-200">
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-nautral-200">
         <h3>Users ({usersArray.length})</h3>
         <label for="search">
             Search :
