@@ -53,7 +53,7 @@ dependencies:
 
 devDependencies:
   '@sveltejs/adapter-auto':
-    specifier: ^2.0.0
+    specifier: ^2.1.0
     version: 2.1.0(@sveltejs/kit@1.26.0)
   '@sveltejs/kit':
     specifier: ^1.20.4
