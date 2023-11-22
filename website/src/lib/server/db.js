@@ -10,5 +10,6 @@ const usersRef = database.collection("users");
 const questionsRef = database.collection("questions");
 const resetPasswordTokensRef = database.collection("resetPasswordTokens");
 const newsletterRef = database.collection("newsletter");
+const exchangeRatesRef = database.collection("exchangeRates");
 
-export { usersRef, questionsRef, resetPasswordTokensRef, newsletterRef }
+export { usersRef, questionsRef, resetPasswordTokensRef, newsletterRef, exchangeRatesRef }

@@ -85,6 +85,14 @@
         noUsersToDisplay = 9;
     }
 
+    function updateRates() {
+        fetch(`/api/update-exchange-rates`, { method: "POST" })
+        .then(res => {
+            newToast("success", res);
+        }).catch(err => {
+            newToast("error", err);
+        });
+    }
 </script>
 
 <svelte:head>
@@ -107,6 +115,8 @@
             {/if}
         </p>
         <a href="/dashboard/admin/charts" class="link w-fit">Charts</a>
+
+        <button class="button-primary" on:click={updateRates}>Update rates</button>
     
         <a href="/log-out" class="button-red">Log-out</a>
     </div>
