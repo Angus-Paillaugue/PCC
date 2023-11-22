@@ -3,9 +3,10 @@
     import { page } from '$app/stores';
 
     let latestUpdate;
+    let banner;
+    
     $: latestUpdate = $page.data.latestUpdate;
-
-    let banner = {
+    $: banner = {
         display : false,
         message : latestUpdate?.description
     };
