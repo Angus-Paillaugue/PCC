@@ -108,7 +108,7 @@ function copyToClipboard(text){
  * @param {function} callback - The function to call with the conversion rates.
  */
 function fetchLive(currencyToConvertTo, callback) {
-    fetch(`https://api.exchangerate-api.com/v4/latest/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
+    fetch(`https://pcc.paillaugue.fr/api/exchange-rates/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
         chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, () => {
             callback(data.rates);
         });
