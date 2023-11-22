@@ -1,5 +1,4 @@
 import { json } from "@sveltejs/kit";
-import cors from 'cors';
 import { exchangeRatesRef } from "$lib/server/db";
 
 let cache = {};
@@ -23,24 +22,10 @@ export async function GET({ setHeaders, params }) {
     // Set cache-control header to 1 day
     setHeaders({
         "cache-control": `max-age=${60 * 60 * 24}`,
+        "Access-Control-Allow-Origin": "*", // Allow all origins
+        "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, DELETE",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
     });
     
     return json(cache[currency]);
-};
-
-// Use cors middleware
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '1mb',
-        },
-    },
-    async middleware(req, res, next) {
-        const corsMiddleware = cors({
-            origin: '*', // Allow all origins
-            methods: ['POST'],
-            allowedHeaders: ['Content-Type', 'Authorization'],
-        });
-        corsMiddleware(req, res, next);
-    },
 };
