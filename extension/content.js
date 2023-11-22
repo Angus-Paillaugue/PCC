@@ -109,6 +109,7 @@ function copyToClipboard(text){
  */
 function fetchLive(currencyToConvertTo, callback) {
     fetch(`https://pcc.paillaugue.fr/api/exchange-rates/${currencyToConvertTo}`).then(res => res.json()).then((data) => {
+        console.log(data);
         chrome.storage.local.set({cache: {currencyToConvertTo, data:data.rates}, cacheTime: Date.now()}, () => {
             callback(data.rates);
         });

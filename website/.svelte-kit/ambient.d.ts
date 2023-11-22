@@ -64,6 +64,7 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const npm_package_dependencies_apexcharts: string;
 	export const npm_package_dependencies_bcrypt: string;
+	export const npm_package_dependencies_cors: string;
 	export const npm_package_dependencies_emailjs: string;
 	export const npm_package_dependencies_jsonwebtoken: string;
 	export const npm_package_dependencies_mongodb: string;
@@ -192,6 +193,7 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		npm_package_dependencies_apexcharts: string;
 		npm_package_dependencies_bcrypt: string;
+		npm_package_dependencies_cors: string;
 		npm_package_dependencies_emailjs: string;
 		npm_package_dependencies_jsonwebtoken: string;
 		npm_package_dependencies_mongodb: string;
