@@ -95,6 +95,7 @@
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
     <div class="rounded-lg max-w-lg mx-auto border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-fit">
         <h3>Welcome {user.username}</h3>
+
         <p>
             Current plan : 
             <span class="font-semibold">{ user.isPremium ? "Premium" : "Basic" }</span>
@@ -183,7 +184,7 @@
                     </div>
                 {/each}
             </div>
-            {#if noUsersToDisplay < users.length}
+            {#if noUsersToDisplay < usersArray.length}
                 <button class="button-secondary mx-auto w-fit hover:gap-4 button-small" on:click={() => {noUsersToDisplay += 9;}}>
                     Load more
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

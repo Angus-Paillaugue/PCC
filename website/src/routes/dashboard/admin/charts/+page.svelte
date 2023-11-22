@@ -193,7 +193,7 @@
                 {/if}
                 <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
                     {#each usersArray as u}
-                        <div class="w-full transition-all hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:pl-4 relative group flex flex-row justify-between">
+                        <div class="w-full transition-all hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 relative group flex flex-row justify-between">
                             {u.username}
                             <div class="opacity-0 group-hover:opacity-100 transition-all">
                                 {u.email}

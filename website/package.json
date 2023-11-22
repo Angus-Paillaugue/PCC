@@ -21,6 +21,7 @@
 		"@material/web": "^1.0.1",
 		"@stripe/stripe-js": "^2.1.11",
 		"@sveltejs/adapter-vercel": "^3.1.0",
+		"@vercel/analytics": "^1.1.1",
 		"apexcharts": "^3.44.0",
 		"bcrypt": "^5.1.1",
 		"emailjs": "^4.0.3",

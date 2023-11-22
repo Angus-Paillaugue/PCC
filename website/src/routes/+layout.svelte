@@ -6,6 +6,10 @@
     import CookieModal from "$lib/components/CookieModal.svelte";
     import Banner from "$lib/components/Banner.svelte";
     import Toasts from "$lib/components/Toasts.svelte";
+    import { dev } from '$app/environment';
+    import { inject } from '@vercel/analytics';
+    
+    inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <Analytics />
