@@ -214,7 +214,7 @@
         </div>
     </section>
 
-    <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-xl w-full mx-auto">
+    <!-- <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-xl w-full mx-auto">
         <h4 class="text-primary-600 w-full font-extrabold">Releases</h4>
 
         <div class="max-w-screen-lg mx-auto w-full flex flex-col gap-4">
@@ -240,7 +240,7 @@
                 </svg>
             </button>
         </div>
-    </section>
+    </section> -->
 
     <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center">
         <h4 class="text-primary-600 w-full font-extrabold">Newsletter</h4>
