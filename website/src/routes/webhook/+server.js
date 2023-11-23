@@ -25,6 +25,8 @@ export async function POST({ request }) {
         const user = await usersRef.findOne({ username: event.data.object.metadata.username });
         await usersRef.updateOne({ username: user.username }, { $set: { isPremium: true } });
         sendEmail({ subject:"Thank you for your purchase!", text:"Thank you for your purchase of PCC Premium.You are now a premium user. Enjoy!", to:user.email });
+        // Sending email to the admin (me) to notify of a new premium user
+        sendEmail({ subject:"New premium PCC user", text:`A new user (${username}) has bought PCC premium.`, to:"angus.paillaugue40@gmail.com" });
         return new Response("Ok");
     }
 
