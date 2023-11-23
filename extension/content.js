@@ -442,8 +442,6 @@ chrome.storage.local.get(["isPremium"], (status) => {
     if(status) callPremium();
 });
 
-track();
-
 
 /**
  * Executes a series of functions related to premium features, such as changing the Yupoo grid, toggling the Yupoo sidebar, displaying product warnings, customizing product quality control, and setting dark mode. It also checks or not the required checkbox before adding a product to cart on PandaBuy, redirects or not automatically from a marketplace page to the product on PandaBuy, and listens to popup changes.
@@ -458,6 +456,7 @@ function callPremium() {
     productWarnings();
     customProductQC();
     setDarkMode();
+    track();
 
 
     // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
