@@ -354,6 +354,34 @@ function setPopupTheme() {
     });
 }
 
+/**
+ * Sets the update banner in the popup window.
+ * Retrieves the extension version from the manifest.json and chrome storage,
+ * and updates the banner if a new version is available.
+ * @function
+ * @returns {void}
+ */
+function setUpdateBanner() {
+    // Get the extension version from the manifest.json
+    const extensionVersion = chrome.runtime.getManifest().version;
+    const updateNotes = chrome.runtime.getManifest().update_notes;
+    const updateBanner = document.getElementById("updateBanner");
+
+    // Get the extension version from the chrome storage
+    chrome.storage.local.get(["extensionVersion"], (status) => {
+        status = status?.extensionVersion ?? "0.0.0";
+        if(status !== extensionVersion){
+            updateBanner.querySelector("p").innerHTML = `<span class="text-base"><span class="font-bold">New update v${extensionVersion}</span> : ${updateNotes}</span>`;
+            updateBanner.classList.remove("-mt-12");
+            updateBanner.querySelector("button").addEventListener("click", () => {
+                console.log("click");
+                chrome.storage.local.set({ extensionVersion });
+                updateBanner.classList.add("-mt-12");
+            });
+        }
+    });
+}
+
 
 /**
  * Refreshes the plan by fetching the user's premium status from the server and updating the local storage.
@@ -378,6 +406,7 @@ function refreshPlan(e) {
 document.addEventListener('DOMContentLoaded', () => {
     main();
     setPopupTheme();
+    setUpdateBanner();
 
     document.getElementById("log-out").addEventListener("click", () => {
         chrome.storage.local.set({"username": null });

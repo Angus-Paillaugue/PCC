@@ -34,7 +34,7 @@
 <main class="flex flex-col">
     <NavBar />
 
-    <div class="min-h-screen pb-4 pt-16 w-full">
+    <div class="min-h-screen pb-4 pt-16 w-full flex flex-col items-center">
         <slot />
     </div>
     

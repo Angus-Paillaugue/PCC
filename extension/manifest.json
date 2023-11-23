@@ -3,6 +3,7 @@
     "name": "Pandabuy Currency Converter",
     "description": "Convert all currencies into a selected one.",
     "version": "2.0.4",
+    "update_notes": "Added support for Weidian.com, fixed some bugs.",
     "action": {
         "default_popup": "popup/popup.html",
         "default_icon": {

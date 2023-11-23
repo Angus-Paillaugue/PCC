@@ -38,11 +38,11 @@
         <h6 class="font-normal">Support e-mail : <button class="font-semibold" use:copy={supportEmail} on:svelte-copy={() => {newToast("success", "Copied to clipboard successfully!")}} on:svelte-copy:error={() => {newToast("error", "An error occurred while copying to the clipboard")}}>{supportEmail}</button></h6>
         {#if user}
             <button class="button-primary" on:click={() => {newQuestionModal = !newQuestionModal}}>New question</button>
+            {#if questions.length === 0}
+                <h2>No questions for now</h2>
+            {/if}
         {:else}
             <h3>To be able to ask a question, you need to be <a href="/auth" class="link">logged-in</a></h3>
-        {/if}
-        {#if questions.length === 0}
-            <h2>No questions for now</h2>
         {/if}
         {#each questions as question}
             <div class="w-full flex flex-col gap-2 px-2 border-x border-neutral-200 relative">
