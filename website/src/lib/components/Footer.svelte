@@ -1,4 +1,4 @@
-<footer class="w-full p-6 pt-24 flex flex-col border-t mt-4">
+<footer class="w-full p-6 pt-24 flex flex-col border-t">
     <div class="max-w-screen-xl mx-auto w-full">
         <div class="flex flex-col gap-6">
             <a href="/" class="flex flex-row items-center gap-2 w-fit">

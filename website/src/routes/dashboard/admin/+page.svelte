@@ -3,11 +3,12 @@
 
     export let data;
 
-    let { user, users } = data;
+    let { user, users, ratesUpdatedAt } = data;
     let noUsersToDisplay = 9;
     let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
     let deleteAccountModal = false;
+    let isUpdatingRates = false;
     let isSavingUuid;
     let searchQuery;
     let deleteAccountId;
@@ -86,11 +87,18 @@
     }
 
     function updateRates() {
+        isUpdatingRates = true;
         fetch(`/api/update-exchange-rates`, { method: "POST" })
+        .then(res => res.json())
         .then(res => {
-            newToast("success", res);
-        }).catch(err => {
-            newToast("error", err);
+            console.log(res)
+            if(res.ok){
+                ratesUpdatedAt = new Date();
+                newToast("success", res.message);
+            }else {
+                newToast("error", res.message);
+            }
+            isUpdatingRates = false;
         });
     }
 </script>
@@ -101,24 +109,38 @@
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
-    <div class="rounded-lg max-w-lg mx-auto border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-fit">
-        <h3>Welcome {user.username}</h3>
-
-        <p>
-            Current plan : 
-            <span class="font-semibold">{ user.isPremium ? "Premium" : "Basic" }</span>
-            {#if !user.isPremium}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4 inline-block">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-                <a href="/payment" class="link w-fit">Upgrade</a>
-            {/if}
-        </p>
-        <a href="/dashboard/admin/charts" class="link w-fit">Charts</a>
-
-        <button class="button-primary" on:click={updateRates}>Update rates</button>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-screen-lg mx-auto">
+        <div class="rounded-lg w-full border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-full">
+            <h3>Welcome {user.username}</h3>
     
-        <a href="/log-out" class="button-red">Log-out</a>
+            <p>
+                Current plan : 
+                <span class="font-semibold">{ user.isPremium ? "Premium" : "Basic" }</span>
+                {#if !user.isPremium}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4 inline-block">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                    </svg>
+                    <a href="/payment" class="link w-fit">Upgrade</a>
+                {/if}
+            </p>
+            <a href="/dashboard/admin/charts" class="link w-fit">Charts</a>
+    
+            <a href="/log-out" class="button-red">Log-out</a>
+        </div>
+        <div class="rounded-lg w-full border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-full">
+            <h3>Rates</h3>
+
+            <p>Last updated {new Date(ratesUpdatedAt).toLocaleString("fr-FR")}</p>
+
+            <button class="button-primary mt-auto" disabled="{isUpdatingRates}" on:click={updateRates}>
+                {#if isUpdatingRates}
+                    Updating rates
+                    <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
+                {:else}
+                    Update rates
+                {/if}
+            </button>
+        </div>
     </div>
 
     <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-nautral-200">
@@ -180,7 +202,7 @@
                             </div>
                         </label>
 
-                        <p class="text-sm">Joined on : {new Date(u.joined).toLocaleString()}</p>
+                        <p class="text-sm">Joined on : {new Date(u.joined).toLocaleString("fr-FR")}</p>
 
                         <button class="button-red button-small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</button>
 

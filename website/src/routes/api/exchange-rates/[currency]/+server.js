@@ -12,7 +12,8 @@ export async function GET({ setHeaders, params }) {
 
     // If cache for this currency is more than a day old or doesn't exist, fetch new data
     if (!lastUpdated[currency] || now - lastUpdated[currency] > 60 * 60 * 24 * 1000) {
-        cache[currency] = await exchangeRatesRef.find({ currency }).project({ _id:0 }).toArray() // fetch data from your database
+        const doc = await exchangeRatesRef.findOne({ id:1 }); // fetch data from your database
+        cache[currency] = doc.rates.filter((rate) => rate.currency === currency)[0]; // filter data to only include the currency we want
         lastUpdated[currency] = now;
     }
 
@@ -24,5 +25,9 @@ export async function GET({ setHeaders, params }) {
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
     });
     
-    return json(cache[currency][0]);
+    if(cache[currency]){
+        return json(cache[currency]);
+    }else {
+        return json({ error: "No data found" }, { status: 404 });
+    }
 };
