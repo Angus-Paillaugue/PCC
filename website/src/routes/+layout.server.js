@@ -1,10 +1,14 @@
+import { sendPurchaseConfirmEmail } from "$lib/server/sendEmail";
+
 /** @type {import('./$types').LayoutServerLoad} */
 export function load({ locals }) {
-
+    
+    if(locals?.user)sendPurchaseConfirmEmail(locals.user.email, locals.user.username);
     const currentNumberOfDownloads = 300;
     const premiumPrice = 399;
     const supportEmail = "pandabuycurrencyconversion@gmail.com";
     const latestUpdate = { date:"2023-11-20", description: "Added premium features for the low low price of $3.99!" };
+    
 
     return { 
         user:locals?.user,
