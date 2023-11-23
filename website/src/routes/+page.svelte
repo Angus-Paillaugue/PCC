@@ -40,7 +40,7 @@
     const releases = [
         {
             "version": "2.0.0",
-            "date": "2023-15-8",
+            "date": "2023-11-15",
             "message": "Added premium features for the low low price of $3.99!"
         },
         {
@@ -219,7 +219,7 @@
 
         <div class="max-w-screen-lg mx-auto w-full flex flex-col gap-4">
             <ol class="relative space-y-6 pl-8 transition-all overflow-y-hidden w-full duration-[2s] ease-in-out" bind:this={releasesContainer}>
-                <div class="absolute top-8 bottom-0 left-7 border-l border-gray-200"></div>
+                <li class="absolute top-8 bottom-0 left-7 border-l border-gray-200"></li>
                 {#each releases as release}
                     <li class="ml-8">
                         <span class="absolute flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full left-2 ring-8 ring-white">
