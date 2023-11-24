@@ -62,10 +62,6 @@ export const actions = {
             secure: true,
             maxAge: 60 * 60 * 24 * 30
         });
-
-        // Sending an email to the admin to notify them of a new user
-        sendEmail({ subject:"New user to PCC", text:`A new user (${username}) has created an account on PCC.`, to:"angus.paillaugue40@gmail.com" });
-        throw redirect(307, "/dashboard");
     }
 };
 
