@@ -62,3 +62,4 @@ PCC - Enhance Your Chinese Website Browsing Experience with Ease!
  - [x] Make the `max-w-*` the sames across pages
  - [x] Use components
  - [x] Add new update banner to the popup
+ - [ ] Dark theme on the website

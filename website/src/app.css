@@ -9,10 +9,10 @@
   @apply w-2;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-white;
+  @apply bg-white dark:bg-neutral-800;
 }
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-neutral-400;
+  @apply rounded-full bg-neutral-400 dark:bg-neutral-600;
 }
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-neutral-500;
@@ -24,12 +24,12 @@
 * {
 	scroll-behavior: smooth;
 }
-*:focus-visible {
-	@apply ring-1 ring-white ring-offset-2 ring-offset-neutral-900;
+*:not(input, textarea, select):focus-visible {
+	@apply ring-1 ring-neutral-900 dark:ring-neutral-100;
 }
 
 body {
-  @apply bg-white dark:bg-neutral-800 overflow-x-hidden text-text-main;
+  @apply bg-white dark:bg-neutral-800 overflow-x-hidden text-text-main dark:text-neutral-100;
 }
 
 .nav-link {
@@ -37,19 +37,16 @@ body {
 }
 
 .button-primary {
-  @apply text-white bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative;
+  @apply text-white bg-primary-600 dark:bg-primary-700 hover:bg-primary-700 dark:hover:bg-primary-800 disabled:bg-primary-400 dark:disabled:bg-primary-500 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative;
 }
 .button-red {
-  @apply bg-red-600 hover:bg-red-700 disabled:bg-red-400 shadow-red-700 dark:shadow-red-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative text-white;
+  @apply bg-red-600 hover:bg-red-700 disabled:bg-red-400 shadow-red-700 dark:shadow-red-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative text-white dark:bg-red-800 dark:hover:bg-red-900;
 }
 .button-secondary {
-  @apply text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden;
+  @apply text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden dark:bg-neutral-600 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:hover:border-neutral-600 dark:text-neutral-100;
 }
-.button-secondary-animation {
-  @apply text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed sm:hover:pr-14 relative overflow-hidden;
-}
-.button-primary.small {
-  @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
+.button-close {
+  @apply p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all;
 }
 .button-small {
   @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
@@ -58,45 +55,53 @@ body {
 	@apply active:scale-95 transition-all duration-200;
 }
 .link {
-  @apply font-medium text-primary-600 dark:text-primary-700 hover:underline cursor-pointer transition-all;
+  @apply font-medium text-primary-600 dark:text-neutral-100 dark:hover:text-primary-700 hover:underline cursor-pointer transition-all dark:underline;
 }
 
 hr {
   @apply my-4 border-gray-300 dark:border-gray-700 w-full;
 }
 label {
-  @apply font-semibold;
+  @apply font-semibold text-text-main dark:text-neutral-100;
 }
 
-h1 {
-  @apply text-4xl font-sans font-semibold text-text-main;
+h1:not([class*="text-"]),
+h2:not([class*="text-"]),
+h3:not([class*="text-"]),
+h4:not([class*="text-"]),
+h5:not([class*="text-"]),
+h6:not([class*="text-"]) {
+  @apply text-text-main dark:text-neutral-100;
+}
+h1:not([class="*text-*"]) {
+  @apply text-4xl font-sans font-semibold;
 }
 h2 {
-  @apply text-3xl font-sans font-semibold text-text-main;
+  @apply text-3xl font-sans font-semibold;
 }
 h3 {
-  @apply text-2xl font-sans font-semibold text-text-main;
+  @apply text-2xl font-sans font-semibold;
 }
 h4 {
-  @apply text-xl font-sans font-semibold text-text-main;
+  @apply text-xl font-sans font-semibold;
 }
 h5 {
-  @apply text-lg font-sans font-semibold text-text-main;
+  @apply text-lg font-sans font-semibold;
 }
 h6 {
-  @apply text-base font-sans font-semibold text-text-main;
+  @apply text-base font-sans font-semibold;
 }
 p {
-  @apply block text-base leading-8 font-light dark:text-gray-300 text-text-main font-['Mulish'];
+  @apply block text-base leading-8 font-light dark:text-neutral-100 text-text-main font-['Mulish'];
 }
 
 input[type="text"], input[type="number"], input[type="password"], textarea, select {
-  @apply border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2
+  @apply border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white dark:focus:ring-offset-neutral-900 focus:ring-offset-2 focus:ring-2
 }
 
 /* Toggle switch */
 .switch-wrapper {
-  @apply h-8
+  @apply h-8;
 }
 .switch-wrapper input + label {
   @apply w-16 h-8 bg-red-200 dark:bg-red-700 rounded-full inline-block relative cursor-pointer shadow transition-all duration-300;

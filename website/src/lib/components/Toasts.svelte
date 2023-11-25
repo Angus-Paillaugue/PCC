@@ -4,10 +4,10 @@
     $: if($toasts.length > 5) {$toasts = $toasts.slice(0, 5)};
 </script>
 
-<div class="fixed top-2 right-2 flex flex-col gap-2 z-50 sm:bottom-0">
+<div class="fixed top-2 right-2 flex flex-col gap-2 z-50 sm:bottom-0 pointer-events-none">
     {#each $toasts as toast, i (toast)}
         {#if toast.type == "error"}
-            <div class="flex items-center w-full sm:max-w-xs max-sm-sm:max-w-[250px] sm:p-4 p-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="flex items-center w-full sm:max-w-xs max-sm-sm:max-w-[250px] sm:p-4 p-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 pointer-events-auto" role="alert">
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
@@ -23,7 +23,7 @@
                 </button>
             </div>
         {:else if toast.type == "success"}
-            <div class="flex items-center w-full sm:max-w-xs max-sm:max-w-[250px] sm:p-4 p-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 gap-2" role="alert">
+            <div class="flex items-center w-full sm:max-w-xs max-sm:max-w-[250px] sm:p-4 p-2 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 gap-2 pointer-events-auto" role="alert">
                 <div class="flex items-center justify-center flex-shrink-0 h-6 w-6 sm:w-8 sm:h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>

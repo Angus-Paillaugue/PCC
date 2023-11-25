@@ -1,5 +1,6 @@
 import { questionsRef, usersRef } from "$lib/server/db";
 import { randomUUID } from "crypto";
+import { redirect } from "@sveltejs/kit";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
@@ -25,9 +26,15 @@ export const actions = {
         if(user){
             const formData = Object.fromEntries(await request.formData());
             const { title, description } = formData;
-            await questionsRef.insertOne({ id:randomUUID(), postedBy:user.id, title, description, replies:[], postedAt:new Date() });
+
+            if(title.length <= 0 || description.length <= 0) return { name:"newQuestion", status:"error", message:"Please fill all the fields!" };
+
+            const newQuestion = { id:randomUUID(), postedBy:user.id, title, description, replies:[], postedAt:new Date() };
+            await questionsRef.insertOne({ ...newQuestion });
             
-            return { success:true };
+            return { name:"newQuestion", status:"success", message:"Question posted successfully!", data:{ ...newQuestion, postedBy:user} };
+        }else {
+            return { name:"newQuestion", status:"error", message:"Please log-in to post a new question!" };
         }
     },
     newReplie:async({ request, locals }) => {
@@ -36,8 +43,14 @@ export const actions = {
             const formData = Object.fromEntries(await request.formData());
             const { message, postId } = formData;
 
-            await questionsRef.updateOne({ id:postId }, { $push: { replies: { message, postedBy:user.id, at:new Date(), id:randomUUID() }} });
-            return { success:true }
+            if(message.length <= 0 || postId.length <= 0) return { name:"newQuestion", status:"error", message:"Please fill all the fields!" };
+
+            const newReplie = { id:randomUUID(), postedBy:user.id, message, at:new Date() };
+            await questionsRef.updateOne({ id:postId }, { $push: { replies:newReplie } });
+            
+            return { name:"newReplie", status:"success", message:"Replie posted successfully!", data:{ ...newReplie, user } };
+        }else {
+            return { name:"newQuestion", status:"error", message:"Please log-in to replie!" };
         }
     },
     deleteQuestion:async({ request, locals }) => {
@@ -46,9 +59,11 @@ export const actions = {
             const formData = Object.fromEntries(await request.formData());
             const { questionId } = formData;
 
+            if(questionId.length <= 0) return { name:"newQuestion", status:"error", message:"Please fill all the fields!" };
+
             await questionsRef.deleteOne({ id:questionId });
 
-            return { success:true }
+            return { name:"deleteQuestion", status:"success", message:"Question deleted successfully!" };
         }
     },
     deleteReplie:async({ request, locals }) => {
@@ -57,9 +72,11 @@ export const actions = {
             const formData = Object.fromEntries(await request.formData());
             const { questionId, replieId } = formData;
 
+            if(questionId.length <= 0 || replieId.length <= 0) return { name:"newQuestion", status:"error", message:"Please fill all the fields!" };
+
             await questionsRef.updateOne({ id:questionId }, { $pull: { replies:{ id:replieId } } });
 
-            return { success:true }
+            return { name:"deleteReplie", status:"success", message:"Replie deleted successfully!" };
         }
     }
 };

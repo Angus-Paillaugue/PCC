@@ -163,14 +163,14 @@
             Go back
         </a>
         <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="lg:col-span-2 border border-neutral-200 rounded-lg">
+            <div class="lg:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
                 <div bind:this={usersChartContainer} class="w-full"/>
             </div>
-            <div class="border border-neutral-200 rounded-lg p-4">
+            <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
                 <div bind:this={premiumChartContainer} class=""/>
             </div>
-            <div class="h-full flex flex-col gap-2 border border-neutral-200 rounded-lg max-h-[450px] p-4 relative">
-                <h5 class="w-full border-b border-neutral-200 flex flex-row p-2 items-center justify-between">
+            <div class="h-full flex flex-col gap-2 border border-neutral-200 dark:border-neutral-700 rounded-lg max-h-[450px] p-4 relative">
+                <h5 class="w-full border-b border-neutral-200 dark:border-neutral-700 flex flex-row p-2 items-center justify-between">
                     Premium users
                     <button on:click={() => {searchButton = !searchButton;}} class="w-fit button-secondary button-small">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -179,8 +179,8 @@
                     </button>
                 </h5>
                 {#if searchButton}
-                    <div class="bg-neutral-100 rounded-lg p-2 absolute top-0 left-0 right-0">
-                        <div class="relative w-full h-full text-sm">
+                    <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-2 absolute top-0 left-0 right-0">
+                        <div class="relative w-full h-full text-sm text-text-main dark:text-neutral-100">
                             Search :
                             <input type="text" autocomplete="off" bind:value={searchQuery} name="search" class="border text-sm rounded-lg block w-full p-1.5 bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white focus:ring-offset-2 focus:ring-2 mt-1" placeholder="Search users by usernames">
                             <button on:click={() => {searchButton = false; searchQuery = "";}} class="absolute top-0 right-0 group">
@@ -193,7 +193,7 @@
                 {/if}
                 <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
                     {#each usersArray as u}
-                        <div class="w-full transition-all hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 relative group flex flex-row justify-between">
+                        <div class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 relative group flex flex-row justify-between">
                             {u.username}
                             <div class="opacity-0 group-hover:opacity-100 transition-all">
                                 {u.email}

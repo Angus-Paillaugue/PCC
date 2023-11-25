@@ -17,7 +17,7 @@
     })
 </script>
 
-<nav class="px-4 py-2 border-b bg-neutral-100/50 backdrop-blur-lg z-40 border-neutral-200 fixed top-0 left-0 w-full h-16">
+<nav class="px-4 py-2 border-b bg-neutral-100/50 dark:bg-neutral-900/80 backdrop-blur-lg z-40 border-neutral-200 dark:border-neutral-700 fixed top-0 left-0 w-full h-16">
     <div class="flex flex-row items-center justify-between max-w-screen-lg mx-auto gap-4 h-full">
         <a href="/" class="h-full" name="home"><img src="/128-icon.png" alt="" class="h-full"></a>
 
@@ -54,7 +54,7 @@
     </div>
 </nav>
 
-<div class="fixed top-16 h-full w-full left-0 p-4 pb-20 flex md:hidden flex-col gap-2 justify-center items-center bg-gray-200/50 backdrop-blur transition-opacity {navbar ? "opacity-100 z-30" : "opacity-0 -z-10"}">
+<div class="fixed top-16 h-full w-full left-0 p-4 pb-20 flex md:hidden flex-col gap-2 justify-center items-center bg-gray-200/50 dark:bg-neutral-900/80 backdrop-blur transition-opacity {navbar ? "opacity-100 z-30" : "opacity-0 -z-10"}">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <ul class="flex flex-col gap-4 text-center" on:click={() => {navbar = false;}}>

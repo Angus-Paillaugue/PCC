@@ -110,7 +110,7 @@
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-screen-lg mx-auto">
-        <div class="rounded-lg w-full border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-full">
+        <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border flex flex-col gap-2 md:p-10 p-6 h-full">
             <h3>Welcome {user.username}</h3>
     
             <p>
@@ -127,7 +127,7 @@
     
             <a href="/log-out" class="button-red">Log-out</a>
         </div>
-        <div class="rounded-lg w-full border-neutral-200 border flex flex-col gap-2 md:p-10 p-6 h-full">
+        <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border flex flex-col gap-2 md:p-10 p-6 h-full">
             <h3>Rates</h3>
 
             <p>Last updated {new Date(ratesUpdatedAt).toLocaleString("fr-FR")}</p>
@@ -143,7 +143,7 @@
         </div>
     </div>
 
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-nautral-200">
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
         <h3>Users ({usersArray.length})</h3>
         <label for="search">
             Search :
@@ -166,7 +166,7 @@
             
             <div class="grid mt-2 gap-4" style="grid-template-rows: min-content; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
                 {#each usersArray.slice(0, noUsersToDisplay) as u}
-                    <div class="p-2 shadow-sm rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
+                    <div class="p-2 shadow-sm dark:shadow-none dark:border dark:border-neutral-700 rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
                         <label for="username">
                             Username :
                             <input type="text" autocomplete="off" name="username" value="{u.username}" >
@@ -230,7 +230,7 @@
     </div>
 </section>
 
-<div class="fixed inset-0 bg-neutral-600/50 flex justify-center items-center tranition-all { deleteAccountModal ? "z-50 opacity-100" : "-z-10 opacity-0" }">
+<div class="fixed inset-0 bg-neutral-600/50 dark:bg-neutral-900/50 flex justify-center items-center tranition-all { deleteAccountModal ? "z-50 opacity-100" : "-z-10 opacity-0" }">
     <div class="bg-white rounded-lg p-4 flex flex-col gap-4">
         <h3>Delete account</h3>
         <p>Are you sure you want to delete {deleteAccountId ? users?.filter(el => el.id === deleteAccountId)[0].username : ""}'s account ?</p>

@@ -166,7 +166,7 @@
 {#if isPageLoaded}
     <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
         <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
-        <div class="flex flex-col gap-2 border border-neutral-200 rounded-lg p-2 md:p-4" in:fly={{y: 50}}>
+        <div class="flex flex-col gap-2 border border-neutral-200 dark:border-neutral-700 rounded-lg p-2 md:p-4" in:fly={{y: 50}}>
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
             <h6 class="font-medium" in:fly={{y: 50, delay:100}}>The one and only tool you need for PandaBuy.</h6>
             <p in:fly={{y: 50, delay:150}}>Now more than <b>{Math.round(numberOfDownloads)}</b> downloads!</p>
@@ -185,7 +185,7 @@
                     <p class="text-red-600">Not available for your browser</p>
                 {/if}
 
-                <a href="#learn-more" class="button-secondary-animation w-fit group" in:fly={{y: 100, delay:250}}>
+                <a href="#learn-more" class="button-secondary sm:hover:pr-14 relative overflow-hidden w-fit group" in:fly={{y: 100, delay:250}}>
                     Learn more
                     <svg class="w-5 h-5 absolute right-0 flex items-center justify-start duration-300 transform translate-x-full group-hover:-translate-x-full ease" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -197,7 +197,7 @@
         <div class="w-full pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Learn More</h4>
             {#each sections as section, index}
-                <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-gray-700 text-start transition-all border dark:border-gray-600 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
+                <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-neutral-900 text-start transition-all border dark:border-neutral-700 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
                     <div class="rounded-2xl border border-gray-300 lg:col-span-3 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-3"}">
                         <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-full h-full">
                     </div>
@@ -245,14 +245,14 @@
     <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center">
         <h4 class="text-primary-600 w-full font-extrabold">Newsletter</h4>
         <div class="w-full p-4 md:p-6 lg:p-10 max-sm:pl-6 flex flex-col md:flex-row gap-10 items-center">
-            <h2 class="max-lg:text-xl">Want product news and updates?<br>Sign up for our newsletter.</h2>
+            <h2 class="max-lg:text-xl text-text-main dark:text-neutral-100">Want product news and updates?<br>Sign up for our newsletter.</h2>
             <div class="flex flex-col gap-4 w-full lg:w-1/2">
                 <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
                     <input type="text" placeholder="Email" name="email" class="input-primary">
                     <button class="button-primary button-small" type="submit">Subscribe</button>
                 </form>
                 {#if form?.type === "newsletter"}
-                    <div class="flex items-center p-4 text-sm border rounded-lg {form.error ? "text-red-800 border-red-800 bg-red-100" : "text-green-800 border-green-800 bg-green-100"}" role="alert">
+                    <div class="flex items-center p-4 text-sm border rounded-lg {form.error ? "text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100" : "text-green-800 border-green-800 bg-green-100 dark:bg-green-600 dark:text-neutral-100"}" role="alert">
                         <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
                         {form?.message}
                     </div>
