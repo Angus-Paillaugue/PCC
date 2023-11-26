@@ -30,6 +30,7 @@ declare module '$env/static/private' {
 	export const AUTH_TOKEN_SECRET: string;
 	export const SECRET_STRIPE_KEY: string;
 	export const STRIPE_WEBHOOK_SECRET: string;
+	export const EMAIL_APP_PASSWORD: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
@@ -69,6 +70,8 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_emailjs: string;
 	export const npm_package_dependencies_jsonwebtoken: string;
 	export const npm_package_dependencies_mongodb: string;
+	export const npm_package_dependencies_nodemailer: string;
+	export const npm_package_dependencies_node_mailjet: string;
 	export const npm_package_dependencies_stripe: string;
 	export const npm_package_dependencies_svelte_apexcharts: string;
 	export const npm_package_dependencies_svelte_copy: string;
@@ -161,6 +164,7 @@ declare module '$env/dynamic/private' {
 		AUTH_TOKEN_SECRET: string;
 		SECRET_STRIPE_KEY: string;
 		STRIPE_WEBHOOK_SECRET: string;
+		EMAIL_APP_PASSWORD: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
@@ -200,6 +204,8 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_emailjs: string;
 		npm_package_dependencies_jsonwebtoken: string;
 		npm_package_dependencies_mongodb: string;
+		npm_package_dependencies_nodemailer: string;
+		npm_package_dependencies_node_mailjet: string;
 		npm_package_dependencies_stripe: string;
 		npm_package_dependencies_svelte_apexcharts: string;
 		npm_package_dependencies_svelte_copy: string;
