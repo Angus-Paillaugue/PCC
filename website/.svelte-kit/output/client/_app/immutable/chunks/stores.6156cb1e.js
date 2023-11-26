@@ -1,1 +1,0 @@
-import{w as a}from"./index.107ecb95.js";const u=a([]);function p(r,e){const n={type:r,message:e};u.update(t=>(t=[n,...t],t)),setTimeout(()=>{u.update(t=>(t=t.filter(i=>i!==n),t))},3e3)}function c(r){u.update(e=>(e=e.filter((n,t)=>t!==r),e))}export{p as n,c as r,u as t};

@@ -87,8 +87,8 @@
             title: {
                 text: 'Users'
             },
-            min: 5,
-            max: 40
+            min: 0,
+            max: Math.max(...cumulativeData.map(d => d.y))
         },
     }
     let premiumUsersChart = {
@@ -162,8 +162,8 @@
             </svg>
             Go back
         </a>
-        <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="lg:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
+        <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
                 <div bind:this={usersChartContainer} class="w-full"/>
             </div>
             <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">

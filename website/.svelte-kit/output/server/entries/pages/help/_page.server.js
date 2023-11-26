@@ -1,5 +1,6 @@
 import { q as questionsRef, u as usersRef } from "../../../chunks/db.js";
 import { randomUUID } from "crypto";
+import "../../../chunks/index.js";
 async function load() {
   let questions = await questionsRef.find({}).sort({ postedAt: -1 }).project({ _id: 0 }).toArray();
   questions = structuredClone(await Promise.all(questions.map(async (question) => {
@@ -21,8 +22,13 @@ const actions = {
     if (user) {
       const formData = Object.fromEntries(await request.formData());
       const { title, description } = formData;
-      await questionsRef.insertOne({ id: randomUUID(), postedBy: user.id, title, description, replies: [], postedAt: /* @__PURE__ */ new Date() });
-      return { success: true };
+      if (title.length <= 0 || description.length <= 0)
+        return { name: "newQuestion", status: "error", message: "Please fill all the fields!" };
+      const newQuestion = { id: randomUUID(), postedBy: user.id, title, description, replies: [], postedAt: /* @__PURE__ */ new Date() };
+      await questionsRef.insertOne({ ...newQuestion });
+      return { name: "newQuestion", status: "success", message: "Question posted successfully!", data: { ...newQuestion, postedBy: user } };
+    } else {
+      return { name: "newQuestion", status: "error", message: "Please log-in to post a new question!" };
     }
   },
   newReplie: async ({ request, locals }) => {
@@ -30,8 +36,13 @@ const actions = {
     if (user) {
       const formData = Object.fromEntries(await request.formData());
       const { message, postId } = formData;
-      await questionsRef.updateOne({ id: postId }, { $push: { replies: { message, postedBy: user.id, at: /* @__PURE__ */ new Date(), id: randomUUID() } } });
-      return { success: true };
+      if (message.length <= 0 || postId.length <= 0)
+        return { name: "newQuestion", status: "error", message: "Please fill all the fields!" };
+      const newReplie = { id: randomUUID(), postedBy: user.id, message, at: /* @__PURE__ */ new Date() };
+      await questionsRef.updateOne({ id: postId }, { $push: { replies: newReplie } });
+      return { name: "newReplie", status: "success", message: "Replie posted successfully!", data: { ...newReplie, user } };
+    } else {
+      return { name: "newQuestion", status: "error", message: "Please log-in to replie!" };
     }
   },
   deleteQuestion: async ({ request, locals }) => {
@@ -39,8 +50,10 @@ const actions = {
     if (user) {
       const formData = Object.fromEntries(await request.formData());
       const { questionId } = formData;
+      if (questionId.length <= 0)
+        return { name: "newQuestion", status: "error", message: "Please fill all the fields!" };
       await questionsRef.deleteOne({ id: questionId });
-      return { success: true };
+      return { name: "deleteQuestion", status: "success", message: "Question deleted successfully!" };
     }
   },
   deleteReplie: async ({ request, locals }) => {
@@ -48,8 +61,10 @@ const actions = {
     if (user) {
       const formData = Object.fromEntries(await request.formData());
       const { questionId, replieId } = formData;
+      if (questionId.length <= 0 || replieId.length <= 0)
+        return { name: "newQuestion", status: "error", message: "Please fill all the fields!" };
       await questionsRef.updateOne({ id: questionId }, { $pull: { replies: { id: replieId } } });
-      return { success: true };
+      return { name: "deleteReplie", status: "success", message: "Replie deleted successfully!" };
     }
   }
 };

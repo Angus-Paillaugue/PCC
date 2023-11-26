@@ -18,6 +18,7 @@
                 <div class="flex flex-col gap-4">
                     <h6>Legal</h6>
                     <a href="/privacy-policy" class="link w-fit">Privacy Policy</a>
+                    <a href="/terms-of-services" class="link w-fit">Terms of services</a>
                 </div>
             </div>
         </div>

@@ -26,6 +26,16 @@
     <h5 class="mt-4">Information Collection and Use</h5>
     <p>While using our Site, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. Personally identifiable information may include, but is not limited to, your name, email address, postal address, and phone number ("Personal Information").</p>
 
+    <h5 class="mt-4">How We Use Your Information</h5>
+    <p>We may use the information we collect for various purposes, including:</p>
+    <ul class="text-base font-normal list-inside list-disc">
+        <li>Providing, maintaining, and improving our services.</li>
+        <li>Personalizing your experience on the website.</li>
+        <li>Responding to your inquiries and providing customer support.</li>
+        <li>Sending you updates, newsletters, and marketing communications.</li>
+        <li>Conducting research and analysis.</li>
+    </ul>
+
     <h5 class="mt-4">Log Data</h5>
     <p>Like many site operators, we collect information that your browser sends whenever you visit our Site ("Log Data"). This Log Data may include information such as your computer's Internet Protocol ("IP") address, browser type, browser version, the pages of our site that you visit, the time and date of your visit, the time spent on those pages, and other statistics.</p>
 

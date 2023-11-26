@@ -1,7 +1,7 @@
 import { u as usersRef } from "../../../chunks/db.js";
 import Stripe from "stripe";
 import { b as private_env } from "../../../chunks/shared-server.js";
-import { s as sendEmail } from "../../../chunks/sendEmail.js";
+import { s as sendPurchaseConfirmEmail } from "../../../chunks/sendEmail.js";
 const stripe = new Stripe(private_env.SECRET_STRIPE_KEY);
 async function POST({ request }) {
   const payload = await request.text();
@@ -17,7 +17,8 @@ async function POST({ request }) {
   if (event.type === "charge.succeeded") {
     const user = await usersRef.findOne({ username: event.data.object.metadata.username });
     await usersRef.updateOne({ username: user.username }, { $set: { isPremium: true } });
-    sendEmail({ subject: "Thank you for your purchase!", text: "Thank you for your purchase of PCC Premium.You are now a premium user. Enjoy!", to: user.email });
+    sendPurchaseConfirmEmail(user.email, user.username);
+    sendEmail({ subject: "New premium PCC user", text: `A new user (${username}) has bought PCC premium.`, to: "angus.paillaugue40@gmail.com" });
     return new Response("Ok");
   }
   return new Response("An error occurred.");

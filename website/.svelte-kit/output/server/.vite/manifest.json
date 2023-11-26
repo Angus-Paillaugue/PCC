@@ -54,6 +54,12 @@
       "_ssr.js"
     ]
   },
+  "_stores2.js": {
+    "file": "chunks/stores2.js",
+    "imports": [
+      "_index2.js"
+    ]
+  },
   "node_modules/.pnpm/@sveltejs+kit@1.26.0_svelte@4.2.2_vite@4.5.0/node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
     "file": "entries/fallbacks/error.svelte.js",
     "imports": [
@@ -84,7 +90,7 @@
     "src": "src/hooks.server.js"
   },
   "src/routes/+layout.css": {
-    "file": "_app/immutable/assets/_layout.ebb6c043.css",
+    "file": "_app/immutable/assets/_layout.0c49d5d2.css",
     "src": "src/routes/+layout.css"
   },
   "src/routes/+layout.js": {
@@ -99,13 +105,13 @@
   },
   "src/routes/+layout.svelte": {
     "css": [
-      "_app/immutable/assets/_layout.ebb6c043.css"
+      "_app/immutable/assets/_layout.0c49d5d2.css"
     ],
     "file": "entries/pages/_layout.svelte.js",
     "imports": [
       "_ssr.js",
       "_stores.js",
-      "_index2.js"
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/+layout.svelte"
@@ -204,7 +210,8 @@
   "src/routes/contact-us/+page.svelte": {
     "file": "entries/pages/contact-us/_page.svelte.js",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/contact-us/+page.svelte"
@@ -237,7 +244,8 @@
   "src/routes/dashboard/admin/+page.svelte": {
     "file": "entries/pages/dashboard/admin/_page.svelte.js",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/dashboard/admin/+page.svelte"
@@ -279,7 +287,8 @@
   "src/routes/help/+page.server.js": {
     "file": "entries/pages/help/_page.server.js",
     "imports": [
-      "_db.js"
+      "_db.js",
+      "_index.js"
     ],
     "isEntry": true,
     "src": "src/routes/help/+page.server.js"
@@ -287,7 +296,8 @@
   "src/routes/help/+page.svelte": {
     "file": "entries/pages/help/_page.svelte.js",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/help/+page.svelte"
@@ -319,7 +329,8 @@
   "src/routes/manage-newsletter/[email]/+page.svelte": {
     "file": "entries/pages/manage-newsletter/_email_/_page.svelte.js",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/manage-newsletter/[email]/+page.svelte"
@@ -360,7 +371,8 @@
   "src/routes/privacy-policy/+page.svelte": {
     "file": "entries/pages/privacy-policy/_page.svelte.js",
     "imports": [
-      "_ssr.js"
+      "_ssr.js",
+      "_stores2.js"
     ],
     "isEntry": true,
     "src": "src/routes/privacy-policy/+page.svelte"

@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-    <title>PCC - Dashboard</title>
+    <title>PCC - Settings</title>
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 max-w-lg mx-auto">
@@ -13,11 +13,7 @@
         <h3>Welcome {user.username}</h3>
     
         <p>Current plan : <span class="font-semibold">{ user.isPremium ? "Premium" : "Basic" }</span></p>
-
-        <div class="grid gap-6 grid-cols-1 md-grid-cols-2">
-            <a href="/dashboard/settings" class="card-button">Settings</a>
-            <a href="/log-out" class="button-red">Log-out</a>
-        </div>
     
+        <a href="/log-out" class="button-red">Log-out</a>
     </div>
 </section>

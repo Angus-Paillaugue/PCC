@@ -1,4 +1,5 @@
 import { c as create_ssr_component, b as add_attribute, e as escape } from "../../../chunks/ssr.js";
+import "../../../chunks/stores2.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { data } = $$props;
   const { supportEmail } = data;

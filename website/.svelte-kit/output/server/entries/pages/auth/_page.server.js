@@ -60,7 +60,6 @@ const actions = {
       secure: true,
       maxAge: 60 * 60 * 24 * 30
     });
-    throw redirect(307, "/dashboard");
   }
 };
 function generateAccessToken(username) {

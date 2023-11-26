@@ -7,10 +7,10 @@ function __memo(fn) {
 return {
 	appDir: "_app",
 	appPath: "_app",
-	assets: new Set(["128-icon.png","convertTo.webp","openInPandabuy.webp","pandabuyLogo.webp","questionMark.webp","workingMarketplaces.webp","yupooInterfaceReDesign.webp"]),
-	mimeTypes: {".png":"image/png",".webp":"image/webp"},
+	assets: new Set(["128-icon.png","convertTo.webp","Forgot_password_illustration.png","Heart_illustration.png","openInPandabuy.webp","pandabuyLogo.webp","questionMark.webp","robots.txt","Square_logo.webp","Wide_logo.webp","workingMarketplaces.webp","yupooInterfaceReDesign.webp"]),
+	mimeTypes: {".png":"image/png",".webp":"image/webp",".txt":"text/plain"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.68e4e7c7.js","app":"_app/immutable/entry/app.4b1cf5cd.js","imports":["_app/immutable/entry/start.68e4e7c7.js","_app/immutable/chunks/scheduler.e544945c.js","_app/immutable/chunks/singletons.243de02e.js","_app/immutable/chunks/index.107ecb95.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.4b1cf5cd.js","_app/immutable/chunks/scheduler.e544945c.js","_app/immutable/chunks/index.721f4317.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.1611ecf9.js","app":"_app/immutable/entry/app.e4a21e8e.js","imports":["_app/immutable/entry/start.1611ecf9.js","_app/immutable/chunks/scheduler.c54fe263.js","_app/immutable/chunks/singletons.7f65aba8.js","_app/immutable/chunks/index.5fee8f50.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.e4a21e8e.js","_app/immutable/chunks/scheduler.c54fe263.js","_app/immutable/chunks/index.382b5808.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
