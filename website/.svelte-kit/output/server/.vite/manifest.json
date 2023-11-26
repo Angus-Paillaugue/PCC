@@ -8,6 +8,12 @@
     "isEntry": true,
     "src": ".svelte-kit/generated/server/internal.js"
   },
+  "_Modal.js": {
+    "file": "chunks/Modal.js",
+    "imports": [
+      "_ssr.js"
+    ]
+  },
   "_db.js": {
     "file": "chunks/db.js",
     "imports": [
@@ -90,7 +96,7 @@
     "src": "src/hooks.server.js"
   },
   "src/routes/+layout.css": {
-    "file": "_app/immutable/assets/_layout.0c49d5d2.css",
+    "file": "_app/immutable/assets/_layout.952b919d.css",
     "src": "src/routes/+layout.css"
   },
   "src/routes/+layout.js": {
@@ -105,7 +111,7 @@
   },
   "src/routes/+layout.svelte": {
     "css": [
-      "_app/immutable/assets/_layout.0c49d5d2.css"
+      "_app/immutable/assets/_layout.952b919d.css"
     ],
     "file": "entries/pages/_layout.svelte.js",
     "imports": [
@@ -245,7 +251,8 @@
     "file": "entries/pages/dashboard/admin/_page.svelte.js",
     "imports": [
       "_ssr.js",
-      "_stores2.js"
+      "_stores2.js",
+      "_Modal.js"
     ],
     "isEntry": true,
     "src": "src/routes/dashboard/admin/+page.svelte"
@@ -266,6 +273,43 @@
     ],
     "isEntry": true,
     "src": "src/routes/dashboard/admin/charts/+page.svelte"
+  },
+  "src/routes/dashboard/admin/newsletter/+page.server.js": {
+    "file": "entries/pages/dashboard/admin/newsletter/_page.server.js",
+    "imports": [
+      "_index.js",
+      "_db.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/dashboard/admin/newsletter/+page.server.js"
+  },
+  "src/routes/dashboard/admin/newsletter/+page.svelte": {
+    "file": "entries/pages/dashboard/admin/newsletter/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_stores2.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/dashboard/admin/newsletter/+page.svelte"
+  },
+  "src/routes/dashboard/settings/+page.server.js": {
+    "file": "entries/pages/dashboard/settings/_page.server.js",
+    "imports": [
+      "_db.js",
+      "_index.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/dashboard/settings/+page.server.js"
+  },
+  "src/routes/dashboard/settings/+page.svelte": {
+    "file": "entries/pages/dashboard/settings/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_stores2.js",
+      "_Modal.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/dashboard/settings/+page.svelte"
   },
   "src/routes/forgot-password/+page.server.js": {
     "file": "entries/pages/forgot-password/_page.server.js",
@@ -297,7 +341,8 @@
     "file": "entries/pages/help/_page.svelte.js",
     "imports": [
       "_ssr.js",
-      "_stores2.js"
+      "_stores2.js",
+      "_Modal.js"
     ],
     "isEntry": true,
     "src": "src/routes/help/+page.svelte"
@@ -392,6 +437,15 @@
     ],
     "isEntry": true,
     "src": "src/routes/reset-password/[UUID]/+page.svelte"
+  },
+  "src/routes/terms-of-services/+page.svelte": {
+    "file": "entries/pages/terms-of-services/_page.svelte.js",
+    "imports": [
+      "_ssr.js",
+      "_stores2.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/terms-of-services/+page.svelte"
   },
   "src/routes/webhook/+server.js": {
     "file": "entries/endpoints/webhook/_server.js",

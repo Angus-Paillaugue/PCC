@@ -10,7 +10,7 @@ return {
 	assets: new Set(["128-icon.png","convertTo.webp","Forgot_password_illustration.png","Heart_illustration.png","openInPandabuy.webp","pandabuyLogo.webp","questionMark.webp","robots.txt","Square_logo.webp","Wide_logo.webp","workingMarketplaces.webp","yupooInterfaceReDesign.webp"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".txt":"text/plain"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.1611ecf9.js","app":"_app/immutable/entry/app.e4a21e8e.js","imports":["_app/immutable/entry/start.1611ecf9.js","_app/immutable/chunks/scheduler.c54fe263.js","_app/immutable/chunks/singletons.7f65aba8.js","_app/immutable/chunks/index.5fee8f50.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.e4a21e8e.js","_app/immutable/chunks/scheduler.c54fe263.js","_app/immutable/chunks/index.382b5808.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.7ff179cd.js","app":"_app/immutable/entry/app.76242abd.js","imports":["_app/immutable/entry/start.7ff179cd.js","_app/immutable/chunks/scheduler.513ec290.js","_app/immutable/chunks/singletons.8847648d.js","_app/immutable/chunks/index.24e5d8da.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.76242abd.js","_app/immutable/chunks/scheduler.513ec290.js","_app/immutable/chunks/index.639a9d04.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
@@ -28,7 +28,10 @@ return {
 			__memo(() => import('./nodes/13.js')),
 			__memo(() => import('./nodes/14.js')),
 			__memo(() => import('./nodes/15.js')),
-			__memo(() => import('./nodes/16.js'))
+			__memo(() => import('./nodes/16.js')),
+			__memo(() => import('./nodes/17.js')),
+			__memo(() => import('./nodes/18.js')),
+			__memo(() => import('./nodes/19.js'))
 		],
 		routes: [
 			{
@@ -123,31 +126,45 @@ return {
 				endpoint: null
 			},
 			{
+				id: "/dashboard/admin/newsletter",
+				pattern: /^\/dashboard\/admin\/newsletter\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 9 },
+				endpoint: null
+			},
+			{
+				id: "/dashboard/settings",
+				pattern: /^\/dashboard\/settings\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 10 },
+				endpoint: null
+			},
+			{
 				id: "/forgot-password",
 				pattern: /^\/forgot-password\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 9 },
+				page: { layouts: [0,], errors: [1,], leaf: 11 },
 				endpoint: null
 			},
 			{
 				id: "/help",
 				pattern: /^\/help\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 10 },
+				page: { layouts: [0,], errors: [1,], leaf: 12 },
 				endpoint: null
 			},
 			{
 				id: "/log-out",
 				pattern: /^\/log-out\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 11 },
+				page: { layouts: [0,], errors: [1,], leaf: 13 },
 				endpoint: null
 			},
 			{
 				id: "/manage-newsletter/[email]",
 				pattern: /^\/manage-newsletter\/([^/]+?)\/?$/,
 				params: [{"name":"email","optional":false,"rest":false,"chained":false}],
-				page: { layouts: [0,], errors: [1,], leaf: 12 },
+				page: { layouts: [0,], errors: [1,], leaf: 14 },
 				endpoint: null
 			},
 			{
@@ -161,28 +178,35 @@ return {
 				id: "/payment",
 				pattern: /^\/payment\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 13 },
+				page: { layouts: [0,], errors: [1,], leaf: 15 },
 				endpoint: null
 			},
 			{
 				id: "/pricing",
 				pattern: /^\/pricing\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 14 },
+				page: { layouts: [0,], errors: [1,], leaf: 16 },
 				endpoint: null
 			},
 			{
 				id: "/privacy-policy",
 				pattern: /^\/privacy-policy\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 15 },
+				page: { layouts: [0,], errors: [1,], leaf: 17 },
 				endpoint: null
 			},
 			{
 				id: "/reset-password/[UUID]",
 				pattern: /^\/reset-password\/([^/]+?)\/?$/,
 				params: [{"name":"UUID","optional":false,"rest":false,"chained":false}],
-				page: { layouts: [0,], errors: [1,], leaf: 16 },
+				page: { layouts: [0,], errors: [1,], leaf: 18 },
+				endpoint: null
+			},
+			{
+				id: "/terms-of-services",
+				pattern: /^\/terms-of-services\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 19 },
 				endpoint: null
 			},
 			{

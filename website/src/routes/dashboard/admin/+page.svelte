@@ -1,6 +1,6 @@
 <script>
     import { newToast } from "$lib/stores";
-    import { Modal } from "$lib/components/Modal.svelte"
+    import Modal from "$lib/components/Modal.svelte"
 
     export let data;
 
