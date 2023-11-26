@@ -10,7 +10,7 @@ export const actions = {
         if(exists){
             return { type:"newsletter", error:true, message:"You are already subscribed to the newsletter."}
         }else {
-            await newsletterRef.insertOne({ email:email, sendEmails:true });
+            await newsletterRef.insertOne({ email:email, sendEmails:true, joinedAt:new Date() });
             return { type:"newsletter", error:false, message:"You have been subscribed to the newsletter." };
         }
     }

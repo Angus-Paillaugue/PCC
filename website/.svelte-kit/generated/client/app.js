@@ -19,7 +19,8 @@ export const nodes = [
 	() => import('./nodes/15'),
 	() => import('./nodes/16'),
 	() => import('./nodes/17'),
-	() => import('./nodes/18')
+	() => import('./nodes/18'),
+	() => import('./nodes/19')
 ];
 
 export const server_loads = [0];
@@ -32,16 +33,17 @@ export const dictionary = {
 		"/dashboard": [~6],
 		"/dashboard/admin": [~7],
 		"/dashboard/admin/charts": [~8],
-		"/dashboard/settings": [~9],
-		"/forgot-password": [~10],
-		"/help": [~11],
-		"/log-out": [~12],
-		"/manage-newsletter/[email]": [~13],
-		"/payment": [~14],
-		"/pricing": [15],
-		"/privacy-policy": [16],
-		"/reset-password/[UUID]": [~17],
-		"/terms-of-services": [18]
+		"/dashboard/admin/newsletter": [~9],
+		"/dashboard/settings": [~10],
+		"/forgot-password": [~11],
+		"/help": [~12],
+		"/log-out": [~13],
+		"/manage-newsletter/[email]": [~14],
+		"/payment": [~15],
+		"/pricing": [16],
+		"/privacy-policy": [17],
+		"/reset-password/[UUID]": [~18],
+		"/terms-of-services": [19]
 	};
 
 export const hooks = {

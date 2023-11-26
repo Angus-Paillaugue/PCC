@@ -1,7 +1,7 @@
 <script>
     import { enhance } from "$app/forms";
     import { newToast } from "$lib/stores";
-    import Modal from "$lib/components/modal.svelte";
+    import Modal from "$lib/components/Modal.svelte";
 
     export let data;
     export let form;
@@ -18,12 +18,12 @@
             user.email = form.formData.email;
             if(form.account.success === true) {
                 // TODO : Fix toasts
-                newToast("Settings saved successfully!", "success");
+                newToast("success", "Settings saved successfully!");
             }
         }else if (Object.keys(form).includes("password")) {
             if(form.password.success === true) {
                 // TODO : Fix toasts
-                newToast("Password changed successfully!", "success");
+                newToast("success", "Password changed successfully!");
             }
         }
     }
