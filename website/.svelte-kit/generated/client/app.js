@@ -32,7 +32,7 @@ export const dictionary = {
 		"/dashboard": [~6],
 		"/dashboard/admin": [~7],
 		"/dashboard/admin/charts": [~8],
-		"/dashboard/settings": [9],
+		"/dashboard/settings": [~9],
 		"/forgot-password": [~10],
 		"/help": [~11],
 		"/log-out": [~12],
