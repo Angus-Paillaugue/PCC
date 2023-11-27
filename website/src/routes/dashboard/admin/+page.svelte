@@ -92,7 +92,6 @@
         fetch(`/api/update-exchange-rates`, { method: "POST" })
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             if(res.ok){
                 ratesUpdatedAt = new Date();
                 newToast("success", res.message);

@@ -1,5 +1,4 @@
 import auth from "$lib/server/auth";
-import { NODE_ENV } from "$env/static/private";
 
 export const handle = async ({ event, resolve }) => {
     const { cookies, locals } = event;
@@ -12,8 +11,6 @@ export const handle = async ({ event, resolve }) => {
         }else {
             locals.user = null;
         }
-    }else{
-        locals.user = null;
     }
 
     return resolve(event);
