@@ -6,10 +6,10 @@
     export let data;
 
     const { supportEmail } = data;
-    let websiteUrl;
+    let websiteLocation;
 
     onMount(() => {
-        websiteUrl = location.hostname;
+        websiteLocation = location.hostname;
     });
 </script>
 
@@ -20,7 +20,7 @@
 <section class="grow py-8 px-4 mx-auto max-w-4xl lg:py-16 lg:px-6 w-full">
     
     <h2>Privacy Policy</h2>
-    <p>Pandabuy Currency Conversion operates the website <a class="link" href="{websiteUrl}">{websiteUrl}</a>. This page informs you of our policies regarding the collection, use, and disclosure of Personal Information we receive from users of the Site.</p>
+    <p>Pandabuy Currency Conversion operates the website <a class="link" href="{websiteLocation.href}">{websiteLocation.hostname}</a>. This page informs you of our policies regarding the collection, use, and disclosure of Personal Information we receive from users of the Site.</p>
     <p>By using the Site, you agree to the collection and use of information in accordance with this policy.</p>
 
     <h5 class="mt-4">1. Information Collection and Use</h5>
