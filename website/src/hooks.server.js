@@ -4,7 +4,7 @@ export const handle = async ({ event, resolve }) => {
     const { cookies, locals } = event;
 
     const token = cookies.get('token');
-    if(token){
+    if(token && !locals?.user){
         const user = await auth(token);
         if(!user?.error) {
             locals.user = user;
