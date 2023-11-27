@@ -3,7 +3,7 @@ import { newsletterRef } from "$lib/server/db.js";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
-    if(!locals?.user?.isAdmin) throw redirect(307, "/auth");
+    if(!locals?.user?.isAdmin) throw redirect(307, "/auth?redirect=/dashboard/newsletter");
 
     const subscribers = await newsletterRef.find({  }).project({ _id:0 }).toArray();
 

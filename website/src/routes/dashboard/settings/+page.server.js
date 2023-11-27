@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 /** @type {import('./$types').PageLoad} */
 export function load({ locals }) {
-    if(!locals.user) throw redirect(307, "/auth");
+    if(!locals.user) throw redirect(307, "/auth?redirect=/dashboard/settings");
 }
 
 /** @type {import('./$types').Actions} */
@@ -16,7 +16,7 @@ export const actions = {
 
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { account:{ success:false, formData, message:"Invalid email!" } };
 
-        await usersRef.updateOne({ email }, { $set:formData }, { upsert:true });
+        await usersRef.updateOne({ email }, { $set:formData });
 
         return { account:{ success:true, formData, message:"Saved!" } };
     },
