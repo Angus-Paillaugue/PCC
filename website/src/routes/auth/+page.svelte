@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { enhance } from '$app/forms';
+    import { page } from '$app/stores';
 
     export let form;
 
@@ -10,7 +11,6 @@
     let isFormLoading = false;
 
     $: setActiveTab(), tabIndex;
-    $: if(form) isFormLoading = false;
 
     onMount(() => {
         sectionsList = document.querySelectorAll("form");
@@ -45,7 +45,7 @@
             </div>
 
             <div class="relative overflow-hidden grid grid-cols-2 w-full">
-                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 0 ? "translate-x-0" : "translate-x-full"}" use:enhance method="POST" action="?/login" id="Log-in" on:submit={() => {isFormLoading = true;}}>
+                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 0 ? "translate-x-0" : "translate-x-full"}" use:enhance={(e) => {e.formData.set("redirectTo", $page.url.searchParams.get("redirect"));isFormLoading = true;return ({ update }) => {isFormLoading = false;update({ reset: false });}}} method="POST" action="?/login" id="Log-in">
                     <label for="username" class="block mb-2">Username</label>
                     <input type="text" placeholder="Username" name="username" value="{form?.logIn?.formData?.username ?? ''}" class="mb-4" maxlength="15">
     
@@ -74,7 +74,7 @@
                     <a href="/forgot-password" class="link">Forgot your password ?</a>
             
                 </form>
-                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" use:enhance method="POST" action="?/signin" id="Sign-in" on:submit={() => {isFormLoading = true;}}>
+                <form class="w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 {tabIndex === 1 ? "-translate-x-1/2" : "-translate-x-[150%]"}" method="POST" action="?/signin" id="Sign-in" use:enhance={(e) => {e.formData.set("redirect", $page.url.searchParams.get("redirect"));isFormLoading = true;return ({ update }) => {isFormLoading = false;update({ reset: false });}}}>
                     <label for="username" class="block mb-2">E-mail</label>
                     <input type="text" placeholder="E-mail" name="email" value="{form?.signIn?.formData?.email ?? ''}" class="mb-4">
 

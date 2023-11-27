@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border flex flex-col gap-2 md:p-10 p-6 h-full">
-            <h3>Rates</h3>
+            <h3>Exchange rates</h3>
 
             <p>Last updated {new Date(ratesUpdatedAt).toLocaleString("fr-FR")}</p>
 
@@ -259,7 +259,7 @@
 
     <p slot="body">Are you sure you want to delete {deleteAccountId ? users?.filter(el => el.id === deleteAccountId)[0].username : ""}'s account ?</p>
 
-    <svelte:fragment>
+    <svelte:fragment slot="footer">
         <button class="button-red" on:click={() => {deleteAccountModal = false;}}>No, cancel</button>
         <button class="button-primary" on:click={deleteAccount}>Yes, delete</button>
     </svelte:fragment>

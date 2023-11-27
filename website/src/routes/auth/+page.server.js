@@ -5,15 +5,19 @@ import jwt from "jsonwebtoken";
 import { AUTH_TOKEN_SECRET } from "$env/static/private";
 import { randomUUID } from "crypto";
 
+export const ssr = false;
+
+/** @type {import('./$types').PageServerLoad} */
 export function load({ locals }) {
     if(locals.user) throw redirect(307, "/dashboard");
 };
 
+/** @type {import('./$types').Actions} */
 export const actions = {
-    login: async ({ cookies, request, url }) => {
+    login: async ({ cookies, request }) => {
         try{
             const formData = Object.fromEntries(await request.formData());
-            const { username, password } = formData;
+            const { username, password, redirectTo } = formData;
             
             const userExists = await usersRef.findOne({ username:username });
             if(!userExists) return { logIn:{success:false, formData, message:"No account with this username!"} };
@@ -26,10 +30,7 @@ export const actions = {
                     secure: true,
                     maxAge: 60 * 60 * 24 * 30
                 });
-                if(url.searchParams.get("redirect")){
-                    throw redirect(307, url.searchParams.get("redirect"));
-                }
-                throw redirect(307, "/dashboard");
+                throw redirect(307, typeof(redirectTo) !== null ? redirectTo : "/dashboard");
             }
             return { logIn:{ success:false, formData, message:"Incorrect password!" } };
         }catch(err){
@@ -38,7 +39,7 @@ export const actions = {
     },
     signin: async ({ cookies, request }) => {
         const formData = Object.fromEntries(await request.formData());
-        const { email, username, password } = formData;
+        const { email, username, password, redirectTo } = formData;
         
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { signIn:{ success:false, formData, message:"Invalid email!" } };
 
@@ -66,10 +67,7 @@ export const actions = {
             maxAge: 60 * 60 * 24 * 30
         });
 
-        if(url.searchParams.get("redirect")){
-            throw redirect(307, url.searchParams.get("redirect"));
-        }
-        throw redirect(307, "/dashboard");
+        throw redirect(307, typeof(redirectTo) !== null ? redirectTo : "/dashboard");
     }
 };
 

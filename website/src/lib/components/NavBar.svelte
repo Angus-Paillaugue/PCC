@@ -2,11 +2,13 @@
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
 
-    let user = $page.data.user;
+    let user;
     let extensions = $page.data.extensions;
     let getBrowserType = $page.data.getBrowserType;
     let extension = extensions[0];
     let navbar = false;
+
+    $: user = $page.data.user;
 
     onMount(() => {
         if(extensions.filter(el => el.plateforme === getBrowserType()).length > 0){

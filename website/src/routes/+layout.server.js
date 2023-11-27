@@ -6,9 +6,12 @@ export function load({ locals }) {
     const supportEmail = "pandabuycurrencyconversion@gmail.com";
     const latestUpdate = { date:"2023-11-20", description: "Added premium features for the low low price of $3.99!" };
     
+    console.log(`\n\nReloading layout. user : ${locals?.user?.username}\n\n`);
+
+    
 
     return { 
-        user:locals?.user,
+        user: locals?.user,
         premiumPrice,
         currentNumberOfDownloads,
         supportEmail,
@@ -16,7 +19,7 @@ export function load({ locals }) {
         extensions : [
             {
                 plateforme:"chrome",
-                logoUrl:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Google_Chrome_icon_%28March_2011%29.svg/2048px-Google_Chrome_icon_%28March_2011%29.svg.png",
+                logoUrl:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/2048px-Google_Chrome_icon_%28February_2022%29.svg.png",
                 link:"https://chrome.google.com/webstore/detail/pandabuy-currency-convert/bmefkfichlgfpmgdpkgkkebpdkfhbmnm"
             },
             {

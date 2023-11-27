@@ -1,14 +1,9 @@
 import { redirect } from "@sveltejs/kit";
 
-export const ssr = false;
-
-export const load = (({ cookies, url, locals }) => {
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ cookies, locals }) {
     cookies.delete("token");
     locals.user = null;
-
-    if(url.searchParams.get("redirect")){
-        throw redirect(307, url.searchParams.get("redirect"));
-    }else{
-        throw redirect(307, '/');
-    }
-});
+    
+    throw redirect(307, '/');
+};
