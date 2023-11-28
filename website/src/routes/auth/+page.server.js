@@ -38,7 +38,7 @@ export const actions = {
             console.log(err);
         }
     },
-    signin: async ({ cookies, request }) => {
+    signin: async ({ cookies, request, url }) => {
         const formData = Object.fromEntries(await request.formData());
         const { email, username, password } = formData;
         
