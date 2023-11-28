@@ -183,17 +183,17 @@
                         </div>
                     </div>
                 {/if}
+                <!-- TODO : Fix the toggle button (each button is only toggling the first user instead of the one related to it) -->
                 <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
                     {#each subscribersArray as u}
-                        <form action="?/sendEmails" method="POST" use:enhance={(e) => {
+                        <form action="?/sendEmails" method="POST" class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 items-center relative group flex flex-row justify-between" use:enhance={(e) => {
                             e.formData.set("email", u.email);
-                            console.log(Object.fromEntries(e.formData), u.email)
                             return ({ update }) => {update({ reset: false });}
-                        }} class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 items-center relative group flex flex-row justify-between">
+                        }}>
                             {u.email}
                             <div class="switch-wrapper opacity-0 group-hover:opacity-100 transition-all">
-                                <input type="checkbox" id="sendEmail" name="sendEmails" checked={u.sendEmails} class="hidden" on:change={(e) => {e.target.closest("form").requestSubmit();}}/>
-                                <label for="sendEmail"><span><em></em></span></label>
+                                <input type="checkbox" id="sendEmail-{u.email}" name="sendEmails-{u.email}" checked={u.sendEmails} class="hidden" on:change={(e) => {e.target.closest("form").requestSubmit();}}/>
+                                <label for="sendEmail-{u.email}"><span><em></em></span></label>
                             </div>
                         </form>
                     {/each}

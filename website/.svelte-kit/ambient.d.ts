@@ -26,86 +26,59 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const SECRET_STRIPE_KEY: string;
-	export const MONGODB_CONNEXION_STRING: string;
-	export const AUTH_TOKEN_SECRET: string;
-	export const EMAIL_APP_PASSWORD: string;
 	export const ALLUSERSPROFILE: string;
+	export const ANDROID_HOME: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
+	export const COLOR: string;
 	export const COLORTERM: string;
 	export const CommonProgramFiles: string;
 	export const CommonProgramW6432: string;
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const DriverData: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
-	export const EFC_144: string;
-=======
-	export const EFC_28980: string;
->>>>>>> parent of fa2860f (a)
-=======
-	export const EFC_28980: string;
->>>>>>> parent of 66956af (a)
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
+	export const EDITOR: string;
 	export const GIT_ASKPASS: string;
+	export const GNUPLOT_LIB: string;
 	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
+	export const HOMESHARE: string;
 	export const INIT_CWD: string;
 	export const LANG: string;
 	export const LOCALAPPDATA: string;
 	export const LOGONSERVER: string;
 	export const NODE: string;
 	export const NODE_ENV: string;
-	export const NODE_PATH: string;
+	export const NODE_EXE: string;
+	export const NPM_CLI_JS: string;
 	export const npm_command: string;
+	export const npm_config_cache: string;
 	export const npm_config_engine_strict: string;
-	export const npm_config_frozen_lockfile: string;
-	export const npm_config_registry: string;
+	export const npm_config_globalconfig: string;
+	export const npm_config_global_prefix: string;
+	export const npm_config_init_module: string;
+	export const npm_config_local_prefix: string;
+	export const npm_config_node_gyp: string;
+	export const npm_config_noproxy: string;
+	export const npm_config_npm_version: string;
+	export const npm_config_prefix: string;
+	export const npm_config_userconfig: string;
 	export const npm_config_user_agent: string;
 	export const npm_execpath: string;
 	export const npm_lifecycle_event: string;
 	export const npm_lifecycle_script: string;
 	export const npm_node_execpath: string;
-	export const npm_package_dependencies_apexcharts: string;
-	export const npm_package_dependencies_bcrypt: string;
-	export const npm_package_dependencies_cors: string;
-	export const npm_package_dependencies_jsonwebtoken: string;
-	export const npm_package_dependencies_mongodb: string;
-	export const npm_package_dependencies_nodemailer: string;
-	export const npm_package_dependencies_stripe: string;
-	export const npm_package_dependencies_svelte_apexcharts: string;
-	export const npm_package_dependencies_svelte_copy: string;
-	export const npm_package_dependencies_svelte_reveal: string;
-	export const npm_package_dependencies_svelte_stripe: string;
-	export const npm_package_dependencies__stripe_stripe_js: string;
-	export const npm_package_dependencies__sveltejs_adapter_vercel: string;
-	export const npm_package_dependencies__vercel_analytics: string;
-	export const npm_package_devDependencies_autoprefixer: string;
-	export const npm_package_devDependencies_postcss: string;
-	export const npm_package_devDependencies_svelte: string;
-	export const npm_package_devDependencies_tailwindcss: string;
-	export const npm_package_devDependencies_vite: string;
-	export const npm_package_devDependencies__sveltejs_adapter_auto: string;
-	export const npm_package_devDependencies__sveltejs_kit: string;
+	export const npm_package_json: string;
 	export const npm_package_name: string;
-	export const npm_package_private: string;
-	export const npm_package_scripts_build: string;
-	export const npm_package_scripts_dev: string;
-	export const npm_package_scripts_preview: string;
-	export const npm_package_type: string;
 	export const npm_package_version: string;
+	export const NPM_PREFIX_NPM_CLI_JS: string;
 	export const NUMBER_OF_PROCESSORS: string;
 	export const OneDrive: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const OS: string;
 	export const Path: string;
 	export const PATHEXT: string;
-	export const PNPM_HOME: string;
-	export const PNPM_SCRIPT_SRC_DIR: string;
 	export const PROCESSOR_ARCHITECTURE: string;
 	export const PROCESSOR_IDENTIFIER: string;
 	export const PROCESSOR_LEVEL: string;
@@ -123,6 +96,8 @@ declare module '$env/static/private' {
 	export const TERM_PROGRAM: string;
 	export const TERM_PROGRAM_VERSION: string;
 	export const TMP: string;
+	export const UATDATA: string;
+	export const USERDNSDOMAIN: string;
 	export const USERDOMAIN: string;
 	export const USERDOMAIN_ROAMINGPROFILE: string;
 	export const USERNAME: string;
@@ -132,7 +107,10 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
+	export const VSCODE_INJECTION: string;
+	export const VSCODE_NONCE: string;
 	export const windir: string;
+	export const ZES_ENABLE_SYSMAN: string;
 }
 
 /**
@@ -145,7 +123,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	export const PUBLIC_STRIPE_KEY: string;
+	
 }
 
 /**
@@ -162,86 +140,59 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		SECRET_STRIPE_KEY: string;
-		MONGODB_CONNEXION_STRING: string;
-		AUTH_TOKEN_SECRET: string;
-		EMAIL_APP_PASSWORD: string;
 		ALLUSERSPROFILE: string;
+		ANDROID_HOME: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
+		COLOR: string;
 		COLORTERM: string;
 		CommonProgramFiles: string;
 		CommonProgramW6432: string;
 		COMPUTERNAME: string;
 		ComSpec: string;
 		DriverData: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
-		EFC_144: string;
-=======
-		EFC_28980: string;
->>>>>>> parent of fa2860f (a)
-=======
-		EFC_28980: string;
->>>>>>> parent of 66956af (a)
-		FPS_BROWSER_APP_PROFILE_STRING: string;
-		FPS_BROWSER_USER_PROFILE_STRING: string;
+		EDITOR: string;
 		GIT_ASKPASS: string;
+		GNUPLOT_LIB: string;
 		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
+		HOMESHARE: string;
 		INIT_CWD: string;
 		LANG: string;
 		LOCALAPPDATA: string;
 		LOGONSERVER: string;
 		NODE: string;
 		NODE_ENV: string;
-		NODE_PATH: string;
+		NODE_EXE: string;
+		NPM_CLI_JS: string;
 		npm_command: string;
+		npm_config_cache: string;
 		npm_config_engine_strict: string;
-		npm_config_frozen_lockfile: string;
-		npm_config_registry: string;
+		npm_config_globalconfig: string;
+		npm_config_global_prefix: string;
+		npm_config_init_module: string;
+		npm_config_local_prefix: string;
+		npm_config_node_gyp: string;
+		npm_config_noproxy: string;
+		npm_config_npm_version: string;
+		npm_config_prefix: string;
+		npm_config_userconfig: string;
 		npm_config_user_agent: string;
 		npm_execpath: string;
 		npm_lifecycle_event: string;
 		npm_lifecycle_script: string;
 		npm_node_execpath: string;
-		npm_package_dependencies_apexcharts: string;
-		npm_package_dependencies_bcrypt: string;
-		npm_package_dependencies_cors: string;
-		npm_package_dependencies_jsonwebtoken: string;
-		npm_package_dependencies_mongodb: string;
-		npm_package_dependencies_nodemailer: string;
-		npm_package_dependencies_stripe: string;
-		npm_package_dependencies_svelte_apexcharts: string;
-		npm_package_dependencies_svelte_copy: string;
-		npm_package_dependencies_svelte_reveal: string;
-		npm_package_dependencies_svelte_stripe: string;
-		npm_package_dependencies__stripe_stripe_js: string;
-		npm_package_dependencies__sveltejs_adapter_vercel: string;
-		npm_package_dependencies__vercel_analytics: string;
-		npm_package_devDependencies_autoprefixer: string;
-		npm_package_devDependencies_postcss: string;
-		npm_package_devDependencies_svelte: string;
-		npm_package_devDependencies_tailwindcss: string;
-		npm_package_devDependencies_vite: string;
-		npm_package_devDependencies__sveltejs_adapter_auto: string;
-		npm_package_devDependencies__sveltejs_kit: string;
+		npm_package_json: string;
 		npm_package_name: string;
-		npm_package_private: string;
-		npm_package_scripts_build: string;
-		npm_package_scripts_dev: string;
-		npm_package_scripts_preview: string;
-		npm_package_type: string;
 		npm_package_version: string;
+		NPM_PREFIX_NPM_CLI_JS: string;
 		NUMBER_OF_PROCESSORS: string;
 		OneDrive: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		OS: string;
 		Path: string;
 		PATHEXT: string;
-		PNPM_HOME: string;
-		PNPM_SCRIPT_SRC_DIR: string;
 		PROCESSOR_ARCHITECTURE: string;
 		PROCESSOR_IDENTIFIER: string;
 		PROCESSOR_LEVEL: string;
@@ -259,6 +210,8 @@ declare module '$env/dynamic/private' {
 		TERM_PROGRAM: string;
 		TERM_PROGRAM_VERSION: string;
 		TMP: string;
+		UATDATA: string;
+		USERDNSDOMAIN: string;
 		USERDOMAIN: string;
 		USERDOMAIN_ROAMINGPROFILE: string;
 		USERNAME: string;
@@ -268,7 +221,10 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		VSCODE_GIT_IPC_HANDLE: string;
+		VSCODE_INJECTION: string;
+		VSCODE_NONCE: string;
 		windir: string;
+		ZES_ENABLE_SYSMAN: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
@@ -286,7 +242,6 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
-		PUBLIC_STRIPE_KEY: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }
