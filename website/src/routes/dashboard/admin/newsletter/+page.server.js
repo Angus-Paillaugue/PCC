@@ -13,8 +13,8 @@ export async function load({ locals }) {
 /** @type {import('./$types').Actions} */
 export const actions = {
     sendEmails: async({ request, locals }) => {
-        if(!locals.user) return { success:false, formData, message:"Not logged in!" };
         const formData = Object.fromEntries(await request.formData());
+        if(!locals.user) return { success:false, formData, message:"Not logged in!" };
         const { email  } = formData;
         console.log(formData)
 
