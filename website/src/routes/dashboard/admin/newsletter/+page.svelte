@@ -2,6 +2,7 @@
     import { enhance } from "$app/forms";
     import { onMount } from "svelte";
     import { newToast } from "$lib/stores";
+    import Modal from "$lib/components/Modal.svelte";
 
     export let form;
     export let data;
@@ -10,13 +11,22 @@
 
     const noUsersToDisplay = 9;
     let subscribersArray = subscribers.slice(0, noUsersToDisplay);
+    let searchButton = false;
+    let newNewsletterModal = false;
+    let isSendingNewNewsletter = false;
     let subscribersChartContainer;
     let searchQuery;
-    let searchButton = false;
+    let newNewsletterFormData = {
+        subject: form?.formData?.subject ?? "",
+        contents: form?.formData?.contents ?? ""
+    };
 
     $: searchQuery , search();
     $: if(form){
         if(form.type === "sendEmails"){
+            newToast(form.success ? "success" : "error", form.message)
+        }
+        if(form.type === "newMail"){
             newToast(form.success ? "success" : "error", form.message)
         }
     }
@@ -183,12 +193,13 @@
                         </div>
                     </div>
                 {/if}
-                <!-- TODO : Fix the toggle button (each button is only toggling the first user instead of the one related to it) -->
                 <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
                     {#each subscribersArray as u}
                         <form action="?/sendEmails" method="POST" class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 items-center relative group flex flex-row justify-between" use:enhance={(e) => {
                             e.formData.set("email", u.email);
-                            return ({ update }) => {update({ reset: false });}
+                            return ({ update }) => {
+                                update({ reset: false });
+                            }
                         }}>
                             {u.email}
                             <div class="switch-wrapper opacity-0 group-hover:opacity-100 transition-all">
@@ -199,6 +210,42 @@
                     {/each}
                 </div>
             </div>
+            <div class="h-full flex flex-col gap-2 border border-neutral-200 dark:border-neutral-700 rounded-lg max-h-[450px] p-4 relative">
+                <button class="button-primary" on:click={() => {newNewsletterModal = true;}}>Send new newsletter</button>
+            </div>
         </div>
     </div>
 </section>
+
+<Modal title="New newsletter mail" bind:status={newNewsletterModal}>
+
+    <form action="?/newMail" method="POST" id="newNewsletterForm" slot="body" class="flex flex-col gap-4" use:enhance={() => {
+        isSendingNewNewsletter = true;
+        return ({ update }) => {
+            isSendingNewNewsletter = false;
+            update({ reset: false });}
+    }}>
+        <p>In email subject and body, you can use use &#123;&#123;email&#125&#125 to insert the user's email</p>
+        <p class="font-bold">
+            Newsletter subject
+            <input type="text" name="subject" id="subject" placeholder="Subject" bind:value={newNewsletterFormData.subject}>
+        </p>
+
+        <p class="font-bold">
+            Newsletter contents
+            <textarea name="contents" id="contents" placeholder="Contents" rows="10" bind:value={newNewsletterFormData.contents}></textarea>
+        </p>
+    </form>
+
+    <svelte:fragment slot="footer">
+        <button class="button-secondary" on:click={() => {newNewsletterModal = false;}}>Cancel</button>
+        <button form="newNewsletterForm" class="button-primary" disabled="{newNewsletterFormData.subject.length === 0 || newNewsletterFormData.contents.length === 0}">
+            {#if isSendingNewNewsletter}
+                <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
+            {:else}
+                Send
+            {/if}
+        </button>
+    </svelte:fragment>
+
+</Modal>
