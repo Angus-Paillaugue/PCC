@@ -259,7 +259,7 @@
 
     <p slot="body">Are you sure you want to delete {deleteAccountId ? users?.filter(el => el.id === deleteAccountId)[0].username : ""}'s account ?</p>
 
-    <svelte:fragment>
+    <svelte:fragment slot="footer">
         <button class="button-red" on:click={() => {deleteAccountModal = false;}}>No, cancel</button>
         <button class="button-primary" on:click={deleteAccount}>Yes, delete</button>
     </svelte:fragment>
