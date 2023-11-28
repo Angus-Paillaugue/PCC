@@ -26,6 +26,8 @@ export const actions = {
                     secure: true,
                     maxAge: 60 * 60 * 24 * 30
                 });
+
+                console.log(url.searchParams.get("redirect"));
                 if(url.searchParams.get("redirect")){
                     throw redirect(307, url.searchParams.get("redirect"));
                 }
