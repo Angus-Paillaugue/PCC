@@ -1,5 +1,5 @@
 const SECRET_STRIPE_KEY = "sk_test_51O9nD6IXnCqZazStHh6uQf47QnHRSi0DVNnsCh9C540w9m7II2lYjDVvzjAErSpgeVjSeuwvh6jcLrYfBCSTOFSX00NTARRxpl";
-const MONGODB_CONNEXION_STRING = "mongodb+srv://PCC_backend:dTwVUEykZIH2BZHu@pcc.x11uh3y.mongodb.net/";
+const MONGODB_CONNEXION_STRING = "mongodb+srv://PCC_backend:W2ECCx1qawVS2Cmz@pcc.x11uh3y.mongodb.net/";
 const AUTH_TOKEN_SECRET = "894cb353-yf76-4002-8b4e-bb3addee1a82";
 const EMAIL_APP_PASSWORD = "xsmtpsib-189cd3a247be7015bc17489ae5ac25a6e4ef96d646300121e93fb93a41600dc4-cvCE60BDNfazh95r";
 export {
