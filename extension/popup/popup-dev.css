@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scroll-bar */
+::-webkit-scrollbar {
+    @apply w-1;
+}
+::-webkit-scrollbar-track {
+    @apply bg-white dark:bg-neutral-800;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-neutral-100 rounded-full dark:bg-neutral-900;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-500 dark:bg-neutral-950;
+}
+
+html {
+    @apply w-[350px];
+}
+body {
+    @apply bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 p-0 m-0;
+}
+
+/* Link */
+a {
+    @apply text-green-600 relative overflow-hidden dark:text-green-700 no-underline transition-all hover:after:w-full after:bg-green-600 after:dark:bg-green-700 after:top-full after:absolute after:left-0 after:h-[1px] after:w-0 after:-mt-[1px] after:transition-all after:duration-300 font-semibold w-fit;
+}
+
+/* Text */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply p-0;
+}
+h2 {
+    @apply text-xl font-medium;
+}
+p {
+    @apply text-sm font-normal h-fit flex flex-row gap-2 items-center;
+}
+
+
+/* Containers */
+header {
+    @apply bg-neutral-100 dark:bg-neutral-900 dark:text-neutral-100 text-neutral-800 fixed top-0 left-0 w-full z-40 h-14;
+}
+footer {
+    @apply h-12 flex flex-row gap-2 justify-center items-center bg-neutral-100 dark:bg-neutral-900;
+}
+section {
+    @apply border-b-8 border-neutral-200 dark:border-neutral-700 flex flex-col;
+}
+section > h2 {
+    @apply py-1 pl-2;
+}
+.field {
+    @apply p-2 border-t border-neutral-300 dark:border-neutral-700 flex flex-row justify-between items-center gap-1;
+}
+
+/* Inputs */
+input[type=checkbox] {
+    @apply hidden;
+}
+select, input[type="text"], input[type="password"] {
+    @apply w-full bg-neutral-100 placeholder:text-neutral-500 dark:bg-neutral-700 transition-all ease-in-out text-base rounded-md py-1 px-2 border border-neutral-300 dark:border-neutral-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 dark:ring-offset-neutral-800 focus:ring-offset-2 accent-green-600;
+}
+
+/* Buttons */
+.button {
+    @apply bg-green-600 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base text-neutral-800 dark:text-neutral-100
+}
+.button-secondary {
+    @apply bg-neutral-300 hover:bg-neutral-100 dark:bg-neutral-700 dark:hover:bg-neutral-600 px-4 py-2 sm:py-3 sm:px-6 block transition-all rounded-md relative w-full text-base text-neutral-800 dark:text-neutral-100;
+}
+.button-red {
+    @apply bg-red-600 dark:bg-red-700 dark:hover:bg-red-800 hover:bg-red-700 px-4 py-2 sm:py-3 sm:px-6 block rounded-md relative w-full text-base transition-all text-neutral-100;
+}
+.button-small {
+    @apply px-3 py-1 sm:py-2 sm:px-5 hover:rounded-md;
+}
+
+/* SVG */
+svg.experimental {
+    @apply text-red-600 dark:text-red-700;
+}
+
+/* Range input */
+.slider {
+    @apply appearance-none accent-green-600 dark:accent-green-700 w-full bg-neutral-100 dark:bg-neutral-700 rounded-full h-2;
+}
+
+.slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+    @apply appearance-none w-10 h-10 rounded-full bg-green-600 cursor-pointer;
+}
+
+
+/* Tooltip */
+[data-tooltip]{
+    @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-32 after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 text-neutral-800 dark:text-neutral-100;
+}
+/* Left */
+.tooltip-left {
+    @apply after:-translate-y-1/2 after:-translate-x-full after:top-1/2 after:bottom-auto hover:after:-left-2 after:right-auto after:mb-0 hover:after:-translate-y-1/2 focus:after:-translate-y-1/2;
+}
+/* Bottom */
+.tooltip-bottom {
+    @apply after:top-1/2 after:left-1/2 after:bottom-auto after:right-auto hover:after:translate-y-4 focus:after:translate-y-4 after:mb-0;
+}
+/* Right */
+.tooltip-right {
+    @apply after:-translate-y-1/2 after:translate-x-0 after:left-4 hover:after:left-6 after:right-auto after:top-1/2 after:bottom-auto after:mb-0 hover:after:-translate-y-1/2 focus:after:-translate-y-1/2;
+}
+
+
+
+
+
+/* Switches */
+.switch-wrapper {
+    @apply h-8
+}
+.switch-wrapper input + label {
+    @apply w-16 h-8 bg-red-200 dark:bg-red-700 rounded-full inline-block relative cursor-pointer shadow transition-all duration-300;
+}
+.switch-wrapper input + label span {
+    @apply absolute top-[3px] left-1 h-[calc(100%-6px)] aspect-square rounded-full bg-red-600 dark:bg-red-900 transition-all duration-300;
+}
+.switch-wrapper input + label span em {
+    @apply w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 rotate-[135deg] -translate-y-1/2 transition-all duration-300 after:duration-300 after:top-0 after:left-1/2 after:w-[2px] after:-ml-[1px] after:h-full after:bg-neutral-100 after:absolute after:transition-all before:left-0 before:w-full before:h-[2px] before:-mt-[1px] before:top-1/2 before:bg-neutral-100 before:transition-all before:duration-300 before:absolute;
+}
+.switch-wrapper input:checked + label {
+    @apply bg-green-200 dark:bg-green-700;
+}
+.switch-wrapper input:checked + label span {
+    @apply bg-green-700 dark:bg-green-900 left-[calc(100%-4px)] -translate-x-full;
+}
+.switch-wrapper input:checked + label span em {
+    @apply rotate-45 ml-[2px] before:w-1/2 before:h-[2px] before:absolute before:top-full before:-mt-[2px];
+}

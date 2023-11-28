@@ -1,0 +1,8 @@
+{
+	"type": "module",
+	"dependencies": {
+		"archiver": "^6.0.1",
+		"prettier-format": "^4.0.0",
+		"uglify-js": "^3.17.4"
+	}
+}

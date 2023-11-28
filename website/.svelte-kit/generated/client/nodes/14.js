@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/manage-newsletter/[email]/+page.svelte";
