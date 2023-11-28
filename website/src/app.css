@@ -128,3 +128,21 @@ input[type="text"], input[type="number"], input[type="password"], textarea, sele
 .card-button svg {
   @apply text-2xl;
 }
+
+
+/* Tooltip */
+[data-tooltip]{
+  @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-[300px] after:break-words after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 after:text-neutral-800 after:dark:text-neutral-100;
+}
+/* Left */
+.tooltip-left {
+  @apply after:-translate-y-1/2 after:-translate-x-full after:top-1/2 after:bottom-auto hover:after:-left-2 after:right-auto after:mb-0 hover:after:-translate-y-1/2 focus:after:-translate-y-1/2;
+}
+/* Bottom */
+.tooltip-bottom {
+  @apply after:top-1/2 after:left-1/2 after:bottom-auto after:right-auto hover:after:translate-y-4 focus:after:translate-y-4 after:mb-0;
+}
+/* Right */
+.tooltip-right {
+  @apply after:-translate-y-1/2 after:translate-x-0 after:left-4 hover:after:left-6 after:right-auto after:top-1/2 after:bottom-auto after:mb-0 hover:after:-translate-y-1/2 focus:after:-translate-y-1/2;
+}

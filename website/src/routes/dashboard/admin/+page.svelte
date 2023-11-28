@@ -200,13 +200,13 @@
 
             <h3 class="mt-4">Tools</h3>
             <div class="flex flex-row gap-4 flex-wrap">
-                <a href="https://app.brevo.com/" target="_blank" class="link">SMTP</a>
-                <a href="https://my.stripo.email/account/templates/1068358" target="_blank" class="link">E-mail templates</a>
+                <a href="https://app.brevo.com/" target="_blank" class="link tooltip-top" data-tooltip="Log-in with send.email.pcc@gmail.com google account">SMTP</a>
+                <a href="https://my.stripo.email/account/templates/1068358" target="_blank" class="link tooltip-top" data-tooltip="Log-in with pandabuycurrencyconverter@gmail.com google account">E-mail templates</a>
                 <a href="https://vercel.com/angus-paillaugue/pcc" target="_blank" class="link">Vercel</a>
-                <a href="https://cloud.mongodb.com/v2/65663cc0b387d24672b14a2e#/clusters" target="_blank" class="link">MongoDB</a>
+                <a href="https://cloud.mongodb.com/v2/65663cc0b387d24672b14a2e#/clusters" target="_blank" class="link tooltip-top" data-tooltip="Log-in with pandabuycurrencyconverter@gmail.com google account">MongoDB</a>
                 <a href="https://dash.cloudflare.com/92f5796f7fdf0c37529d5c39b8670c8f/paillaugue.fr" target="_blank" class="link">Cloudflare</a>
                 <a href="https://analytics.google.com/analytics/web/?authuser=0#/p414534698/reports/intelligenthome" target="_blank" class="link">Analytics</a>
-                <a href="https://mail.google.com/mail/u/4/#inbox" target="_blank" class="link">Mail box</a>
+                <a href="https://mail.google.com/mail/u/4/#inbox" target="_blank" class="link tooltip-top" data-tooltip="Log-in with send.email.pcc@gmail.com google account">Mail box</a>
             </div>
         </div>
     </div>
