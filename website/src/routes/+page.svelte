@@ -242,7 +242,7 @@
         </div>
     </section> -->
 
-    <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center">
+    <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center" id="newsletter">
         <h4 class="text-primary-600 w-full font-extrabold">Newsletter</h4>
         <div class="w-full p-4 md:p-6 lg:p-10 max-sm:pl-6 flex flex-col md:flex-row gap-10 items-center">
             <h2 class="max-lg:text-xl text-text-main dark:text-neutral-100">Want product news and updates?<br>Sign up for our newsletter.</h2>

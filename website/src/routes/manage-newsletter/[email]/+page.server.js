@@ -6,5 +6,6 @@ export async function load({ params }) {
 
     const settings = structuredClone(await newsletterRef.findOne({ email }));
 
+    if(!settings) return { settings:null }
     return { settings };
 };
