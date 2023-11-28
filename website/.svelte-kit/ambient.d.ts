@@ -40,10 +40,14 @@ declare module '$env/static/private' {
 	export const ComSpec: string;
 	export const DriverData: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	export const EFC_144: string;
 =======
 	export const EFC_28980: string;
 >>>>>>> parent of fa2860f (a)
+=======
+	export const EFC_28980: string;
+>>>>>>> parent of 66956af (a)
 	export const FPS_BROWSER_APP_PROFILE_STRING: string;
 	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
@@ -172,10 +176,14 @@ declare module '$env/dynamic/private' {
 		ComSpec: string;
 		DriverData: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		EFC_144: string;
 =======
 		EFC_28980: string;
 >>>>>>> parent of fa2860f (a)
+=======
+		EFC_28980: string;
+>>>>>>> parent of 66956af (a)
 		FPS_BROWSER_APP_PROFILE_STRING: string;
 		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
