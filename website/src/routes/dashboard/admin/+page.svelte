@@ -62,6 +62,7 @@
             users = users.filter(el => el.id !== deleteAccountId);
             deleteAccountModal = false;
             deleteAccountId = undefined;
+            search();
         });
     }
 
