@@ -17,7 +17,7 @@ const actions = {
       await resetPasswordTokensRef.insertOne({ username, token: userToken, expires: new Date(Date.now() + 1e3 * 60 * tokenLife) });
       const link = `${url.origin}/reset-password/${userToken}`;
       await sendForgotEmail(email, link, tokenLife);
-      return { success: true, message: "Password reset email sent" };
+      return { success: true, message: "Go check your email to reset your password (the e-mail might take a few seconds to arrive)." };
     } catch (err) {
       console.log(err);
     }

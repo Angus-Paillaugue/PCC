@@ -1,7 +1,7 @@
 <script>
     import { enhance } from '$app/forms';
-    import Alert from '$lib/components/Alert.svelte';
-    import Spinner from '$lib/components/Spinner.svelte';
+    import Alert from '$lib/components/Form/Alert.svelte';
+    import Spinner from '$lib/components/Form/Spinner.svelte';
 
     export let data;
     export let form;

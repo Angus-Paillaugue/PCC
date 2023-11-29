@@ -1,5 +1,6 @@
 import { c as create_ssr_component } from "../../chunks/ssr.js";
 import "svelte-reveal";
+import "../../chunks/functions.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { data } = $$props;
   let { form } = $$props;

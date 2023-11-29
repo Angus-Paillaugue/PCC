@@ -1,4 +1,6 @@
-import { c as create_ssr_component, e as escape, b as add_attribute } from "../../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, b as add_attribute, v as validate_component } from "../../../chunks/ssr.js";
+import { T as TextInput } from "../../../chunks/TextInput.js";
+import { A as Alert } from "../../../chunks/Alert.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { form } = $$props;
   let sectionsList = [];
@@ -24,11 +26,90 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}" data-section="Log-in">Log-in</button> <button class="${"inline-flex items-center justify-center p-4 border-b-2 group w-full transition-all no-scale " + escape(
     "rounded-t-lg hover:border-neutral-700 text-text-main border-neutral-200 dark:text-neutral-200 dark:hover:border-neutral-600 dark:border-neutral-900",
     true
-  )}" data-section="Sign-in">Sign-in</button> <span class="h-1 transition-all bottom-0 bg-primary-600 dark:bg-primary-700 absolute ease-in-out duration-300"${add_attribute("this", navLinkUnderline, 0)}></span></div> <div class="relative overflow-hidden grid grid-cols-2 w-full"><form class="${"w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 " + escape("translate-x-0", true)}" method="POST" action="?/login" id="Log-in"><label for="username" class="block mb-2" data-svelte-h="svelte-1fx6z6w">Username</label> <input type="text" placeholder="Username" name="username"${add_attribute("value", form?.logIn?.formData?.username ?? "", 0)} class="mb-4" maxlength="15"> <label for="password" class="block mb-2" data-svelte-h="svelte-kmyewi">Password</label> <input type="password" placeholder="Password" name="password"${add_attribute("value", form?.logIn?.formData?.password ?? "", 0)} class="mb-4"> ${form?.logIn?.success === false ? `<div class="flex items-center p-4 text-sm border rounded-lg text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100 mb-4" role="alert"><svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path></svg> ${escape(form?.logIn?.message)}</div>` : ``} <button class="button-primary group w-full mb-2" ${""}>${`Log-in
+  )}" data-section="Sign-in">Sign-in</button> <span class="h-1 transition-all bottom-0 bg-primary-600 dark:bg-primary-700 absolute ease-in-out duration-300"${add_attribute("this", navLinkUnderline, 0)}></span></div> <div class="relative overflow-hidden grid grid-cols-2 w-full"><form class="${"w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 " + escape("translate-x-0", true)}" method="POST" action="?/login" id="Log-in">${validate_component(TextInput, "TextInput").$$render(
+    $$result,
+    {
+      label: "Username",
+      name: "username",
+      placeholder: "Username",
+      value: form?.logIn?.formData?.username ?? "",
+      class: "mb-4",
+      maxlength: "15"
+    },
+    {},
+    {}
+  )} ${validate_component(TextInput, "TextInput").$$render(
+    $$result,
+    {
+      label: "Password",
+      name: "password",
+      placeholder: "Password",
+      value: form?.logIn?.formData?.password ?? "",
+      class: "mb-4",
+      type: "password"
+    },
+    {},
+    {}
+  )} ${validate_component(Alert, "Alert").$$render(
+    $$result,
+    {
+      display: form?.logIn?.success ?? false,
+      type: "error",
+      class: "mb-4",
+      message: form?.logIn?.message
+    },
+    {},
+    {}
+  )} <button class="button-primary group w-full mb-2" ${""}>${`Log-in
                             <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path><path class="transition-all group-hover:[stroke-dashoffset:20] [stroke-dasharray:10] [stroke-dashoffset:10]" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path></svg>`}</button> <a href="/forgot-password" class="link" data-svelte-h="svelte-1319vkd">Forgot your password ?</a></form> <form class="${"w-[200%] transition-all ease-in-out duration-300 p-3 pb-5 " + escape(
     "-translate-x-[150%]",
     true
-  )}" method="POST" action="?/signin" id="Sign-in"><label for="username" class="block mb-2" data-svelte-h="svelte-1p8p8gj">E-mail</label> <input type="text" placeholder="E-mail" name="email"${add_attribute("value", form?.signIn?.formData?.email ?? "", 0)} class="mb-4"> <label for="username" class="block mb-2" data-svelte-h="svelte-1fx6z6w">Username</label> <input type="text" placeholder="Username" name="username"${add_attribute("value", form?.signIn?.formData?.username ?? "", 0)} class="mb-4" maxlength="15"> <label for="password" class="block mb-2" data-svelte-h="svelte-kmyewi">Password</label> <input type="password" placeholder="Password" name="password"${add_attribute("value", form?.signIn?.formData?.password ?? "", 0)} class="mb-4"> ${form?.signIn?.success === false ? `<div class="flex items-center p-4 text-sm border rounded-lg text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100 mb-4" role="alert"><svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path></svg> ${escape(form?.signIn?.message)}</div>` : ``} <button class="button-primary group w-full" ${""}>${`Sign-in
+  )}" method="POST" action="?/signin" id="Sign-in">${validate_component(TextInput, "TextInput").$$render(
+    $$result,
+    {
+      label: "E-mail",
+      name: "email",
+      placeholder: "E-mail",
+      value: form?.signIn?.formData?.email ?? "",
+      class: "mb-4"
+    },
+    {},
+    {}
+  )} ${validate_component(TextInput, "TextInput").$$render(
+    $$result,
+    {
+      label: "Username",
+      name: "username",
+      placeholder: "Username",
+      value: form?.signIn?.formData?.username ?? "",
+      class: "mb-4",
+      maxlength: "15"
+    },
+    {},
+    {}
+  )} ${validate_component(TextInput, "TextInput").$$render(
+    $$result,
+    {
+      label: "Password",
+      name: "password",
+      placeholder: "Password",
+      value: form?.signIn?.formData?.password ?? "",
+      class: "mb-4",
+      maxlength: "15",
+      type: "password"
+    },
+    {},
+    {}
+  )} ${form?.signIn?.success ? `${validate_component(Alert, "Alert").$$render(
+    $$result,
+    {
+      type: "error",
+      class: "mb-4",
+      message: form?.signIn?.message
+    },
+    {},
+    {}
+  )}` : ``} <button class="button-primary group w-full" ${""}>${`Sign-in
                             <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path><path class="transition-all group-hover:[stroke-dashoffset:20] [stroke-dasharray:10] [stroke-dashoffset:10]" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path></svg>`}</button></form></div></div></div></section>`;
 });
 export {
