@@ -41,7 +41,7 @@
 
     const premiumUsers = users.filter(user => user.isPremium);
     const getProgression = (nbDays) => {
-        nbDays = Math.max(nbDays, Object.values(userProgressionData).length);
+        nbDays = Math.min(nbDays, Object.values(userProgressionData).length);
         return (Object.values(userProgressionData).at(-(nbDays+1))-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-(nbDays+1))*100;
     }
     const todayUserProgression = getProgression(1);
