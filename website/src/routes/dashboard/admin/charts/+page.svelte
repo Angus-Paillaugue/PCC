@@ -44,7 +44,7 @@
         nbDays = Math.min((nbDays+1), cumulativeData.length);
         const data = cumulativeData.map(d => d.y);
         console.log("Start :",data.at(-1)," End :",data.at(-nbDays));
-        return Math.round((data.at(-nbDays)-data.at(-1))/data.at(-1)*100);
+        return Math.round((data.at(-1)-data.at(-nbDays))/data.at(-nbDays)*100);
     }
     
     let baseChartStyle = {
