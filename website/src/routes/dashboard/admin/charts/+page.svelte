@@ -40,7 +40,7 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
-    console.log("Number of users :",Math.max(...Object.map(d => d.y)));
+    console.log("Number of users :",Math.max(...cumulativeData.map(d => d.y)));
     console.log(cumulativeData);
     const getProgression = (nbDays) => {
         nbDays = Math.min((nbDays+1), cumulativeData.length);
