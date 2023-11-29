@@ -40,12 +40,14 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
-    console.log("Number of users :",Math.max(...cumulativeData.map(d => d.y)));
-    console.log(cumulativeData);
+    console.log("Number of users :",Math.max(...userProgressionData.map(d => d.y)));
+    console.log(userProgressionData);
     const getProgression = (nbDays) => {
-        nbDays = Math.min((nbDays+1), cumulativeData.length);
+        nbDays = Math.min((nbDays+1), userProgressionData.length);
         console.log("Number of days :",nbDays);
-        return (cumulativeData.at(-nbDays)-cumulativeData.at(-1))/cumulativeData.at(-nbDays)*100;
+        const data = userProgressionData.map(d => d.y)
+        console.log("Data :",data);
+        return (data.at(-nbDays)-data.at(-1))/data.at(-nbDays)*100;
     }
     
     let baseChartStyle = {
