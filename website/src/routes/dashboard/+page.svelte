@@ -4,7 +4,6 @@
     export let data;
 
     const { user } = data;
-    console.log(user);
 </script>
 
 <svelte:head>

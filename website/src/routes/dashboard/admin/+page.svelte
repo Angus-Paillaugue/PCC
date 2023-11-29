@@ -222,7 +222,7 @@
         <h6>Search :</h6>
         <div class="flex flex-col sm:flex-row gap-4 mt-1 w-full">
             <TextInput type="text" autocomplete="off" bind:value={searchQuery} name="search" placeholder="Search users by usernames or emails" class="w-full" />
-            <Select bind:value={searchQueryPremium}>
+            <Select bind:value={searchQueryPremium} class="w-40">
                 <option value="*">Premium : *</option>
                 <option value="true">Premium : true</option>
                 <option value="false">Premium : false</option>
@@ -238,8 +238,8 @@
                         <TextInput type="email" autocomplete="off" label="E-mail :" placeholder="E-mail" name="email" value="{u.username}" />
 
                         <Select label="Premium :" name="isPremium" class="w-full">
-                            <option value="true" selected="{!u.isPremium}">Yes</option>
-                            <option value="false" selected="{u.isPremium}">No</option>
+                            <option value="true" selected="{u.isPremium}">Yes</option>
+                            <option value="false" selected="{!u.isPremium}">No</option>
                         </Select>
 
                         <Select label="Admin :" name="isAdmin" class="w-full">

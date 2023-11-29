@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Pandabuy Currency Converter",
     "description": "Convert all currencies into a selected one.",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "update_notes": "Added support for Weidian.com, fixed some bugs.",
     "action": {
         "default_popup": "popup/popup.html",

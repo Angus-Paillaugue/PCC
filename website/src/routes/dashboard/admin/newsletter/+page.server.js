@@ -17,7 +17,6 @@ export const actions = {
         const formData = Object.fromEntries(await request.formData());
         if(!locals.user) return { success:false, formData, message:"Not logged in!" };
         const { email  } = formData;
-        console.log(formData)
 
         const subscriber = await newsletterRef.findOne({ email });
         await newsletterRef.updateOne({ email }, { $set:{ sendEmails:!subscriber.sendEmails } });

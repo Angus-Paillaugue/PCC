@@ -17,7 +17,6 @@
     let isPasswordFormLoading = false;
 
     $: if(form) {
-        console.log(Object.keys(form), Object.keys(form).includes("account"));
         if(Object.keys(form).includes("account")){
             user.username = form.formData.username;
             user.email = form.formData.email;

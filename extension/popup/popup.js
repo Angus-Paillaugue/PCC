@@ -115,7 +115,6 @@ function main() {
                     }
                 });
                 if(isPremium){
-                    if(document.getElementById("hide")) document.getElementById("hide").remove();
                     setCheckBoxes();
 
                     //* ||--------------------------------------------------||
@@ -318,7 +317,7 @@ function setGrayedBackground() {
             p.appendChild(a);
         
             // Appending message and grayed background
-            document.querySelector("#main > section:nth-child(1)").appendChild(p);
+            sections[0].appendChild(p);
             for(const i in sections) {
                 if(i > 0 && i < sections.length-1) sections[i].style.display = "none";
             }
