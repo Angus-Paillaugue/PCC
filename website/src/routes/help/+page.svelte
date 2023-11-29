@@ -5,7 +5,10 @@
     import { copy } from 'svelte-copy';
     import Modal from "$lib/components/Modal.svelte";
     import { onMount } from "svelte";
-	
+    import TextInput from "$lib/components/Form/TextInput.svelte";
+    import Textarea from "$lib/components/Form/Textarea.svelte";
+    import Icon from '@iconify/svelte';
+    import Spinner from "$lib/components/Form/Spinner.svelte";
 
     export let data;
     export let form;
@@ -112,9 +115,7 @@
                 <div class="group/question flex flex-col gap-2">
                     {#if question.postedBy.username === user?.username}
                         <button class="absolute top-1 right-1 transition-all opacity-0 group-hover/question:opacity-100 group/button" on:click={() => {replyModalQuestionId = question.id;deleteQuestionModal = !deleteQuestionModal;}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover/button:text-red-600 transition-all">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                            </svg>
+                            <Icon icon="heroicons:trash" class="w-6 h-6 group-hover/button:text-red-600 transition-all" />
                         </button>
                     {/if}
                     <div class="flex flex-col gap-2">
@@ -135,18 +136,14 @@
                 <div class="flex flex-col gap-2">
                     <button class="w-full flex flex-row gap-4 no-scale underline" type="button" on:click={() => {question.hiddenReplies = !question.hiddenReplies;}}>
                         Show replies ({question.replies.length})
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all {!question.hiddenReplies && "rotate-180"}">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                        </svg>
+                        <Icon icon="heroicons:chevron-down" class="w-6 h-6 transition-all {!question.hiddenReplies && "rotate-180"}"/>
                     </button>
                     <div class="flex flex-col gap-4 pl-2 w-full overflow-hidden transition-all" style="max-height: {replieContainerMaxHeight.length > 0 ? question.hiddenReplies ? "0" : replieContainerMaxHeight.find(el => el.questionId === question.id).height : 0}px;" data-replie-container="{question.id}">
                         {#each question.replies as replie}
                             <div class="flex flex-col gap-2 border-b border-neutral-200 dark:border-neutral-700 group/replie relative">
                                 {#if replie.user.username === user?.username}
                                     <button class="absolute top-1 right-1 transition-all opacity-0 group-hover/replie:opacity-100 group/button" on:click={() => {replyModalQuestionId = question.id;deleteReplieId = replie.id; deleteReplieModal = !deleteReplieModal;}}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover/button:text-red-600 transition-all">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                        </svg>
+                                        <Icon icon="heroicons:trash" class="w-6 h-6 group-hover/button:text-red-600 transition-all" />
                                     </button>
                                 {/if}
                                 <h5>{replie.user.username} - <small>{new Date(replie.at).toLocaleDateString()}</small></h5>
@@ -207,22 +204,19 @@
             update({ reset: false });
         }
     }} >
-        <input type="text" name="title" bind:value={newQuestionTitle} placeholder="Question title">
+        <TextInput name="title" placeholder="Question title" bind:value={newQuestionTitle} />
         <div class="relative">
             <span class="absolute top-1 right-1 text-xs font-normal">
                 {message?.length}/{maxMessageLength}
             </span>
-            <textarea name="description" placeholder="Question content" rows="6" bind:value={message} ></textarea>
+            <Textarea name="description" placeholder="Question content" rows="6" bind:value={message} />
         </div>
     </form>
 
     <svelte:fragment slot="footer">
         <button type="submit" class="button-primary transition-all overflow-hidden w-full" disabled="{message?.length === 0 || newQuestionTitle?.length === 0}" form="newQuestionForm">
             {#if isReplying}
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" in:fly={{ y: 100, duration: 400 }}>
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
+                <Spinner />
             {/if}
             <span class="transition-all">
                 Post
@@ -245,17 +239,14 @@
             <span class="absolute top-1 right-1 text-xs font-normal">
                 {message?.length}/{maxMessageLength}
             </span>
-            <textarea placeholder="Replie content" name="message" rows="6" bind:value={message}></textarea>
+            <Textarea name="description" placeholder="Replie content" rows="6" bind:value={message} />
         </div>
     </form>
 
     <svelte:fragment slot="footer">
         <button type="submit" class="button-primary w-full transition-all overflow-hidden" disabled="{message?.length === 0}" form="newReplieForm">
             {#if isReplying}
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" in:fly={{ y: 100, duration: 400 }}>
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
+                <Spinner />
             {/if}
             <span class="transition-all">
                 Reply

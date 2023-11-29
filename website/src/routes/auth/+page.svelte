@@ -1,6 +1,9 @@
 <script>
     import { onMount } from "svelte";
     import { enhance } from '$app/forms';
+    import TextInput from '$lib/components/Form/TextInput.svelte';
+    import Alert from '$lib/components/Form/Alert.svelte';
+    import Spinner from "$lib/components/Form/Spinner.svelte";
 
     export let form;
 
@@ -51,22 +54,14 @@
                         update({ reset: false });
                     }
                 }}>
-                    <label for="username" class="block mb-2">Username</label>
-                    <input type="text" placeholder="Username" name="username" value="{form?.logIn?.formData?.username ?? ''}" class="mb-4" maxlength="15">
-    
-                    <label for="password" class="block mb-2">Password</label>
-                    <input type="password" placeholder="Password" name="password" value="{form?.logIn?.formData?.password ?? ''}" class="mb-4">
+                    <TextInput label="Username" name="username" placeholder="Username" value="{form?.logIn?.formData?.username ?? ''}" class="mb-4" maxlength="15" />
+                    <TextInput label="Password" name="password" placeholder="Password" value="{form?.logIn?.formData?.password ?? ''}" class="mb-4" type="password" />
             
-                    {#if form?.logIn?.success === false}
-                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100 mb-4" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
-                            {form?.logIn?.message}
-                        </div>
-                    {/if}
+                    <Alert display={form?.logIn?.success ?? false} type="error" class="mb-4" message={form?.logIn?.message} />
 
                     <button class="button-primary group w-full mb-2" disabled="{isFormLoading}">
                         {#if isFormLoading}
-                            <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
+                            <Spinner />
                         {:else}
                             Log-in
                             <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none">
@@ -86,25 +81,18 @@
                         update({ reset: false });
                     }
                 }}>
-                    <label for="username" class="block mb-2">E-mail</label>
-                    <input type="text" placeholder="E-mail" name="email" value="{form?.signIn?.formData?.email ?? ''}" class="mb-4">
 
-                    <label for="username" class="block mb-2">Username</label>
-                    <input type="text" placeholder="Username" name="username" value="{form?.signIn?.formData?.username ?? ''}" class="mb-4" maxlength="15">
-    
-                    <label for="password" class="block mb-2">Password</label>
-                    <input type="password" placeholder="Password" name="password" value="{form?.signIn?.formData?.password ?? ''}" class="mb-4">
+                    <TextInput label="E-mail" name="email" placeholder="E-mail" value="{form?.signIn?.formData?.email ?? ''}" class="mb-4" />
+                    <TextInput label="Username" name="username" placeholder="Username" value="{form?.signIn?.formData?.username ?? ''}" class="mb-4" maxlength="15" />
+                    <TextInput label="Password" name="password" placeholder="Password" value="{form?.signIn?.formData?.password ?? ''}" class="mb-4" maxlength="15" type="password" />
             
-                    {#if form?.signIn?.success === false}
-                        <div class="flex items-center p-4 text-sm border rounded-lg text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100 mb-4" role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
-                            {form?.signIn?.message}
-                        </div>
+                    {#if form?.signIn?.success}
+                        <Alert type="error" class="mb-4" message={form?.signIn?.message} />
                     {/if}
 
                     <button class="button-primary group w-full" disabled="{isFormLoading}">
                         {#if isFormLoading}
-                            <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
+                            <Spinner />
                         {:else}
                             Sign-in
                             <svg class="relative w-6 h-6 transition-all group-hover:translate-x-[4px]" viewBox="0 0 16 16" fill="none">

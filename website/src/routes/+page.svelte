@@ -3,6 +3,10 @@
     import { reveal } from 'svelte-reveal';
     import { fly } from "svelte/transition";
     import { enhance } from '$app/forms';
+    import Card from '$lib/components/Card.svelte';
+    import Alert from '$lib/components/Form/Alert.svelte';
+    import TextInput from '$lib/components/Form/TextInput.svelte';
+    import Icon from '@iconify/svelte';
 
     export let data;
     export let form;
@@ -166,7 +170,7 @@
 {#if isPageLoaded}
     <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
         <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
-        <div class="flex flex-col gap-2 border border-neutral-200 dark:border-neutral-700 rounded-lg p-2 md:p-4" in:fly={{y: 50}}>
+        <Card class="w-fit">
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
             <h6 class="font-medium" in:fly={{y: 50, delay:100}}>The one and only tool you need for PandaBuy.</h6>
             <p in:fly={{y: 50, delay:150}}>Now more than <b>{Math.round(numberOfDownloads)}</b> downloads!</p>
@@ -177,20 +181,18 @@
                             Download for {extension.plateforme.charAt(0).toUpperCase()+extension.plateforme.slice(1)}
                             <img src="{extension.logoUrl}" class="h-6 ml-2 inline-block" alt="">
                         </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all duration-200 group-hover:top-1/2 group-hover:-translate-y-1/2 absolute top-full left-1/2 -translate-x-1/2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
-                        </svg>
+                        <Icon icon="heroicons:chevron-double-up" class="w-6 h-6 transition-all duration-200 group-hover:top-1/2 group-hover:-translate-y-1/2 absolute top-full left-1/2 -translate-x-1/2" />
                     </a>
                 {:else}
                     <p class="text-red-600">Not available for your browser</p>
                 {/if}
-
+    
                 <a href="#learn-more" class="button-secondary sm:hover:pr-14 relative overflow-hidden w-fit group" in:fly={{y: 100, delay:250}}>
                     Learn more
-                    <svg class="w-5 h-5 absolute right-0 flex items-center justify-start duration-300 transform translate-x-full group-hover:-translate-x-full ease" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <Icon icon="heroicons:arrow-right" stroke-width="2" class="w-5 h-5 absolute right-0 flex items-center justify-start duration-300 transform translate-x-full group-hover:-translate-x-full ease" />
                 </a>
             </div>
-        </div>
+        </Card>
     </section>
 
     <section id="learn-more" class="p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
@@ -248,15 +250,11 @@
             <h2 class="max-lg:text-xl text-text-main dark:text-neutral-100">Want product news and updates?<br>Sign up for our newsletter.</h2>
             <div class="flex flex-col gap-4 w-full lg:w-1/2">
                 <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
-                    <input type="text" placeholder="Email" name="email" class="input-primary">
+                    <TextInput name="email" type="email" placeholder="Email" class="block" />
                     <button class="button-primary button-small" type="submit">Subscribe</button>
                 </form>
-                {#if form?.type === "newsletter"}
-                    <div class="flex items-center p-4 text-sm border rounded-lg {form.error ? "text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100" : "text-green-800 border-green-800 bg-green-100 dark:bg-green-600 dark:text-neutral-100"}" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
-                        {form?.message}
-                    </div>
-                {/if}
+
+                <Alert display={form?.type === "newsletter"} type={form?.error ? "error" : "success"} message={form?.message} />
                 <p>We care about your data. Read our <a href="/privacy-policy" class="link">privacy policy</a>.</p>
             </div>
         </div>

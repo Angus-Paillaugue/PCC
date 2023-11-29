@@ -1,4 +1,6 @@
 <script>
+    import Icon from '@iconify/svelte';
+    
     export let status = false;
     export let closeButton = true;
     export let title;
@@ -8,9 +10,7 @@
     <div class="rounded-lg bg-white dark:bg-neutral-800 p-4 flex flex-col gap-4 max-w-lg w-full relative">
         {#if closeButton} 
             <button type="button" on:click={() => {status = false;}} class="group absolute top-2 right-2 button-close">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all group-hover:rotate-90">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <Icon icon="heroicons:x-mark-solid" class="w-6 h-6 transition-all group-hover:rotate-90" />
             </button>
         {/if}
 

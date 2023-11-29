@@ -27,7 +27,7 @@ export const actions = {
     
             await sendForgotEmail(email, link, tokenLife);
     
-            return { success:true, message: 'Password reset email sent' };
+            return { success:true, message: 'Go check your email to reset your password (the e-mail might take a few seconds to arrive).' };
         }catch(err){
             console.log(err);
         }

@@ -95,10 +95,6 @@ p {
   @apply block text-base leading-8 font-light dark:text-neutral-100 text-text-main font-['Mulish'];
 }
 
-input[type="text"], input[type="number"], input[type="password"], textarea, select {
-  @apply border text-sm rounded-lg block w-full p-2.5 bg-neutral-100 dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 placeholder-neutral-400 dark:text-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none outline-none transition-all caret-primary-600 focus:ring-offset-white dark:focus:ring-offset-neutral-900 focus:ring-offset-2 focus:ring-2
-}
-
 /* Toggle switch */
 .switch-wrapper {
   @apply h-8;
@@ -132,7 +128,7 @@ input[type="text"], input[type="number"], input[type="password"], textarea, sele
 
 /* Tooltip */
 [data-tooltip]{
-  @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-[300px] after:break-words after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 after:text-neutral-800 after:dark:text-neutral-100;
+  @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-[300px] after:break-words after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 after:text-neutral-800 after:dark:text-neutral-100 after:font-medium;
 }
 /* Left */
 .tooltip-left {

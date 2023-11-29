@@ -10,7 +10,7 @@ export function load({ locals }) {
 };
 
 export const actions = {
-    login: async ({ cookies, request, url }) => {
+    login: async ({ cookies, request }) => {
         try{
             const formData = Object.fromEntries(await request.formData());
             const { username, password } = formData;
@@ -26,11 +26,6 @@ export const actions = {
                     secure: true,
                     maxAge: 60 * 60 * 24 * 30
                 });
-
-                console.log(url.searchParams.get("redirect"));
-                if(url.searchParams.get("redirect")){
-                    throw redirect(307, url.searchParams.get("redirect"));
-                }
                 throw redirect(307, "/dashboard");
             }
             return { logIn:{ success:false, formData, message:"Incorrect password!" } };
@@ -38,7 +33,7 @@ export const actions = {
             console.log(err);
         }
     },
-    signin: async ({ cookies, request, url }) => {
+    signin: async ({ cookies, request }) => {
         const formData = Object.fromEntries(await request.formData());
         const { email, username, password } = formData;
         
@@ -68,9 +63,6 @@ export const actions = {
             maxAge: 60 * 60 * 24 * 30
         });
 
-        if(url.searchParams.get("redirect")){
-            throw redirect(307, url.searchParams.get("redirect"));
-        }
         throw redirect(307, "/dashboard");
     }
 };

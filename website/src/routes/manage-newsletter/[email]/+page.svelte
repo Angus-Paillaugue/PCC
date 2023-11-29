@@ -1,5 +1,6 @@
 <script>
     import { newToast } from "$lib/stores";
+    import Toggle from "$lib/components/Form/Toggle.svelte";
     
     export let data;
 
@@ -20,10 +21,7 @@
         
             <div class="flex flex-row gap-2">
                 <p>Receive e-mails : </p>
-                <div class="switch-wrapper">
-                    <input type="checkbox" id="darkMode" class="hidden" bind:checked={settings.sendEmails} on:change={updateSettings}/>
-                    <label for="darkMode"><span><em></em></span></label>
-                </div>
+                <Toggle id="darkMode" bind:checked={settings.sendEmails} on:change={updateSettings} />
             </div>
         {:else}
             <h6 class="font-normal">You are not subscribed to the newsletter, click <a href="/#newsletter" class="link">here</a> to register.</h6>

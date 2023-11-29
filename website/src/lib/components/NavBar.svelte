@@ -1,6 +1,7 @@
 <script>
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
+    import Icon from '@iconify/svelte';
 
     let user = $page.data.user;
     let extensions = $page.data.extensions;
@@ -43,13 +44,11 @@
             {/if}
         </div>
         <button on:click={() => {navbar = !navbar}} class="md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                {#if navbar}
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                {:else}
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                {/if}
-            </svg>
+            {#if navbar}
+                <Icon icon="heroicons:x-mark-solid" class="w-6 h-6" />
+            {:else}
+                <Icon icon="heroicons:bars-3-solid" class="w-6 h-6" />
+            {/if}
         </button>
     </div>
 </nav>

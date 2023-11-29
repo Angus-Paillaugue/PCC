@@ -1,16 +1,10 @@
 <script>
-    import { onMount } from 'svelte';
     import { newToast } from "$lib/stores";
     import { copy } from 'svelte-copy';
 
     export let data;
 
     const { supportEmail } = data;
-    let websiteUrl;
-
-    onMount(() => {
-        websiteUrl = location.origin;
-    });
 </script>
 
 <svelte:head>
@@ -22,4 +16,5 @@
     <h2>Contact us</h2>
 
     <p>You can contact us by sending an e-mail to <button class="font-semibold" use:copy={supportEmail} on:svelte-copy={() => {newToast("success", "Copied to clipboard successfully!")}} on:svelte-copy:error={() => {newToast("error", "An error occurred while copying to the clipboard")}}>{supportEmail}</button></p>
+
 </section>
