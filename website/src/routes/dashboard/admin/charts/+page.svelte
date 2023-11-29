@@ -41,6 +41,7 @@
 
     const premiumUsers = users.filter(user => user.isPremium);
     const getProgression = (nbDays) => {
+        nbDays = Math.max(nbDays, Object.keys(userProgressionData).length);
         return (Object.values(userProgressionData).at(-(nbDays+1))-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-(nbDays+1))*100;
     }
     const todayUserProgression = getProgression(1);
@@ -169,8 +170,8 @@
         </a>
         <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
-                <div class="w-full grid grid-cols-1 lg:grid-cols-3 p-4">
-                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 gap-4">
+                <div class="w-full grid grid-cols-1 lg:grid-cols-3 p-4 gap-4">
+                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
                         <h3>+<span class="text-green-600 dark:text-green-800">{todayUserProgression}</span>% Today</h3>
                     </div>
                     <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
