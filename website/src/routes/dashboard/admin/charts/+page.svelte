@@ -41,10 +41,11 @@
 
     const premiumUsers = users.filter(user => user.isPremium);
     console.log("Number of users :",Math.max(...cumulativeData.map(d => d.y)));
+    console.log(cumulativeData);
     const getProgression = (nbDays) => {
         nbDays = Math.min((nbDays+1), cumulativeData.length);
         console.log("Number of days :",nbDays);
-        return (Object.values(cumulativeData).at(-nbDays)-Object.values(cumulativeData).at(-1))/Object.values(cumulativeData).at(-nbDays)*100;
+        return (cumulativeData.at(-nbDays)-cumulativeData.at(-1))/cumulativeData.at(-nbDays)*100;
     }
     
     let baseChartStyle = {
