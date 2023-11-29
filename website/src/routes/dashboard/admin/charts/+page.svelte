@@ -40,6 +40,7 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
+    const todayUserProgression = Object.keys(userProgressionData).at(-2)/Object.keys(userProgressionData).at(-1);
     
     let baseChartStyle = {
         chart: {
@@ -163,6 +164,7 @@
         </a>
         <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
+                <h3>+<span class="text-green-600 dark:text-green-800">{todayUserProgression}</span>% Today</h3>
                 <div bind:this={usersChartContainer} class="w-full"/>
             </div>
             <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
