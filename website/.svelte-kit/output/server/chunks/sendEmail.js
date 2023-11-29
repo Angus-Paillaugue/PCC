@@ -91,26 +91,6 @@ span.MsoHyperlinkFollowed {\r
    <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">\r
      <tr>\r
       <td valign="top" style="padding:0;Margin:0">\r
-       <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important">\r
-         <tr>\r
-          <td class="es-info-area" align="center" style="padding:0;Margin:0">\r
-           <table class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px" bgcolor="#FFFFFF">\r
-             <tr>\r
-              <td align="left" style="padding:20px;Margin:0">\r
-               <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">\r
-                 <tr>\r
-                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px">\r
-                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">\r
-                     <tr>\r
-                      <td align="center" class="es-infoblock" style="padding:0;Margin:0"><p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#CCCCCC;font-size:12px"><a target="_blank" href="" style="mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px">View online version</a></p></td>\r
-                     </tr>\r
-                   </table></td>\r
-                 </tr>\r
-               </table></td>\r
-             </tr>\r
-           </table></td>\r
-         </tr>\r
-       </table>\r
        <table cellpadding="0" cellspacing="0" class="es-header" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important;background-color:transparent;background-repeat:repeat;background-position:center top">\r
          <tr>\r
           <td align="center" style="padding:0;Margin:0">\r
@@ -285,26 +265,6 @@ span.MsoHyperlinkFollowed {\r
    <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">\r
      <tr>\r
       <td valign="top" style="padding:0;Margin:0">\r
-       <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important">\r
-         <tr>\r
-          <td class="es-info-area" align="center" style="padding:0;Margin:0">\r
-           <table class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px" bgcolor="#FFFFFF">\r
-             <tr>\r
-              <td align="left" style="padding:20px;Margin:0">\r
-               <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">\r
-                 <tr>\r
-                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px">\r
-                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">\r
-                     <tr>\r
-                      <td align="center" class="es-infoblock" style="padding:0;Margin:0"><p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;letter-spacing:0;color:#CCCCCC;font-size:12px"><a target="_blank" href="" style="mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px">View online version</a></p></td>\r
-                     </tr>\r
-                   </table></td>\r
-                 </tr>\r
-               </table></td>\r
-             </tr>\r
-           </table></td>\r
-         </tr>\r
-       </table>\r
        <table cellpadding="0" cellspacing="0" class="es-header" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important;background-color:transparent;background-repeat:repeat;background-position:center top">\r
          <tr>\r
           <td align="center" style="padding:0;Margin:0">\r
@@ -398,6 +358,22 @@ const transporter = createTransport({
     pass: EMAIL_APP_PASSWORD
   }
 });
+function sendEmail({ subject, text, to, attachment }) {
+  const msg = {
+    text,
+    from: sendingEmail,
+    to,
+    subject,
+    attachment: attachment ?? []
+  };
+  transporter.sendMail(msg, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
+}
 function sendForgotEmail(to, url, tokenLife) {
   const msg = {
     from: sendingEmail,
@@ -433,6 +409,7 @@ function sendPurchaseConfirmEmail(to, username) {
   });
 }
 export {
-  sendForgotEmail as a,
+  sendEmail as a,
+  sendForgotEmail as b,
   sendPurchaseConfirmEmail as s
 };

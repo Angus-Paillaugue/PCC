@@ -1,11 +1,12 @@
 <script>
     import { newToast } from "$lib/stores";
-    import Modal from "$lib/components/Modal.svelte"
+    import { copy } from 'svelte-copy';
+    import Modal from "$lib/components/Modal.svelte";
 
     export let data;
 
     let { user, users, ratesUpdatedAt } = data;
-    let noUsersToDisplay = 9;
+    let noUsersToDisplay = 12;
     let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
     let deleteAccountModal = false;
@@ -14,6 +15,20 @@
     let searchQuery;
     let deleteAccountId;
     let searchQueryPremium;
+    let credentials = [
+        {
+            username: "send.email.pcc@gmail.com",
+            password: "k4eyLujoow3RKVoZVz8vD0OcUrcvbECbdGL5XkAi",
+            type: "Google",
+            showPassword: false
+        },
+        {
+            username: "pandabuycurrencyconverter@gmail.com",
+            password: "k4eyLujoow3RKVoZVz8vD0OcUrcvbECbdGL5XkAm",
+            type: "Google",
+            showPassword: false
+        }
+    ];
 
     $: searchQuery, search();
     $: searchQueryPremium, search();
@@ -29,7 +44,7 @@
 
         fetch(`/api/updateUser`, { method: "PATCH", body: JSON.stringify(userData) })
         .then(res => res.json()).then(res => {
-            newToast("success", res.message);
+            newToast(res.error ? "error" : "success", res.error ? res.error : res.message);
         }).catch(err => {
             newToast("error", err);
         }).finally(() => {
@@ -47,6 +62,7 @@
             users = users.filter(el => el.id !== deleteAccountId);
             deleteAccountModal = false;
             deleteAccountId = undefined;
+            search();
         });
     }
 
@@ -84,7 +100,6 @@
             }
             return true;
         });
-        noUsersToDisplay = 9;
     }
 
     function updateRates() {
@@ -109,8 +124,8 @@
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-screen-lg mx-auto">
-        <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border md:p-10 p-6 h-full">
+    <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-rows-2 gap-4 max-w-screen-2xl mx-auto">
+        <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border md:p-10 p-6 h-full row-span-2">
             <h3>Welcome {user.username}</h3>
     
             <p>
@@ -124,7 +139,7 @@
                 {/if}
             </p>
                 
-            <div class="grid darp-2 md:gap-4 grid-cols-1 md:grid-cols-2 mt-4">
+            <div class="grid gap-2 md:gap-4 grid-cols-1 md:grid-cols-2 mt-4">
                 <a href="/dashboard/admin/charts" class="card-button">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
@@ -166,9 +181,38 @@
                 {/if}
             </button>
         </div>
+        <div class="rounded-lg w-full border-neutral-200 dark:border-neutral-700 border flex flex-col gap-2 md:p-10 p-6 h-full md:col-span-2">
+            <h3>Accounts infos</h3>
+
+            {#each credentials as credential}
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
+                    <span class="text-center">{credential.type} : {credential.username}</span>
+                    <button class="no-scale text-center" use:copy={credential.showPassword ? credential.password : ""} on:click={() => {
+                        if(credential.showPassword){
+                            newToast("success", "Copied to clipboard successfully !");
+                            credential.showPassword = false;
+                        }else {
+                            credentials.map(el => el.showPassword = false);
+                            credential.showPassword = true;
+                        }
+                    }}>{credential.showPassword ? credential.password : "******************"}</button>
+                </div>
+            {/each}
+
+            <h3 class="mt-4">Tools</h3>
+            <div class="flex flex-row gap-4 flex-wrap">
+                <a href="https://app.brevo.com/" target="_blank" class="link tooltip-top" data-tooltip="Log-in with send.email.pcc@gmail.com google account">SMTP</a>
+                <a href="https://my.stripo.email/account/templates/1068358" target="_blank" class="link tooltip-top" data-tooltip="Log-in with pandabuycurrencyconverter@gmail.com google account">E-mail templates</a>
+                <a href="https://vercel.com/angus-paillaugue/pcc" target="_blank" class="link">Vercel</a>
+                <a href="https://cloud.mongodb.com/v2/65663cc0b387d24672b14a2e#/clusters" target="_blank" class="link tooltip-top" data-tooltip="Log-in with pandabuycurrencyconverter@gmail.com google account">MongoDB</a>
+                <a href="https://dash.cloudflare.com/92f5796f7fdf0c37529d5c39b8670c8f/paillaugue.fr" target="_blank" class="link">Cloudflare</a>
+                <a href="https://analytics.google.com/analytics/web/?authuser=0#/p414534698/reports/intelligenthome" target="_blank" class="link">Analytics</a>
+                <a href="https://mail.google.com/mail/u/4/#inbox" target="_blank" class="link tooltip-top" data-tooltip="Log-in with send.email.pcc@gmail.com google account">Mail box</a>
+            </div>
+        </div>
     </div>
 
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
+    <div class="max-w-screen-2xl mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
         <h3>Users ({usersArray.length})</h3>
         <label for="search">
             Search :
@@ -242,7 +286,7 @@
                 {/each}
             </div>
             {#if noUsersToDisplay < usersArray.length}
-                <button class="button-secondary mx-auto w-fit hover:gap-4 button-small" on:click={() => {noUsersToDisplay += 9;}}>
+                <button class="button-secondary mx-auto w-fit hover:gap-4 button-small" on:click={() => {noUsersToDisplay += 12;}}>
                     Load more
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

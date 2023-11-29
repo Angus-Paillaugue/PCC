@@ -26,6 +26,8 @@ export const actions = {
                     secure: true,
                     maxAge: 60 * 60 * 24 * 30
                 });
+
+                console.log(url.searchParams.get("redirect"));
                 if(url.searchParams.get("redirect")){
                     throw redirect(307, url.searchParams.get("redirect"));
                 }
@@ -36,7 +38,7 @@ export const actions = {
             console.log(err);
         }
     },
-    signin: async ({ cookies, request }) => {
+    signin: async ({ cookies, request, url }) => {
         const formData = Object.fromEntries(await request.formData());
         const { email, username, password } = formData;
         

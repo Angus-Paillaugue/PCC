@@ -3,7 +3,7 @@ import { r as redirect } from "../../../../chunks/index.js";
 import bcrypt from "bcrypt";
 function load({ locals }) {
   if (!locals.user)
-    throw redirect(307, "/auth");
+    throw redirect(307, "/auth?redirect=/dashboard/settings");
 }
 const actions = {
   save: async ({ request, locals }) => {
@@ -13,7 +13,7 @@ const actions = {
     const { email } = formData;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       return { account: { success: false, formData, message: "Invalid email!" } };
-    await usersRef.updateOne({ email }, { $set: formData }, { upsert: true });
+    await usersRef.updateOne({ email }, { $set: formData });
     return { account: { success: true, formData, message: "Saved!" } };
   },
   deleteAccount: async ({ locals }) => {

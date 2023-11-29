@@ -10,7 +10,7 @@ return {
 	assets: new Set(["128-icon.png","convertTo.webp","Forgot_password_illustration.png","Heart_illustration.png","openInPandabuy.webp","pandabuyLogo.webp","questionMark.webp","robots.txt","Square_logo.webp","Wide_logo.webp","workingMarketplaces.webp","yupooInterfaceReDesign.webp"]),
 	mimeTypes: {".png":"image/png",".webp":"image/webp",".txt":"text/plain"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.7ff179cd.js","app":"_app/immutable/entry/app.76242abd.js","imports":["_app/immutable/entry/start.7ff179cd.js","_app/immutable/chunks/scheduler.513ec290.js","_app/immutable/chunks/singletons.8847648d.js","_app/immutable/chunks/index.24e5d8da.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.76242abd.js","_app/immutable/chunks/scheduler.513ec290.js","_app/immutable/chunks/index.639a9d04.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.32f1ddaf.js","app":"_app/immutable/entry/app.689bb304.js","imports":["_app/immutable/entry/start.32f1ddaf.js","_app/immutable/chunks/scheduler.2c72f06e.js","_app/immutable/chunks/singletons.4ba7984f.js","_app/immutable/chunks/index.531e6357.js","_app/immutable/chunks/parse.bee59afc.js","_app/immutable/entry/app.689bb304.js","_app/immutable/chunks/scheduler.2c72f06e.js","_app/immutable/chunks/index.d3a2f505.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

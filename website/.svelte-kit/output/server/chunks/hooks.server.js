@@ -25,15 +25,13 @@ async function auth(token) {
 const handle = async ({ event, resolve }) => {
   const { cookies, locals } = event;
   const token = cookies.get("token");
-  if (token) {
+  if (token && !locals?.user) {
     const user = await auth(token);
     if (!user?.error) {
       locals.user = user;
     } else {
       locals.user = null;
     }
-  } else {
-    locals.user = null;
   }
   return resolve(event);
 };

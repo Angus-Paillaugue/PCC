@@ -1,6 +1,6 @@
 import { r as resetPasswordTokensRef, u as usersRef } from "../../../chunks/db.js";
 import { randomUUID } from "crypto";
-import { a as sendForgotEmail } from "../../../chunks/sendEmail.js";
+import { b as sendForgotEmail } from "../../../chunks/sendEmail.js";
 const actions = {
   default: async ({ request, url }) => {
     await resetPasswordTokensRef.deleteMany({ expires: { $lt: /* @__PURE__ */ new Date() } });
