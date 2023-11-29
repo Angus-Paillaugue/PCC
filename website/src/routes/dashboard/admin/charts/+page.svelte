@@ -43,8 +43,8 @@
     const getProgression = (nbDays) => {
         nbDays = Math.min((nbDays+1), cumulativeData.length);
         const data = cumulativeData.map(d => d.y);
-        console.log("Start : ",data.at(-nbDays)," End : "+data.at(-1));
-        return Math.round((data.at(-nbDays)-data.at(-1))/data.at(-nbDays)*100);
+        console.log("Start :",data.at(-1)," End :",data.at(-nbDays));
+        return Math.round((data.at(-1)-data.at(-nbDays))/data.at(-1)*100);
     }
     
     let baseChartStyle = {
