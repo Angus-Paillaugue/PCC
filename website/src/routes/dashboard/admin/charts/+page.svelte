@@ -40,10 +40,10 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
-    console.log(Object.values(userProgressionData));
+    console.log(Math.max(...cumulativeData.map(d => d.y)));
     const getProgression = (nbDays) => {
-        nbDays = Math.min((nbDays+1), Object.values(userProgressionData).length);
-        return (Object.values(userProgressionData).at(-nbDays)-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-nbDays)*100;
+        nbDays = Math.min((nbDays+1), cumulativeData);
+        return (Object.values(cumulativeData).at(-nbDays)-Object.values(cumulativeData).at(-1))/Object.values(cumulativeData).at(-nbDays)*100;
     }
     
     let baseChartStyle = {
