@@ -40,8 +40,12 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
-    console.log(userProgressionData, Object.values(userProgressionData))
-    const todayUserProgression = (Object.values(userProgressionData).at(-2)-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-2)*100;
+    const getProgression = (nbDays) => {
+        return (Object.values(userProgressionData).at(-(nbDays+1))-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-(nbDays+1))*100;
+    }
+    const todayUserProgression = getProgression(1);
+    const lastWeekUserProgression = getProgression(7);
+    const lastMonthUserProgression = getProgression(30);
     
     let baseChartStyle = {
         chart: {
@@ -165,7 +169,17 @@
         </a>
         <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
-                <h3>+<span class="text-green-600 dark:text-green-800">{todayUserProgression}</span>% Today</h3>
+                <div class="w-full border grid grid-cols-1 lg:grid-cols-3">
+                    <div class="border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
+                        <h3>+<span class="text-green-600 dark:text-green-800">{todayUserProgression}</span>% Today</h3>
+                    </div>
+                    <div class="border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
+                        <h3>+<span class="text-green-600 dark:text-green-800">{lastWeekUserProgression}</span>% Today</h3>
+                    </div>
+                    <div class="border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
+                        <h3>+<span class="text-green-600 dark:text-green-800">{lastMonthUserProgression}</span>% Today</h3>
+                    </div>
+                </div>
                 <div bind:this={usersChartContainer} class="w-full"/>
             </div>
             <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
