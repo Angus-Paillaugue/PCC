@@ -40,8 +40,8 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
-    console.log(userProgressionData, Object.keys(userProgressionData))
-    const todayUserProgression = Object.keys(userProgressionData).at(-2)/Object.keys(userProgressionData).at(-1);
+    console.log(userProgressionData, Object.values(userProgressionData))
+    const todayUserProgression = Object.values(userProgressionData).at(-2)/Object.values(userProgressionData).at(-1);
     
     let baseChartStyle = {
         chart: {
