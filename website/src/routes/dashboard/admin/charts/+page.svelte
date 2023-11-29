@@ -40,13 +40,11 @@
     });
 
     const premiumUsers = users.filter(user => user.isPremium);
+    console.log(Object.values(userProgressionData));
     const getProgression = (nbDays) => {
         nbDays = Math.min((nbDays+1), Object.values(userProgressionData).length);
         return (Object.values(userProgressionData).at(-nbDays)-Object.values(userProgressionData).at(-1))/Object.values(userProgressionData).at(-nbDays)*100;
     }
-    const todayUserProgression = getProgression(1);
-    const lastWeekUserProgression = getProgression(7);
-    const lastMonthUserProgression = getProgression(30);
     
     let baseChartStyle = {
         chart: {
@@ -171,14 +169,14 @@
         <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="md:col-span-2 border border-neutral-200 dark:border-neutral-700 rounded-lg">
                 <div class="w-full grid grid-cols-1 lg:grid-cols-3 p-4 gap-4">
-                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 text-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{todayUserProgression}</span>% Today</h3>
+                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
+                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(1)}</span>% Today</h3>
                     </div>
-                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 text-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{lastWeekUserProgression}</span>% Last 7 days</h3>
+                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
+                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(7)}</span>% Last 7 days</h3>
                     </div>
-                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 text-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{lastMonthUserProgression}</span>% Last 30 days</h3>
+                    <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
+                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(30)}</span>% Last 30 days</h3>
                     </div>
                 </div>
                 <div bind:this={usersChartContainer} class="w-full"/>
