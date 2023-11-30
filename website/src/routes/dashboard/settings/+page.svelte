@@ -5,9 +5,8 @@
     import Card from "$lib/components/Card.svelte";
     import Alert from "$lib/components/Form/Alert.svelte";
     import TextInput from "$lib/components/Form/TextInput.svelte";
-    import Icon from '@iconify/svelte';
     import Spinner from "$lib/components/Form/Spinner.svelte";
-  import Button from "../../../lib/components/Button.svelte";
+    import Button from "$lib/components/Button.svelte";
 
     export let data;
     export let form;
@@ -29,6 +28,8 @@
             if(form.password.success === true) {
                 // TODO : Fix toasts
                 newToast("success", "Password changed successfully!");
+            }else {
+
             }
         }
     }
@@ -39,7 +40,7 @@
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 max-w-screen-lg mx-auto">
-    <Button buttonType="link" href="../" size="small" class="w-fit" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
+    <Button buttonType="link" href="../" size="small" class="w-fit mb-4" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
     
     <Card>
         <form action="?/save" method="POST" use:enhance={() => {isAccountFormLoading = true;return async ({ update }) => {isAccountFormLoading = false; update({ reset: false });};}} class="flex flex-col gap-4 h-fit w-full">
@@ -49,7 +50,7 @@
 
             <TextInput label="E-mail" name="email" placeholder="E-mail" value="{user.email}" type="email" />
     
-            <Alert display={form?.account?.success ?? false} type="error" class="mb-4" message={form?.account?.message} />
+            <Alert display={form?.account?.success === false ?? false} type="error" class="mb-4" message={form?.account?.message} />
     
             <Button buttonType="button" color="primary">
                 {#if isAccountFormLoading}
@@ -73,17 +74,17 @@
         }>
             <h3>Password</h3>
     
-            <TextInput label="Current password" name="email" placeholder="Current password" id="currentPassword" type="password" />
+            <TextInput label="Current password" name="currentPassword" placeholder="Current password" id="currentPassword" type="password" />
             
-            <TextInput label="New password" name="email" placeholder="New password" id="newPassword" type="password" />
+            <TextInput label="New password" name="newPassword" placeholder="New password" id="newPassword" type="password" />
     
-            <Alert display={form?.password?.success ?? false} type="error" class="mb-4" message={form?.password?.message} />
+            <Alert display={form?.password?.success === false ?? false} type="error" message={form?.password?.message} />
 
             <Button buttonType="button" color="primary">
-                {#if isAccountFormLoading}
+                {#if isPasswordFormLoading}
                     <Spinner />
                 {:else}
-                Change password
+                    Change password
                 {/if}
             </Button>
     

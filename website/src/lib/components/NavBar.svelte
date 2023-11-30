@@ -69,7 +69,7 @@
         </li>
         <li>
             {#if !user}
-                <Button buttonType="link" href="/auth" color="secondary">Log-in</Button>
+                <Button buttonType="link" href="/auth" size="small" color="secondary">Log-in</Button>
             {:else}
                 <Button buttonType="link" href="/dashboard" size="small" color="secondary">Dashboard</Button>
             {/if}

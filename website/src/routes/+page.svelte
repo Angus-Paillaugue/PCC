@@ -7,7 +7,8 @@
     import Alert from '$lib/components/Form/Alert.svelte';
     import TextInput from '$lib/components/Form/TextInput.svelte';
     import Icon from '@iconify/svelte';
-  import Button from '../lib/components/Button.svelte';
+    import Button from '$lib/components/Button.svelte';
+    import Tooltip from '$lib/components/Tooltip.svelte';
 
     export let data;
     export let form;
@@ -139,27 +140,22 @@
         {
             title : "How does it works?",
             description : `First, you nee to install the extension. To do so, go to <a href="/get-started" class="link" target="_blank">the extension page</a>. Then, click on "Add to Chrome". In your extensions bar, you will now see the PCC extension. The extension will now convert any currency to the one you choose. To parameter it, click on it's icon. You can now configure any settings.`,
-            imgSrc : "/questionMark.webp"
+            imgSrc : "/illustrations/home_page/How_does_it_works.png"
         },
         {
             title : "In what currency can I convert to?",
             description : `You can choose from a wide range of currencies. Here are all of them : AED (د.إ), AUD (A$), BRL (R$), CAD (C$), CHF (Fr), CNY (¥), CZK (Kč), DKK (kr), EGP (E£), EUR (€), GBP (£), HKD (HK$), HUF (Ft), IDR (Rp), INR (₹), KRW (₩), MXN (Mex$), MYR (RM), NOK (kr), NZD(NZ$), PHP (₱), PLN (zł), RUB (₽), SEK (kr), SGD (S$), THB (฿), TRY (₺), USD ($), VND (₫), ZAR (R)`,
-            imgSrc : "/convertTo.webp"
+            imgSrc : "/illustrations/home_page/In_what_currency_can_I_convert_to.png"
         },
         {
-            title : "Does it works on all sites?",
-            description : `At the moment, the currency conversion of PCC works on the most famous sites like PandaBuy or Yupoo and even reddit.`,
-            imgSrc : "/workingMarketplaces.webp"
+            title : "How much does it cost?",
+            description : `PCC has a very generous free tier where you can access the main features without any limitations. However, if you want to access the premium features, you will need to pay a small fee of $3.99.`,
+            imgSrc : "/illustrations/home_page/How_much_does_it_costs.png"
         },
         {
-            title : "What if don't like the yupoo website design?",
-            description : `If you are like me and don't like the yupoo website design, this extension is made for you. With PCC you can remove the page borders to fit more products on the page. You can also choose the sise of the products on the page to really customise it and please your tases.`,
-            imgSrc : "/yupooInterfaceReDesign.webp"
-        },
-        {
-            title : "How to optimise you shopping?",
-            description : `When you see a marketplace link (taobao, weidian, ...) you can right click on it and click on "Ope in PandaBuy". A new tab will be opened with the product on PandaBuy. To be even faster, you can just open a marketplace link and PCC will convert it into a PandaBuy link.`,
-            imgSrc : "/openInPandabuy.webp"
+            title : "Is it safe?",
+            description : `Yes, it is. We don't collect any data from you. We don't even know who you are or anything about you, we don't have access to any of your data, we don't even have access to your PandaBuy account.`,
+            imgSrc : "/illustrations/home_page/Is_it_safe.png"
         }
     ]
 </script>
@@ -170,7 +166,7 @@
 
 {#if isPageLoaded}
     <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
-        <img src="/pandabuyLogo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
+        <img src="/Square_logo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <Card class="w-fit">
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
             <h6 class="font-medium" in:fly={{y: 50, delay:100}}>The one and only tool you need for PandaBuy.</h6>
@@ -199,11 +195,11 @@
             <h4 class="text-primary-600 font-extrabold">Learn More</h4>
             {#each sections as section, index}
                 <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-neutral-900 text-start transition-all border dark:border-neutral-700 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
-                    <div class="rounded-2xl border border-gray-300 lg:col-span-3 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-3"}">
-                        <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-full h-full">
+                    <div class="rounded-2xl border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 lg:col-span-2 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-4"}">
+                        <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-auto h-full mx-auto max-h-[300px]">
                     </div>
                     
-                    <div class="flex flex-col w-full gap-4 justify-between lg:col-span-2 {index % 2 == 0 ? "lg:pl-4 lg:col-start-4" :"lg:pr-4 lg:col-start-1"}">
+                    <div class="flex flex-col w-full gap-4 justify-between lg:col-span-3 {index % 2 == 0 ? "lg:pl-4 lg:col-start-3" :"lg:pr-4 lg:col-start-1"}">
                         <div class="flex flex-col w-full gap-4">
                             <h4 class="font-bold">{section.title}</h4>
 
@@ -212,6 +208,47 @@
                     </div>
                 </div>
             {/each}
+        </div>
+    </section>
+
+
+    <section id="features" class="p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
+        <div class="w-full pt-24 flex flex-col gap-10">
+            <h4 class="text-primary-600 font-extrabold">Features</h4>
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold flex flex-row gap-2 items-center"><Tooltip text="Free feature"><Icon icon="heroicons:currency-dollar" class="text-yellow-800 darktext-yellow-600" /></Tooltip>Currency conversion</h5>
+                    <p>Tired of deciphering currency values while shopping on PandaBuy? PCC (PandaBuy Currency Converter) effortlessly parses PandaBuy pages, converting prices from CNY or other currencies into your preferred one. Stay updated with real-time exchange rates, ensuring a seamless and stress-free shopping experience.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Instant PandaBuy Access</h5>
+                    <p>Say goodbye to the hassle of manually redirecting from marketplace pages to PandaBuy. PCC automates the process, seamlessly navigating you to the corresponding PandaBuy product page as soon as you land on a marketplace product. Save time and streamline your shopping journey.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">One-Click PandaBuy Integration</h5>
+                    <p>Simplify your shopping journey by right-clicking on a marketplace link and selecting "Open in PandaBuy." PCC seamlessly opens the selected product in PandaBuy, eliminating the need for manual copying and pasting. Enjoy a smoother, more efficient shopping process.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Swift Checkout Checkbox</h5>
+                    <p>Accelerate your checkout process on PandaBuy with PCC. The extension automatically checks the required checkbox when adding a product to your cart, eliminating the need for manual confirmation. Save valuable seconds and breeze through your purchases effortlessly.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Integrated Reviews and Photos</h5>
+                    <p>Dive deeper into product details without navigating away. PCC embeds product reviews and photos directly into the page, providing a seamless browsing experience. Make informed decisions without the hassle of constantly switching between pages.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Customize Yupoo for Your Comfort</h5>
+                    <p>Tailor your Yupoo experience with PCC's customization options. Toggle the sidebar on and off, and adjust the product grid width to suit your preferences. Enjoy a personalized browsing experience as you explore the vast array of products on Yupoo.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Bypass Yupoo's Delay</h5>
+                    <p>Experience zero delays when clicking on external links on Yupoo. PCC eliminates the standard 3-second delay, allowing you to navigate instantaneously to external links and swiftly discover more products without interruption.</p>
+                </div>
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
+                    <h5 class="font-bold">Enchanting Dark Mode</h5>
+                    <p>Elevate your visual experience on PandaBuy and Yupoo with PCC's Dark Mode. Enjoy a sleek and eye-friendly interface, reducing eye strain during extended shopping sessions. Immerse yourself in a stylish and comfortable browsing environment.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -243,9 +280,9 @@
         </div>
     </section> -->
 
-    <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 max-sm:pl-6 items-center" id="newsletter">
+    <section class="max-w-screen-xl w-full mx-auto p-4 md:p-6 lg:p-10 items-center" id="newsletter">
         <h4 class="text-primary-600 w-full font-extrabold">Newsletter</h4>
-        <div class="w-full p-4 md:p-6 lg:p-10 max-sm:pl-6 flex flex-col md:flex-row gap-10 items-center">
+        <div class="w-full p-0 max-sm:pt-4 md:p-6 lg:p-10 flex flex-col md:flex-row gap-10 items-center">
             <h2 class="max-lg:text-xl text-text-main dark:text-neutral-100">Want product news and updates?<br>Sign up for our newsletter.</h2>
             <div class="flex flex-col gap-4 w-full lg:w-1/2">
                 <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
@@ -255,7 +292,9 @@
                     </Button>
                 </form>
 
-                <Alert display={form?.type === "newsletter"} type={form?.error ? "error" : "success"} message={form?.message} />
+                {#if form?.type === "newsletter"}  
+                    <Alert type={form?.error === true ? "error" : "success"} message={form?.message} />
+                {/if}
                 <p>We care about your data. Read our <a href="/privacy-policy" class="link">privacy policy</a>.</p>
             </div>
         </div>

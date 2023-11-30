@@ -5,6 +5,8 @@ export const actions = {
     subscribeToNewsletter: async ({ request }) => {
         const { email } = Object.fromEntries(await request.formData());
 
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { type:"newsletter", error:true, message:"Invalid email!" };
+
         const exists = await newsletterRef.findOne({ email });
         
         if(exists){

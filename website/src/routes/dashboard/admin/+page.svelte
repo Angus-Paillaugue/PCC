@@ -219,7 +219,7 @@
         </Card>
     </div>
 
-    <div class="max-w-screen-2xl mx-auto flex flex-col gap-2 h-fit p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
+    <Card class="max-w-screen-2xl mx-auto">
         <h3>Users ({usersArray.length})</h3>
         <h6>Search :</h6>
         <div class="flex flex-col sm:flex-row gap-4 mt-1 w-full">
@@ -237,22 +237,22 @@
                 {#each usersArray.slice(0, noUsersToDisplay) as u}
                     <div class="p-2 shadow-sm dark:shadow-none dark:border dark:border-neutral-700 rounded-lg flex flex-col gap-4" data-user-id="{u.id}">
                         <TextInput type="text" autocomplete="off" label="Username :" placeholder="Username" name="username" value="{u.username}" />
-                        <TextInput type="email" autocomplete="off" label="E-mail :" placeholder="E-mail" name="email" value="{u.username}" />
-
+                        <TextInput type="email" autocomplete="off" label="E-mail :" placeholder="E-mail" name="email" value="{u.email}" />
+    
                         <Select label="Premium :" name="isPremium" class="w-full">
                             <option value="true" selected="{u.isPremium}">Yes</option>
                             <option value="false" selected="{!u.isPremium}">No</option>
                         </Select>
-
+    
                         <Select label="Admin :" name="isAdmin" class="w-full">
                             <option value="true" selected="{u.isAdmin}">Yes</option>
                             <option value="false" selected="{!u.isAdmin}">No</option>
                         </Select>
-
+    
                         <p class="text-sm">Joined on : {new Date(u.joined).toLocaleString("fr-FR")}</p>
-
+    
                         <Button buttonType="button" color="red" size="small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</Button>
-
+    
                         <Button size="small" buttonType="button" color="primary" on:click={() => {save(u.id);isSavingUuid = u.id;}}>
                             {#if isSaving && isSavingUuid === u.id}
                                 <Spinner />
@@ -271,7 +271,7 @@
         {:else}
             <h4 class="mt-2">No users found</h4>
         {/if}
-    </div>
+    </Card>
 </section>
 
 <Modal title="Delete account" bind:status={deleteAccountModal}>

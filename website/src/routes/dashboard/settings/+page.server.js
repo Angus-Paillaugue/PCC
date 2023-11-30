@@ -32,9 +32,12 @@ export const actions = {
     password : async({ request, locals }) => {
         if(!locals.user) return { password:{ success:false, message:"Not logged in!" } };
         const formData = Object.fromEntries(await request.formData());
+        console.log(formData);
         const { currentPassword, newPassword } = formData;
         const user = await usersRef.findOne({ username:locals.user.username });
 
+        if(!currentPassword || !newPassword) return { password:{ success:false, message:"Please fill all the fields" } };
+        if(newPassword.length < 6) return { password:{ success:false, message:"Password must be at least 6 characters!" } };
         const compare = await bcrypt.compare(currentPassword, user.password);
 
         if(!compare) return { password:{ success:false, message:"Incorrect password!" } };

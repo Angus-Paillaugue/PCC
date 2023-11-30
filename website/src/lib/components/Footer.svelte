@@ -1,3 +1,7 @@
+<script>
+    import Link from "$lib/components/Link.svelte";
+</script>
+
 <footer class="w-full p-6 pt-24 flex flex-col border-t dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700">
     <div class="max-w-screen-xl mx-auto w-full">
         <div class="flex flex-col gap-6">
@@ -8,17 +12,17 @@
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 gap-6">
                 <div class="flex flex-col gap-4">
                     <h6>Support</h6>
-                    <a href="/help" class="link w-fit">Help</a>
-                    <a href="/contact-us" class="link w-fit">Contact us</a>
+                    <Link href="/help">Help</Link>
+                    <Link href="/contact-us">Contact us</Link>
                 </div>
                 <div class="flex flex-col gap-4">
                     <h6>Company</h6>
-                    <a href="/about-us" class="link w-fit">About</a>
+                    <Link href="/about-us">About</Link>
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 max-sm:col-span-2">
                     <h6>Legal</h6>
-                    <a href="/privacy-policy" class="link w-fit">Privacy Policy</a>
-                    <a href="/terms-of-services" class="link w-fit">Terms of services</a>
+                    <Link href="/privacy-policy">Privacy Policy</Link>
+                    <Link href="/terms-of-services">Terms of services</Link>
                 </div>
             </div>
         </div>

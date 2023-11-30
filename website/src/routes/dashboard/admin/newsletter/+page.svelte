@@ -6,9 +6,9 @@
     import Card from "$lib/components/Card.svelte";
     import TextInput from "$lib/components/Form/TextInput.svelte";
     import Textarea from "$lib/components/Form/Textarea.svelte";
-    import Icon from '@iconify/svelte';
     import Spinner from "$lib/components/Form/Spinner.svelte";
     import Button from "$lib/components/Button.svelte";
+    import CloseButton from "$lib/components/CloseButton.svelte";
 
     export let form;
     export let data;
@@ -179,19 +179,17 @@
                 </h5>
                 <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-2.5 absolute top-0 left-0 right-0 transition-all {searchButton ? "z-10 opacity-100" : "-z-10 opacity-0"}">
                     <TextInput label="Search" type="text" placeholder="Search users by usernames" name="search" bind:value={searchQuery} />
-                    <button type="button" on:click={() => {searchButton = false; searchQuery = "";}} class="group absolute top-1 right-1 button-close">
-                        <Icon icon="heroicons:x-mark" class="w-6 h-6 transition-all group-hover:rotate-90" />
-                    </button>
+                    <CloseButton on:click={() => {searchButton = false; searchQuery = "";}} class="absolute top-1 right-1" />
                 </div>
-                <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
+                <div class="flex flex-col overflow-y-auto overflow-x-hidden h-full max-h-56">
                     {#each subscribersArray as u}
-                        <form action="?/sendEmails" method="POST" class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-2 cursor-pointer rounded-lg hover:px-4 items-center relative group flex flex-row justify-between" use:enhance={(e) => {
+                        <form action="?/sendEmails" method="POST" class="w-full transition-all text-text-main dark:text-neutral-100 dark:hover:bg-neutral-600 hover:bg-neutral-100 p-1 md:p-2 cursor-pointer rounded-lg hover:px-4 items-center relative group flex flex-row justify-between" use:enhance={(e) => {
                             e.formData.set("email", u.email);
                             return ({ update }) => {
                                 update({ reset: false });
                             }
                         }}>
-                            {u.email}
+                            <span class="w-full max-md:text-sm">{u.email}</span>
                             <div class="switch-wrapper opacity-0 group-hover:opacity-100 transition-all">
                                 <input type="checkbox" id="sendEmail-{u.email}" name="sendEmails-{u.email}" checked={u.sendEmails} class="hidden" on:change={(e) => {e.target.closest("form").requestSubmit();}}/>
                                 <label for="sendEmail-{u.email}"><span><em></em></span></label>

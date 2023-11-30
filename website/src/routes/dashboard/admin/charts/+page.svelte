@@ -2,8 +2,8 @@
     import { onMount } from "svelte";
     import Card from '$lib/components/Card.svelte';
     import TextInput from "$lib/components/Form/TextInput.svelte";
-    import Icon from '@iconify/svelte';
     import Button from "$lib/components/Button.svelte";
+    import CloseButton from "$lib/components/CloseButton.svelte";
 
     export let data;
 
@@ -166,21 +166,21 @@
 
         <Button buttonType="link" href="../" size="small" class="w-fit" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
         <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card class="md:col-span-2">
+            <Card class="md:col-span-2 overflow-x-auto">
                 <div class="w-full grid grid-cols-1 lg:grid-cols-3 p-4 gap-4">
                     <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(1)}</span>% Today</h3>
+                        <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(1)}</span>% Today</h3>
                     </div>
                     <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(7)}</span>% Last 7 days</h3>
+                        <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(7)}</span>% Last 7 days</h3>
                     </div>
                     <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600 dark:text-green-800">{getProgression(30)}</span>% Last 30 days</h3>
+                        <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(30)}</span>% Last 30 days</h3>
                     </div>
                 </div>
                 <div bind:this={usersChartContainer} class="w-full"/>
             </Card>
-            <Card>
+            <Card class="overflow-x-auto">
                 <div bind:this={premiumChartContainer} class=""/>
             </Card>
             <Card class="relative">
@@ -190,9 +190,7 @@
                 </h5>
                 <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-2.5 absolute top-0 left-0 right-0 transition-all {searchButton ? "z-10 opacity-100" : "-z-10 opacity-0"}">
                     <TextInput label="Search" type="text" placeholder="Search users by usernames" name="search" bind:value={searchQuery} />
-                    <button type="button" on:click={() => {searchButton = false; searchQuery = "";}} class="group absolute top-1 right-1 button-close">
-                        <Icon icon="heroicons:x-mark" class="w-6 h-6 transition-all group-hover:rotate-90" />
-                    </button>
+                    <CloseButton on:click={() => {searchButton = false; searchQuery = "";}} class="absolute top-1 right-1" />
                 </div>
                 <div class="flex flex-col gap-0 overflow-y-auto overflow-x-hidden">
                     {#each usersArray as u}

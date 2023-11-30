@@ -35,10 +35,6 @@ body {
 .nav-link {
   @apply font-medium underline text-neutral-900 dark:text-neutral-100 hover:text-primary-600 dark:hover:text-primary-500 transition-all duration-200;
 }
-
-.button-close {
-  @apply p-1 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all;
-}
 [class^='button-']:not(.no-scale), button:not(.no-scale) {
 	@apply active:scale-95 transition-all duration-200;
 }
@@ -80,21 +76,21 @@ h6 {
   @apply text-base font-sans font-semibold;
 }
 p {
-  @apply block text-base leading-8 font-light dark:text-neutral-100 text-text-main font-['Mulish'];
+  @apply block text-base leading-6 font-light dark:text-neutral-100 text-text-main font-['Mulish'];
 }
 
 /* Toggle switch */
 .switch-wrapper {
-  @apply h-8;
+  @apply h-5 md:h-8;
 }
 .switch-wrapper input + label {
-  @apply w-16 h-8 bg-red-200 dark:bg-red-700 rounded-full inline-block relative cursor-pointer shadow transition-all duration-300;
+  @apply w-10 h-5 md:w-16 md:h-8 bg-red-200 dark:bg-red-700 rounded-full inline-block relative cursor-pointer shadow transition-all duration-300;
 }
 .switch-wrapper input + label span {
   @apply absolute top-[3px] left-1 h-[calc(100%-6px)] aspect-square rounded-full bg-red-600 dark:bg-red-900 transition-all duration-300;
 }
 .switch-wrapper input + label span em {
-  @apply w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 rotate-[135deg] -translate-y-1/2 transition-all duration-300 after:duration-300 after:top-0 after:left-1/2 after:w-[2px] after:-ml-[1px] after:h-full after:bg-neutral-100 after:absolute after:transition-all before:left-0 before:w-full before:h-[2px] before:-mt-[1px] before:top-1/2 before:bg-neutral-100 before:transition-all before:duration-300 before:absolute;
+  @apply w-2 h-2 md:w-4 md:h-4 absolute top-1/2 left-1/2 -translate-x-1/2 rotate-[135deg] -translate-y-1/2 transition-all duration-300 after:duration-300 after:top-0 after:left-1/2 after:w-[2px] after:-ml-[1px] after:h-full after:bg-neutral-100 after:absolute after:transition-all before:left-0 before:w-full before:h-[2px] before:-mt-[1px] before:top-1/2 before:bg-neutral-100 before:transition-all before:duration-300 before:absolute;
 }
 .switch-wrapper input:checked + label {
   @apply bg-green-200 dark:bg-green-700;
@@ -116,7 +112,7 @@ p {
 
 /* Tooltip */
 [data-tooltip]{
-  @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:w-[300px] after:break-words after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 after:text-neutral-800 after:dark:text-neutral-100 after:font-medium;
+  @apply cursor-pointer relative inline-block after:content-[attr(data-tooltip)] after:absolute after:shadow-lg after:opacity-0 after:transition-all after:ease-in-out after:pointer-events-none hover:after:opacity-100 after:z-30 focus:after:opacity-100 focus:after:z-30 after:p-3 after:rounded-md after:max-w-[300px] after:break-words after:h-auto after:bg-neutral-100 dark:after:bg-neutral-700 after:text-sm after:leading-4 after:-translate-x-1/2 after:bottom-0 after:top-auto after:mb-2 after:left-1/2 hover:after:-translate-y-4 focus:after:-translate-y-4 after:text-neutral-800 after:dark:text-neutral-100 after:font-medium;
 }
 /* Left */
 .tooltip-left {
