@@ -5,14 +5,18 @@
     import { PUBLIC_STRIPE_KEY } from '$env/static/public';
     import Alert from '$lib/components/Form/Alert.svelte';
     import Spinner from '$lib/components/Form/Spinner.svelte';
+    import Button from "$lib/components/Button.svelte";
 
     export let data;
 
     const { premiumPrice } = data;
-    let stripe;
-    let cardElement;
     let processing = false;
     let alert = { message:"", display:false, type:"error" };
+    let stripe;
+    let cardElement;
+    let isDisabled;
+
+    $: isDisabled = processing || alert.type === "success";
 
     onMount(async () => {
         stripe = await loadStripe(PUBLIC_STRIPE_KEY);
@@ -94,13 +98,13 @@
                         <Alert type={alert.type} message={alert.message ?? "Congrats! You are now a PCC Pro user! Click on \"Refresh Plan\" in the PCC extension for your purchase to take effect."} />
                     {/if}
                     
-                    <button class="w-full button-primary" disabled="{processing || alert.type === "success"}">
+                    <Button bind:disabled={isDisabled}>
                         {#if processing}
                             <Spinner />
                         {:else}
                             Pay {(premiumPrice/100).toFixed(2)} €
                         {/if}
-                    </button>
+                    </Button>
                 </Elements>
             </form>
         </div>

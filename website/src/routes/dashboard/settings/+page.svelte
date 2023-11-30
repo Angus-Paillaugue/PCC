@@ -7,6 +7,7 @@
     import TextInput from "$lib/components/Form/TextInput.svelte";
     import Icon from '@iconify/svelte';
     import Spinner from "$lib/components/Form/Spinner.svelte";
+  import Button from "../../../lib/components/Button.svelte";
 
     export let data;
     export let form;
@@ -38,10 +39,8 @@
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 max-w-screen-lg mx-auto">
-    <a href="/dashboard" class="button-secondary button-small group w-fit mb-6">
-        <Icon icon="heroicons:arrow-uturn-left" class="w-6 h-6 transition-all group-hover:rotate-[360deg] duration-300" />
-        Go back
-    </a>
+    <Button buttonType="link" href="../" size="small" class="w-fit" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
+    
     <Card>
         <form action="?/save" method="POST" use:enhance={() => {isAccountFormLoading = true;return async ({ update }) => {isAccountFormLoading = false; update({ reset: false });};}} class="flex flex-col gap-4 h-fit w-full">
             <h3>Account</h3>
@@ -52,13 +51,13 @@
     
             <Alert display={form?.account?.success ?? false} type="error" class="mb-4" message={form?.account?.message} />
     
-            <button class="button-primary w-full">
+            <Button buttonType="button" color="primary">
                 {#if isAccountFormLoading}
                     <Spinner />
                 {:else}
                     Save
                 {/if}
-            </button>
+            </Button>
         </form>
     </Card>
 
@@ -79,14 +78,14 @@
             <TextInput label="New password" name="email" placeholder="New password" id="newPassword" type="password" />
     
             <Alert display={form?.password?.success ?? false} type="error" class="mb-4" message={form?.password?.message} />
-    
-            <button class="button-primary">
-                {#if isPasswordFormLoading}
+
+            <Button buttonType="button" color="primary">
+                {#if isAccountFormLoading}
                     <Spinner />
                 {:else}
-                    Change password
+                Change password
                 {/if}
-            </button>
+            </Button>
     
         </form>
     </Card>
@@ -96,7 +95,7 @@
     <Card>
         <h3>Danger zone</h3>
     
-        <button class="button-red" on:click={() => {deleteAccountModal = true;}}>Delete account</button>
+        <Button buttonType="button" color="red" on:click={() => {deleteAccountModal = true;}}>Delete account</Button>
     </Card>
 </section>
 
@@ -105,9 +104,9 @@
     <p slot="body">Are you sure you want to delete your account?</p>
 
     <svelte:fragment slot="footer">
-        <button class="button-secondary" on:click={() => {deleteAccountModal = false;}}>No, cancel</button>
+        <Button buttonType="button" color="secondary" on:click={() => {deleteAccountModal = false;}}>No, cancel</Button>
         <form action="?/deleteAccount" method="POST">
-            <button class="button-red w-full" type="submit">Yes, delete</button>
+            <Button buttonType="button" color="red" class="w-full" type="submit">Yes, delete</Button>
         </form>
     </svelte:fragment>
 

@@ -8,6 +8,7 @@
     import Tooltip from "$lib/components/Tooltip.svelte";
     import Spinner from "$lib/components/Form/Spinner.svelte";
     import Icon from '@iconify/svelte';
+    import Button from "$lib/components/Button.svelte";
 
     export let data;
 
@@ -21,7 +22,7 @@
     let searchQuery;
     let deleteAccountId;
     let searchQueryPremium;
-    let credentials = [
+    const credentials = [
         {
             username: "send.email.pcc@gmail.com",
             password: "k4eyLujoow3RKVoZVz8vD0OcUrcvbECbdGL5XkAi",
@@ -169,14 +170,14 @@
     
             <p>Last updated {new Date(ratesUpdatedAt).toLocaleString("fr-FR")}</p>
     
-            <button class="button-primary mt-auto" disabled="{isUpdatingRates}" on:click={updateRates}>
+            <Button buttonType="button" color="primary" class="mt-auto" disabled={isUpdatingRates} on:click={updateRates}>
                 {#if isUpdatingRates}
                     Updating rates
                     <Spinner />
                 {:else}
                     Update rates
                 {/if}
-            </button>
+            </Button>
         </Card>
         <Card class="md:col-span-2">
             <h3>Accounts infos</h3>
@@ -210,6 +211,7 @@
                 </Tooltip>
                 <a href="https://dash.cloudflare.com/92f5796f7fdf0c37529d5c39b8670c8f/paillaugue.fr" target="_blank" class="link">Cloudflare</a>
                 <a href="https://analytics.google.com/analytics/web/?authuser=0#/p414534698/reports/intelligenthome" target="_blank" class="link">Analytics</a>
+                <a href="https://insights.hotjar.com/sites/3748048/overview" target="_blank" class="link">Hotjar</a>
                 <Tooltip text="Log-in with send.email.pcc@gmail.com google account">
                     <a href="https://mail.google.com/mail/u/4/#inbox" target="_blank" class="link">Mail box</a>
                 </Tooltip>
@@ -249,25 +251,22 @@
 
                         <p class="text-sm">Joined on : {new Date(u.joined).toLocaleString("fr-FR")}</p>
 
-                        <button class="button-red button-small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</button>
+                        <Button buttonType="button" color="red" size="small" on:click={() => {deleteAccountId = u.id; deleteAccountModal = true;}}>Delete account</Button>
 
-                        <button class="button-primary button-small" on:click={() => {save(u.id);isSavingUuid = u.id;}}>
+                        <Button size="small" buttonType="button" color="primary" on:click={() => {save(u.id);isSavingUuid = u.id;}}>
                             {#if isSaving && isSavingUuid === u.id}
-                                <svg fill='none' class="w-6 h-6 animate-spin mx-auto" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'><path clip-rule='evenodd' d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z' fill='currentColor' fill-rule='evenodd' /></svg>
+                                <Spinner />
                             {:else}
                                 Save
                             {/if}
-                        </button>
+                        </Button>
                     </div>
                 {/each}
             </div>
             {#if noUsersToDisplay < usersArray.length}
-                <button class="button-secondary mx-auto w-fit hover:gap-4 button-small" on:click={() => {noUsersToDisplay += 12;}}>
+                <Button buttonType="button" color="secondary" size="small" animationTo="left" icon="heroicons:plus" class="mx-auto mt-4" on:click={() => {noUsersToDisplay += 12;}}>
                     Load more
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </button>
+                </Button>
             {/if}
         {:else}
             <h4 class="mt-2">No users found</h4>
@@ -280,7 +279,7 @@
     <p slot="body">Are you sure you want to delete {deleteAccountId ? users?.filter(el => el.id === deleteAccountId)[0].username : ""}'s account ?</p>
 
     <svelte:fragment slot="footer">
-        <button class="button-red" on:click={() => {deleteAccountModal = false;}}>No, cancel</button>
-        <button class="button-primary" on:click={deleteAccount}>Yes, delete</button>
+        <Button buttonType="button" color="red" on:click={() => {deleteAccountModal = false;}}>No, cancel</Button>
+        <Button buttonType="button" color="primary" on:click={deleteAccount}>Yes, delete</Button>
     </svelte:fragment>
 </Modal>

@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+  import Button from './Button.svelte';
 
     let cookieModal = false;
 
@@ -15,12 +16,12 @@
             <p>We use cookies to provide a better user experience.</p>
             <div class="flex flex-row items-center justify-between">
                 <a href="/privacy-policy" class="text-sm link">Privacy Policy</a>
-                <button class="button-primary"
-                    on:click={() => {
-                        localStorage.setItem("acceptsCookies", true);
-                        cookieModal = false;
-                    }}
-                >Accept</button>
+                <Button on:click={() => {
+                    localStorage.setItem("acceptsCookies", true);
+                    cookieModal = false;
+                }}>
+                    Accept
+                </Button>
             </div>
         </div>
     </div>

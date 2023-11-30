@@ -14,6 +14,8 @@ export const actions = {
         try{
             const formData = Object.fromEntries(await request.formData());
             const { password } = formData;
+
+            if(password.length < 6) return { error:true, message:"Your password must be atl least 6 characters long!" };
     
             const { username } = await resetPasswordTokensRef.findOne({ token:params.UUID });
             if(!username) return { error:true, message:"Request expired!" };

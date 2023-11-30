@@ -1,5 +1,4 @@
 <script>
-    import { fly } from "svelte/transition";
     import { enhance } from "$app/forms";
     import { newToast } from "$lib/stores";
     import { copy } from 'svelte-copy';
@@ -9,6 +8,7 @@
     import Textarea from "$lib/components/Form/Textarea.svelte";
     import Icon from '@iconify/svelte';
     import Spinner from "$lib/components/Form/Spinner.svelte";
+    import Button from "$lib/components/Button.svelte";
 
     export let data;
     export let form;
@@ -26,8 +26,11 @@
     let deleteReplieId;
     let replyModalQuestionId;
     let replieContainerMaxHeight = [];
+    let isDisabled;
     
     $: if(message?.length > maxMessageLength) message = message.slice(0, maxMessageLength);
+    $: isDisabled = message?.length === 0 || newQuestionTitle?.length === 0;
+    $: console.log(isDisabled);
     
     onMount(() => {
         const replieContainers = document.querySelectorAll("[data-replie-container]");
@@ -103,7 +106,7 @@
     <div class="w-full h-full flex flex-col gap-4">
         <h6 class="font-normal">Support e-mail : <button class="font-semibold" use:copy={supportEmail} on:svelte-copy={() => {newToast("success", "Copied to clipboard successfully!")}} on:svelte-copy:error={() => {newToast("error", "An error occurred while copying to the clipboard")}}>{supportEmail}</button></h6>
         {#if user}
-            <button class="button-primary" on:click={() => {newQuestionModal = !newQuestionModal}}>New question</button>
+            <Button color="primary" on:click={() => {newQuestionModal = !newQuestionModal}}>New question</Button>
             {#if questions.length === 0}
                 <h2>No questions for now</h2>
             {/if}
@@ -124,7 +127,7 @@
                         <h6>{question.postedBy.username} - <small>{new Date(question.postedAt).toLocaleDateString()}</small></h6>
                         <div class="w-full">
                             {#if user}
-                                <button class="button-secondary" on:click={() => {replyModalQuestionId = question.id;replyModal = !replyModal;}}>Replie</button>
+                                <Button color="secondary" on:click={() => {replyModalQuestionId = question.id;replyModal = !replyModal;}}>Replie</Button>
                             {:else}
                                 <p>
                                     To reply, please <a href="/auth" class="link">log-in</a>
@@ -134,10 +137,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <button class="w-full flex flex-row gap-4 no-scale underline" type="button" on:click={() => {question.hiddenReplies = !question.hiddenReplies;}}>
-                        Show replies ({question.replies.length})
-                        <Icon icon="heroicons:chevron-down" class="w-6 h-6 transition-all {!question.hiddenReplies && "rotate-180"}"/>
-                    </button>
+                    <Button class="w-full" buttonType="button" color="secondary" icon="heroicons:chevron-down" on:click={() => {question.hiddenReplies = !question.hiddenReplies;}}>{question.hiddenReplies ? "Show" : "Hide"} replies ({question.replies.length})</Button>
                     <div class="flex flex-col gap-4 pl-2 w-full overflow-hidden transition-all" style="max-height: {replieContainerMaxHeight.length > 0 ? question.hiddenReplies ? "0" : replieContainerMaxHeight.find(el => el.questionId === question.id).height : 0}px;" data-replie-container="{question.id}">
                         {#each question.replies as replie}
                             <div class="flex flex-col gap-2 border-b border-neutral-200 dark:border-neutral-700 group/replie relative">
@@ -172,8 +172,8 @@
     </form>
 
     <svelte:fragment slot="footer">
-        <button class="button-secondary" type="button" on:click={() => {deleteReplieModal = false;}}>No, cancel</button>
-        <button class="button-primary" type="submit" form="deleteReplieForm">Yes, delete</button>
+        <Button buttonType="button" color="secondary" type="button" on:click={() => {deleteReplieModal = false;}}>No, cancel</Button>
+        <Button buttonType="button" color="primary" type="submit" form="deleteReplieForm">Yes, delete</Button>
     </svelte:fragment>
 </Modal>
 
@@ -190,8 +190,8 @@
     </form>
     
     <svelte:fragment slot="footer">
-        <button class="button-secondary" type="button" on:click={() => {deleteQuestionModal = false;}}>No, cancel</button>
-        <button class="button-primary" type="submit" form="deleteQuestionForm">Yes, delete</button>
+        <Button buttonType="button" color="secondary" type="button" on:click={() => {deleteQuestionModal = false;}}>No, cancel</Button>
+        <Button buttonType="button" color="primary" type="submit" form="deleteQuestionForm">Yes, delete</Button>
     </svelte:fragment>
 </Modal>
 
@@ -214,14 +214,13 @@
     </form>
 
     <svelte:fragment slot="footer">
-        <button type="submit" class="button-primary transition-all overflow-hidden w-full" disabled="{message?.length === 0 || newQuestionTitle?.length === 0}" form="newQuestionForm">
+        <Button buttonType="button" color="primary" class="w-full" type="submit" form="newQuestionForm" bind:disabled={isDisabled}>
             {#if isReplying}
                 <Spinner />
-            {/if}
-            <span class="transition-all">
+            {:else}
                 Post
-            </span>
-        </button>
+            {/if}
+        </Button>
     </svelte:fragment>
 </Modal>
 
@@ -244,13 +243,12 @@
     </form>
 
     <svelte:fragment slot="footer">
-        <button type="submit" class="button-primary w-full transition-all overflow-hidden" disabled="{message?.length === 0}" form="newReplieForm">
+        <Button buttonType="button" color="primary" class="w-full" type="submit" form="newReplieForm" disabled="{message?.length === 0}">
             {#if isReplying}
                 <Spinner />
+            {:else}
+            Reply
             {/if}
-            <span class="transition-all">
-                Reply
-            </span>
-        </button>
+        </Button>
     </svelte:fragment>
 </Modal>

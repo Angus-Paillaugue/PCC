@@ -3,6 +3,7 @@
     import Card from '$lib/components/Card.svelte';
     import TextInput from "$lib/components/Form/TextInput.svelte";
     import Icon from '@iconify/svelte';
+    import Button from "$lib/components/Button.svelte";
 
     export let data;
 
@@ -163,10 +164,7 @@
 
     <div class="max-w-screen-lg mx-auto flex flex-col gap-6">
 
-        <a href="../" class="button-secondary w-fit button-small group">
-            <Icon icon="heroicons:arrow-uturn-left" class="w-6 h-6 transition-all group-hover:rotate-[360deg] duration-300" />
-            Go back
-        </a>
+        <Button buttonType="link" href="../" size="small" class="w-fit" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
         <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card class="md:col-span-2">
                 <div class="w-full grid grid-cols-1 lg:grid-cols-3 p-4 gap-4">
@@ -188,9 +186,7 @@
             <Card class="relative">
                 <h5 class="w-full border-b border-neutral-200 dark:border-neutral-700 flex flex-row p-2 items-center justify-between">
                     Premium users
-                    <button on:click={() => {searchButton = !searchButton;}} class="w-fit button-secondary button-small">
-                        <Icon icon="heroicons:magnifying-glass" class="w-4 h-4" />
-                    </button>
+                    <Button buttonType="button" color="secondary" size="small" icon="heroicons:magnifying-glass" on:click={() => {searchButton = !searchButton;}}></Button>
                 </h5>
                 <div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-2.5 absolute top-0 left-0 right-0 transition-all {searchButton ? "z-10 opacity-100" : "-z-10 opacity-0"}">
                     <TextInput label="Search" type="text" placeholder="Search users by usernames" name="search" bind:value={searchQuery} />

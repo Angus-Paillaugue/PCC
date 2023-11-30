@@ -2,6 +2,7 @@
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
     import Icon from '@iconify/svelte';
+  import Button from './Button.svelte';
 
     let user = $page.data.user;
     let extensions = $page.data.extensions;
@@ -35,12 +36,12 @@
         </ul>
         <div class="max-md:hidden">
             {#if !user}
-                <a href="/auth" class="button-secondary button-small">Log-in</a>
+                <Button buttonType="link" href="/auth" size="small" color="secondary">Log-in</Button>
             {:else}
-                <a href="/dashboard" class="button-secondary button-small">Dashboard</a>
+                <Button buttonType="link" href="/dashboard" size="small" color="secondary">Dashboard</Button>
             {/if}
             {#if extension !== "blank"}
-                <a href="{extension.link}" class="button-primary button-small ml-2">Download</a>
+                <Button buttonType="link" href={extension.link} size="small" color="primary" class="ml-2">Download</Button>
             {/if}
         </div>
         <button on:click={() => {navbar = !navbar}} class="md:hidden">
@@ -68,14 +69,14 @@
         </li>
         <li>
             {#if !user}
-                <a href="/auth" class="button-secondary button-small">Log-in</a>
+                <Button buttonType="link" href="/auth" color="secondary">Log-in</Button>
             {:else}
-                <a href="/dashboard" class="button-secondary button-small">Dashboard</a>
+                <Button buttonType="link" href="/dashboard" size="small" color="secondary">Dashboard</Button>
             {/if}
         </li>
         {#if extension !== "blank"}
             <li>
-                <a href="{extension.link}" class="button-primary button-small">Download</a>
+                <Button buttonType="link" href={extension.link} size="small" color="primary">Download</Button>
             </li>
         {/if}
     </ul>

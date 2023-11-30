@@ -49,6 +49,7 @@ export const actions = {
         if(!isASCII(username)) return { signIn:{ success:false, formData, message:"Usernames can only be composed of letters and numbers!" } };
 
         if(username.length < 4 || username.length > 16) return { signIn:{ success:false, formData, message:"Username length must be between 4 and 16 characters long!" } };
+        if(password.length < 6) return { signIn:{ success:false, formData, message:"Your password must be atl least 6 characters long!" } };
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);

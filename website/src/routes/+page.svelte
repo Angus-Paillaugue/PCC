@@ -7,6 +7,7 @@
     import Alert from '$lib/components/Form/Alert.svelte';
     import TextInput from '$lib/components/Form/TextInput.svelte';
     import Icon from '@iconify/svelte';
+  import Button from '../lib/components/Button.svelte';
 
     export let data;
     export let form;
@@ -176,21 +177,19 @@
             <p in:fly={{y: 50, delay:150}}>Now more than <b>{Math.round(numberOfDownloads)}</b> downloads!</p>
             <div class="flex mt-2 flex-col md:flex-row gap-4 mx-auto items-center justify-center">
                 {#if extension !== undefined}
-                    <a href="{extension.link}" class="button-primary overflow-hidden group w-fit" in:fly={{y: 100, delay:200}}>
+                    <Button color="primary" icon="heroicons:chevron-double-up" buttonType="link" animationTo="up" href={extension.link}>
                         <span class="transition-all duration-200 group-hover:-translate-y-[150%]">
                             Download for {extension.plateforme.charAt(0).toUpperCase()+extension.plateforme.slice(1)}
                             <img src="{extension.logoUrl}" class="h-6 ml-2 inline-block" alt="">
                         </span>
-                        <Icon icon="heroicons:chevron-double-up" class="w-6 h-6 transition-all duration-200 group-hover:top-1/2 group-hover:-translate-y-1/2 absolute top-full left-1/2 -translate-x-1/2" />
-                    </a>
+                    </Button>
                 {:else}
                     <p class="text-red-600">Not available for your browser</p>
                 {/if}
     
-                <a href="#learn-more" class="button-secondary sm:hover:pr-14 relative overflow-hidden w-fit group" in:fly={{y: 100, delay:250}}>
+                <Button buttonType="link" color="secondary" href="#learn-more" animationTo="left" icon="heroicons:arrow-right">
                     Learn more
-                    <Icon icon="heroicons:arrow-right" stroke-width="2" class="w-5 h-5 absolute right-0 flex items-center justify-start duration-300 transform translate-x-full group-hover:-translate-x-full ease" />
-                </a>
+                </Button>
             </div>
         </Card>
     </section>
@@ -251,7 +250,9 @@
             <div class="flex flex-col gap-4 w-full lg:w-1/2">
                 <form use:enhance method="POST" class="flex flex-row gap-4" action="?/subscribeToNewsletter">
                     <TextInput name="email" type="email" placeholder="Email" class="block" />
-                    <button class="button-primary button-small" type="submit">Subscribe</button>
+                    <Button type="submit" buttonType="button" size="small">
+                        Subscribe
+                    </Button>
                 </form>
 
                 <Alert display={form?.type === "newsletter"} type={form?.error ? "error" : "success"} message={form?.message} />

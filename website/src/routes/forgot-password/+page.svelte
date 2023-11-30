@@ -4,6 +4,7 @@
     import Alert from '$lib/components/Form/Alert.svelte';
     import TextInput from '$lib/components/Form/TextInput.svelte';
     import Spinner from '$lib/components/Form/Spinner.svelte';
+    import Button from '$lib/components/Button.svelte';
 
     export let form;
     let isSending = false;
@@ -30,12 +31,14 @@
                 <Alert type={form?.success ? "success" : "error"} message={form?.message} class="mb-4" />
             {/if}
 
-            <button class="button-primary" type="submit" disabled="{isSending || form?.success}">
+            <Button buttonType="button" color="primary" disabled="{isSending || form?.success}">
                 {#if isSending}
                     <Spinner />
+                {:else}
+                    Reset password
                 {/if}
-                Reset password
-            </button>
+            </Button>
+            
             <p>Remember your password ? <a class="link" href="/auth">Log-in</a></p>
         </form>
     </Card>

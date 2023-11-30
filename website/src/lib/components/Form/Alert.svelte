@@ -8,7 +8,7 @@
 
     const props = $$restProps;
     
-    const svgClasses = "flex-shrink-0 inline w-4 h-4 mr-3";
+    const svgClasses = "flex-shrink-0 w-6 h-6 mr-3";
     const baseClasses = {
         "error": "flex items-center p-4 text-sm border rounded-lg text-red-800 border-red-800 bg-red-100 dark:bg-red-600 dark:text-neutral-100",
         "success": "flex items-center p-4 text-sm border rounded-lg text-green-800 border-green-800 bg-green-100 dark:bg-green-600 dark:text-neutral-100",
@@ -28,6 +28,8 @@
         {:else}
             <Icon icon="heroicons:information-circle-solid" class={svgClasses} />
         {/if}
-        {message}
+        <span>
+            {@html message}
+        </span>
     </div>
 {/if}
