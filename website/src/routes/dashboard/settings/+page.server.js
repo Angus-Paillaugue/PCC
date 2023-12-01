@@ -32,7 +32,6 @@ export const actions = {
     password : async({ request, locals }) => {
         if(!locals.user) return { password:{ success:false, message:"Not logged in!" } };
         const formData = Object.fromEntries(await request.formData());
-        console.log(formData);
         const { currentPassword, newPassword } = formData;
         const user = await usersRef.findOne({ username:locals.user.username });
 

@@ -30,7 +30,6 @@
     
     $: if(message?.length > maxMessageLength) message = message.slice(0, maxMessageLength);
     $: isDisabled = message?.length === 0 || newQuestionTitle?.length === 0;
-    $: console.log(isDisabled);
     
     onMount(() => {
         const replieContainers = document.querySelectorAll("[data-replie-container]");
