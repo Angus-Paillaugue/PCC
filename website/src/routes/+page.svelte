@@ -158,6 +158,44 @@
             imgSrc : "/illustrations/home_page/Is_it_safe.png"
         }
     ]
+
+    const features = [
+        {
+            "title": "Currency conversion",
+            "description": "Tired of deciphering currency values while shopping on PandaBuy? PCC (PandaBuy Currency Converter) effortlessly parses PandaBuy pages, converting prices from CNY or other currencies into your preferred one. Stay updated with real-time exchange rates, ensuring a seamless and stress-free shopping experience.",
+            "price":"free"
+        },
+        {
+            "title": "Instant PandaBuy Access",
+            "description": "Say goodbye to the hassle of manually redirecting from marketplace pages to PandaBuy. PCC automates the process, seamlessly navigating you to the corresponding PandaBuy product page as soon as you land on a marketplace product. Save time and streamline your shopping journey.",
+            "price":"premium"
+        },
+        {
+            "title":"Swift Checkout Checkbox",
+            "description":"Accelerate your checkout process on PandaBuy with PCC. The extension automatically checks the required checkbox when adding a product to your cart, eliminating the need for manual confirmation. Save valuable seconds and breeze through your purchases effortlessly.",
+            "price":"premium"
+        },
+        {
+            "title":"Integrated Reviews and Photos",
+            "description":"Dive deeper into product details without navigating away. PCC embeds product reviews and photos directly into the page, providing a seamless browsing experience. Make informed decisions without the hassle of constantly switching between pages.",
+            "price":"premium"
+        },
+        {
+            "title":"Customize Yupoo for Your Comfort",
+            "description":"Tailor your Yupoo experience with PCC's customization options. Toggle the sidebar on and off, and adjust the product grid width to suit your preferences. Enjoy a personalized browsing experience as you explore the vast array of products on Yupoo.",
+            "price":"premium"
+        },
+        {
+            "title":"Bypass Yupoo's Delay",
+            "description":"Experience zero delays when clicking on external links on Yupoo. PCC eliminates the standard 3-second delay, allowing you to navigate instantaneously to external links and swiftly discover more products without interruption.",
+            "price":"premium"
+        },
+        {
+            "title":"Enchanting Dark Mode",
+            "description":"Elevate your visual experience on PandaBuy and Yupoo with PCC's Dark Mode. Enjoy a sleek and eye-friendly interface, reducing eye strain during extended shopping sessions. Immerse yourself in a stylish and comfortable browsing environment.",
+            "price":"premium"
+        }
+    ]
 </script>
 
 <svelte:head>
@@ -216,38 +254,21 @@
         <div class="w-full pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Features</h4>
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold flex flex-row gap-2 items-center"><Tooltip text="Free feature"><Icon icon="heroicons:currency-dollar" class="text-yellow-800 darktext-yellow-600" /></Tooltip>Currency conversion</h5>
-                    <p>Tired of deciphering currency values while shopping on PandaBuy? PCC (PandaBuy Currency Converter) effortlessly parses PandaBuy pages, converting prices from CNY or other currencies into your preferred one. Stay updated with real-time exchange rates, ensuring a seamless and stress-free shopping experience.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Instant PandaBuy Access</h5>
-                    <p>Say goodbye to the hassle of manually redirecting from marketplace pages to PandaBuy. PCC automates the process, seamlessly navigating you to the corresponding PandaBuy product page as soon as you land on a marketplace product. Save time and streamline your shopping journey.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">One-Click PandaBuy Integration</h5>
-                    <p>Simplify your shopping journey by right-clicking on a marketplace link and selecting "Open in PandaBuy." PCC seamlessly opens the selected product in PandaBuy, eliminating the need for manual copying and pasting. Enjoy a smoother, more efficient shopping process.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Swift Checkout Checkbox</h5>
-                    <p>Accelerate your checkout process on PandaBuy with PCC. The extension automatically checks the required checkbox when adding a product to your cart, eliminating the need for manual confirmation. Save valuable seconds and breeze through your purchases effortlessly.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Integrated Reviews and Photos</h5>
-                    <p>Dive deeper into product details without navigating away. PCC embeds product reviews and photos directly into the page, providing a seamless browsing experience. Make informed decisions without the hassle of constantly switching between pages.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Customize Yupoo for Your Comfort</h5>
-                    <p>Tailor your Yupoo experience with PCC's customization options. Toggle the sidebar on and off, and adjust the product grid width to suit your preferences. Enjoy a personalized browsing experience as you explore the vast array of products on Yupoo.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Bypass Yupoo's Delay</h5>
-                    <p>Experience zero delays when clicking on external links on Yupoo. PCC eliminates the standard 3-second delay, allowing you to navigate instantaneously to external links and swiftly discover more products without interruption.</p>
-                </div>
-                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                    <h5 class="font-bold">Enchanting Dark Mode</h5>
-                    <p>Elevate your visual experience on PandaBuy and Yupoo with PCC's Dark Mode. Enjoy a sleek and eye-friendly interface, reducing eye strain during extended shopping sessions. Immerse yourself in a stylish and comfortable browsing environment.</p>
-                </div>
+                {#each features as feature}
+                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4 hover:shadow">
+                        <h5 class="font-bold flex flex-row gap-2 items-center">
+                            {#if feature.type === "free"}
+                                <Tooltip text="Free feature">
+                                    <Icon icon="heroicons:currency-dollar" class="text-yellow-800 darktext-yellow-600" />
+                                </Tooltip>
+                            {/if}
+                            {feature.title}
+                        </h5>
+                        <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4 hover:shadow">
+                            <p>{feature.description}</p>
+                        </div>
+                    </div>
+                {/each}
             </div>
         </div>
     </section>
