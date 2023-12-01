@@ -255,7 +255,7 @@
             <h4 class="text-primary-600 font-extrabold">Features</h4>
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {#each features as feature}
-                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4 transition-all hover:border hover:border-neutral-200 dark:hover:border-neutral-700 hover:shadow">
+                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4 transition-all border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700">
                         <h5 class="font-bold flex flex-row gap-2 items-center">
                             {#if feature.type === "free"}
                                 <Tooltip text="Free feature">
