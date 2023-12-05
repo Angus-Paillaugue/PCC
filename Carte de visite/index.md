@@ -1,1 +1,0 @@
-# Inspiration : [https://dribbble.com/shots/10541350-Creative-Designer-Web-Developer-Business-Card]

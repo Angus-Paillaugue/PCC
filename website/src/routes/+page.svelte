@@ -204,7 +204,7 @@
 
 {#if isPageLoaded}
     <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
-        <img src="/Square_logo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
+        <img src="/logos/Square_logo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <Card class="w-fit">
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
             <h6 class="font-medium" in:fly={{y: 50, delay:100}}>The one and only tool you need for PandaBuy.</h6>
@@ -255,7 +255,7 @@
             <h4 class="text-primary-600 font-extrabold">Features</h4>
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {#each features as feature}
-                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4 transition-all border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700">
+                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 cursor-default p-4 transition-all border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700">
                         <h5 class="font-bold flex flex-row gap-2 items-center">
                             {#if feature.type === "free"}
                                 <Tooltip text="Free feature">
