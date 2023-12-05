@@ -262,12 +262,13 @@ function changeYupooGrid(){
             if(document.querySelector(".showindex__gallerycardwrap"))document.querySelector(".showindex__gallerycardwrap").style.maxWidth = "100%";
             if(document.querySelector(".showalbum__imagecardwrap"))document.querySelector(".showalbum__imagecardwrap").style.maxWidth = "100%";
             if(document.querySelector(".categories__box.clearfix"))document.querySelector(".categories__box.clearfix").style.maxWidth = "100%";
-    
+            
             // Change style of products containers
             let count = 0;
             const interval = setInterval(() => {
                 const imagesContainers = document.querySelectorAll(".categories__parent.album__categories-box, .showalbum__parent, .showindex__parent, .showalbum__parent, .showindex__parent");
                 if(imagesContainers.length > 0 || count === 10) clearInterval(interval);
+                if(document.querySelector(".categories__box-right"))document.querySelector(".categories__box-right").style.marginLeft = "0";
                 for(const imagesContainer of imagesContainers){
                     imagesContainer.style.display = "grid";
                     imagesContainer.style.gap = "10px";
