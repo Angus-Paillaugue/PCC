@@ -156,7 +156,8 @@
 </script>
 
 <svelte:head>
-    <title>PCC - Admin dashboard</title>
+    <title>PCC - Admin charts</title>
+    <meta name="description" content="PCC Admin charts">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 

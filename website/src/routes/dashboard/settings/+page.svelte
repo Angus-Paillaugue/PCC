@@ -37,6 +37,7 @@
 
 <svelte:head>
     <title>PCC - Settings</title>
+    <meta name="description" content="PCC settings">
 </svelte:head>
 
 <section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 max-w-screen-lg mx-auto">

@@ -99,6 +99,7 @@
 
 <svelte:head>
     <title>PCC - Get Help</title>
+    <meta name="description" content="Get help with PCC">
 </svelte:head>
 
 <div class="max-w-screen-lg mx-auto mt-4 grow w-full py-8 px-4 lg:px-6">

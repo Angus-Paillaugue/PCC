@@ -33,7 +33,8 @@
 </script>
 
 <svelte:head>
-    <title>PCC - Log-in</title>
+    <title>PCC - {tabIndex === 0 ? "Log-in" : "Sign-in"}</title>
+    <meta name="description" content="{tabIndex === 0 ? "Log-in" : "Sign-in"} to your account">
 </svelte:head>
 
 <section class="justify-between w-full grid grid-cols-1 gap-6 lg:grid-cols-2 grow items-center">

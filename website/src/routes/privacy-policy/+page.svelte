@@ -15,6 +15,7 @@
 
 <svelte:head>
     <title>PCC - Privacy policy</title>
+    <meta name="description" content="PCC privacy policy">
 </svelte:head>
 
 <section class="grow py-8 px-4 mx-auto max-w-4xl lg:py-16 lg:px-6 w-full">

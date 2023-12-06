@@ -12,6 +12,7 @@
 
 <svelte:head>
 	<title>PCC - Forgot password</title>
+    <meta name="description" content="Forgot your password ?">
 </svelte:head>
 
 <div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">

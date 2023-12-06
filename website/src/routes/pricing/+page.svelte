@@ -9,6 +9,7 @@
 
 <svelte:head>
     <title>PCC - Pricing</title>
+    <meta name="description" content="PCC pricing page">
 </svelte:head>
 
 <section class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">

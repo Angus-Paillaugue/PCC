@@ -200,6 +200,7 @@
 
 <svelte:head>
     <title>PCC - The one and only tool for PandaBuy</title>
+    <meta name="description" content="The one and only tool for PandaBuy shopping">
 </svelte:head>
 
 {#if isPageLoaded}

@@ -13,6 +13,7 @@
 
 <svelte:head>
 	<title>PCC - Reset password</title>
+    <meta name="description" content="Reset your password">
 </svelte:head>
 
 <div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">

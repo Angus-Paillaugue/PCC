@@ -160,6 +160,7 @@
 
 <svelte:head>
     <title>PCC - Newsletter management</title>
+    <meta name="description" content="Newsletter management">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 

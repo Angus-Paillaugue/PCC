@@ -66,6 +66,7 @@
 
 <svelte:head>
     <title>PCC - Payment</title>
+    <meta name="description" content="PCC payment">
 </svelte:head>
 
 {#if stripe}
