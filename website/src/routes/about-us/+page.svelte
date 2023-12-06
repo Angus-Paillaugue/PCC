@@ -27,7 +27,7 @@
     <div class="grid mt-10" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
         {#each teamMembers as member}
             <div class="flex flex-col items-center justify-center relative max-w-[250px]">
-                <img src="{member.profilePicture}" alt="" class="w-28 h-28 object-cover rounded-full">
+                <img src="{member.profilePicture}" alt=" {member.name} profile picture" draggable="false" class="w-28 h-28 object-cover rounded-full">
                 <h5 class="mt-4">{member.firstName} {member.name}</h5>
                 <p class="text-base">{member.role}</p>
                 <div class="flex flex-row items-center justify-center gap-6 mt-2 text-neutral-600 dark:text-neutral-400">

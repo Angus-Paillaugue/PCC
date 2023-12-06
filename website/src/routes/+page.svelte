@@ -196,7 +196,7 @@
     <Hero />
 
     <!-- <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
-        <img src="/logos/Square_logo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
+        <img src="/logos/Square_logo.webp" draggable="false" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <Card class="w-fit">
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
             <h6 class="font-medium" in:fly={{y: 50, delay:100}}>The one and only tool you need for PandaBuy.</h6>
@@ -206,7 +206,7 @@
                     <Button color="primary" icon="heroicons:chevron-double-up" buttonType="link" animationTo="up" href={extension.link}>
                         <span class="transition-all duration-200 group-hover:-translate-y-[150%]">
                             Download for {extension.plateforme.charAt(0).toUpperCase()+extension.plateforme.slice(1)}
-                            <img src="{extension.logoUrl}" class="h-6 ml-2 inline-block" alt="">
+                            <img src="{extension.logoUrl}" draggable="false" class="h-6 ml-2 inline-block" alt="">
                         </span>
                     </Button>
                 {:else}
@@ -226,7 +226,7 @@
             {#each sections as section, index}
                 <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-neutral-100 dark:bg-gray-800 text-start transition-all" use:reveal={{ transition: "fly", duration:200, y:60 }}>
                     <div class="rounded-2xl lg:col-span-2 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-4"}">
-                        <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-auto h-full shadow-md {index % 2 == 0 ? "mr-auto" : "ml-auto"} max-h-[300px]">
+                        <img src="{section.imgSrc}" alt={section.title} draggable="false" class="rounded-2xl w-auto h-full shadow-md {index % 2 == 0 ? "mr-auto" : "ml-auto"} max-h-[300px]">
                     </div>
                     
                     <div class="flex flex-col w-full gap-4 justify-between lg:col-span-3 {index % 2 == 0 ? "lg:pl-4 lg:col-start-3" :"lg:pr-4 lg:col-start-1"}">

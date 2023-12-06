@@ -6,7 +6,7 @@
     <div class="max-w-screen-xl mx-auto w-full">
         <div class="flex flex-col gap-6">
             <a href="/" class="flex flex-row items-center gap-2 w-fit">
-                <img src="/logos/128-icon.png" alt="" class="w-10">
+                <img src="/logos/128-icon.png" alt="PCC logo" draggable="false" class="w-10">
                 <h5>PCC</h5>
             </a>
             <div class="w-full grid grid-cols-2 sm:grid-cols-3 gap-6">

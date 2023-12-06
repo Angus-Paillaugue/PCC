@@ -38,7 +38,7 @@
 </svelte:head>
 
 <section class="justify-between w-full grid grid-cols-1 gap-6 lg:grid-cols-2 grow items-center">
-    <img src="pandabuyLogo.webp" alt="" class="lg:max-h-96 max-h-64 mx-auto rounded-md">
+    <img src="pandabuyLogo.webp" alt="PCC logo" draggable="false" class="lg:max-h-96 max-h-64 mx-auto rounded-md">
     <div class="w-full max-lg:flex max-lg:items-center max-lg:flex-col p-2">
         <h1 class="mt-16 mb-10">Join today.</h1>
         <div class="w-full max-w-md">

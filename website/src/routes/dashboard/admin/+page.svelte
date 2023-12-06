@@ -12,7 +12,7 @@
 
     export let data;
 
-    let { user, users, ratesUpdatedAt } = data;
+    let { user, users, ratesUpdatedAt, credentials } = data;
     let noUsersToDisplay = 12;
     let usersArray = users.slice(0, noUsersToDisplay);
     let isSaving = false;
@@ -22,20 +22,6 @@
     let searchQuery;
     let deleteAccountId;
     let searchQueryPremium;
-    const credentials = [
-        {
-            username: "send.email.pcc@gmail.com",
-            password: "k4eyLujoow3RKVoZVz8vD0OcUrcvbECbdGL5XkAi",
-            type: "Google",
-            showPassword: false
-        },
-        {
-            username: "pandabuycurrencyconverter@gmail.com",
-            password: "k4eyLujoow3RKVoZVz8vD0OcUrcvbECbdGL5XkAm",
-            type: "Google",
-            showPassword: false
-        }
-    ];
 
     $: searchQuery, search();
     $: searchQueryPremium, search();
