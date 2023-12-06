@@ -102,7 +102,7 @@
     <meta name="description" content="Get help with PCC">
 </svelte:head>
 
-<div class="max-w-screen-lg mx-auto mt-4 grow w-full py-8 px-4 lg:px-6">
+<div class="max-w-screen-lg mx-auto grow w-full p-4 lg:p-6">
     <div class="w-full h-full flex flex-col gap-4">
         <h6 class="font-normal">Support e-mail : <button class="font-semibold" use:copy={supportEmail} on:svelte-copy={() => {newToast("success", "Copied to clipboard successfully!")}} on:svelte-copy:error={() => {newToast("error", "An error occurred while copying to the clipboard")}}>{supportEmail}</button></h6>
         {#if user}

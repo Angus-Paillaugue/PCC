@@ -164,7 +164,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 
-<section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
+<section class="grow w-full p-4 lg:p-6 space-y-6">
 
     <div class="max-w-screen-lg mx-auto flex flex-col gap-6">
 

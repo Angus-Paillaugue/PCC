@@ -12,7 +12,7 @@
     <meta name="description" content="Contact PCC">
 </svelte:head>
 
-<section class="grow py-8 px-4 mx-auto max-w-4xl lg:py-16 lg:px-6 w-full">
+<section class="grow p-4 lg:p-6 mx-auto max-w-4xl w-full">
     
     <h2>Contact us</h2>
 

@@ -12,6 +12,6 @@ export const handle = async ({ event, resolve }) => {
             locals.user = null;
         }
     }
-
+    
     return resolve(event);
 }

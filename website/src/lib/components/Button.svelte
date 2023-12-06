@@ -14,11 +14,13 @@
     const props = $$restProps;
     
     const baseButtonClasses = {
-        "primary": "text-white bg-primary-600 dark:bg-primary-700 hover:bg-primary-700 dark:hover:bg-primary-800 disabled:bg-primary-400 dark:disabled:bg-primary-500 shadow-primary-700 dark:shadow-primary-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden",
+        "primary": "text-white bg-primary-600 dark:bg-primary-700 hover:bg-primary-700 dark:hover:bg-primary-800 disabled:bg-primary-400 dark:disabled:bg-primary-500 shadow-primary-700 dark:shadow-primary-500 hover:shadow-md hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden",
+
+        "primary-dark": "text-white bg-primary-700 dark:bg-primary-800 hover:bg-primary-800 dark:hover:bg-primary-900 disabled:bg-primary-500 dark:disabled:bg-primary-600 shadow-primary-800 dark:shadow-primary-600 hover:shadow-md hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden",
 
         "red": "bg-red-600 hover:bg-red-700 disabled:bg-red-400 shadow-red-700 dark:shadow-red-500 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative text-white dark:bg-red-800 dark:hover:bg-red-900 overflow-hidden",
 
-        "secondary": "text-neutral-900 bg-neutral-100 disabled:bg-neutral-400 hover:shadow-lg hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 border border-neutral-400 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden dark:bg-neutral-600 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:hover:border-neutral-600 dark:text-neutral-100"
+        "secondary": "text-neutral-900 bg-neutral-300 disabled:bg-neutral-400 hover:shadow-sm hover:dark:shadow-sm inline-flex flex-row items-center justify-center gap-2 font-semibold transition-all duration-200 hover:rounded-lg rounded-3xl focus:outline-none disabled:cursor-not-allowed relative overflow-hidden dark:bg-neutral-600 dark:hover:bg-neutral-800 dark:text-neutral-100"
     }
     const buttonSizes = {
         "normal": "px-5 py-2 sm:py-3 sm:px-8 text-sm sm:text-base",

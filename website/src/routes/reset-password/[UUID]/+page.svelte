@@ -16,8 +16,8 @@
     <meta name="description" content="Reset your password">
 </svelte:head>
 
-<div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">
-    <form class="rounded-lg md:p-10 p-6  bg-transparent text-start transition-all border border-gray-200 dark:border-neutral-700 w-full max-w-md mx-auto flex flex-col gap-4" method= "POST" action="?/resetPassword" use:enhance>
+<div class="p-4 lg:p-6 w-full grow">
+    <form class="rounded-lg md:p-10 p-6 bg-transparent text-start transition-all border border-gray-200 dark:border-neutral-700 w-full max-w-md mx-auto flex flex-col gap-4" method= "POST" action="?/resetPassword" use:enhance>
         <h1 class="mb-4">New password</h1>
 
         <TextInput type="password" placeholder="New password" name="password" id="password" class="mb-4" value="{data?.token}" />

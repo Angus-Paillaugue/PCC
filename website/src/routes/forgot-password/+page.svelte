@@ -15,7 +15,7 @@
     <meta name="description" content="Forgot your password ?">
 </svelte:head>
 
-<div class="py-8 px-4 lg:py-16 lg:px-6 w-full grow">
+<div class="p-4 lg:p-6 w-full grow">
     <Card class="max-w-md mx-auto">
         <form class="text-start transition-all w-full flex flex-col" method="POST" use:enhance={() => {
             isSending = true;

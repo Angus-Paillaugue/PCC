@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-  import Button from './Button.svelte';
+    import Button from '$lib/components/Button.svelte';
 
     let cookieModal = false;
 

@@ -12,7 +12,7 @@
     <meta name="description" content="PCC pricing page">
 </svelte:head>
 
-<section class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+<section class="p-4 lg:p-6 mx-auto max-w-screen-xl">
     <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold">Choose the plan that fits your needs</h2>
         <p class="mb-5 font-light text-neutral-500 sm:text-xl">Our plans are designed to fit your needs, whether you're a casual user or a power user. Choose the plan that's right for you and enjoy all the features that PCC has to offer.</p>

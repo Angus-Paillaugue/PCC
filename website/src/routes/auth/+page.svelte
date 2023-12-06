@@ -59,7 +59,9 @@
                     <TextInput label="Username" name="username" placeholder="Username" value="{form?.logIn?.formData?.username ?? ''}" class="mb-4" maxlength="15" />
                     <TextInput label="Password" name="password" placeholder="Password" value="{form?.logIn?.formData?.password ?? ''}" class="mb-4" type="password" />
             
-                    <Alert display={form?.logIn?.success ?? false} type="error" class="mb-4" message={form?.logIn?.message} />
+                    {#if form?.logIn?.success === false}
+                        <Alert type="error" class="mb-4" message={form?.logIn?.message} />
+                    {/if}
 
                     <Button buttonType="button" color="primary" disabled={isFormLoading} class="w-full mb-2" animationTo="grow">
                         {#if isFormLoading}
@@ -84,7 +86,7 @@
                     <TextInput label="Username" name="username" placeholder="Username" value="{form?.signIn?.formData?.username ?? ''}" class="mb-4" maxlength="15" />
                     <TextInput label="Password" name="password" placeholder="Password" value="{form?.signIn?.formData?.password ?? ''}" class="mb-4" maxlength="15" type="password" />
             
-                    {#if form?.signIn?.success}
+                    {#if form?.signIn?.success === false}
                         <Alert type="error" class="mb-4" message={form?.signIn?.message} />
                     {/if}
 

@@ -31,10 +31,10 @@
 <Banner />
 <Toasts />
 
-<main class="flex flex-col">
+<main class="flex flex-col pr-2">
     <NavBar />
 
-    <div class="min-h-screen pb-4 pt-16 w-full flex flex-col items-center">
+    <div class="min-h-screen pb-4 pt-20 w-full flex flex-col items-center">
         <slot />
     </div>
     

@@ -3,7 +3,7 @@
     
     const props = $$restProps;
 
-    const baseCardClasses = "rounded-lg w-full border-neutral-200 dark:border-neutral-700 border flex flex-col gap-2 md:p-10 p-6 h-full";
+    const baseCardClasses = "rounded-lg w-full bg-neutral-100 dark:bg-gray-800 flex flex-col gap-2 md:p-10 p-6 h-full";
     const cardClasses = twMerge(baseCardClasses, props.class);
     delete props.class;
 </script>

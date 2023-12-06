@@ -1,36 +1,22 @@
 <script>
     import { onMount } from 'svelte';
     import { reveal } from 'svelte-reveal';
-    import { fly } from "svelte/transition";
     import { enhance } from '$app/forms';
-    import Card from '$lib/components/Card.svelte';
     import Alert from '$lib/components/Form/Alert.svelte';
     import TextInput from '$lib/components/Form/TextInput.svelte';
     import Icon from '@iconify/svelte';
     import Button from '$lib/components/Button.svelte';
     import Tooltip from '$lib/components/Tooltip.svelte';
+    import Hero from '$lib/components/Hero.svelte';
 
-    export let data;
     export let form;
 
-    const { extensions, getBrowserType, currentNumberOfDownloads } = data;
-    let extension = extensions[0];
-    let numberOfDownloads = 0;
     let isPageLoaded = false;
     let seeMoreReleases = false;
     let releasesContainer;
 
     onMount(() => {
         isPageLoaded = true;
-        extension = extensions.filter(el => el.plateforme === getBrowserType())[0];
-        
-        let interval = setInterval(() => {
-            if(numberOfDownloads > (currentNumberOfDownloads - currentNumberOfDownloads/10)){
-                clearInterval(interval);
-            }else{
-                numberOfDownloads += currentNumberOfDownloads/10;
-            }
-        }, 100);
     });
 
     $: if(seeMoreReleases && releasesContainer){
@@ -196,6 +182,8 @@
             "price":"premium"
         }
     ]
+
+
 </script>
 
 <svelte:head>
@@ -204,7 +192,10 @@
 </svelte:head>
 
 {#if isPageLoaded}
-    <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
+
+    <Hero />
+
+    <!-- <section class="min-h-[calc(100dvh-4rem)] py-8 px-4 lg:py-16 lg:px-6 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
         <img src="/logos/Square_logo.webp" alt="" class="max-w-[500px] w-full rounded-2xl shadow-xl" in:fly={{y: 50}}>
         <Card class="w-fit">
             <h2 in:fly={{y: 50, delay:50}}>PCC - Pandabuy Currency Converter</h2>
@@ -227,20 +218,20 @@
                 </Button>
             </div>
         </Card>
-    </section>
+    </section> -->
 
     <section id="learn-more" class="p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center gap-10 max-w-screen-xl w-full mx-auto">
         <div class="w-full pt-24 flex flex-col gap-10">
             <h4 class="text-primary-600 font-extrabold">Learn More</h4>
             {#each sections as section, index}
-                <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-white dark:bg-neutral-900 text-start transition-all border dark:border-neutral-700 border-gray-300 project" use:reveal={{ transition: "fly", duration:200, y:60 }}>
-                    <div class="rounded-2xl border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 lg:col-span-2 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-4"}">
-                        <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-auto h-full mx-auto max-h-[300px]">
+                <div class="{index % 2 == 0 ? "row" : "row-reverse"} grid lg:grid-cols-5 grid-cols-1 lg:grid-flow-col rounded-2xl lg:p-10 p-6 bg-neutral-100 dark:bg-gray-800 text-start transition-all" use:reveal={{ transition: "fly", duration:200, y:60 }}>
+                    <div class="rounded-2xl lg:col-span-2 {index % 2 == 0 ? "lg:-mt-0 -mt-9 lg:-ml-20 -ml-9 lg:-mr-0 -mr-9 lg:col-start-1" : "lg:-mt-0 -mt-9 lg:-ml-0 -ml-9 lg:-mr-20 -mr-9 lg:col-start-4"}">
+                        <img src="{section.imgSrc}" alt="{section.title}" class="rounded-2xl w-auto h-full shadow-md {index % 2 == 0 ? "mr-auto" : "ml-auto"} max-h-[300px]">
                     </div>
                     
                     <div class="flex flex-col w-full gap-4 justify-between lg:col-span-3 {index % 2 == 0 ? "lg:pl-4 lg:col-start-3" :"lg:pr-4 lg:col-start-1"}">
                         <div class="flex flex-col w-full gap-4">
-                            <h4 class="font-bold">{section.title}</h4>
+                            <h4 class="font-bold text-primary-600">{section.title}</h4>
 
                             <p>{@html section.description}</p>
                         </div>
@@ -256,23 +247,30 @@
             <h4 class="text-primary-600 font-extrabold">Features</h4>
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {#each features as feature}
-                    <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 cursor-default p-4 transition-all border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700">
-                        <h5 class="font-bold flex flex-row gap-2 items-center">
-                            {#if feature.type === "free"}
+                <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-gray-800 cursor-default p-4 transition-all relative">
+                        <!-- svelte-ignore a11y-no-static-element-interactions -->
+                        <div class="absolute top-0 left-0 w-full h-full border border-neutral-300 dark:border-gray-600 rounded-lg opacity-0 hover:opacity-100 transition-all" style="--mask: 135deg; mask-image: linear-gradient(var(--mask), #fff 0%, transparent 50%)" on:mousemove={(e) => {
+                            const elementRect = e.target.getBoundingClientRect();
+                            const centerX = elementRect.left + elementRect.width / 2;
+                            const centerY = elementRect.top + elementRect.height / 2;
+                            const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180/Math.PI) - 90;
+                            e.target.style.setProperty("--mask", `${angle}deg`);
+                        }}></div>
+                        <h5 class="font-bold flex flex-row gap-2 items-center text-primary-600">
+                            {#if feature.price === "free"}
                                 <Tooltip text="Free feature">
                                     <Icon icon="heroicons:currency-dollar" class="text-yellow-800 darktext-yellow-600" />
                                 </Tooltip>
                             {/if}
                             {feature.title}
                         </h5>
-                        <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 p-4">
-                            <p>{feature.description}</p>
-                        </div>
+                        <p class="p-4">{feature.description}</p>
                     </div>
                 {/each}
             </div>
         </div>
     </section>
+      
 
     <!-- <section class="p-4 md:p-6 lg:p-10 pt-24 flex flex-col items-center gap-10 max-sm:pl-6 max-w-screen-xl w-full mx-auto">
         <h4 class="text-primary-600 w-full font-extrabold">Releases</h4>

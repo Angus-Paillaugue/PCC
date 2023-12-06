@@ -32,9 +32,6 @@ body {
   @apply bg-white dark:bg-neutral-800 overflow-x-hidden w-screen text-text-main dark:text-neutral-100;
 }
 
-.nav-link {
-  @apply font-medium underline text-neutral-900 dark:text-neutral-100 hover:text-primary-600 dark:hover:text-primary-500 transition-all duration-200;
-}
 [class^='button-']:not(.no-scale), button:not(.no-scale) {
 	@apply active:scale-95 transition-all duration-200;
 }
@@ -103,7 +100,7 @@ p {
 }
 
 .card-button {
-  @apply rounded-lg md:p-10 p-6 w-full flex flex-col justify-start items-start gap-6 cursor-pointer disabled:cursor-not-allowed text-xl text-start hover:shadow-lg hover:-translate-y-1 transition-all border relative dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 text-text-main border-neutral-300;
+  @apply rounded-lg md:p-10 p-6 w-full flex flex-col justify-start items-start gap-6 cursor-pointer disabled:cursor-not-allowed text-xl text-start hover:shadow-lg hover:-translate-y-1 transition-all relative dark:text-neutral-100 bg-white dark:bg-neutral-700 text-text-main;
 }
 .card-button svg {
   @apply text-2xl;

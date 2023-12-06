@@ -18,6 +18,7 @@ export const actions = {
             const userExists = await usersRef.findOne({ username:username });
             if(!userExists) return { logIn:{success:false, formData, message:"No account with this username!"} };
             const compare = await bcrypt.compare(password, userExists.password);
+
             if(compare){
                 cookies.set("token", generateAccessToken(username), { 
                     path: '/',
@@ -27,8 +28,9 @@ export const actions = {
                     maxAge: 60 * 60 * 24 * 30
                 });
                 throw redirect(307, "/dashboard");
+            }else {
+                return { logIn:{ success:false, formData, message:"Incorrect password!" } };
             }
-            return { logIn:{ success:false, formData, message:"Incorrect password!" } };
         }catch(err){
             console.log(err);
         }

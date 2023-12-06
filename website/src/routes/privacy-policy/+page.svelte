@@ -18,7 +18,7 @@
     <meta name="description" content="PCC privacy policy">
 </svelte:head>
 
-<section class="grow py-8 px-4 mx-auto max-w-4xl lg:py-16 lg:px-6 w-full">
+<section class="grow p-4 lg:p-6 mx-auto max-w-4xl w-full">
     
     <h2>Privacy Policy</h2>
     <p>Pandabuy Currency Conversion operates the website <a class="link" href="{websiteLocation?.href ?? ""}">{websiteLocation?.hostname ?? "PCC"}</a>. This page informs you of our policies regarding the collection, use, and disclosure of Personal Information we receive from users of the Site.</p>
@@ -29,7 +29,7 @@
 
     <h5 class="mt-4">2. How We Use Your Information</h5>
     <p>We may use the information we collect for various purposes, including:</p>
-    <ul class="text-base font-normal list-inside list-disc">
+    <ul class="text-base font-light list-inside list-disc">
         <li>Providing, maintaining, and improving our services.</li>
         <li>Personalizing your experience on the website.</li>
         <li>Responding to your inquiries and providing customer support.</li>

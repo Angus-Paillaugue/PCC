@@ -40,7 +40,7 @@
     <meta name="description" content="PCC settings">
 </svelte:head>
 
-<section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 max-w-screen-lg mx-auto">
+<section class="grow w-full p-4 lg:p-6 max-w-screen-lg mx-auto">
     <Button buttonType="link" href="../" size="small" class="w-fit mb-4" color="secondary" iconPosition="left" animationTo="rotate" icon="heroicons:arrow-uturn-left">Go back</Button>
     
     <Card>

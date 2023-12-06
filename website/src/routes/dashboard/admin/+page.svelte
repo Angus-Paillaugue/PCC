@@ -131,8 +131,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </svelte:head>
 
-<section class="grow w-full py-8 px-4 lg:py-16 lg:px-6 space-y-6">
-    <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-rows-2 gap-4 max-w-screen-2xl mx-auto">
+<section class="grow w-full p-4 lg:p-6 space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-rows-2 gap-4 lg:gap-6 max-w-screen-2xl mx-auto">
         <Card class="md:row-span-2">
             <h3>Welcome {user.username}</h3>
     

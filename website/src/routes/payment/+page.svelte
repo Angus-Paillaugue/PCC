@@ -70,7 +70,7 @@
 </svelte:head>
 
 {#if stripe}
-    <section class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6 w-full grow">
+    <section class="p-4 lg:p-6 mx-auto max-w-xl w-full grow">
         <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 p-6">
             <h2 class="text-center">Pay by card</h2>
 

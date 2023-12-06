@@ -12,7 +12,7 @@
     <meta name="description" content="PCC terms of services">
 </svelte:head>
 
-<section class="grow py-8 px-4 mx-auto max-w-4xl lg:py-16 lg:px-6 w-full">
+<section class="grow p-4 lg:p-6 mx-auto max-w-4xl w-full">
     
     <h2>Terms of service</h2>
 
@@ -21,7 +21,7 @@
 
     <h5 class="mt-4">2. Use of Services</h5>
     <p>You agree to use the services provided by PCC in compliance with all applicable laws and regulations. You also agree not to:</p>
-    <ul class="text-base font-normal list-inside list-disc">
+    <ul class="text-base font-light list-inside list-disc">
         <li>Use the services for any illegal or unauthorized purpose.</li>
         <li>Attempt to gain unauthorized access to any part of the website and it's services.</li>
         <li>Interfere with the normal functioning of the website and it's services.</li>

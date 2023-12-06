@@ -11,8 +11,6 @@ export async function POST({ locals }) {
 
     let doc = [];
 
-    await exchangeRatesRef.insertOne({ updatedAt: new Date() });
-
     for await(const currency of currencies) {
         const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${currency}`);
         const data = await res.json();
