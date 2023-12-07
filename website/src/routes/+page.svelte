@@ -249,7 +249,7 @@
                 {#each features as feature}
                 <div class="flex flex-col gap-4 rounded-lg bg-neutral-100 dark:bg-gray-800 cursor-default p-4 transition-all relative">
                         <!-- svelte-ignore a11y-no-static-element-interactions -->
-                        <div class="absolute top-0 left-0 w-full h-full border border-neutral-300 dark:border-gray-600 rounded-lg opacity-0 hover:opacity-100 transition-all" style="--mask: 135deg; mask-image: linear-gradient(var(--mask), #fff 0%, transparent 50%)" on:mousemove={(e) => {
+                        <div class="absolute top-0 left-0 w-full h-full border border-neutral-300 dark:border-gray-600 rounded-lg opacity-0 hover:opacity-100 transition-all" style="--mask: 135deg; mask-image: linear-gradient(var(--mask), #fff 0%, transparent 50%); -webkit-mask-box-image: linear-gradient(var(--mask), #fff 0%, transparent 50%);" on:mousemove={(e) => {
                             const elementRect = e.target.getBoundingClientRect();
                             const centerX = elementRect.left + elementRect.width / 2;
                             const centerY = elementRect.top + elementRect.height / 2;
