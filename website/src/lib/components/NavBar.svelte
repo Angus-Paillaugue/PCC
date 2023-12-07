@@ -88,7 +88,7 @@
     </button>
 </nav>
 
-<div class="fixed top-20 left-1/2 -translate-x-1/2 flex flex-col items-center rounded-b-3xl max-w-screen-2xl w-[calc(100%-1rem)] md:hidden bg-neutral-200 dark:bg-neutral-900 transition-all z-30 overflow-hidden duration-300 gap-4 text-center {navbar ? "max-h-96 p-4" : "max-h-0"}">
+<div class="fixed top-20 left-1/2 -translate-x-1/2 flex flex-col items-center rounded-b-3xl max-w-screen-2xl w-[calc(100%-1rem)] md:hidden bg-neutral-200 dark:bg-primary-700 transition-all z-30 overflow-hidden duration-300 gap-4 text-center {navbar ? "max-h-96 p-4" : "max-h-0"}">
     <a href="/" class="font-medium underline block text-center text-white dark:text-neutral-100 hover:text-neutral-200 dark:hover:text-primary-500 transition-all duration-200 w-fit" on:click={() => {navbar = false;}}>Home</a>
     <a href="/help" class="font-medium underline block text-center text-white dark:text-neutral-100 hover:text-neutral-200 dark:hover:text-primary-500 transition-all duration-200 w-fit" on:click={() => {navbar = false;}}>Get help</a>
     <a href="/pricing" class="font-medium underline block text-center text-white dark:text-neutral-100 hover:text-neutral-200 dark:hover:text-primary-500 transition-all duration-200 w-fit" on:click={() => {navbar = false;}}>Pricing</a>
