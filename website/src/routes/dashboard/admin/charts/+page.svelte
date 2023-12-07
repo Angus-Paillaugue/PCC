@@ -9,6 +9,7 @@
 
     let { users } = data;
     const noUsersToDisplay = 9;
+    const noDaysToDisplay = 20;
     let usersArray = users.slice(0, noUsersToDisplay);
     let usersChartContainer;
     let premiumChartContainer;
@@ -25,7 +26,7 @@
 
     // Find the earliest and latest join dates
     const joinDates = Object.keys(userProgressionData);
-    const earliestDate = Math.min(...joinDates.filter(date => new Date(date) > new Date(new Date().setDate(new Date().getDate() - 30))).map(date => new Date(date)));
+    const earliestDate = Math.min(...joinDates.filter(date => new Date(date) > new Date(new Date().setDate(new Date().getDate() - (noDaysToDisplay+2)))).map(date => new Date(date)));
     const latestDate = Math.max(new Date());
     // Generate an array of all dates between the earliest and latest dates
     const allDates = [];
@@ -82,7 +83,7 @@
             }
         ],
         title: {
-            text: 'Users progression',
+            text: `Users progression for the last ${noDaysToDisplay} days`,
             align: 'left'
         },
         xaxis: {
@@ -176,7 +177,7 @@
                         <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(7)}</span>% Last 7 days</h3>
                     </div>
                     <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 flex flex-row items-center justify-center">
-                        <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(30)}</span>% Last 30 days</h3>
+                        <h3 class="text-center w-fit">+<span class="text-green-600">{getProgression(20)}</span>% Last 20 days</h3>
                     </div>
                 </div>
                 <div bind:this={usersChartContainer} class="w-full"/>
