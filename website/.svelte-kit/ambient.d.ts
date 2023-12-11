@@ -26,10 +26,11 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const SECRET_STRIPE_KEY: string;
 	export const MONGODB_CONNEXION_STRING: string;
-	export const AUTH_TOKEN_SECRET: string;
 	export const EMAIL_APP_PASSWORD: string;
+	export const STRIPE_WEBHOOK_SECRET: string;
+	export const SECRET_STRIPE_KEY: string;
+	export const AUTH_TOKEN_SECRET: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
@@ -39,8 +40,9 @@ declare module '$env/static/private' {
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const DriverData: string;
-	export const EFC_3024: string;
+	export const EFC_19360: string;
 	export const GIT_ASKPASS: string;
+	export const GNUPLOT_LIB: string;
 	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
@@ -108,7 +110,7 @@ declare module '$env/static/private' {
 	export const PROMPT: string;
 	export const PSModulePath: string;
 	export const PUBLIC: string;
-	export const PYTHONSTARTUP: string;
+	export const REFRESH_ENV_VARS: string;
 	export const SESSIONNAME: string;
 	export const SystemDrive: string;
 	export const SystemRoot: string;
@@ -155,10 +157,11 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		SECRET_STRIPE_KEY: string;
 		MONGODB_CONNEXION_STRING: string;
-		AUTH_TOKEN_SECRET: string;
 		EMAIL_APP_PASSWORD: string;
+		STRIPE_WEBHOOK_SECRET: string;
+		SECRET_STRIPE_KEY: string;
+		AUTH_TOKEN_SECRET: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
@@ -168,8 +171,9 @@ declare module '$env/dynamic/private' {
 		COMPUTERNAME: string;
 		ComSpec: string;
 		DriverData: string;
-		EFC_3024: string;
+		EFC_19360: string;
 		GIT_ASKPASS: string;
+		GNUPLOT_LIB: string;
 		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
@@ -237,7 +241,7 @@ declare module '$env/dynamic/private' {
 		PROMPT: string;
 		PSModulePath: string;
 		PUBLIC: string;
-		PYTHONSTARTUP: string;
+		REFRESH_ENV_VARS: string;
 		SESSIONNAME: string;
 		SystemDrive: string;
 		SystemRoot: string;
