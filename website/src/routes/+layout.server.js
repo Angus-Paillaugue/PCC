@@ -5,7 +5,7 @@ export async function load({ locals }) {
 
     const currentNumberOfDownloads = 300;
     const premiumPrice = 399;
-    const supportEmail = "pandabuycurrencyconversion@gmail.com";
+    const supportEmail = "send.email.pcc@gmail.com";
     const latestUpdate = { date:"2023-11-20", description: "Added premium features for the low low price of $3.99!" };
     const textualRates = [
         {
