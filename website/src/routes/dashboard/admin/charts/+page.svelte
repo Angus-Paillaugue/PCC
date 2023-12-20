@@ -28,19 +28,14 @@
     const joinDates = Object.keys(userProgressionData);
     const earliestDate = Math.min(...joinDates.filter(date => new Date(date) > new Date(new Date().setDate(new Date().getDate() - (noDaysToDisplay+2)))).map(date => new Date(date)));
     const latestDate = Math.max(new Date());
-    // Generate an array of all dates between the earliest and latest dates
-    const allDates = [];
-    for (let currentDate = new Date(earliestDate); currentDate <= latestDate; currentDate.setDate(currentDate.getDate() + 1)) {
-        const dateString = currentDate.toISOString().split('T')[0];
-        allDates.push(dateString);
-    }
 
     // Convert Data to Cumulative Series
     const cumulativeData = [];
     let cumulativeCount = 0;
-    allDates.forEach(date => {
+    Object.keys(userProgressionData).reverse().forEach(date => {
         const count = userProgressionData[date] || 0;
         cumulativeCount += count;
+        if(new Date(date) >= earliestDate && new Date(date) <= latestDate)
         cumulativeData.push({ x: new Date(date).getDate()+"/"+(new Date(date).getMonth()+1), y: cumulativeCount });
     });
 
