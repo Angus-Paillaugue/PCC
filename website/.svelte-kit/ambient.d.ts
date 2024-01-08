@@ -26,10 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const SECRET_STRIPE_KEY: string;
 	export const MONGODB_CONNEXION_STRING: string;
-	export const AUTH_TOKEN_SECRET: string;
-	export const EMAIL_APP_PASSWORD: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const CHROME_CRASHPAD_PIPE_NAME: string;
@@ -64,9 +61,14 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_apexcharts: string;
 	export const npm_package_dependencies_bcrypt: string;
 	export const npm_package_dependencies_cors: string;
+	export const npm_package_dependencies_eslint: string;
+	export const npm_package_dependencies_eslint_config_prettier: string;
+	export const npm_package_dependencies_eslint_plugin_svelte: string;
 	export const npm_package_dependencies_jsonwebtoken: string;
 	export const npm_package_dependencies_mongodb: string;
 	export const npm_package_dependencies_nodemailer: string;
+	export const npm_package_dependencies_prettier: string;
+	export const npm_package_dependencies_prettier_plugin_svelte: string;
 	export const npm_package_dependencies_stripe: string;
 	export const npm_package_dependencies_svelte_apexcharts: string;
 	export const npm_package_dependencies_svelte_copy: string;
@@ -75,6 +77,7 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_tailwind_merge: string;
 	export const npm_package_dependencies__stripe_stripe_js: string;
 	export const npm_package_dependencies__sveltejs_adapter_vercel: string;
+	export const npm_package_dependencies__svelte_dev_pretty_code: string;
 	export const npm_package_dependencies__vercel_analytics: string;
 	export const npm_package_devDependencies_autoprefixer: string;
 	export const npm_package_devDependencies_postcss: string;
@@ -88,6 +91,9 @@ declare module '$env/static/private' {
 	export const npm_package_private: string;
 	export const npm_package_scripts_build: string;
 	export const npm_package_scripts_dev: string;
+	export const npm_package_scripts_format: string;
+	export const npm_package_scripts_format_lint: string;
+	export const npm_package_scripts_lint: string;
 	export const npm_package_scripts_preview: string;
 	export const npm_package_type: string;
 	export const npm_package_version: string;
@@ -118,6 +124,7 @@ declare module '$env/static/private' {
 	export const PROMPT: string;
 	export const PSModulePath: string;
 	export const PUBLIC: string;
+	export const PYTHONSTARTUP: string;
 	export const REFRESH_ENV_VARS: string;
 	export const SESSIONNAME: string;
 	export const SystemDrive: string;
@@ -148,7 +155,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	export const PUBLIC_STRIPE_KEY: string;
+	
 }
 
 /**
@@ -165,10 +172,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		SECRET_STRIPE_KEY: string;
 		MONGODB_CONNEXION_STRING: string;
-		AUTH_TOKEN_SECRET: string;
-		EMAIL_APP_PASSWORD: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		CHROME_CRASHPAD_PIPE_NAME: string;
@@ -203,9 +207,14 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_apexcharts: string;
 		npm_package_dependencies_bcrypt: string;
 		npm_package_dependencies_cors: string;
+		npm_package_dependencies_eslint: string;
+		npm_package_dependencies_eslint_config_prettier: string;
+		npm_package_dependencies_eslint_plugin_svelte: string;
 		npm_package_dependencies_jsonwebtoken: string;
 		npm_package_dependencies_mongodb: string;
 		npm_package_dependencies_nodemailer: string;
+		npm_package_dependencies_prettier: string;
+		npm_package_dependencies_prettier_plugin_svelte: string;
 		npm_package_dependencies_stripe: string;
 		npm_package_dependencies_svelte_apexcharts: string;
 		npm_package_dependencies_svelte_copy: string;
@@ -214,6 +223,7 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_tailwind_merge: string;
 		npm_package_dependencies__stripe_stripe_js: string;
 		npm_package_dependencies__sveltejs_adapter_vercel: string;
+		npm_package_dependencies__svelte_dev_pretty_code: string;
 		npm_package_dependencies__vercel_analytics: string;
 		npm_package_devDependencies_autoprefixer: string;
 		npm_package_devDependencies_postcss: string;
@@ -227,6 +237,9 @@ declare module '$env/dynamic/private' {
 		npm_package_private: string;
 		npm_package_scripts_build: string;
 		npm_package_scripts_dev: string;
+		npm_package_scripts_format: string;
+		npm_package_scripts_format_lint: string;
+		npm_package_scripts_lint: string;
 		npm_package_scripts_preview: string;
 		npm_package_type: string;
 		npm_package_version: string;
@@ -257,6 +270,7 @@ declare module '$env/dynamic/private' {
 		PROMPT: string;
 		PSModulePath: string;
 		PUBLIC: string;
+		PYTHONSTARTUP: string;
 		REFRESH_ENV_VARS: string;
 		SESSIONNAME: string;
 		SystemDrive: string;
@@ -292,7 +306,6 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
-		PUBLIC_STRIPE_KEY: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

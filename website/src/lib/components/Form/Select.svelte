@@ -3,7 +3,6 @@
   import Icon from '@iconify/svelte';
 
   export let value;
-  export let change;
   export let flow = 'column';
 
   const props = $$restProps;
@@ -23,7 +22,7 @@
     {props.label}
   {/if}
   <div class="relative">
-    <select {name} bind:value on:change class={baseClasses}>
+    <select {name} bind:value class={baseClasses}>
       <slot />
     </select>
     <Icon
