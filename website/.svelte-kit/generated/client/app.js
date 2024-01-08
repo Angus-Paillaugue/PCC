@@ -12,15 +12,7 @@ export const nodes = [
 	() => import('./nodes/8'),
 	() => import('./nodes/9'),
 	() => import('./nodes/10'),
-	() => import('./nodes/11'),
-	() => import('./nodes/12'),
-	() => import('./nodes/13'),
-	() => import('./nodes/14'),
-	() => import('./nodes/15'),
-	() => import('./nodes/16'),
-	() => import('./nodes/17'),
-	() => import('./nodes/18'),
-	() => import('./nodes/19')
+	() => import('./nodes/11')
 ];
 
 export const server_loads = [0];
@@ -28,22 +20,14 @@ export const server_loads = [0];
 export const dictionary = {
 		"/": [~2],
 		"/about-us": [3],
-		"/auth": [~4],
-		"/contact-us": [5],
-		"/dashboard": [~6],
-		"/dashboard/admin": [~7],
-		"/dashboard/admin/charts": [~8],
-		"/dashboard/admin/newsletter": [~9],
-		"/dashboard/settings": [~10],
-		"/forgot-password": [~11],
-		"/help": [~12],
-		"/log-out": [~13],
-		"/manage-newsletter/[email]": [~14],
-		"/payment": [~15],
-		"/pricing": [16],
-		"/privacy-policy": [17],
-		"/reset-password/[UUID]": [~18],
-		"/terms-of-services": [19]
+		"/contact-us": [4],
+		"/dashboard/admin": [~5],
+		"/dashboard/admin/charts": [~6],
+		"/dashboard/admin/newsletter": [~7],
+		"/dashboard/settings": [~8],
+		"/manage-newsletter/[email]": [~9],
+		"/privacy-policy": [10],
+		"/terms-of-services": [11]
 	};
 
 export const hooks = {

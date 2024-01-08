@@ -1,19 +1,6 @@
-import { usersRef } from "$lib/server/db";
-import { compare } from "bcrypt";
-
-export async function POST({ request }) {
-    // const username = url.searchParams.get('username');
-    // const password = url.searchParams.get('password');
-    const { username, password } = await request.json();
-
-    const user = await usersRef.findOne({ username });
-    if(!user) return new Response(JSON.stringify({ err:"User not found." }));
-
-    const passwordCorrect = await compare(password, user.password);
-
-    if(passwordCorrect) {
-        return new Response(JSON.stringify({ isPremium:user.isPremium })); 
-    }else {
-        return new Response(JSON.stringify({ err:"Incorrect password." }));
-    }
-};
+/** @type {import('./$types').RequestHandler} */
+export async function POST() {
+  // This rout is only here for < 2.1.0 versions of the extension
+  // that still require authenticating and premium checking
+  return new Response(JSON.stringify({ isPremium: true }));
+}

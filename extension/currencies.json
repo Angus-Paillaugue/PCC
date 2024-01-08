@@ -1,122 +1,122 @@
 [
-    {
-        "name": "AED",
-        "symbol": "د.إ"
-    },
-    {
-        "name": "AUD",
-        "symbol": "A$"
-    },
-    {
-        "name": "BRL",
-        "symbol": "R$"
-    },
-    {
-        "name": "CAD",
-        "symbol": "C$"
-    },
-    {
-        "name": "CHF",
-        "symbol": "Fr"
-    },
-    {
-        "name": "CNY",
-        "symbol": "¥"
-    },
-    {
-        "name": "CZK",
-        "symbol": "Kč"
-    },
-    {
-        "name": "DKK",
-        "symbol": "kr"
-    },
-    {
-        "name": "EGP",
-        "symbol": "E£"
-    },
-    {
-        "name": "EUR",
-        "symbol": "€"
-    },
-    {
-        "name": "GBP",
-        "symbol": "£"
-    },
-    {
-        "name": "HKD",
-        "symbol": "HK$"
-    },
-    {
-        "name": "HUF",
-        "symbol": "Ft"
-    },
-    {
-        "name": "IDR",
-        "symbol": "Rp"
-    },
-    {
-        "name": "INR",
-        "symbol": "₹"
-    },
-    {
-        "name": "KRW",
-        "symbol": "₩"
-    },
-    {
-        "name": "MXN",
-        "symbol": "Mex$"
-    },
-    {
-        "name": "MYR",
-        "symbol": "RM"
-    },
-    {
-        "name": "NOK",
-        "symbol": "kr"
-    },
-    {
-        "name": "NZD",
-        "symbol": "NZ$"
-    },
-    {
-        "name": "PHP",
-        "symbol": "₱"
-    },
-    {
-        "name": "PLN",
-        "symbol": "zł"
-    },
-    {
-        "name": "RUB",
-        "symbol": "₽"
-    },
-    {
-        "name": "SEK",
-        "symbol": "kr"
-    },
-    {
-        "name": "SGD",
-        "symbol": "S$"
-    },
-    {
-        "name": "THB",
-        "symbol": "฿"
-    },
-    {
-        "name": "TRY",
-        "symbol": "₺"
-    },
-    {
-        "name": "USD",
-        "symbol": "$"
-    },
-    {
-        "name": "VND",
-        "symbol": "₫"
-    },
-    {
-        "name": "ZAR",
-        "symbol": "R"
-    }
+  {
+    "name": "AED",
+    "symbol": "د.إ"
+  },
+  {
+    "name": "AUD",
+    "symbol": "A$"
+  },
+  {
+    "name": "BRL",
+    "symbol": "R$"
+  },
+  {
+    "name": "CAD",
+    "symbol": "C$"
+  },
+  {
+    "name": "CHF",
+    "symbol": "Fr"
+  },
+  {
+    "name": "CNY",
+    "symbol": "¥"
+  },
+  {
+    "name": "CZK",
+    "symbol": "Kč"
+  },
+  {
+    "name": "DKK",
+    "symbol": "kr"
+  },
+  {
+    "name": "EGP",
+    "symbol": "E£"
+  },
+  {
+    "name": "EUR",
+    "symbol": "€"
+  },
+  {
+    "name": "GBP",
+    "symbol": "£"
+  },
+  {
+    "name": "HKD",
+    "symbol": "HK$"
+  },
+  {
+    "name": "HUF",
+    "symbol": "Ft"
+  },
+  {
+    "name": "IDR",
+    "symbol": "Rp"
+  },
+  {
+    "name": "INR",
+    "symbol": "₹"
+  },
+  {
+    "name": "KRW",
+    "symbol": "₩"
+  },
+  {
+    "name": "MXN",
+    "symbol": "Mex$"
+  },
+  {
+    "name": "MYR",
+    "symbol": "RM"
+  },
+  {
+    "name": "NOK",
+    "symbol": "kr"
+  },
+  {
+    "name": "NZD",
+    "symbol": "NZ$"
+  },
+  {
+    "name": "PHP",
+    "symbol": "₱"
+  },
+  {
+    "name": "PLN",
+    "symbol": "zł"
+  },
+  {
+    "name": "RUB",
+    "symbol": "₽"
+  },
+  {
+    "name": "SEK",
+    "symbol": "kr"
+  },
+  {
+    "name": "SGD",
+    "symbol": "S$"
+  },
+  {
+    "name": "THB",
+    "symbol": "฿"
+  },
+  {
+    "name": "TRY",
+    "symbol": "₺"
+  },
+  {
+    "name": "USD",
+    "symbol": "$"
+  },
+  {
+    "name": "VND",
+    "symbol": "₫"
+  },
+  {
+    "name": "ZAR",
+    "symbol": "R"
+  }
 ]
