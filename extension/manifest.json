@@ -30,7 +30,7 @@
         "*://*.reddit.com/*"
       ],
       "exclude_matches": ["https://docs.google.com/*"],
-      "js": ["content.js", "src/jquery-3.7.1.min.js"],
+      "js": ["content.js"],
       "run_at": "document_start"
     }
   ],
