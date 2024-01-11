@@ -10,7 +10,7 @@ function handleContextMenus(info) {
       });
       break;
     case "copyProductLink":
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, {
           message: "copyToClipboard",
@@ -23,27 +23,8 @@ function handleContextMenus(info) {
   }
 }
 
-chrome.runtime.onInstalled.addListener(function () {
+chrome.runtime.onInstalled.addListener(() => {
   console.log("Service worker installed.");
-
-  // chrome.storage.local.get(["username", "password"], (data) => {
-  //     const { username, password } = data;
-  //     console.log("Checking if user is logged-in...");
-  //     if(username, password) {
-  //         console.log("User is logged-in, checking if user is premium...");
-  //         fetch("https://pcc.paillaugue.fr/checkPremium", { headers:{"Content-Type": "application/json"}, body:JSON.stringify({ username, password }), method:"POST" })
-  //         .then(response => response.json())
-  //         .then(data => {
-  //             console.log(data.isPremium ? "User is premium" : "User is not premium");
-  //             chrome.storage.local.set({ isPremium:data.isPremium });
-  //         }).catch(error => {
-  //             console.error("Error making the request:", error);
-  //         });
-  //     }else {
-  //         console.log("User is not logged-in");
-  //         chrome.storage.local.set({ isPremium:false });
-  //     }
-  // });
 
   chrome.contextMenus.create({
     title: "Open in PandaBuy",

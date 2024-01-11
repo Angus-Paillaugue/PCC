@@ -171,7 +171,6 @@ function main() {
  * @returns {void}
  */
 function setCheckBoxes() {
-
   const autoPandaBuyRedirect = document.getElementById("autoPandaBuyRedirect");
   chrome.storage.local.get(["autoPandaBuyRedirect"], (status) => {
     // status = isPremium ? status?.autoPandaBuyRedirect ?? false : false;

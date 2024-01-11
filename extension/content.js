@@ -103,9 +103,9 @@ function copyToClipboard(text) {
             <p style="font-size: 1rem;font-weight: 400; margin: 0;">Link copied successfully!</p>
         </div>
         `);
-    $("#likCopiedToast").animate({ opacity: "1" }, 150, function () {
-      setTimeout(function () {
-        $("#likCopiedToast").animate({ opacity: "0" }, 150, function () {
+    $("#likCopiedToast").animate({ opacity: "1" }, 150, () => {
+      setTimeout(() => {
+        $("#likCopiedToast").animate({ opacity: "0" }, 150, () => {
           $("#likCopiedToast").remove();
         });
       }, 3000);
@@ -512,20 +512,6 @@ function track() {
 //* ||-----------------------------------||
 //* || Calling the function on page load ||
 //* ||-----------------------------------||
-// Checking if the conversion is enabled
-chrome.storage.local.get(["status"], ({ status }) => {
-  if (
-    status &&
-    (isMarketplaceUrl() ||
-      new URLPattern("*://*.reddit.com/*").test(new URL(location.href).origin))
-  ) {
-    chrome.storage.local.get(["username", "password"], (data) => {
-      const { username, password } = data;
-      if (username && password) conversion();
-    });
-  }
-});
-
 // Main function
 (function () {
   changeYupooGrid();
@@ -534,6 +520,16 @@ chrome.storage.local.get(["status"], ({ status }) => {
   customProductQC();
   setDarkMode();
   track();
+
+  // Checking if the conversion is enabled
+  chrome.storage.local.get(["status"], ({ status }) => {
+    status ??= true;
+    if (
+      status &&
+      (isMarketplaceUrl() || urlMatch("*://*.reddit.com/*", location.href))
+    )
+      conversion();
+  });
 
   // For checking (or not) the required checkbox before adding a product to cart on PandaBuy
   chrome.storage.local.get(
