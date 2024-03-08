@@ -62,7 +62,7 @@ html
     .showalbumheader__space
   ):not(.props-btn.active > span.text):not(#likCopiedToast):not(
     .detail span
-  ):not(.covid-tips-announcement span, .covid-tips-good span) {
+  ):not(.covid-tips-announcement span, .covid-tips-good span):not(li.active) {
   border-color: var(--border-color) !important;
 }
 /* Text */
@@ -225,4 +225,11 @@ a {
 }
 .el-switch__core:not(:checked) {
   background-color: var(--border-color) !important;
+}
+
+
+
+/* Others */
+li.active {
+  border: 2px solid var(--primary) !important;
 }
